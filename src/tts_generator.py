@@ -4,7 +4,7 @@ import subprocess
 
 import edge_tts
 
-VOICE = "en-US-AriaNeural"
+VOICE = "en-US-AndrewNeural"
 
 
 async def _save_audio(text, output_path):
