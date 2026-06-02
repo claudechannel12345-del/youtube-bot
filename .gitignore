@@ -1,0 +1,7 @@
+client_secrets.json
+*.mp3
+*.mp4
+temp/
+__pycache__/
+*.pyc
+.env
