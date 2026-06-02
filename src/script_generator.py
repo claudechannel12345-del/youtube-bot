@@ -1,6 +1,8 @@
 import json
 import re
 
+from gemini_utils import generate
+
 
 def generate_script(topic_data, client):
     prompt = f"""You are a scriptwriter for a popular educational YouTube channel.
@@ -36,7 +38,7 @@ Script requirements:
 - key_phrase examples: "THE FORGOTTEN EXPERIMENT", "WHAT NOBODY TELLS YOU", "THE MOMENT EVERYTHING CHANGED"
 - key_phrase must be 2-5 words, ALL CAPS style, punchy"""
 
-    response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
+    response = generate(client, prompt)
     text = response.text.strip()
 
     match = re.search(r"\{.*\}", text, re.DOTALL)
