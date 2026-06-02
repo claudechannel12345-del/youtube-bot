@@ -2,7 +2,7 @@ import json
 import re
 
 
-def generate_script(topic_data, model):
+def generate_script(topic_data, client):
     prompt = f"""You are a scriptwriter for a popular faceless YouTube educational channel.
 
 Topic: {topic_data["topic"]}
@@ -30,7 +30,7 @@ Script requirements:
 - Voice: Conversational, curious, engaging — like telling a friend something amazing
 - Visual keyword: simple, concrete, searchable (avoid abstract words like "concept" or "idea")"""
 
-    response = model.generate_content(prompt)
+    response = client.models.generate_content(model="gemini-2.0-flash-lite", contents=prompt)
     text = response.text.strip()
 
     match = re.search(r"\{.*\}", text, re.DOTALL)

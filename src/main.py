@@ -2,7 +2,7 @@ import os
 import shutil
 import sys
 
-import google.generativeai as genai
+from google import genai
 
 from research import get_trending_topics, pick_topic
 from script_generator import generate_script
@@ -32,19 +32,18 @@ def main():
     os.makedirs(TEMP_DIR, exist_ok=True)
 
     try:
-        genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 
         # 1 — Research
         print("[1/6] Researching trending topics...")
         topics = get_trending_topics(os.environ["YOUTUBE_API_KEY"])
-        topic_data = pick_topic(topics, model)
+        topic_data = pick_topic(topics, client)
         print(f"  Topic : {topic_data['topic']}")
         print(f"  Angle : {topic_data['angle']}")
 
         # 2 — Script
         print("\n[2/6] Generating script...")
-        script = generate_script(topic_data, model)
+        script = generate_script(topic_data, client)
         print(f"  Title    : {script['title']}")
         print(f"  Sections : {len(script['sections'])}")
 

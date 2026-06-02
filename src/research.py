@@ -1,7 +1,6 @@
 import json
 import re
 import requests
-import google.generativeai as genai
 
 
 def get_trending_topics(api_key, max_results=15):
@@ -30,7 +29,7 @@ def get_trending_topics(api_key, max_results=15):
     return topics
 
 
-def pick_topic(topics, model):
+def pick_topic(topics, client):
     topics_text = "\n".join(
         f'- "{t["title"]}" by {t["channel"]} ({t["view_count"]:,} views)'
         for t in topics[:12]
@@ -54,7 +53,7 @@ Return ONLY valid JSON, no markdown fences:
     "visual_keywords": ["keyword1", "keyword2", "keyword3", "keyword4"]
 }}"""
 
-    response = model.generate_content(prompt)
+    response = client.models.generate_content(model="gemini-2.0-flash-lite", contents=prompt)
     match = re.search(r"\{.*\}", response.text, re.DOTALL)
     if not match:
         raise ValueError(f"No JSON in research response: {response.text[:300]}")
