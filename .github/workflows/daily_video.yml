@@ -2,13 +2,13 @@ name: Daily YouTube Video
 
 on:
   schedule:
-    - cron: '0 15 * * *'  # 3 PM UTC daily
+    - cron: '0 15 * * *'
   workflow_dispatch:
 
 jobs:
   create-and-upload:
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    timeout-minutes: 75
 
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +21,8 @@ jobs:
       - name: Install system deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg fonts-liberation
+          sudo apt-get install -y ffmpeg fonts-liberation \
+            libcairo2-dev libpango1.0-dev pkg-config python3-dev
 
       - name: Install dependencies
         run: |
@@ -32,7 +33,6 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}

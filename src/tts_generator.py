@@ -4,7 +4,7 @@ import subprocess
 
 from openai import OpenAI
 
-VOICE = "onyx"
+VOICE = "fable"   # British accent — documentary, authoritative, less robotic
 MODEL = "tts-1-hd"
 
 
@@ -23,8 +23,6 @@ def generate_section_audio(text, output_path):
 def get_audio_duration(path):
     result = subprocess.run(
         ["ffprobe", "-v", "quiet", "-print_format", "json", "-show_format", path],
-        capture_output=True,
-        text=True,
-        check=True,
+        capture_output=True, text=True, check=True,
     )
     return float(json.loads(result.stdout)["format"]["duration"])

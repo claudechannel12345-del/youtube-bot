@@ -3,9 +3,15 @@ import textwrap
 
 from PIL import Image, ImageDraw, ImageFont
 
+# Channel palette
+BG    = (13, 13, 26)
+GOLD  = (255, 209, 102)
+TEAL  = (6, 214, 160)
+WHITE = (255, 255, 255)
+
 FONT_PATHS = [
-    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
     "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
     "C:/Windows/Fonts/arialbd.ttf",
     "C:/Windows/Fonts/arial.ttf",
 ]
@@ -22,32 +28,46 @@ def _load_font(size):
 
 
 def generate_thumbnail(title, output_path, background_image_path=None):
-    if background_image_path and os.path.exists(background_image_path):
-        img = Image.open(background_image_path).convert("RGB").resize((1280, 720), Image.LANCZOS)
-    else:
-        img = Image.new("RGB", (1280, 720), (20, 20, 60))
+    W, H = 1280, 720
+    img = Image.new("RGB", (W, H), BG)
 
-    # Semi-transparent dark overlay for text readability
-    overlay = Image.new("RGBA", img.size, (0, 0, 0, 150))
+    # Geometric decorations matching the Manim channel style
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    od = ImageDraw.Draw(overlay)
+
+    # Large gold circle — top-left bleed
+    r, cx, cy = 310, -90, -70
+    od.ellipse([cx-r, cy-r, cx+r, cy+r], outline=(*GOLD, 70), width=3, fill=(*GOLD, 12))
+
+    # Medium teal circle — bottom-right bleed
+    r2, cx2, cy2 = 200, W+50, H+30
+    od.ellipse([cx2-r2, cy2-r2, cx2+r2, cy2+r2], outline=(*TEAL, 55), width=2, fill=(*TEAL, 10))
+
+    # Small white circle — top-right
+    r3, cx3, cy3 = 75, W-90, 65
+    od.ellipse([cx3-r3, cy3-r3, cx3+r3, cy3+r3], outline=(*WHITE, 20), width=1, fill=(*WHITE, 5))
+
     img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
-
     draw = ImageDraw.Draw(img)
-    font = _load_font(72)
 
+    # Gold accent line
+    ly = H // 2 + 35
+    draw.line([(W//2 - 270, ly), (W//2 + 270, ly)], fill=GOLD, width=3)
+
+    # Title text
     wrapped = textwrap.fill(title, width=22)
-    lines = wrapped.split("\n")
-    line_height = 88
-    total_h = len(lines) * line_height
-    y = (720 - total_h) // 2
+    lines   = wrapped.split("\n")
+    font    = _load_font(78 if len(lines) <= 2 else 62)
+    lh      = 92 if len(lines) <= 2 else 76
+    total_h = len(lines) * lh
+    y = (H - total_h) // 2 - 25
 
     for line in lines:
         bbox = draw.textbbox((0, 0), line, font=font)
         w = bbox[2] - bbox[0]
-        x = (1280 - w) // 2
-        # Drop shadow
+        x = (W - w) // 2
         draw.text((x + 3, y + 3), line, font=font, fill=(0, 0, 0))
-        # White text
-        draw.text((x, y), line, font=font, fill=(255, 255, 255))
-        y += line_height
+        draw.text((x, y), line, font=font, fill=WHITE)
+        y += lh
 
-    img.save(output_path, "JPEG", quality=92)
+    img.save(output_path, "JPEG", quality=95)
