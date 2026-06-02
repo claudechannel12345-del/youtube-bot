@@ -30,7 +30,7 @@ Script requirements:
 - Voice: Conversational, curious, engaging — like telling a friend something amazing
 - Visual keyword: simple, concrete, searchable (avoid abstract words like "concept" or "idea")"""
 
-    response = client.models.generate_content(model="gemini-2.0-flash-lite", contents=prompt)
+    response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
     text = response.text.strip()
 
     match = re.search(r"\{.*\}", text, re.DOTALL)

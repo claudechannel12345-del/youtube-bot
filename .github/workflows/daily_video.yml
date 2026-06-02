@@ -19,7 +19,9 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install --no-cache-dir -r requirements.txt
+        run: |
+          pip uninstall google-generativeai -y || true
+          pip install --no-cache-dir -r requirements.txt
 
       - name: Run video pipeline
         env:

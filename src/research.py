@@ -53,7 +53,7 @@ Return ONLY valid JSON, no markdown fences:
     "visual_keywords": ["keyword1", "keyword2", "keyword3", "keyword4"]
 }}"""
 
-    response = client.models.generate_content(model="gemini-2.0-flash-lite", contents=prompt)
+    response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
     match = re.search(r"\{.*\}", response.text, re.DOTALL)
     if not match:
         raise ValueError(f"No JSON in research response: {response.text[:300]}")
