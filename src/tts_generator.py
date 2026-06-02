@@ -1,22 +1,23 @@
-import asyncio
 import json
+import os
 import subprocess
 
-import edge_tts
+from openai import OpenAI
 
-VOICE = "en-US-AndrewNeural"
-
-
-async def _save_audio(text, output_path):
-    communicate = edge_tts.Communicate(text, VOICE)
-    with open(output_path, "wb") as f:
-        async for chunk in communicate.stream():
-            if chunk["type"] == "audio":
-                f.write(chunk["data"])
+VOICE = "onyx"
+MODEL = "tts-1-hd"
 
 
 def generate_section_audio(text, output_path):
-    asyncio.run(_save_audio(text, output_path))
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    response = client.audio.speech.create(
+        model=MODEL,
+        voice=VOICE,
+        input=text,
+        response_format="mp3",
+    )
+    with open(output_path, "wb") as f:
+        f.write(response.content)
 
 
 def get_audio_duration(path):
@@ -26,5 +27,4 @@ def get_audio_duration(path):
         text=True,
         check=True,
     )
-    data = json.loads(result.stdout)
-    return float(data["format"]["duration"])
+    return float(json.loads(result.stdout)["format"]["duration"])

@@ -1,55 +1,38 @@
 import json
 import re
-import requests
+
+CHANNEL_NICHE = (
+    "fascinating science, psychology, history, and human behavior — "
+    "surprising facts and stories that make people say 'I had no idea'"
+)
 
 
-def get_trending_topics(api_key, max_results=15):
-    resp = requests.get(
-        "https://www.googleapis.com/youtube/v3/videos",
-        params={
-            "part": "snippet,statistics",
-            "chart": "mostPopular",
-            "regionCode": "US",
-            "maxResults": max_results,
-            "key": api_key,
-        },
-        timeout=30,
-    )
-    resp.raise_for_status()
+def pick_topic(client):
+    prompt = f"""You are the content strategist for a popular educational YouTube channel.
+The channel covers: {CHANNEL_NICHE}
 
-    topics = []
-    for item in resp.json().get("items", []):
-        snippet = item["snippet"]
-        stats = item.get("statistics", {})
-        topics.append({
-            "title": snippet["title"],
-            "channel": snippet["channelTitle"],
-            "view_count": int(stats.get("viewCount", 0)),
-        })
-    return topics
+Choose ONE specific, fascinating topic for today's 8-10 minute video.
 
+Requirements:
+- Genuinely surprising or counterintuitive to most people
+- Evergreen (not breaking news, sports, or celebrity gossip)
+- Visually illustratable with stock photography
+- Broad adult audience appeal — the kind of thing people share with friends
 
-def pick_topic(topics, client):
-    topics_text = "\n".join(
-        f'- "{t["title"]}" by {t["channel"]} ({t["view_count"]:,} views)'
-        for t in topics[:12]
-    )
-
-    prompt = f"""You are a YouTube content strategist for a faceless educational channel.
-
-Today's trending YouTube videos:
-{topics_text}
-
-Choose ONE topic to make an educational video about. Requirements:
-- Educational (facts, science, history, technology, psychology, money, nature, space)
-- Evergreen (NOT breaking news, sports scores, or celebrity gossip)
-- Easy to illustrate with stock photography
-- Broad audience appeal
+Great topic examples:
+- "The Soviet experiment to hybridize humans and apes"
+- "Why your brain is constantly hallucinating your reality"
+- "The real reason humans are the only animals that cry"
+- "How ancient Romans used urine as toothpaste — and it worked"
+- "The psychology trick casinos use to make you lose track of time"
+- "Why some people can taste words and see sounds"
+- "The island where people naturally live to 100"
+- "How the CIA secretly dosed thousands of people with LSD"
 
 Return ONLY valid JSON, no markdown fences:
 {{
-    "topic": "specific topic to cover",
-    "angle": "the interesting hook or unique angle for our video",
+    "topic": "specific topic",
+    "angle": "the surprising hook that makes this video unmissable",
     "visual_keywords": ["keyword1", "keyword2", "keyword3", "keyword4"]
 }}"""
 
