@@ -68,7 +68,7 @@ def render_video(sections, output_path):
         # networks (no-op on standard CI runners).
         env = {**os.environ}
         node_opts = env.get("NODE_OPTIONS", "")
-        if "--use-system-ca" not in node_opts:
+        if os.environ.get("REMOTION_USE_SYSTEM_CA") and "--use-system-ca" not in node_opts:
             env["NODE_OPTIONS"] = (node_opts + " --use-system-ca").strip()
         result = subprocess.run(
             [
