@@ -5,3 +5,12 @@ temp/
 __pycache__/
 *.pyc
 .env
+
+# Node / Remotion
+node_modules/
+remotion/props.json
+remotion/out*.mp4
+remotion/.remotion/
+
+# Codex capture logs
+.codex_*.txt
