@@ -30,7 +30,7 @@ except ImportError:
     print("ERROR: Run:  pip install google-auth-oauthlib google-api-python-client")
     sys.exit(1)
 
-SCOPES = ["https://www.googleapis.com/auth/youtube"]
+SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 SECRETS_FILE = os.path.join(os.path.dirname(__file__), "..", "client_secrets.json")
 
 
