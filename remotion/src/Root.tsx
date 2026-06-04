@@ -2,6 +2,7 @@ import {Composition} from "remotion";
 import type React from "react";
 import {Episode} from "./Episode";
 import {Short} from "./Short";
+import {Slice} from "./scene/Slice";
 import type {EpisodeProps, ShortProps} from "./types";
 
 const defaultProps: EpisodeProps = {
@@ -41,6 +42,14 @@ const defaultShortProps: ShortProps = {
 export const Root: React.FC = () => {
   return (
     <>
+      <Composition
+        id="Slice"
+        component={Slice}
+        durationInFrames={240}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
       <Composition
         id="Episode"
         component={Episode}

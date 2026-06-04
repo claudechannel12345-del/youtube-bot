@@ -16,6 +16,13 @@ VALID_TEMPLATES = {
     "image_focus",
 }
 
+VALID_DELIVERY = {
+    "neutral", "curious", "question", "brisk",
+    "weighty", "surprised", "skeptical", "ominous", "warm_cta",
+}
+
+SENTENCE_SPLIT_RE = r"(?<=[.!?])\s+"
+
 
 def generate_script(topic_data, client):
     prompt = f"""You are a retention-focused scriptwriter for a popular educational YouTube channel.
@@ -41,6 +48,9 @@ Return ONLY valid JSON, no markdown fences:
     "sections": [
         {{
             "narration": "What the narrator says. Written for the ear. 50-90 words.",
+            "sentences": [
+                {{"text": "What the narrator says.", "delivery": "curious"}}
+            ],
             "key_phrase": "ON-SCREEN HEADLINE",
             "template": "title_card",
             "on_screen": {{"subtitle": "short subtitle"}},
@@ -67,6 +77,9 @@ Script structure requirements:
 - Then move through: stakes/context -> escalating reveals -> climax/big reveal -> payoff/meaning -> CTA close.
 - Do not repeat the same template back-to-back. Pick the template that actually fits each beat.
 - Every section must include narration, key_phrase, template, on_screen, and broll_keywords.
+- Split each section's narration into sentences. For each sentence add a `delivery` tag from this exact set: neutral, curious, question, brisk, weighty, surprised, skeptical, ominous, warm_cta.
+- The concatenation of sentences[].text, joined with a single space, MUST equal narration exactly.
+- Delivery guidance: rhetorical/real questions -> question; the key reveal / most important line -> weighty; fast connective transitions -> brisk; a genuine twist -> surprised; testing an assumption -> skeptical; tense foreboding setup -> ominous; the closing CTA line -> warm_cta; default neutral. Use weighty/ominous sparingly (1-2 per section max) so they keep impact.
 - key_phrase must be 2-5 words, punchy, and suitable as an on-screen headline.
 - Narration must not be list-like fragments.
 - The final section must end with a natural subscribe CTA using wording like "new deep-dives every week"; do not mention daily posting.
@@ -96,5 +109,31 @@ Script structure requirements:
             raise ValueError("Script section missing key_phrase")
         if section.get("template") not in VALID_TEMPLATES:
             section["template"] = "title_card"
+        section["sentences"] = _normalize_sentences(section)
 
     return script
+
+
+def _normalize_sentences(section):
+    sentences = section.get("sentences")
+    normalized = []
+    if isinstance(sentences, list):
+        for sentence in sentences:
+            if not isinstance(sentence, dict):
+                continue
+            text = str(sentence.get("text") or "").strip()
+            if not text:
+                continue
+            delivery = sentence.get("delivery")
+            if delivery not in VALID_DELIVERY:
+                delivery = "neutral"
+            normalized.append({"text": text, "delivery": delivery})
+
+    if normalized:
+        return normalized
+
+    narration = str(section.get("narration") or "").strip()
+    fallback = [s.strip() for s in re.split(SENTENCE_SPLIT_RE, narration) if s.strip()]
+    if not fallback and narration:
+        fallback = [narration]
+    return [{"text": text, "delivery": "neutral"} for text in fallback]

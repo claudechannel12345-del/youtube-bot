@@ -86,7 +86,9 @@ def main():
 
         for i, section in enumerate(script["sections"]):
             audio_path = os.path.join(TEMP_DIR, f"audio_{i:02d}.mp3")
-            sent_timings = synthesize_section(section["narration"], audio_path, TEMP_DIR)
+            sent_timings = synthesize_section(
+                section["narration"], audio_path, TEMP_DIR, sentences=section.get("sentences")
+            )
             duration = get_audio_duration(audio_path)
             for entry in sent_timings:
                 CUES.append({
@@ -177,6 +179,11 @@ def main():
                 "thumbnail_text_options": script.get("thumbnail_text_options"),
                 "section_count": len(script["sections"]),
                 "templates": [s.get("template") for s in script["sections"]],
+                "deliveries": [
+                    s.get("delivery")
+                    for sec in script["sections"]
+                    for s in (sec.get("sentences") or [])
+                ],
                 "shorts": short_video_ids,
             })
             print(f"Production log written: {log_path}")

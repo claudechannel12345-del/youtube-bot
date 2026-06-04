@@ -14,3 +14,8 @@ remotion/.remotion/
 
 # Codex capture logs
 .codex_*.txt
+
+# Octopus render artifacts (Claude)
+remotion/slice_stills/
+remotion/motion_check/
+codex_*_out.txt
