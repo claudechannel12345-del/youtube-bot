@@ -73,8 +73,8 @@ const characterKeyframes: OctopusIntentKeyframe[] = [
     expression: {curious: 0.58, surprised: 0.42},
     locomotionMode: "drift",
     arms: {
-      a0: {mode: "wave", target: {id: "stat.main", dx: -190, dy: 130}, reach: 0.52, curl: 0.42, priority: 0.75},
-      a1: {mode: "reach", target: {id: "stat.main", dx: -245, dy: 220}, reach: 0.34, curl: 0.5, priority: 0.45},
+      a0: {mode: "reach", target: {id: "stat.main", dx: -40, dy: 28}, reach: 0.8, curl: 0.5, priority: 0.9},
+      a1: {mode: "reach", target: {id: "stat.main", dx: -210, dy: 200}, reach: 0.3, curl: 0.52, priority: 0.4},
       a2: {mode: "relaxed", reach: 0.04, curl: 0.62, priority: 0.1},
       a5: {mode: "relaxed", reach: 0.04, curl: 0.62, priority: 0.1},
     },
@@ -91,8 +91,8 @@ const characterKeyframes: OctopusIntentKeyframe[] = [
     expression: {surprised: 0.8, curious: 0.2},
     locomotionMode: "drift",
     arms: {
-      a0: {mode: "wave", target: {id: "stat.main", dx: -205, dy: 160}, reach: 0.58, curl: 0.38, priority: 0.8},
-      a1: {mode: "reach", target: {id: "stat.main", dx: -275, dy: 250}, reach: 0.42, curl: 0.48, priority: 0.6},
+      a0: {mode: "reach", target: {id: "stat.main", dx: -32, dy: 20}, reach: 0.9, curl: 0.5, priority: 0.95},
+      a1: {mode: "reach", target: {id: "stat.main", dx: -235, dy: 230}, reach: 0.34, curl: 0.5, priority: 0.55},
       a5: {mode: "brace", target: {id: "safe.lower_left", dx: -44, dy: 0}, reach: 0.18, curl: 0.58, priority: 0.35},
     },
   },

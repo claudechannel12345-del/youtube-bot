@@ -16,12 +16,12 @@ const smoothstep = (value: number): number => {
 export const ROOT_TUCK = 0.9;
 
 const armConfigs = [
-  {id: "a0", side: 1 as const, root: {x: 0.31, y: 0.43}, idle: {x: 1.34, y: 1.2}, baseAngle: 0.68, curlDir: -1 as const, length: 1.68},
-  {id: "a1", side: 1 as const, root: {x: 0.17, y: 0.52}, idle: {x: 0.82, y: 1.55}, baseAngle: 1.02, curlDir: -1 as const, length: 1.6},
-  {id: "a2", side: 1 as const, root: {x: 0.05, y: 0.61}, idle: {x: 0.28, y: 1.76}, baseAngle: 1.34, curlDir: -1 as const, length: 1.48},
-  {id: "a3", side: -1 as const, root: {x: -0.05, y: 0.61}, idle: {x: -0.28, y: 1.76}, baseAngle: 1.8, curlDir: 1 as const, length: 1.48},
-  {id: "a4", side: -1 as const, root: {x: -0.17, y: 0.52}, idle: {x: -0.82, y: 1.55}, baseAngle: 2.12, curlDir: 1 as const, length: 1.6},
-  {id: "a5", side: -1 as const, root: {x: -0.31, y: 0.43}, idle: {x: -1.34, y: 1.2}, baseAngle: 2.46, curlDir: 1 as const, length: 1.68},
+  {id: "a0", side: 1 as const, root: {x: 0.31, y: 0.43}, idle: {x: 1.02, y: 1.42}, baseAngle: 0.74, curlDir: -1 as const, length: 1.64},
+  {id: "a1", side: 1 as const, root: {x: 0.17, y: 0.52}, idle: {x: 0.6, y: 1.66}, baseAngle: 1.04, curlDir: -1 as const, length: 1.58},
+  {id: "a2", side: 1 as const, root: {x: 0.05, y: 0.61}, idle: {x: 0.2, y: 1.8}, baseAngle: 1.32, curlDir: -1 as const, length: 1.48},
+  {id: "a3", side: -1 as const, root: {x: -0.05, y: 0.61}, idle: {x: -0.2, y: 1.8}, baseAngle: 1.82, curlDir: 1 as const, length: 1.48},
+  {id: "a4", side: -1 as const, root: {x: -0.17, y: 0.52}, idle: {x: -0.6, y: 1.66}, baseAngle: 2.1, curlDir: 1 as const, length: 1.58},
+  {id: "a5", side: -1 as const, root: {x: -0.31, y: 0.43}, idle: {x: -1.02, y: 1.42}, baseAngle: 2.4, curlDir: 1 as const, length: 1.64},
 ];
 
 type ArmConfig = (typeof armConfigs)[number];
@@ -202,7 +202,7 @@ const armTargetAt = (
   const toBlended = mixPoint(idleTarget, toTarget, clamp(toIntent.reach ?? 0, 0, 1));
   const blended = mixPoint(fromBlended, toBlended, progress);
   const distance = Math.hypot(blended.x - shoulder.x, blended.y - shoulder.y);
-  const maxReach = Math.max(1, Math.hypot(idleTarget.x - shoulder.x, idleTarget.y - shoulder.y) * 1.62);
+  const maxReach = Math.max(1, Math.hypot(idleTarget.x - shoulder.x, idleTarget.y - shoulder.y) * 2.3);
   const intent: ArmIntent = {
     mode: toIntent.mode,
     target: toIntent.target ?? fromIntent.target,

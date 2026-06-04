@@ -60,10 +60,10 @@ export const resolveAngleConstrainedChain = ({
   const reachAmount = clamp(reach, 0, 1);
   const activityAmount = clamp(activity, 0, 1);
   const loosenForReach = 1 + reachAmount * 0.42;
-  // keep more curl even on reach so the arm curves rather than straightening into a rod
-  const curlAmount = curl * (1 - reachAmount * 0.45);
-  // idle undulation floor: resting legs still sway (was fully gated to 0 before)
-  const idleFloor = 0.55;
+  // keep most of the curl even on reach so the arm S-curves rather than straightening into a rod
+  const curlAmount = curl * (1 - reachAmount * 0.2);
+  // idle undulation floor: resting legs sway with real life (raised for more movement)
+  const idleFloor = 0.7;
   const waveGate = idleFloor + (1 - idleFloor) * activityAmount;
 
   for (let i = 0; i < jointCount - 1; i++) {
@@ -74,13 +74,19 @@ export const resolveAngleConstrainedChain = ({
     const distance = Math.max(0.001, Math.hypot(dx, dy));
     const directAngle = Math.atan2(dy, dx);
     const closeTarget = clamp((remaining * linkLength - distance) / (remaining * linkLength), 0, 1);
-    // curl-wave: bends the arm along its length (shape). Stronger = more curl.
-    const curlWave = Math.sin(segmentT * Math.PI * 1.04) * curlAmount * 0.72 * curlDir;
+    // curl-wave: idle = single arc (curls toward a near target, relaxes when reaching far);
+    // reach = an S-curve that PERSISTS even when the arm extends, so a pointing arm makes an
+    // S ending aimed at the target instead of straightening into a rod. Both profiles -> 0 at
+    // the tip, so directAngle wins there and the tip lands on the target.
+    const idleArc = Math.sin(segmentT * Math.PI * 1.04) * closeTarget;
+    const reachS = Math.sin(segmentT * Math.PI * 2.0);
+    const curlShape = idleArc * (1 - reachAmount) + reachS * reachAmount * 1.25;
+    const curlWave = curlShape * curlAmount * 1.05 * curlDir;
     // traveling swim-wave: continuous gentle undulation; tip-faded so the cap stays stable.
     const tipFade = 1 - Math.max(0, segmentT - 0.78) / 0.22;
-    const waveAmplitude = Math.sin(segmentT * Math.PI) * (0.1 + energy * 0.12) * tipFade * waveGate;
+    const waveAmplitude = Math.sin(segmentT * Math.PI) * (0.13 + energy * 0.13) * tipFade * waveGate;
     const swimWave = Math.sin(frame * 0.09 + armIndex * 0.9 + segmentT * 6.4) * waveAmplitude;
-    const desiredAngle = directAngle + curlWave * closeTarget + swimWave;
+    const desiredAngle = directAngle + curlWave + swimWave;
     const rootRange = i === 0 ? maxTurn * 0.75 : maxTurn * loosenForReach;
     const angle = clampAngleAround(desiredAngle, previousAngle, rootRange);
     const next = {
