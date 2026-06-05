@@ -6,30 +6,36 @@ import subprocess
 from openai import OpenAI
 
 MODEL = "gpt-4o-mini-tts"
-VOICE = "fable"
-BASE_PERSONA = ("Curious, intimate documentary narrator. Conversational and human, never robotic. "
-                "Natural pauses at commas and full stops.")
+VOICE = "ash"  # natural American male; overridable per call via synthesize_section(voice=...)
+# One consistent, real-person American narrator. The delivery tags are SUBTLE shadings of this
+# same person (not different characters) so the voice never jumps or sounds robotic. Modeled on
+# the closing-CTA delivery the owner liked: warm, grounded, easygoing.
+BASE_PERSONA = ("You are a real American narrator talking to one curious friend, not reading a script. "
+                "Relaxed, warm, naturally conversational, and grounded - never robotic, never an "
+                "announcer. Light even energy with natural pauses at commas and periods. Keep the same "
+                "voice and personality the whole way through.")
 DELIVERY_INSTRUCTIONS = {
-    "neutral": BASE_PERSONA + " Warm and clear, even pacing.",
-    "curious": BASE_PERSONA + " Sound genuinely curious, inviting the listener into a puzzle; slight lift in intonation.",
-    "question": BASE_PERSONA + " Pose this as a real question with a clear inquisitive upward shift; do not sound flat or rhetorical.",
-    "brisk": BASE_PERSONA + " Move briskly and lightly through this connective line; keep momentum.",
-    "weighty": BASE_PERSONA + " Slow down. Give the key words real weight. Leave a small beat after the central idea.",
-    "surprised": BASE_PERSONA + " Sound quietly surprised, not theatrical; let the reveal feel real.",
-    "skeptical": BASE_PERSONA + " Sound doubtful and analytical, like testing an assumption.",
-    "ominous": BASE_PERSONA + " Lower the energy; slower, tense, restrained, still documentary.",
-    "warm_cta": BASE_PERSONA + " Relaxed, warm, sincere closing delivery; not salesy.",
+    "neutral": BASE_PERSONA + " Easy, natural pace.",
+    "curious": BASE_PERSONA + " A genuine little spark of curiosity, a slight lift, like you enjoy the puzzle.",
+    "question": BASE_PERSONA + " A real question - a small, honest upward turn, not flat or rhetorical.",
+    "brisk": BASE_PERSONA + " A touch quicker and lighter through this connecting line; keep it moving.",
+    "weighty": BASE_PERSONA + " Slow just slightly and let the key idea land, with a small beat after it. Still natural, not solemn.",
+    "surprised": BASE_PERSONA + " A small, real beat of surprise - understated, not theatrical.",
+    "skeptical": BASE_PERSONA + " A little wry doubt, like you are gently raising an eyebrow.",
+    "ominous": BASE_PERSONA + " Drop the energy a little - slightly quieter and slower, still relaxed.",
+    "warm_cta": BASE_PERSONA + " Warm, sincere, easygoing close, like recommending something to a friend.",
 }
+# Faster baseline and a NARROW range so pace changes never sound like a different person.
 DELIVERY_SPEED = {
-    "neutral": 1.08,
-    "curious": 1.06,
-    "question": 1.03,
-    "brisk": 1.15,
-    "weighty": 0.94,
-    "surprised": 1.04,
-    "skeptical": 1.02,
-    "ominous": 0.92,
-    "warm_cta": 1.00,
+    "neutral": 1.12,
+    "curious": 1.10,
+    "question": 1.08,
+    "brisk": 1.18,
+    "weighty": 1.04,
+    "surprised": 1.08,
+    "skeptical": 1.08,
+    "ominous": 1.02,
+    "warm_cta": 1.06,
 }
 DEFAULT_DELIVERY = "neutral"
 SENTENCE_SPLIT_RE = r"(?<=[.!?])\s+"
@@ -39,13 +45,13 @@ SENTENCE_SPLIT_RE = r"(?<=[.!?])\s+"
 _SPEED_SUPPORTED = True
 
 
-def _speech_create(client, sentence, instructions, speed):
+def _speech_create(client, sentence, instructions, speed, voice=VOICE):
     global _SPEED_SUPPORTED
     if _SPEED_SUPPORTED and abs(speed - 1.0) > 1e-6:
         try:
             return client.audio.speech.create(
                 model=MODEL,
-                voice=VOICE,
+                voice=voice,
                 input=sentence,
                 instructions=instructions,
                 speed=speed,
@@ -58,15 +64,16 @@ def _speech_create(client, sentence, instructions, speed):
                   f"falling back to instructions-only pacing.")
     return client.audio.speech.create(
         model=MODEL,
-        voice=VOICE,
+        voice=voice,
         input=sentence,
         instructions=instructions,
         response_format="mp3",
     )
 
 
-def synthesize_section(text, output_path, temp_dir, sentences=None) -> list[dict]:
+def synthesize_section(text, output_path, temp_dir, sentences=None, voice=None) -> list[dict]:
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    voice = voice or VOICE
     sentence_items = _sentence_items(text, sentences)
 
     os.makedirs(temp_dir, exist_ok=True)
@@ -83,6 +90,7 @@ def synthesize_section(text, output_path, temp_dir, sentences=None) -> list[dict
                 client, sentence,
                 DELIVERY_INSTRUCTIONS[delivery],
                 DELIVERY_SPEED[delivery],
+                voice=voice,
             )
             with open(sent_path, "wb") as f:
                 f.write(response.content)
