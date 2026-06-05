@@ -65,6 +65,7 @@ def upload_short(video_path, metadata):
 
 def _upload_media(video_path, metadata, progress_label):
     youtube = _get_youtube()
+    privacy_status = os.environ.get("UPLOAD_PRIVACY", "public")
 
     body = {
         "snippet": {
@@ -74,7 +75,7 @@ def _upload_media(video_path, metadata, progress_label):
             "categoryId": "27",  # Education
         },
         "status": {
-            "privacyStatus": "public",
+            "privacyStatus": privacy_status,
             "selfDeclaredMadeForKids": False,
         },
     }

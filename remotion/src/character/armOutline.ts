@@ -30,7 +30,9 @@ const tangentFromPoints = (previous: Point, next: Point, fallback: Point): Point
 const stableTipTangent = (points: Point[], fallbackAngle = 0): Point => {
   const fallback = {x: Math.cos(fallbackAngle), y: Math.sin(fallbackAngle)};
   const last = points.length - 1;
-  const baselineStart = Math.max(0, last - 2);
+  // longer baseline (outer ~4 joints) = far more stable tip direction -> the rounded cap can't
+  // mirror/flip frame-to-frame. Safe now that the tip is stiffened (low curvature at the end).
+  const baselineStart = Math.max(0, last - 4);
   const baseline = {
     x: points[last].x - points[baselineStart].x,
     y: points[last].y - points[baselineStart].y,
@@ -171,29 +173,21 @@ export const buildArmOutlineGeometry = (points: Point[], radii: number[], fallba
   const tipTangent = stableTipTangent(points, fallbackAngle);
   const tipNormal = normalFromTangent(tipTangent);
 
+  // the last 3 outline points (tipPrepA, tipPrepB, tip) are bunched in the final segment;
+  // give them all the SAME stable tip tangent so the tip edges can't wiggle/cross.
+  const edgeTangent = (index: number): Point =>
+    index >= last - 2
+      ? tipTangent
+      : tangentFromPoints(
+          outlinePoints[Math.max(0, index - 1)],
+          outlinePoints[Math.min(last, index + 1)],
+          tipTangent,
+        );
   const left = outlinePoints.map((point, index) =>
-    offsetWithTangent(
-      point,
-      index === last ? tipTangent : tangentFromPoints(
-        outlinePoints[Math.max(0, index - 1)],
-        outlinePoints[Math.min(last, index + 1)],
-        tipTangent,
-      ),
-      outlineRadii[index] ?? outlineRadii[outlineRadii.length - 1] ?? 3,
-      1,
-    ),
+    offsetWithTangent(point, edgeTangent(index), outlineRadii[index] ?? outlineRadii[outlineRadii.length - 1] ?? 3, 1),
   );
   const right = outlinePoints.map((point, index) =>
-    offsetWithTangent(
-      point,
-      index === last ? tipTangent : tangentFromPoints(
-        outlinePoints[Math.max(0, index - 1)],
-        outlinePoints[Math.min(last, index + 1)],
-        tipTangent,
-      ),
-      outlineRadii[index] ?? outlineRadii[outlineRadii.length - 1] ?? 3,
-      -1,
-    ),
+    offsetWithTangent(point, edgeTangent(index), outlineRadii[index] ?? outlineRadii[outlineRadii.length - 1] ?? 3, -1),
   );
 
   return {left, right, outlinePoints, outlineRadii, tipTangent, tipNormal};

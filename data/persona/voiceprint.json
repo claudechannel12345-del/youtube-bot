@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "voiceprint_version": 1,
+  "updated_at": "2026-06-04T00:00:00Z",
+  "source_window": {
+    "videos_considered": 0,
+    "comments_considered": 0,
+    "owner_flags_considered": 0
+  },
+  "note": "Seeded by Claude from the hand-written GPS pilot script (the first reference for the dry-witty voice). Real signal (comments, owner flags) will accumulate from here.",
+  "favored_phrasings": [
+    {"phrase": "which is a start, technically", "use_case": "dry tag after a partial/underwhelming result", "weight": 0.6, "last_seen_video_id": "gps_pilot"},
+    {"phrase": "to no one in particular", "use_case": "deadpan tag on a grand system doing something indifferently", "weight": 0.55, "last_seen_video_id": "gps_pilot"},
+    {"phrase": "give or take", "use_case": "casual precision-hedge", "weight": 0.4, "last_seen_video_id": "gps_pilot"}
+  ],
+  "recurring_bits": [
+    {"id": "grand_thing_mundane_use", "description": "Contrast a profound/cosmic mechanism with the trivial everyday thing it enables.", "examples": ["a hundred-year-old theory reduced to a background process so you can find a coffee shop"], "weight": 0.65, "cooldown_videos": 2, "last_used_video_id": "gps_pilot"},
+    {"id": "system_is_oblivious", "description": "Point out that a vast system is completely indifferent to the user.", "examples": ["the satellites have no idea it exists", "to no one in particular"], "weight": 0.5, "cooldown_videos": 3, "last_used_video_id": "gps_pilot"}
+  ],
+  "jokes_that_landed": [
+    {"line": "It's also several thousand kilometers of start.", "topic": "GPS", "signal": {"owner_rating": null, "positive_comment_count": 0, "retention_note": "pilot - not yet measured"}},
+    {"line": "Your phone keeps time like a tired intern with a cheap watch.", "topic": "GPS", "signal": {"owner_rating": null, "positive_comment_count": 0, "retention_note": "pilot - not yet measured"}},
+    {"line": "The blue dot would be useless before lunch.", "topic": "GPS", "signal": {"owner_rating": null, "positive_comment_count": 0, "retention_note": "pilot - not yet measured"}}
+  ],
+  "owner_flagged_lines": [],
+  "avoid": [
+    {"pattern": "fake enthusiasm", "examples": ["This changes everything.", "Mind-blowing."], "reason": "off-persona"},
+    {"pattern": "tutorial filler openers", "examples": ["Let's dive in.", "Buckle up."], "reason": "banned"}
+  ],
+  "delivery_bias": {
+    "neutral": 0.45,
+    "curious": 0.16,
+    "brisk": 0.14,
+    "weighty": 0.12,
+    "skeptical": 0.06,
+    "question": 0.03,
+    "surprised": 0.02,
+    "ominous": 0.01,
+    "warm_cta": 0.01
+  },
+  "prompt_summary": "Dry, understated, curious narrator. Short speakable sentences, contractions, one flat deadpan aside every few paragraphs. Loves contrasting a grand mechanism with a trivial everyday payoff, and noting that vast systems are indifferent to the user. Drops jokes for the genuine reveal. Bans hype and tutorial-filler openers."
+}

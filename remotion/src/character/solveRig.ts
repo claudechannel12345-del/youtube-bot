@@ -267,7 +267,9 @@ export const solveRig = (
       return armTargetAt(keyframes, anchors, sampledTime, config.id, base.shoulder, base.idleTarget).target;
     };
     const lagFrames = (0.055 + index * 0.012) * fps;
-    const delayedTarget = analyticLagPoint(targetAt(0), targetAt(lagFrames), targetAt(lagFrames * 2), lagFrames);
+    const delayedTarget = targetAt(0); // TEST: lag disabled to isolate the jump
+    void analyticLagPoint;
+    void lagFrames;
     const linkLength = restLength / (jointCount - 1);
     const points = resolveAngleConstrainedChain({
       root: shoulder,

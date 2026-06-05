@@ -13,13 +13,11 @@ export const analyticLagPoint = (
   older: Point,
   lagFrames: number,
 ): Point => {
-  const totalDelta = Math.hypot(current.x - older.x, current.y - older.y);
-  const recentDelta = Math.hypot(current.x - previous.x, current.y - previous.y);
-
-  if (totalDelta < 0.001 || recentDelta < 0.001) {
-    return current;
-  }
-
+  // Continuous follow-through: always a fixed blend toward the lagged sample. When motion stops,
+  // `previous` -> `current` so this smoothly approaches `current` (no snap). The previous hard
+  // early-out (`return current` when delta was tiny) caused a discrete JUMP when the lag window
+  // cleared a large target move (e.g. the end of a reach) - that was the tip "glitch".
+  void older;
   const lag = Math.max(0.08, Math.min(0.34, lagFrames * 0.12));
 
   return {

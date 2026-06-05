@@ -1,5 +1,20 @@
 # YouTube Bot — Build Progress (RESUME FILE)
 
+## >>> PIVOT 2026-06-04 — READ THIS FIRST (supersedes the octopus sections below) <<<
+The COSMIC OCTOPUS direction is DEAD (reached iter15, abandoned — procedural soft-body money pit, and it
+was masking a mediocre voice). NEW direction: CGP-Grey-style CLEAN-FLAT illustrated CUTAWAY explainer
+engine; dry-witty narrator; NO recurring character.
+- **Architecture of record:** `.codex_cutaway_arch.txt` (Codex co-design). Seed brief: `.codex_cutaway_brief.txt`.
+- **Style proof DONE:** `remotion/src/flat/` (theme.ts, primitives.tsx, GpsProof.tsx) -> Remotion comp
+  `GpsProof` -> `remotion/slice_stills/flat_gps_proof.mp4` + `flat_gps_*.png`. Awaiting owner verdict on
+  the look; voiced "sounds-good" check still needs a CI render.
+- **LOCKED:** art clean-flat-light (#F7F4EC bg / #1E1E24 ink / #FF5A3C coral, bold geometric, thick
+  outlines); no character; persona dry-witty + evolving voiceprint; lane "anything interesting".
+- **Next:** build per the 5-phase plan in `.codex_cutaway_arch.txt` (P1 contracts -> P2 GPS proof via the
+  real director -> P3 wire into main.py -> P4 full video -> P5 feedback loop).
+- Everything in the OCTOPUS / v2.5 sections below is HISTORICAL/SUPERSEDED. Still-valid bits: the LOCAL DEV
+  WORKFLOW notes (Codex dispatch gotcha, `npx.cmd` + NODE_OPTIONS render commands, `py -3`, ASCII-only).
+
 **If you are an AI resuming this project: read this file first, then `RESEARCH.md` (the
 ★ FINAL PLAN section), then continue from the phase marked 👉 RESUME HERE.**
 

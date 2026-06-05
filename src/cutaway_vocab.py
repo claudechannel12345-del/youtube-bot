@@ -1,0 +1,156 @@
+BEAT_TYPES = frozenset(
+    [
+        "establish",
+        "illustrate",
+        "stat_pop",
+        "compare",
+        "diagram_build",
+        "map_focus",
+        "list_reveal",
+        "cutaway_gag",
+        "emphasize",
+        "transition",
+    ]
+)
+
+IMPORTANCE = frozenset(["low", "medium", "high", "must_hit"])
+
+COMEDY_ROLES = frozenset(
+    [
+        "deadpan_literalization",
+        "scale_absurdity",
+        "bureaucracy_metaphor",
+        "wrong_tool",
+        "overly_literal_label",
+        "quiet_contradiction",
+    ]
+)
+
+SCENE_FAMILY = frozenset(
+    [
+        "title_stage",
+        "object_stage",
+        "diagram_stage",
+        "map_stage",
+        "comparison_stage",
+        "timeline_stage",
+        "list_stage",
+        "stat_stage",
+        "paperwork_stage",
+        "miniature_world",
+        "caption_punch",
+    ]
+)
+
+LAYOUT = frozenset(
+    [
+        "center_subject",
+        "left_right",
+        "top_down_stack",
+        "radial",
+        "map_focus",
+        "timeline_horizontal",
+        "three_panel",
+        "paper_stack",
+        "wide_scene",
+        "caption_only",
+    ]
+)
+
+CAMERA_MOVE = frozenset(
+    [
+        "static",
+        "hold_then_push",
+        "push_in",
+        "pull_back",
+        "pan_left",
+        "pan_right",
+        "snap_zoom",
+        "tilt_down",
+        "parallax_drift",
+    ]
+)
+
+CAMERA_INTENSITY = frozenset(["none", "small", "medium", "large"])
+
+TRANSITION = frozenset(
+    [
+        "hard_cut",
+        "pop_cut",
+        "wipe_left",
+        "wipe_right",
+        "match_cut",
+        "smash_cut",
+        "dip_to_bg",
+    ]
+)
+
+ASSET_KIND = frozenset(
+    [
+        "prop",
+        "icon",
+        "icon_cluster",
+        "figure",
+        "label",
+        "connector",
+        "map_shape",
+        "chart",
+        "panel",
+        "stamp",
+        "texture",
+    ]
+)
+
+MOTION_KIND = frozenset(
+    [
+        "none",
+        "pop_in",
+        "pop_out",
+        "slide_in",
+        "slide_out",
+        "draw_on",
+        "count_up",
+        "stamp",
+        "shake_once",
+        "micro_bob",
+        "orbit",
+        "pulse",
+        "trace_line",
+        "wipe_reveal",
+    ]
+)
+
+TEXT_ROLE = frozenset(
+    [
+        "headline",
+        "label",
+        "caption",
+        "stat",
+        "stamp",
+        "callout",
+        "tiny_note",
+    ]
+)
+
+BEAT_TO_SCENE_FAMILY = {
+    "establish": "object_stage",
+    "illustrate": "object_stage",
+    "stat_pop": "stat_stage",
+    "compare": "comparison_stage",
+    "diagram_build": "diagram_stage",
+    "map_focus": "map_stage",
+    "list_reveal": "list_stage",
+    "cutaway_gag": "miniature_world",
+    "emphasize": "caption_punch",
+    "transition": "caption_punch",
+}
+
+
+def coerce_beat_type(x):
+    if x in BEAT_TYPES:
+        return x
+    return "illustrate"
+
+
+def is_valid(vocab_set, x):
+    return x in vocab_set

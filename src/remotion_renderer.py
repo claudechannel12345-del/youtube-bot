@@ -101,3 +101,61 @@ def render_video(sections, output_path):
                 os.remove(path)
             except OSError:
                 pass
+
+
+def render_cutaway(episode_props, section_audio_paths, output_path):
+    public_dir = os.path.join(REMOTION_DIR, "public")
+    os.makedirs(public_dir, exist_ok=True)
+
+    copied_audio = []
+    try:
+        sections = episode_props.get("sections") or []
+        for i, section in enumerate(sections):
+            audio_path = section_audio_paths[i] if i < len(section_audio_paths) else None
+            if audio_path:
+                audio_src = f"cut_audio_{i:03d}.mp3"
+                dest = os.path.join(public_dir, audio_src)
+                shutil.copyfile(audio_path, dest)
+                copied_audio.append(dest)
+                section["audioSrc"] = audio_src
+            else:
+                section["audioSrc"] = ""
+
+        props_path = os.path.join(REMOTION_DIR, "props_cutaway.json")
+        with open(props_path, "w", encoding="utf-8") as f:
+            json.dump(episode_props, f, indent=2, ensure_ascii=False)
+
+        abs_output = os.path.abspath(output_path)
+        os.makedirs(os.path.dirname(abs_output), exist_ok=True)
+        # Use the system CA store so chromium/font downloads work behind TLS-intercepting
+        # networks (no-op on standard CI runners).
+        env = {**os.environ}
+        node_opts = env.get("NODE_OPTIONS", "")
+        if os.environ.get("REMOTION_USE_SYSTEM_CA") and "--use-system-ca" not in node_opts:
+            env["NODE_OPTIONS"] = (node_opts + " --use-system-ca").strip()
+        result = subprocess.run(
+            [
+                _npx_command(),
+                "remotion",
+                "render",
+                "src/index.ts",
+                "Cutaway",
+                abs_output,
+                "--props=props_cutaway.json",
+            ],
+            cwd=REMOTION_DIR,
+            shell=False,
+            check=False,
+            capture_output=True,
+            text=True,
+            env=env,
+        )
+        if result.returncode != 0:
+            tail = (result.stderr or result.stdout)[-1000:]
+            raise RuntimeError(f"Remotion render failed:\n{tail}")
+    finally:
+        for path in copied_audio:
+            try:
+                os.remove(path)
+            except OSError:
+                pass
