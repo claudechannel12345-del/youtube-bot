@@ -1,36 +1,32 @@
 """Automated visual proof-checker.
 
-Looks at every storyboard still (from scripts/storyboard.py) with a vision model and
-checks it against what the scene is SUPPOSED to show (from the director's plan). Flags
-scenes with real problems (text cut off / garbled, broken or missing shapes, empty or
-messy composition, stray lines). Writes a report and exits non-zero if anything fails,
-so it can gate an upload.
+Renders are reviewed by an OpenAI vision model against what each scene is SUPPOSED to show
+(from the director's plan). Flags scenes with real problems (text cut off / garbled, broken or
+missing shapes, empty or messy composition, stray lines), writes a report, and exits non-zero
+if anything fails - so it can gate an upload. Stills go in BATCHES (several images per call).
 
-Stills are sent in BATCHES (several images per call) so we make only a handful of API
-calls total and stay well under the free-tier rate limit.
+(Uses OpenAI because the project's free Gemini tier rate-limits vision work too aggressively.)
 
-  GEMINI_API_KEY=... py -3 scripts/proof_check.py
+  OPENAI_API_KEY=... py -3 scripts/proof_check.py
 Reads:  remotion/props_gps_local.json + remotion/slice_stills/storyboard/*.png
 Writes: remotion/slice_stills/storyboard/proof_report.json
 """
 
+import base64
 import glob
 import json
 import os
 import re
 import sys
-import time
 
-from google import genai
-from google.genai import types
+from openai import OpenAI
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 PROPS = os.path.join(ROOT, "remotion", "props_gps_local.json")
 SB = os.path.join(ROOT, "remotion", "slice_stills", "storyboard")
-MODEL = "gemini-2.0-flash"
-BATCH = 8          # stills per API call
-THROTTLE = 8.0     # seconds between batches
+MODEL = "gpt-4o-mini"
+BATCH = 10  # stills per API call
 
 INSTRUCTIONS = """You are a strict QA reviewer for a clean-flat animated explainer video (warm off-white
 background, bold flat shapes, thick dark outlines, occasional coral accent). Below are several rendered
@@ -66,22 +62,6 @@ def intent_for(beat, section):
     )
 
 
-def _generate(client, contents, retries=3):
-    for attempt in range(retries):
-        try:
-            return client.models.generate_content(model=MODEL, contents=contents)
-        except Exception as e:
-            msg = str(e)
-            if "429" in msg or "RESOURCE_EXHAUSTED" in msg:
-                m = re.search(r"retryDelay'?:?\s*'?(\d+)s", msg)
-                wait = (int(m.group(1)) + 2) if m else 35
-                print(f"  rate limited, waiting {wait}s...")
-                time.sleep(wait)
-            else:
-                raise
-    raise RuntimeError("Gemini retries exhausted (rate limit)")
-
-
 def parse_array(text, n):
     m = re.search(r"\[.*\]", text or "", re.DOTALL)
     if not m:
@@ -97,8 +77,13 @@ def parse_array(text, n):
     return out
 
 
+def _b64(path):
+    with open(path, "rb") as fh:
+        return base64.b64encode(fh.read()).decode("ascii")
+
+
 def main():
-    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
     with open(PROPS, "r", encoding="utf-8") as f:
         props = json.load(f)
 
@@ -110,39 +95,32 @@ def main():
 
     report = []
     failures = 0
-    unchecked = 0
     for start in range(0, len(scenes), BATCH):
         batch = scenes[start:start + BATCH]
-        contents = [INSTRUCTIONS]
+        content = [{"type": "text", "text": INSTRUCTIONS}]
         for n, (_name, path, intent) in enumerate(batch, 1):
-            with open(path, "rb") as fh:
-                contents.append(types.Part.from_bytes(data=fh.read(), mime_type="image/png"))
-            contents.append(f"FRAME {n} INTENT: {intent}")
-        contents.append("Return the JSON array of verdicts for all frames above, in order.")
+            content.append({"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_b64(path)}"}})
+            content.append({"type": "text", "text": f"FRAME {n} INTENT: {intent}"})
+        content.append({"type": "text", "text": "Return the JSON array of verdicts for all frames above, in order."})
 
-        try:
-            verdicts = parse_array((_generate(client, contents).text or ""), len(batch))
-        except RuntimeError as e:
-            print(f"  batch left UNCHECKED: {e}")
-            verdicts = [{"ok": True, "issues": [], "unchecked": True} for _ in batch]
+        resp = client.chat.completions.create(
+            model=MODEL,
+            messages=[{"role": "user", "content": content}],
+            temperature=0,
+        )
+        verdicts = parse_array(resp.choices[0].message.content, len(batch))
         for (name, _path, _intent), v in zip(batch, verdicts):
-            entry = {"scene": name, "ok": v["ok"], "issues": v["issues"]}
-            if v.get("unchecked"):
-                entry["unchecked"] = True
-                unchecked += 1
-                print(f"??   {name} (unchecked - quota)")
-            elif not v["ok"]:
+            report.append({"scene": name, "ok": v["ok"], "issues": v["issues"]})
+            if not v["ok"]:
                 failures += 1
                 print(f"FAIL {name}: {'; '.join(v['issues'])}")
             else:
                 print(f"ok   {name}")
-            report.append(entry)
-        time.sleep(THROTTLE)
 
     out = os.path.join(SB, "proof_report.json")
     with open(out, "w", encoding="utf-8") as f:
-        json.dump({"checked": len(report), "failures": failures, "unchecked": unchecked, "scenes": report}, f, indent=2)
-    print(f"\nproof check: {len(report)} scenes, {failures} flagged, {unchecked} unchecked -> {out}")
+        json.dump({"checked": len(report), "failures": failures, "scenes": report}, f, indent=2)
+    print(f"\nproof check: {len(report)} scenes, {failures} flagged -> {out}")
     sys.exit(1 if failures else 0)
 
 

@@ -39,7 +39,7 @@ jobs:
       - name: Vision proof check
         continue-on-error: true
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python scripts/proof_check.py
 
       - name: Upload storyboard + report
