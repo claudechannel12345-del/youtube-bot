@@ -183,6 +183,40 @@ COLOR_ROLE = frozenset(
     ]
 )
 
+REGISTRY_ASSETS = frozenset(
+    [
+        "person",
+        "phone",
+        "city",
+        "building",
+        "clock",
+        "atomic_clock",
+        "satellite",
+        "signal",
+        "signal_beam",
+        "earth",
+        "map_pin",
+        "dot",
+        "watch",
+        "grid",
+        "sphere",
+        "ring",
+        "point",
+        "ruler",
+        "arrow",
+        "light",
+        "einstein",
+        "map",
+        "coffee",
+        "counter",
+        "number",
+        "subscribe",
+        "label",
+        "stamp",
+        "generic_object",
+    ]
+)
+
 TEXT_ROLE = frozenset(
     [
         "headline",
