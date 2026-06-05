@@ -25,7 +25,9 @@ NPX = "npx.cmd" if os.name == "nt" else "npx"
 
 def _env():
     env = {**os.environ}
-    if "--use-system-ca" not in env.get("NODE_OPTIONS", ""):
+    # Local TLS-intercepting networks need the system CA store; CI has normal certs, so gate
+    # it behind REMOTION_USE_SYSTEM_CA (set it locally, leave unset in CI).
+    if os.environ.get("REMOTION_USE_SYSTEM_CA") and "--use-system-ca" not in env.get("NODE_OPTIONS", ""):
         env["NODE_OPTIONS"] = (env.get("NODE_OPTIONS", "") + " --use-system-ca").strip()
     return env
 
