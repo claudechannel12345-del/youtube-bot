@@ -1046,15 +1046,8 @@
             {
               "id": "s5_one_a1",
               "kind": "prop",
-              "name": "ring",
-              "anchor": "upper_right",
-              "is_new": true
-            },
-            {
-              "id": "s5_one_a2",
-              "kind": "prop",
               "name": "earth",
-              "anchor": "center",
+              "anchor": "upper_right",
               "is_new": true
             }
           ],
@@ -1071,15 +1064,9 @@
               "kind": "draw_on",
               "delay": 0.08,
               "duration": 0.38
-            },
-            {
-              "target": "s5_one_a2",
-              "kind": "draw_on",
-              "delay": 0.16,
-              "duration": 0.38
             }
           ],
-          "new_count": 3
+          "new_count": 2
         },
         {
           "id": "s5_two",
@@ -1109,29 +1096,15 @@
             {
               "id": "s5_one_a1",
               "kind": "prop",
-              "name": "ring",
-              "anchor": "upper_right",
-              "is_new": false
-            },
-            {
-              "id": "s5_one_a2",
-              "kind": "prop",
               "name": "earth",
-              "anchor": "center",
+              "anchor": "upper_right",
               "is_new": false
             },
             {
               "id": "s5_two_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "lower_left",
-              "is_new": true
-            },
-            {
-              "id": "s5_two_a1",
-              "kind": "prop",
-              "name": "ring",
-              "anchor": "lower_right",
+              "anchor": "center",
               "is_new": true
             }
           ],
@@ -1142,15 +1115,9 @@
               "kind": "draw_on",
               "delay": 0.0,
               "duration": 0.38
-            },
-            {
-              "target": "s5_two_a1",
-              "kind": "draw_on",
-              "delay": 0.08,
-              "duration": 0.38
             }
           ],
-          "new_count": 2
+          "new_count": 1
         },
         {
           "id": "s5_three",
@@ -1180,50 +1147,29 @@
             {
               "id": "s5_one_a1",
               "kind": "prop",
-              "name": "ring",
-              "anchor": "upper_right",
-              "is_new": false
-            },
-            {
-              "id": "s5_one_a2",
-              "kind": "prop",
               "name": "earth",
-              "anchor": "center",
+              "anchor": "upper_right",
               "is_new": false
             },
             {
               "id": "s5_two_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "lower_left",
-              "is_new": false
-            },
-            {
-              "id": "s5_two_a1",
-              "kind": "prop",
-              "name": "ring",
-              "anchor": "lower_right",
+              "anchor": "center",
               "is_new": false
             },
             {
               "id": "s5_three_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "left",
+              "anchor": "lower_left",
               "is_new": true
             },
             {
               "id": "s5_three_a1",
               "kind": "prop",
-              "name": "ring",
-              "anchor": "left",
-              "is_new": true
-            },
-            {
-              "id": "s5_three_a2",
-              "kind": "prop",
               "name": "point",
-              "anchor": "left",
+              "anchor": "lower_right",
               "is_new": true
             }
           ],
@@ -1240,15 +1186,9 @@
               "kind": "draw_on",
               "delay": 0.08,
               "duration": 0.38
-            },
-            {
-              "target": "s5_three_a2",
-              "kind": "draw_on",
-              "delay": 0.16,
-              "duration": 0.38
             }
           ],
-          "new_count": 3
+          "new_count": 2
         },
         {
           "id": "s5_pinned",

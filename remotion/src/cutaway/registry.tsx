@@ -247,7 +247,13 @@ export const registry = {
   satellite: ({x, y, scale = 1, localFrame}: RegistryRendererProps) => <Satellite x={x} y={y} scale={scale} rotate={Math.sin(localFrame / 30) * 4} />,
   signal: ({x, y, scale = 1, color = CORAL, localFrame}: RegistryRendererProps) => <SignalWaves x={x} y={y} progress={(localFrame / 50) % 1} color={color} spread={220 * scale} />,
   signal_beam: Light,
-  earth: ({x, y, scale = 1}: RegistryRendererProps) => <EarthArc cx={x} cy={y} r={170 * scale} />,
+  earth: ({x, y, scale = 1}: RegistryRendererProps) => (
+    // Scale the whole group (not just r) so the outline thins with the globe - otherwise a
+    // small earth keeps the full-size border and reads as a wheel (same as the old clock bug).
+    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+      <EarthArc cx={0} cy={0} r={170} />
+    </g>
+  ),
   map_pin: Point,
   dot: Point,
   watch: Watch,

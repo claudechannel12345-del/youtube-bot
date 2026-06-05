@@ -128,9 +128,9 @@
       "on_screen": {"parts": ["one sphere", "two: a ring", "three: a point"]},
       "broll_keywords": ["trilateration", "intersecting spheres", "geometry"],
       "beats": [
-        {"id": "s5_one", "type": "diagram_build", "sentence_start": 0, "sentence_end": 3, "visual_intent": "One satellite with a big range ring; a YOU marker lost somewhere on it.", "text": "SOMEWHERE ON HERE", "subjects": ["satellite", "ring", "earth"], "importance": "high"},
-        {"id": "s5_two", "type": "diagram_build", "sentence_start": 4, "sentence_end": 5, "visual_intent": "A second satellite + ring is ADDED; the two rings cross.", "text": "TWO: A RING", "subjects": ["satellite", "ring"], "importance": "high"},
-        {"id": "s5_three", "type": "diagram_build", "sentence_start": 6, "sentence_end": 8, "visual_intent": "A third satellite + ring is ADDED; everything converges on one point.", "text": "THREE: A POINT", "subjects": ["satellite", "ring", "point"], "importance": "high"},
+        {"id": "s5_one", "type": "diagram_build", "sentence_start": 0, "sentence_end": 3, "visual_intent": "One satellite with a big range ring; a YOU marker lost somewhere on it.", "text": "SOMEWHERE ON HERE", "subjects": ["satellite", "earth"], "importance": "high"},
+        {"id": "s5_two", "type": "diagram_build", "sentence_start": 4, "sentence_end": 5, "visual_intent": "A second satellite + ring is ADDED; the two rings cross.", "text": "TWO: A RING", "subjects": ["satellite"], "importance": "high"},
+        {"id": "s5_three", "type": "diagram_build", "sentence_start": 6, "sentence_end": 8, "visual_intent": "A third satellite + ring is ADDED; everything converges on one point.", "text": "THREE: A POINT", "subjects": ["satellite", "point"], "importance": "high"},
         {"id": "s5_pinned", "type": "emphasize", "sentence_start": 9, "sentence_end": 10, "visual_intent": "The point locks onto the map with a confident pin.", "text": "PINNED", "subjects": ["map_pin", "earth"], "importance": "medium"}
       ]
     },
