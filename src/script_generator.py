@@ -2,7 +2,7 @@ import json
 import re
 
 from cutaway_vocab import coerce_beat_type
-from gemini_utils import generate
+from gemini_utils import PRO_MODELS, generate
 
 VALID_TEMPLATES = {
     "title_card",
@@ -109,7 +109,7 @@ Script structure requirements:
 - hook_options must contain exactly 2 spoken hooks.
 - thumbnail_text_options must contain exactly 3 options, each 3-5 words."""
 
-    response = generate(client, prompt)
+    response = generate(client, prompt, models=PRO_MODELS)
     text = response.text.strip()
 
     match = re.search(r"\{.*\}", text, re.DOTALL)

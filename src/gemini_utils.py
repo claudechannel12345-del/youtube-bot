@@ -2,12 +2,15 @@ import os
 import re
 import time
 
+# Default models for light/frequent tasks (fast + cheap).
 MODELS = ["gemini-2.5-flash", "gemini-2.0-flash"]
+# Higher-quality models for high-value, low-frequency work (script writing, art-direction).
+PRO_MODELS = ["gemini-2.5-pro", "gemini-2.5-flash"]
 
-# The free tier allows ~15 requests/min. Space every call out through one chokepoint so we
-# never trip the per-minute limit, no matter how many callers there are. Tune via env; set to
-# 0 if you move to a paid tier with higher limits.
-MIN_INTERVAL = float(os.environ.get("GEMINI_MIN_INTERVAL", "4.5"))
+# The free tier allows ~5 requests/min. Space every call out through one chokepoint so we never
+# trip the per-minute limit, no matter how many callers there are. Tune via env; set to 0 on a
+# paid tier with higher limits.
+MIN_INTERVAL = float(os.environ.get("GEMINI_MIN_INTERVAL", "13"))
 _last_call = [0.0]
 
 
@@ -18,16 +21,18 @@ def _throttle():
     _last_call[0] = time.monotonic()
 
 
-def generate(client, prompt, retries=5, delay=20):
+def generate(client, prompt, retries=5, delay=20, models=None):
     """Call Gemini through one throttled, self-healing chokepoint.
 
     - Proactively SPACES requests (MIN_INTERVAL) so we stay under the per-minute rate limit.
     - Retries on 429 rate-limit, honoring the server's retryDelay.
     - Retries on 503 overload, falling back across models.
+    - Pass `models=PRO_MODELS` for high-value calls (script, art-direction).
     """
+    model_list = models or MODELS
     last_err = None
     for attempt in range(retries):
-        model = MODELS[min(attempt, len(MODELS) - 1)]
+        model = model_list[min(attempt, len(model_list) - 1)]
         _throttle()
         try:
             return client.models.generate_content(model=model, contents=prompt)
