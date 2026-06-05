@@ -25,7 +25,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 PROPS = os.path.join(ROOT, "remotion", "props_gps_local.json")
 SB = os.path.join(ROOT, "remotion", "slice_stills", "storyboard")
-MODEL = "gpt-4o-mini"
 BATCH = 10  # stills per API call
 
 INSTRUCTIONS = """You are a strict QA reviewer for a clean-flat animated explainer video (warm off-white
@@ -82,8 +81,19 @@ def _b64(path):
         return base64.b64encode(fh.read()).decode("ascii")
 
 
-def main():
+def get_client_and_model():
+    # Prefer OpenRouter (free vision models) when its key is set; else OpenAI.
+    if os.environ.get("OPENROUTER_API_KEY"):
+        client = OpenAI(api_key=os.environ["OPENROUTER_API_KEY"], base_url="https://openrouter.ai/api/v1")
+        model = os.environ.get("OPENROUTER_MODEL", "meta-llama/llama-3.2-11b-vision-instruct:free")
+        return client, model
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    return client, os.environ.get("PROOF_MODEL", "gpt-4o-mini")
+
+
+def main():
+    client, model = get_client_and_model()
+    print(f"proof model: {model}")
     with open(PROPS, "r", encoding="utf-8") as f:
         props = json.load(f)
 
@@ -104,7 +114,7 @@ def main():
         content.append({"type": "text", "text": "Return the JSON array of verdicts for all frames above, in order."})
 
         resp = client.chat.completions.create(
-            model=MODEL,
+            model=model,
             messages=[{"role": "user", "content": content}],
             temperature=0,
         )
