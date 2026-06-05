@@ -17,11 +17,11 @@ DEFAULT_MODEL = "eleven_multilingual_v2"
 # upload time; override with the ELEVENLABS_VOICE_ID env var.
 CHRIS_VOICE_ID = "iP95p4xoKVk53GoZ742B"
 DEFAULT_SETTINGS = {
-    "stability": 0.45,
-    "similarity_boost": 0.8,
-    "style": 0.0,
+    "stability": 0.45,       # controlled/deliberate; low stability made the clone RUSH, not emote
+    "similarity_boost": 0.82,
+    "style": 0.0,            # style>0 also rushed it; keep at 0
     "use_speaker_boost": True,
-    "speed": 1.05,
+    "speed": 0.8,            # the slow pace the owner liked (vt1_slow). Drama comes from PAUSES, not speed.
 }
 _SENTENCE_SPLIT_RE = r"(?<=[.!?])\s+"
 
@@ -96,12 +96,12 @@ def _sentence_items(text, sentences):
 # (longer after the dramatic ones) so lines land, reveals breathe, and sentences never
 # run together. Owner feedback: it sped through and skipped the dramatic pauses.
 DELIVERY_SPEED = {
-    "neutral": 1.0, "curious": 0.99, "question": 0.97, "brisk": 1.06,
-    "weighty": 0.92, "surprised": 0.96, "skeptical": 0.98, "ominous": 0.9, "warm_cta": 0.96,
+    "neutral": 0.8, "curious": 0.8, "question": 0.78, "brisk": 0.88,
+    "weighty": 0.73, "surprised": 0.78, "skeptical": 0.8, "ominous": 0.72, "warm_cta": 0.78,
 }
 PAUSE_AFTER = {
-    "neutral": 0.34, "curious": 0.42, "question": 0.62, "brisk": 0.2,
-    "weighty": 0.85, "surprised": 0.62, "skeptical": 0.5, "ominous": 0.9, "warm_cta": 0.45,
+    "neutral": 0.35, "curious": 0.45, "question": 0.7, "brisk": 0.22,
+    "weighty": 1.0, "surprised": 0.75, "skeptical": 0.55, "ominous": 1.05, "warm_cta": 0.5,
 }
 
 
