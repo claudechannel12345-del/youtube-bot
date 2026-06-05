@@ -1,52 +1,88 @@
-# Cutaway Engine - Autonomous Build Log (2026-06-04)
+# Cutaway Engine - Build Log / RESUME HERE (updated 2026-06-05)
 
-Owner is away for a few hours. Goal: a full ~8-10 min GPS video in the new clean-flat
-cutaway style, voiced via CI, **uploaded UNLISTED** for review. If incomplete, this file
-documents exactly what's polished vs rough.
+CGP-Grey-style clean-flat illustrated CUTAWAY explainer channel. Pivoted off the abandoned
+cosmic-octopus direction. This doc is the resume point; architecture of record is
+`.codex_cutaway_arch.txt`.
 
-## Locked decisions
-- Art: CLEAN FLAT / LIGHT. bg #F7F4EC, ink #1E1E24, coral accent #FF5A3C. Bold geometric,
-  thick outlines. **v3 style = simple (old) detail level + new sharpness** (miter joins,
-  tighter radii, outlined windows, grounding shadows).
-- No recurring character. Narrator = dry & witty. Lane = anything interesting.
-- Captions = OPTION C: only sparse styled coral key-phrases burned in as design; full
-  sentences shipped as an uploaded SRT for toggleable YouTube CC. (No always-on subtitle bar.)
-- Codex does the mass coding; Claude specs/reviews/renders.
+## >>> RESUME HERE (next session: 2026-06-06 / tomorrow) <<<
+Everything non-voice is DONE and verified. The next session is the VOICE + polished upload:
+1. Owner buys **ElevenLabs Creator** (~$11 first month, 100k credits). Free tier is exhausted
+   (TTS for the test renders), which is why the current full render is SILENT.
+2. **Clone the owner's voice**: owner records ~1-3 min of clean speech (dad's good mic) ->
+   ElevenLabs Instant Voice Clone (Creator feature) -> get the new voice_id -> set it as the
+   `ELEVENLABS_VOICE_ID` GitHub secret (CI) and/or in src/elevenlabs_tts.py (CHRIS_VOICE_ID is
+   the current placeholder). Override is via the ELEVENLABS_VOICE_ID env var.
+3. Trigger the full voiced render + unlisted upload:
+   `gh workflow run cutaway_pilot.yml --ref cutaway-engine -f do_upload=true`
+   (export GH_TOKEN=$(cat /c/Users/Caden/.youtube_bot_gh_token.txt) first). It uses ElevenLabs
+   (TTS_PROVIDER=elevenlabs) + the owner's voice + all visual fixes -> watch -> report the link.
+4. Validate the auto-checker on fresh Gemini quota:
+   `gh workflow run proof_check.yml --ref cutaway-engine` -> review proof_report.json artifact.
+   (It was BUILT + design-proven this session but the free Gemini daily quota was exhausted by
+   repeated test runs; it resets daily.)
+5. Build the owner's **re-check-only-flagged correction loop**: pass 1 = batch all scenes;
+   then re-render + re-check ONLY the flagged scenes; repeat until clean. (Owner's idea, agreed.)
+6. One-time: owner should phone-verify the channel at youtube.com/verify so custom thumbnails
+   stop 403'ing (currently videos use an auto frame).
 
-## Architecture of record
-`.codex_cutaway_arch.txt` (Codex co-design). Brief: `.codex_cutaway_brief.txt`.
+## State of things
+- **Branch `cutaway-engine`** has ALL the work, pushed. `main` has only the workflow files
+  (so they're dispatchable). Git push works via Git Credential Manager.
+- Latest UNLISTED test videos: `XriRusTze4E` (v2 - old gpt-4o-mini-tts voice, pre visual fixes).
+  Current best = **silent** local render on the owner's Desktop: `gps_v3_silent.mp4` (~8.6 min,
+  all visual fixes). No voiced v3 yet (credits).
+- Keys: GH PAT + ElevenLabs key stored OUTSIDE the repo in C:\Users\Caden\ (see the
+  [[reference-gh-token]] memory). GH secrets set: ELEVENLABS_API_KEY, OPENAI_API_KEY,
+  GEMINI_API_KEY, YOUTUBE_*.
 
-## Plan / status
-- [x] Style proof (GPS cold-open, clean-flat) - rendered, owner approved the look
-- [x] Style v3 - revert to simple detail, keep sharpness (remotion/src/flat/*)
-- [x] PKG1 Contracts - cutaway_vocab.py + remotion/src/cutaway/types.ts + script_generator beats (Codex) - DONE, tsc+py verified
-- [x] PKG2 Cutaway Remotion engine + scene families (Codex) - DONE (1st dispatch hung on stdin; 2nd ok)
-- [x] PKG3 director.py (rules-first) + local props builder (Claude, hand-written) - DONE
-- [x] Claude review+fix pass on engine renders (I can see output, Codex can't): fixed (1) BLANK FRAMES
-      (director now tiles beats to cover whole section - gaps were rendering blank), (2) HEADLINE TEXT
-      OVERLAP (anchor 'headline' was missing -> defaulted to dead-center over assets; asset-bearing beats
-      now use small bottom labels + added missing anchors + capped sizes), (3) sparse scenes (asset scale
-      0.9->1.05). Verified via before/after stills (cut_* vs fix_*).
-- [x] Full SILENT local render (slice_stills/gps_full_silent.mp4) - DONE, owner reviewed, "looked really good"
-- [x] Clock icon "tire" nit fixed (registry clock/atomic_clock now scale the whole group so the
-      outline thins with size) - verified (slice_stills/clockfix_6800.png)
-- [~] VOICED render + UNLISTED upload path (Codex mass-coding, be2ddnt4w): render_cutaway() in
-      remotion_renderer, staticFile audio fix in CutawaySection, scripts/render_voiced.py (TTS ->
-      director -> render -> upload), uploader UPLOAD_PRIVACY=unlisted, .github/workflows/cutaway_pilot.yml
-      (workflow_dispatch). Spec: .codex_voiced_spec.txt. -> then trigger workflow, get unlisted link.
-- [ ] Deepen script to ~8-10 min (currently ~4 min) - later
-- [ ] minor: grounding shadow shows under floating satellites in space scenes - later
-- [ ] PKG3 director.py (rules-first) + pipeline integration (Codex)
-- [ ] Full dry-witty GPS script, hand-written w/ beats (Claude)
-- [ ] Full SILENT local render of the whole video (proves visual pipeline end-to-end)
-- [ ] Captions: SRT export (full) + burned coral key-phrases (design)
-- [ ] Voiced render via CI + UNLISTED upload
-- [ ] Writeup: polished vs rough
+## What's built (all done + verified this session)
+- **Engine:** director (src/director.py, rules-first, cumulative/progressive builds) + closed
+  vocab (src/cutaway_vocab.py) + Remotion cutaway engine (remotion/src/cutaway/: CutawayEpisode/
+  Section/Beat, registry, 11 scene families) + clean-flat kit (remotion/src/flat/).
+- **Script:** data/gps_script.json - deeper ~9-min mystery->reveal "Impossible Dot" journey
+  (owner-approved voice). Invariant: concat(sentences)==narration (validated).
+- **Voice:** ElevenLabs (eleven_multilingual_v2), default voice "Chris"
+  (iP95p4xoKVk53GoZ742B) until the owner's clone exists. src/elevenlabs_tts.py is a drop-in for
+  tts_generator (synthesize_section); render_voiced.py picks provider via TTS_PROVIDER (default
+  elevenlabs). PACING: per-delivery speed + real silence pauses after each sentence (longer after
+  weighty/question/reveal) so dramatic beats land. OpenAI TTS rejected (robotic).
+- **Persona:** data/persona/STYLE_BIBLE.md (master style doc, GROWS over time) + voiceprint.json.
+  Owner will feed in his own writing/transcripts + influences; comment-mining feedback loop planned.
+- **Proof-checker:** scripts/storyboard.py (renders one still per scene) + scripts/proof_check.py
+  (Gemini vision judges each scene vs its intent, BATCHED ~4 calls, fails-fast + partial report) +
+  .github/workflows/proof_check.yml. The MANUAL proof pass (Claude reviews every scene) is now the
+  gate before any upload - it caught real bugs spot-checking missed.
 
-## Notes / decisions made solo (owner: change freely on return)
-- Hand-writing the first script myself so the dry-witty voice is genuinely good and can seed
-  the persona doc, rather than trusting the unproven auto-generator for the first artifact.
-- Keeping grounding shadows (read as polish/depth, not "detail").
+## Owner feedback addressed this session
+voice robotic/electronic -> ElevenLabs. pacing too fast / no pauses -> per-delivery pauses.
+Earth looked wrong (triangles/teal) -> real blue globe w/ rounded continents. trilateration
+"never updated" -> cumulative build (1->2->3). lines through planet + mirrored circle ->
+satellite->planet lines, no range circles. text truncated/off-center/filler -> fit-to-box +
+centered + filler labels dropped. miniature-world "rectangle w/ curved top" floor -> removed.
+clock/earth icon thick border ("wheel") -> scale-the-group fix. end line "ask a stranger for
+directions" felt random -> retied to the blue dot.
 
-## Status log
-- (in progress) v3 style set; dispatching Codex PKG1 (contracts).
+## Local dev workflow
+- Repo E:\youtube-bot; shell cwd defaults to C:\ -> use absolute paths.
+- Python: `py -3`. ffmpeg/openai NOT installed locally (Remotion bundles ffmpeg for renders +
+  `npx remotion ffmpeg` for extraction; full TTS pipeline can't run locally).
+- Remotion: `cd remotion`; set `REMOTION_USE_SYSTEM_CA=1` (or NODE_OPTIONS=--use-system-ca) for
+  the TLS-intercepting local net; `npx.cmd tsc --noEmit`, `npx.cmd remotion still/render`.
+- Storyboard proof: `py -3 scripts/storyboard.py` (renders mp4 + extracts per-beat stills to
+  remotion/slice_stills/storyboard/). build props first: `py -3 scripts/build_local_props.py`.
+- Codex: `codex exec --skip-git-repo-check -C /e/youtube-bot -s workspace-write -o OUT.txt "..."`
+  DIRECTLY in a backgrounded Bash call with `< /dev/null` (stdin redirect or it hangs). Specs in
+  .codex_*_spec.txt. ASCII-only in Python.
+- gh: `export GH_TOKEN=$(cat /c/Users/Caden/.youtube_bot_gh_token.txt)` then `gh workflow run` /
+  `gh run watch <id>`.
+
+## Workflows (.github/workflows/, all workflow_dispatch)
+- cutaway_pilot.yml - full voiced render + UNLISTED upload (ElevenLabs + cutaway engine).
+- proof_check.yml - storyboard render + vision proof check -> artifact.
+- voice_sample.yml - OpenAI voice samples (legacy). (ElevenLabs samples = scripts/voice_sample_eleven.py, run locally.)
+- daily_video.yml - the OLD template pipeline (untouched; still on its cron).
+
+## Credit status (as of 2026-06-05)
+- ElevenLabs: free tier ~exhausted (was 1663/10000 left, then more voice tests). Need Creator for
+  the next voiced render.
+- Gemini: free daily quota exhausted by proof-check test runs today; resets daily.
