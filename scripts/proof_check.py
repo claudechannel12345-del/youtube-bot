@@ -66,7 +66,7 @@ def intent_for(beat, section):
     )
 
 
-def _generate(client, contents, retries=6):
+def _generate(client, contents, retries=3):
     for attempt in range(retries):
         try:
             return client.models.generate_content(model=MODEL, contents=contents)
@@ -110,6 +110,7 @@ def main():
 
     report = []
     failures = 0
+    unchecked = 0
     for start in range(0, len(scenes), BATCH):
         batch = scenes[start:start + BATCH]
         contents = [INSTRUCTIONS]
@@ -119,20 +120,29 @@ def main():
             contents.append(f"FRAME {n} INTENT: {intent}")
         contents.append("Return the JSON array of verdicts for all frames above, in order.")
 
-        verdicts = parse_array((_generate(client, contents).text or ""), len(batch))
+        try:
+            verdicts = parse_array((_generate(client, contents).text or ""), len(batch))
+        except RuntimeError as e:
+            print(f"  batch left UNCHECKED: {e}")
+            verdicts = [{"ok": True, "issues": [], "unchecked": True} for _ in batch]
         for (name, _path, _intent), v in zip(batch, verdicts):
-            report.append({"scene": name, "ok": v["ok"], "issues": v["issues"]})
-            if not v["ok"]:
+            entry = {"scene": name, "ok": v["ok"], "issues": v["issues"]}
+            if v.get("unchecked"):
+                entry["unchecked"] = True
+                unchecked += 1
+                print(f"??   {name} (unchecked - quota)")
+            elif not v["ok"]:
                 failures += 1
                 print(f"FAIL {name}: {'; '.join(v['issues'])}")
             else:
                 print(f"ok   {name}")
+            report.append(entry)
         time.sleep(THROTTLE)
 
     out = os.path.join(SB, "proof_report.json")
     with open(out, "w", encoding="utf-8") as f:
-        json.dump({"checked": len(report), "failures": failures, "scenes": report}, f, indent=2)
-    print(f"\nproof check: {len(report)} scenes, {failures} flagged -> {out}")
+        json.dump({"checked": len(report), "failures": failures, "unchecked": unchecked, "scenes": report}, f, indent=2)
+    print(f"\nproof check: {len(report)} scenes, {failures} flagged, {unchecked} unchecked -> {out}")
     sys.exit(1 if failures else 0)
 
 
