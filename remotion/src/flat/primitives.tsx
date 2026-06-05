@@ -195,41 +195,66 @@ export const Satellite: React.FC<{x: number; y: number; scale?: number; rotate?:
   </g>
 );
 
-// --- earth curve (simple, crisp) -------------------------------------------
+// --- globe (simple, crisp) --------------------------------------------------
 export const EarthArc: React.FC<{cx: number; cy: number; r: number}> = ({cx, cy, r}) => {
   const ocean = "#2B6CB0";
   const land = "#2FAE66";
-  const landStroke = 3.5;
+  const landStroke = Math.max(2.5, r * 0.025);
+  const id = `earth-clip-${Math.round(cx)}-${Math.round(cy)}-${Math.round(r)}`;
   return (
     <g>
-      <circle cx={cx} cy={cy} r={r} fill={ocean} {...round} strokeWidth={STROKE_BOLD} />
+      <defs>
+        <clipPath id={id}>
+          <circle cx={cx} cy={cy} r={r - STROKE_BOLD * 0.5} />
+        </clipPath>
+      </defs>
+      <circle cx={cx} cy={cy} r={r} fill={ocean} stroke="none" />
+      <g clipPath={`url(#${id})`}>
+        <path
+          d={`M ${cx - r * 0.78} ${cy - r * 0.36}
+              C ${cx - r * 0.62} ${cy - r * 0.62} ${cx - r * 0.22} ${cy - r * 0.66} ${cx - r * 0.1} ${cy - r * 0.42}
+              C ${cx - r * 0.02} ${cy - r * 0.24} ${cx - r * 0.22} ${cy - r * 0.08} ${cx - r * 0.08} ${cy + r * 0.12}
+              C ${cx - r * 0.28} ${cy + r * 0.32} ${cx - r * 0.62} ${cy + r * 0.2} ${cx - r * 0.72} ${cy - r * 0.02}
+              C ${cx - r * 0.84} ${cy - r * 0.12} ${cx - r * 0.9} ${cy - r * 0.22} ${cx - r * 0.78} ${cy - r * 0.36} Z`}
+          fill={land}
+          stroke={INK}
+          strokeWidth={landStroke}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d={`M ${cx + r * 0.06} ${cy - r * 0.68}
+              C ${cx + r * 0.32} ${cy - r * 0.82} ${cx + r * 0.72} ${cy - r * 0.56} ${cx + r * 0.66} ${cy - r * 0.24}
+              C ${cx + r * 0.6} ${cy - r * 0.02} ${cx + r * 0.36} ${cy + r * 0.02} ${cx + r * 0.42} ${cy + r * 0.24}
+              C ${cx + r * 0.2} ${cy + r * 0.22} ${cx + r * 0.0} ${cy + r * 0.02} ${cx - r * 0.02} ${cy - r * 0.24}
+              C ${cx - r * 0.04} ${cy - r * 0.42} ${cx - r * 0.12} ${cy - r * 0.58} ${cx + r * 0.06} ${cy - r * 0.68} Z`}
+          fill={land}
+          stroke={INK}
+          strokeWidth={landStroke}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d={`M ${cx + r * 0.38} ${cy + r * 0.36}
+              C ${cx + r * 0.56} ${cy + r * 0.22} ${cx + r * 0.82} ${cy + r * 0.38} ${cx + r * 0.74} ${cy + r * 0.62}
+              C ${cx + r * 0.62} ${cy + r * 0.82} ${cx + r * 0.24} ${cy + r * 0.76} ${cx + r * 0.2} ${cy + r * 0.54}
+              C ${cx + r * 0.16} ${cy + r * 0.42} ${cx + r * 0.26} ${cy + r * 0.42} ${cx + r * 0.38} ${cy + r * 0.36} Z`}
+          fill={land}
+          stroke={INK}
+          strokeWidth={landStroke}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
       <path
-        d={`M ${cx - r * 0.72} ${cy - r * 0.68}
-            C ${cx - r * 0.58} ${cy - r * 0.82} ${cx - r * 0.36} ${cy - r * 0.78} ${cx - r * 0.28} ${cy - r * 0.62}
-            C ${cx - r * 0.42} ${cy - r * 0.56} ${cx - r * 0.44} ${cy - r * 0.4} ${cx - r * 0.28} ${cy - r * 0.33}
-            C ${cx - r * 0.48} ${cy - r * 0.28} ${cx - r * 0.64} ${cy - r * 0.42} ${cx - r * 0.72} ${cy - r * 0.68} Z`}
-        fill={land}
-        stroke={INK}
-        strokeWidth={landStroke}
+        d={`M ${cx - r * 0.38} ${cy - r * 0.78} C ${cx - r * 0.02} ${cy - r * 0.96} ${cx + r * 0.42} ${cy - r * 0.82} ${cx + r * 0.68} ${cy - r * 0.48}`}
+        fill="none"
+        stroke="#8CC7F0"
+        strokeWidth={Math.max(5, r * 0.07)}
+        strokeLinecap="round"
+        opacity={0.76}
       />
-      <path
-        d={`M ${cx - r * 0.06} ${cy - r * 0.88}
-            C ${cx + r * 0.18} ${cy - r * 0.9} ${cx + r * 0.42} ${cy - r * 0.78} ${cx + r * 0.48} ${cy - r * 0.58}
-            C ${cx + r * 0.3} ${cy - r * 0.54} ${cx + r * 0.2} ${cy - r * 0.42} ${cx + r * 0.28} ${cy - r * 0.28}
-            C ${cx + r * 0.06} ${cy - r * 0.34} ${cx - r * 0.08} ${cy - r * 0.54} ${cx - r * 0.06} ${cy - r * 0.88} Z`}
-        fill={land}
-        stroke={INK}
-        strokeWidth={landStroke}
-      />
-      <path
-        d={`M ${cx + r * 0.48} ${cy - r * 0.42}
-            C ${cx + r * 0.68} ${cy - r * 0.34} ${cx + r * 0.78} ${cy - r * 0.14} ${cx + r * 0.68} ${cy + r * 0.04}
-            C ${cx + r * 0.52} ${cy - r * 0.04} ${cx + r * 0.42} ${cy - r * 0.2} ${cx + r * 0.48} ${cy - r * 0.42} Z`}
-        fill={land}
-        stroke={INK}
-        strokeWidth={landStroke}
-      />
-      <path d={`M ${cx - r * 0.32} ${cy - r * 0.9} C ${cx + r * 0.1} ${cy - r * 1.02} ${cx + r * 0.5} ${cy - r * 0.78} ${cx + r * 0.7} ${cy - r * 0.5}`} fill="none" stroke="#7DB3E7" strokeWidth={10} strokeLinecap="round" opacity={0.82} />
+      <circle cx={cx} cy={cy} r={r} fill="none" {...round} strokeWidth={STROKE_BOLD} />
     </g>
   );
 };

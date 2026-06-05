@@ -120,14 +120,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "YOU ARE HERE",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s1_dot_a0",
@@ -175,14 +168,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "NO IDEA",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s1_lost_a0",
@@ -351,14 +337,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "NOPE",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s2_wrong_a0",
@@ -584,14 +563,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "ATOMIC CLOCK",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s3_clock_a0",
@@ -640,14 +612,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "TIME + PLACE",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s3_msg_a0",
@@ -823,14 +788,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "SPEED OF LIGHT",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s4_travel_a0",
@@ -892,14 +850,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "THE GAP",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s4_gap_context_phone",
@@ -1107,14 +1058,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "SOMEWHERE ON HERE",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s5_one_a0",
@@ -1191,14 +1135,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "TWO: A RING",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s5_two_a0",
@@ -1290,14 +1227,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "THREE: A POINT",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s5_three_a0",
@@ -1516,14 +1446,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "FLAWLESS vs TIRED",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s6_compare_a0",
@@ -1621,14 +1544,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "4 SATELLITES, 4 UNKNOWNS",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s6_fourth_a0",
@@ -1783,14 +1699,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "14,000 KM/H",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s7_orbit_a0",
@@ -1839,14 +1748,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "THEY DON'T CANCEL",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s7_two_a0",
@@ -2015,14 +1917,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "10 KM / DAY",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s8_drift_a0",
@@ -2205,14 +2100,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "CORRECTION BAKED IN",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s9_fix_a0",
@@ -2331,10 +2219,10 @@
     },
     {
       "section_index": 9,
-      "durationInFrames": 1644,
+      "durationInFrames": 1680,
       "audioSrc": "",
       "key_phrase": "NEVER MAGIC",
-      "narration": "So the next time you glance down and that little blue dot snaps into place, maybe give it a second of respect. To draw that one dot, your phone is quietly eavesdropping on a constellation of atomic clocks, measuring the speed of light to within a hair, and silently correcting for the way time itself bends around the planet. All so you don't have to ask a stranger for directions. It looks like the most ordinary thing in the world. It is, secretly, one of the most quietly impressive things our species has ever built. And it was never magic. It was just very, very good physics, hiding in plain sight. If you like the universe explained without the breathless hype, stick around. New deep-dives every week.",
+      "narration": "So the next time you glance down and that little blue dot snaps into place, maybe give it a second of respect. To draw that one dot, your phone is quietly eavesdropping on a constellation of atomic clocks, measuring the speed of light to within a hair, and silently correcting for the way time itself bends around the planet. All so one little blue dot can quietly tell you which way to turn. It looks like the most ordinary thing in the world. It is, secretly, one of the most quietly impressive things our species has ever built. And it was never magic. It was just very, very good physics, hiding in plain sight. If you like the universe explained without the breathless hype, stick around. New deep-dives every week.",
       "captions": [
         {
           "text": "So the next time you glance down and that little blue dot snaps into place, maybe give it a second of respect.",
@@ -2349,45 +2237,45 @@
           "delivery": "neutral"
         },
         {
-          "text": "All so you don't have to ask a stranger for directions.",
+          "text": "All so one little blue dot can quietly tell you which way to turn.",
           "start": 24.59,
-          "end": 28.99,
+          "end": 30.19,
           "delivery": "neutral"
         },
         {
           "text": "It looks like the most ordinary thing in the world.",
-          "start": 29.31,
-          "end": 33.31,
+          "start": 30.51,
+          "end": 34.51,
           "delivery": "neutral"
         },
         {
           "text": "It is, secretly, one of the most quietly impressive things our species has ever built.",
-          "start": 33.63,
-          "end": 39.63,
+          "start": 34.83,
+          "end": 40.83,
           "delivery": "weighty"
         },
         {
           "text": "And it was never magic.",
-          "start": 40.4,
-          "end": 42.4,
+          "start": 41.6,
+          "end": 43.6,
           "delivery": "neutral"
         },
         {
           "text": "It was just very, very good physics, hiding in plain sight.",
-          "start": 42.72,
-          "end": 47.12,
+          "start": 43.92,
+          "end": 48.32,
           "delivery": "weighty"
         },
         {
           "text": "If you like the universe explained without the breathless hype, stick around.",
-          "start": 47.89,
-          "end": 52.69,
+          "start": 49.09,
+          "end": 53.89,
           "delivery": "warm_cta"
         },
         {
           "text": "New deep-dives every week.",
-          "start": 53.21,
-          "end": 54.81,
+          "start": 54.41,
+          "end": 56.01,
           "delivery": "warm_cta"
         }
       ],
@@ -2396,9 +2284,9 @@
           "id": "s10_recap",
           "type": "list_reveal",
           "start": 0.0,
-          "end": 33.633,
+          "end": 34.833,
           "startFrame": 0,
-          "endFrame": 1009,
+          "endFrame": 1045,
           "scene_family": "list_stage",
           "layout": "top_down_stack",
           "camera": {
@@ -2439,14 +2327,7 @@
               "is_new": true
             }
           ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "THE WHOLE TRICK",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
+          "text_overlays": [],
           "motion": [
             {
               "target": "s10_recap_a0",
@@ -2477,10 +2358,10 @@
         {
           "id": "s10_impressive",
           "type": "emphasize",
-          "start": 33.633,
-          "end": 47.9,
-          "startFrame": 1009,
-          "endFrame": 1437,
+          "start": 34.833,
+          "end": 49.1,
+          "startFrame": 1045,
+          "endFrame": 1473,
           "scene_family": "caption_punch",
           "layout": "caption_only",
           "camera": {
@@ -2533,10 +2414,10 @@
         {
           "id": "s10_cta",
           "type": "transition",
-          "start": 47.9,
-          "end": 54.8,
-          "startFrame": 1437,
-          "endFrame": 1644,
+          "start": 49.1,
+          "end": 56.0,
+          "startFrame": 1473,
+          "endFrame": 1680,
           "scene_family": "caption_punch",
           "layout": "caption_only",
           "camera": {

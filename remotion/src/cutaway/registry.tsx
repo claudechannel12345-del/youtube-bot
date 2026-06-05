@@ -33,6 +33,50 @@ const labelText = {
   letterSpacing: 0,
 };
 
+const fitFontSize = (text: string, maxWidth: number, maxHeight: number, base: number, min = 20): number => {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const longest = words.reduce((max, word) => Math.max(max, word.length), 1);
+  const chars = Math.max(text.length, 1);
+  const lineCount = chars > 30 ? 3 : chars > 14 ? 2 : 1;
+  const byLongestWord = (maxWidth / longest) * 1.45;
+  const byAllText = (maxWidth * lineCount) / chars * 1.65;
+  const byHeight = maxHeight / (lineCount * 1.08);
+  return Math.max(min, Math.min(base, byLongestWord, byAllText, byHeight));
+};
+
+const SvgFitText: React.FC<{
+  text: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  color: string;
+  baseSize: number;
+}> = ({text, x, y, w, h, color, baseSize}) => (
+  <foreignObject x={x - w / 2} y={y - h / 2} width={w} height={h}>
+    <div
+      style={{
+        ...labelText,
+        width: "100%",
+        height: "100%",
+        color,
+        fontSize: fitFontSize(text, w, h, baseSize),
+        lineHeight: 1.02,
+        textAlign: "center",
+        textTransform: "uppercase",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflowWrap: "anywhere",
+        wordBreak: "normal",
+        whiteSpace: "normal",
+      }}
+    >
+      {text}
+    </div>
+  </foreignObject>
+);
+
 const Watch: RegistryRenderer = ({x, y, scale = 1, localFrame}) => {
   const wobble = Math.sin(localFrame / 5) * 4;
   return (
@@ -60,11 +104,9 @@ const Grid: RegistryRenderer = ({x, y, scale = 1, color = BLUE, localFrame}) => 
   );
 };
 
-const SphereRing: RegistryRenderer = ({x, y, scale = 1, color = TEAL}) => (
+const RangeCircle: RegistryRenderer = ({x, y, scale = 1, color = TEAL}) => (
   <g transform={`translate(${x} ${y}) scale(${scale})`}>
-    <circle cx={0} cy={0} r={104} fill={PAPER_DEEP} {...round} strokeWidth={STROKE_BOLD} />
-    <ellipse cx={0} cy={0} rx={152} ry={42} fill="none" stroke={color} strokeWidth={STROKE} />
-    <path d="M -46 -92 C 20 -116 88 -68 96 8" fill="none" stroke={PAPER} strokeWidth={12} strokeLinecap="round" />
+    <circle cx={0} cy={0} r={152} fill="none" stroke={color} strokeWidth={STROKE} strokeLinecap="round" opacity={0.82} />
   </g>
 );
 
@@ -127,13 +169,11 @@ const Coffee: RegistryRenderer = ({x, y, scale = 1, color = CORAL}) => (
 );
 
 const Counter: RegistryRenderer = ({x, y, scale = 1, color = CORAL, extra}) => {
-  const value = String(extra?.value ?? extra?.text ?? "42");
+  const value = String(extra?.value ?? extra?.text ?? "42").trim() || "42";
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
       <rect x={-178} y={-112} width={356} height={224} rx={8} fill={PAPER} {...sharp} strokeWidth={STROKE_BOLD} />
-      <text x={0} y={42} textAnchor="middle" fontSize={132} fill={color} {...labelText}>
-        {value}
-      </text>
+      <SvgFitText text={value} x={0} y={4} w={304} h={164} color={color} baseSize={132} />
     </g>
   );
 };
@@ -148,23 +188,25 @@ const Subscribe: RegistryRenderer = ({x, y, scale = 1, color = CORAL}) => (
   </g>
 );
 
-const Label: RegistryRenderer = ({x, y, scale = 1, color = PAPER, extra}) => (
-  <g transform={`translate(${x} ${y}) scale(${scale})`}>
-    <rect x={-170} y={-54} width={340} height={108} rx={4} fill={color} {...sharp} />
-    <text x={0} y={17} textAnchor="middle" fontSize={44} fill={INK} {...labelText}>
-      {String(extra?.text ?? "LABEL").slice(0, 18)}
-    </text>
-  </g>
-);
+const Label: RegistryRenderer = ({x, y, scale = 1, color = PAPER, extra}) => {
+  const text = String(extra?.text ?? "LABEL").trim() || "LABEL";
+  return (
+    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+      <rect x={-190} y={-64} width={380} height={128} rx={4} fill={color} {...sharp} />
+      <SvgFitText text={text} x={0} y={1} w={330} h={86} color={INK} baseSize={44} />
+    </g>
+  );
+};
 
-const Stamp: RegistryRenderer = ({x, y, scale = 1, color = CORAL, extra}) => (
-  <g transform={`translate(${x} ${y}) scale(${scale}) rotate(-8)`}>
-    <rect x={-192} y={-58} width={384} height={116} rx={3} fill="none" stroke={color} strokeWidth={STROKE_BOLD} />
-    <text x={0} y={17} textAnchor="middle" fontSize={44} fill={color} {...labelText}>
-      {String(extra?.text ?? "STAMP").slice(0, 16)}
-    </text>
-  </g>
-);
+const Stamp: RegistryRenderer = ({x, y, scale = 1, color = CORAL, extra}) => {
+  const text = String(extra?.text ?? "STAMP").trim() || "STAMP";
+  return (
+    <g transform={`translate(${x} ${y}) scale(${scale}) rotate(-8)`}>
+      <rect x={-210} y={-66} width={420} height={132} rx={3} fill="none" stroke={color} strokeWidth={STROKE_BOLD} />
+      <SvgFitText text={text} x={0} y={0} w={356} h={88} color={color} baseSize={44} />
+    </g>
+  );
+};
 
 const GenericObject: RegistryRenderer = ({x, y, scale = 1, color = PAPER_DEEP}) => (
   <g transform={`translate(${x} ${y}) scale(${scale})`}>
@@ -205,13 +247,13 @@ export const registry = {
   satellite: ({x, y, scale = 1, localFrame}: RegistryRendererProps) => <Satellite x={x} y={y} scale={scale} rotate={Math.sin(localFrame / 30) * 4} />,
   signal: ({x, y, scale = 1, color = CORAL, localFrame}: RegistryRendererProps) => <SignalWaves x={x} y={y} progress={(localFrame / 50) % 1} color={color} spread={220 * scale} />,
   signal_beam: Light,
-  earth: ({x, y, scale = 1}: RegistryRendererProps) => <EarthArc cx={x} cy={y + 520 * scale} r={640 * scale} />,
+  earth: ({x, y, scale = 1}: RegistryRendererProps) => <EarthArc cx={x} cy={y} r={170 * scale} />,
   map_pin: Point,
   dot: Point,
   watch: Watch,
   grid: Grid,
-  sphere: SphereRing,
-  ring: SphereRing,
+  sphere: RangeCircle,
+  ring: RangeCircle,
   point: Point,
   ruler: Ruler,
   arrow: ArrowProp,

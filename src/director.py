@@ -113,6 +113,23 @@ _SUBJECT_ALIASES = {
 BUILD_RUN_TYPES = frozenset(["diagram_build", "process", "compare", "list_reveal"])
 EFFECT_ASSETS = frozenset(["signal", "signal_beam"])
 CONTEXT_ASSETS = frozenset(["phone", "satellite", "earth"])
+TEXT_OVERLAY_BEAT_TYPES = frozenset(["stat_pop", "quote", "cutaway_gag", "emphasize", "transition"])
+GENERIC_OVERLAY_TEXT = frozenset(
+    [
+        "label",
+        "stamp",
+        "clock",
+        "distance",
+        "earth",
+        "satellite",
+        "phone",
+        "signal",
+        "map",
+        "point",
+        "dot",
+        "generic_object",
+    ]
+)
 
 CAMERA_VARIANTS = [
     ("hold_then_push", "small"),
@@ -194,6 +211,23 @@ def _safe(value, vocab, fallback):
     return value if value in vocab else fallback
 
 
+def _clean_meaningful_text(text, subjects=None):
+    cleaned = " ".join(str(text or "").strip().split())
+    if not cleaned:
+        return ""
+    normalized = cleaned.lower().replace("_", " ")
+    if normalized in GENERIC_OVERLAY_TEXT:
+        return ""
+    subject_names = {
+        _norm_subject(subject).replace("_", " ")
+        for subject in (subjects or [])
+        if str(subject).strip()
+    }
+    if normalized in subject_names:
+        return ""
+    return cleaned
+
+
 def _direct_beat(beat, sentences_timing, fps, is_first, beat_index):
     btype = coerce_beat_type(beat.get("type", "illustrate"))
     n = len(sentences_timing)
@@ -228,28 +262,29 @@ def _direct_beat(beat, sentences_timing, fps, is_first, beat_index):
                 "kind": "label",
                 "name": "label",
                 "anchor": "center",
-                "variant": str(step)[:26],
+                "variant": _clean_meaningful_text(step) or str(step).strip(),
                 "is_new": True,
             }
             for i, step in enumerate(beat.get("steps", [])[:5])
+            if str(step).strip()
         ]
     else:
         assets = _assets_from_subjects(beat.get("subjects"), beat_id)
 
     overlays = []
-    text = str(beat.get("text", "") or "").strip()
+    text = _clean_meaningful_text(beat.get("text", ""), beat.get("subjects"))
     if btype == "quote":
-        quote = str(beat.get("quote", "") or text or "").strip()
-        attribution = str(beat.get("attribution", "") or "").strip()
+        quote = _clean_meaningful_text(beat.get("quote", "") or text, beat.get("subjects"))
+        attribution = _clean_meaningful_text(beat.get("attribution", ""), beat.get("subjects"))
         if quote:
-            overlays.append({"role": "caption", "text": quote[:160], "anchor": "center", "tone": "ink"})
+            overlays.append({"role": "caption", "text": quote, "anchor": "center", "tone": "ink"})
         if attribution:
-            overlays.append({"role": "tiny_note", "text": attribution[:64], "anchor": "lower_center", "tone": "muted"})
-    if text:
+            overlays.append({"role": "tiny_note", "text": attribution, "anchor": "lower_center", "tone": "muted"})
+    if text and btype in TEXT_OVERLAY_BEAT_TYPES:
         role, tone = DEFAULT_TEXT_ROLE.get(btype, ("label", "ink"))
         anchor = "headline" if role == "headline" else ("stat" if role == "stat" else "lower_center")
         if btype != "quote":
-            overlays.append({"role": role, "text": text[:48], "anchor": anchor, "tone": tone})
+            overlays.append({"role": role, "text": text, "anchor": anchor, "tone": tone})
 
     motions = []
     motion_kinds = DEFAULT_MOTION.get(btype, ["pop_in"])
@@ -296,7 +331,7 @@ def _fallback_beat(section, sentences_timing, fps):
         "background": "plain",
         "assets": [],
         "text_overlays": [
-            {"role": "headline", "text": str(section.get("key_phrase", ""))[:48], "anchor": "center", "tone": "ink"}
+            {"role": "headline", "text": _clean_meaningful_text(section.get("key_phrase", "")) or "CUTAWAY", "anchor": "center", "tone": "ink"}
         ],
         "motion": [{"target": "overlay", "kind": "pop_in", "delay": 0.0, "duration": 0.3}],
     }

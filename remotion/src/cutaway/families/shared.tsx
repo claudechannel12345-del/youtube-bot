@@ -13,6 +13,7 @@ export type FamilyProps = {
 };
 
 type Placement = {x: number; y: number; scale?: number; extra?: Record<string, unknown>};
+type OverlayMetrics = {fontSize: number; width: number; minHeight: number};
 
 export const palette = {
   ink: INK,
@@ -120,6 +121,9 @@ export const renderAssets = (
 ): React.ReactNode => {
   const {fps} = useVideoConfig();
   return beat.assets.map((asset, index) => {
+    if ((asset.name === "label" || asset.name === "stamp") && !asset.variant?.trim()) {
+      return null;
+    }
     const count = Math.max(1, asset.count ?? 1);
     const items = Array.from({length: count}, (_, subIndex) => {
       const syntheticIndex = count > 1 ? subIndex : index;
@@ -127,7 +131,7 @@ export const renderAssets = (
       const place: Placement = placements?.(asset, syntheticIndex, total) ?? anchorPoint(asset.anchor, syntheticIndex, total);
       const cue = cueFor(asset, beat.motion);
       const motion = motionTransform(cue, localFrame, fps);
-      const extra = {...place.extra, text: asset.variant ?? asset.name};
+      const extra = {...place.extra, text: asset.variant};
       return (
         <g
           key={`${asset.id}-${subIndex}`}
@@ -153,34 +157,108 @@ export const renderAssets = (
   });
 };
 
-const overlayStyle = (overlay: TextOverlay): React.CSSProperties => {
+const overlayMetrics = (overlay: TextOverlay): OverlayMetrics => {
+  const len = overlay.text.trim().length;
+  const base = overlay.role === "headline" ? 88 : overlay.role === "stat" ? 116 : overlay.role === "tiny_note" ? 36 : 56;
+  const width = overlay.role === "headline" ? 980 : overlay.role === "stat" ? 980 : overlay.role === "caption" ? 860 : 720;
+  const lineCount = len > 72 ? 4 : len > 42 ? 3 : len > 20 ? 2 : 1;
+  const fontSize = Math.max(26, Math.min(base, (width * lineCount) / Math.max(1, len) * 1.55, 210 / (lineCount * 1.03)));
+  return {fontSize, width, minHeight: Math.ceil(fontSize * lineCount * 1.06)};
+};
+
+const overlayStyle = (overlay: TextOverlay, metrics: OverlayMetrics): React.CSSProperties => {
   const isStamp = overlay.role === "stamp" || overlay.tone === "coral_stamp";
   const color = overlay.tone === "muted" || overlay.tone === "quiet" ? INK_SOFT : overlay.tone === "coral_stamp" || overlay.tone === "warning" ? CORAL : INK;
   return {
     color,
     fontFamily,
     fontWeight: 900,
-    fontSize: overlay.role === "headline" ? 88 : overlay.role === "stat" ? 120 : 56,
-    lineHeight: 0.94,
+    fontSize: metrics.fontSize,
+    lineHeight: 1.02,
     letterSpacing: 0,
     textAlign: "center",
     textTransform: "uppercase",
     border: isStamp ? `${STROKE}px solid ${CORAL}` : undefined,
     padding: isStamp ? "14px 28px" : undefined,
     background: isStamp ? PAPER : undefined,
-    transform: isStamp ? "rotate(-4deg)" : undefined,
-    maxWidth: overlay.role === "headline" ? 980 : 720,
+    width: metrics.width,
+    maxWidth: metrics.width,
+    minHeight: isStamp ? metrics.minHeight + 28 : metrics.minHeight,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflowWrap: "anywhere",
+    whiteSpace: "normal",
   };
 };
+
+const safeOverlayPoint = (point: {x: number; y: number}, metrics: OverlayMetrics): {x: number; y: number} => {
+  const margin = 72;
+  const halfW = metrics.width / 2 + 36;
+  const halfH = metrics.minHeight / 2 + 28;
+  return {
+    x: Math.max(margin + halfW, Math.min(W - margin - halfW, point.x)),
+    y: Math.max(margin + halfH, Math.min(H - margin - halfH, point.y)),
+  };
+};
+
+export const fitTextSize = (text: string, maxWidth: number, maxHeight: number, base: number, min = 24): number => {
+  const normalized = text.trim();
+  const words = normalized.split(/\s+/).filter(Boolean);
+  const longest = words.reduce((max, word) => Math.max(max, word.length), 1);
+  const chars = Math.max(normalized.length, 1);
+  const lineCount = chars > 88 ? 4 : chars > 48 ? 3 : chars > 22 ? 2 : 1;
+  return Math.max(
+    min,
+    Math.min(base, (maxWidth / longest) * 1.45, (maxWidth * lineCount) / chars * 1.6, maxHeight / (lineCount * 1.06)),
+  );
+};
+
+export const SvgTextBlock: React.FC<{
+  text: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  baseSize: number;
+  fill?: string;
+  align?: "left" | "center";
+}> = ({text, x, y, width, height, baseSize, fill = INK, align = "center"}) => (
+  <foreignObject x={x} y={y} width={width} height={height}>
+    <div
+      style={{
+        color: fill,
+        fontFamily,
+        fontWeight: 900,
+        fontSize: fitTextSize(text, width, height, baseSize),
+        lineHeight: 1.03,
+        letterSpacing: 0,
+        textAlign: align,
+        textTransform: "uppercase",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: align === "left" ? "flex-start" : "center",
+        overflowWrap: "anywhere",
+        whiteSpace: "normal",
+      }}
+    >
+      {text}
+    </div>
+  </foreignObject>
+);
 
 export const OverlayText: React.FC<{overlays: TextOverlay[]; localFrame: number}> = ({overlays, localFrame}) => {
   const {fps} = useVideoConfig();
   return (
     <>
       {overlays.map((overlay, index) => {
-        const point = anchorPoint(overlay.anchor, index, overlays.length);
+        const metrics = overlayMetrics(overlay);
+        const point = safeOverlayPoint(anchorPoint(overlay.anchor, index, overlays.length), metrics);
         const cue = {kind: overlay.role === "stamp" ? "stamp" : "pop_in", delay: index * 0.08, duration: 0.25, target: overlay.role} as MotionCue;
         const motion = motionTransform(cue, localFrame, fps);
+        const stampRotate = overlay.role === "stamp" || overlay.tone === "coral_stamp" ? " rotate(-4deg)" : "";
         return (
           <div
             key={`${overlay.role}-${overlay.text}-${index}`}
@@ -189,9 +267,9 @@ export const OverlayText: React.FC<{overlays: TextOverlay[]; localFrame: number}
               left: point.x,
               top: point.y,
               opacity: motion.opacity,
-              transform: `translate(-50%, -50%) ${motion.transform}`,
+              transform: `translate(-50%, -50%) ${motion.transform}${stampRotate}`,
               transformOrigin: "center",
-              ...overlayStyle(overlay),
+              ...overlayStyle(overlay, metrics),
             }}
           >
             {overlay.text}

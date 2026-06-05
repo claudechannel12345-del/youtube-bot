@@ -92,37 +92,64 @@ def _sentence_items(text, sentences):
     return [{"text": p, "delivery": "neutral"} for p in parts]
 
 
+# Per-delivery pacing. Slower baseline + a real beat of silence after each sentence
+# (longer after the dramatic ones) so lines land, reveals breathe, and sentences never
+# run together. Owner feedback: it sped through and skipped the dramatic pauses.
+DELIVERY_SPEED = {
+    "neutral": 1.0, "curious": 0.99, "question": 0.97, "brisk": 1.06,
+    "weighty": 0.92, "surprised": 0.96, "skeptical": 0.98, "ominous": 0.9, "warm_cta": 0.96,
+}
+PAUSE_AFTER = {
+    "neutral": 0.34, "curious": 0.42, "question": 0.62, "brisk": 0.2,
+    "weighty": 0.85, "surprised": 0.62, "skeptical": 0.5, "ominous": 0.9, "warm_cta": 0.45,
+}
+
+
+def _silence(path, seconds):
+    subprocess.run(
+        ["ffmpeg", "-y", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono",
+         "-t", f"{max(0.05, seconds):.3f}", "-c:a", "libmp3lame", "-b:a", "192k", path],
+        check=True, capture_output=True, text=True,
+    )
+
+
 def synthesize_section(text, output_path, temp_dir, sentences=None, voice=None, model_id=DEFAULT_MODEL):
     """Drop-in replacement for tts_generator.synthesize_section using ElevenLabs.
 
-    Renders each sentence separately (so we get real per-sentence timings for the
-    director), concatenates them, and returns the timing list. `delivery` is carried
-    through for the director even though ElevenLabs handles prosody naturally.
+    Renders each sentence with per-delivery speed, inserts a silence gap after each so the
+    pacing breathes, concatenates, and returns per-sentence timings for the director. The
+    pause sits BETWEEN sentences (dead air the held visual covers).
     """
     voice_id = voice or os.environ.get("ELEVENLABS_VOICE_ID") or CHRIS_VOICE_ID
     os.makedirs(temp_dir, exist_ok=True)
     items = _sentence_items(text, sentences)
-    sent_paths = []
+    clip_paths = []
     timings = []
     current = 0.0
     try:
         for i, item in enumerate(items):
+            delivery = item["delivery"]
             sent_path = os.path.join(temp_dir, f"_el_sent_{i:03d}.mp3")
-            synthesize(item["text"], sent_path, voice_id, model_id=model_id)
+            settings = dict(DEFAULT_SETTINGS)
+            settings["speed"] = DELIVERY_SPEED.get(delivery, 1.0)
+            synthesize(item["text"], sent_path, voice_id, model_id=model_id, voice_settings=settings)
             duration = _audio_duration(sent_path)
             timings.append({
-                "text": item["text"],
-                "start": current,
-                "end": current + duration,
-                "delivery": item["delivery"],
+                "text": item["text"], "start": current, "end": current + duration, "delivery": delivery,
             })
+            clip_paths.append(sent_path)
             current += duration
-            sent_paths.append(sent_path)
+            pause = PAUSE_AFTER.get(delivery, 0.34) if i < len(items) - 1 else 0.0
+            if pause > 0:
+                gap_path = os.path.join(temp_dir, f"_el_gap_{i:03d}.mp3")
+                _silence(gap_path, pause)
+                clip_paths.append(gap_path)
+                current += pause
 
         concat_txt = os.path.join(temp_dir, "_el_concat.txt")
         with open(concat_txt, "w", encoding="utf-8") as f:
-            for sent_path in sent_paths:
-                safe = os.path.abspath(sent_path).replace("\\", "/").replace("'", r"'\''")
+            for p in clip_paths:
+                safe = os.path.abspath(p).replace("\\", "/").replace("'", r"'\''")
                 f.write(f"file '{safe}'\n")
         subprocess.run(
             ["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_txt,
@@ -131,8 +158,8 @@ def synthesize_section(text, output_path, temp_dir, sentences=None, voice=None, 
         )
         return timings
     finally:
-        for sent_path in sent_paths:
+        for p in clip_paths:
             try:
-                os.remove(sent_path)
+                os.remove(p)
             except OSError:
                 pass
