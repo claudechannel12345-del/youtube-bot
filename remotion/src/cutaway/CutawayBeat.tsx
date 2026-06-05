@@ -12,7 +12,7 @@ import {QuoteStage} from "./families/QuoteStage";
 import {StatStage} from "./families/StatStage";
 import {TimelineStage} from "./families/TimelineStage";
 import {TitleStage} from "./families/TitleStage";
-import type {DirectedBeat, SceneFamily} from "./types";
+import type {DirectedBeat, LegacyDirectedBeat, SceneFamily} from "./types";
 import {PAPER} from "../flat/theme";
 
 const familyForBeatType: Record<string, SceneFamily> = {
@@ -30,7 +30,7 @@ const familyForBeatType: Record<string, SceneFamily> = {
   transition: "caption_punch",
 };
 
-const familyComponents: Record<SceneFamily, React.FC<{beat: DirectedBeat; localFrame: number}>> = {
+const familyComponents: Record<SceneFamily, React.FC<{beat: LegacyDirectedBeat; localFrame: number}>> = {
   title_stage: TitleStage,
   object_stage: ObjectStage,
   diagram_stage: DiagramStage,
@@ -102,11 +102,12 @@ const CutawayBeatInner: React.FC<{beat: DirectedBeat; duration: number}> = ({bea
   const {fps} = useVideoConfig();
   const family = beat.type === "cutaway_gag" ? "miniature_world" : beat.scene_family || familyForBeatType[beat.type] || "caption_punch";
   const Family = familyComponents[family] ?? CaptionPunch;
+  const legacyBeat = beat as LegacyDirectedBeat;
   return (
     <AbsoluteFill style={{backgroundColor: PAPER}}>
       <AbsoluteFill style={edgeStyle(beat, localFrame, duration, fps)}>
         <AbsoluteFill style={cameraStyle(beat, localFrame, duration)}>
-          <Family beat={beat} localFrame={localFrame} />
+          <Family beat={legacyBeat} localFrame={localFrame} />
         </AbsoluteFill>
       </AbsoluteFill>
     </AbsoluteFill>

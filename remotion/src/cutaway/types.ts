@@ -1,3 +1,5 @@
+import type {RegistryAssetName} from "./registry";
+
 export type BeatType =
   | "establish"
   | "illustrate"
@@ -125,12 +127,145 @@ export type BackgroundTreatment = "plain" | "panel" | "grid";
 export type AnchorId = string;
 
 export type EpisodeProps = {
-  schema_version: 1;
+  schema_version: 2;
   fps: number;
-  width: number;
-  height: number;
+  width: 1920;
+  height: 1080;
   style_version: "clean_flat_light_v1";
   sections: CutawaySection[];
+};
+
+export type SceneBlueprint = {
+  version: 1;
+  preset?: SceneFamily;
+  intent: string;
+  elements: BlueprintElement[];
+  connections?: BlueprintConnection[];
+  camera: CameraPlanV2;
+  background: BackgroundPlan;
+};
+
+export type BlueprintElement = {
+  id: string;
+  kind: BlueprintElementKind;
+  asset: RegistryAssetName | "generated_image";
+  generated_image?: {
+    asset_id: string;
+    prompt?: string;
+    src?: string;
+  };
+  position: BlueprintPosition;
+  size: BlueprintSize;
+  colorRole?: ColorRole;
+  text?: BlueprintText;
+  z?: number;
+  opacity?: number;
+  rotation?: number;
+  motion?: MotionStep[];
+};
+
+export type BlueprintElementKind =
+  | "prop"
+  | "label"
+  | "stamp"
+  | "panel"
+  | "connector"
+  | "map_shape"
+  | "chart"
+  | "texture"
+  | "generated_image";
+
+export type BlueprintPosition =
+  | {mode: "point"; x: number; y: number}
+  | {mode: "anchor"; anchor: AnchorId; dx?: number; dy?: number};
+
+export type BlueprintSize =
+  | {mode: "scale"; scale: number}
+  | {mode: "box"; w: number; h: number};
+
+export type BlueprintText = {
+  role: TextRole;
+  text: string;
+  tone: "ink" | "muted" | "coral_stamp" | "warning" | "quiet";
+  maxChars?: number;
+  fit?: "auto" | "single_line" | "multi_line";
+};
+
+export type MotionStep = {
+  kind: MotionKindV2;
+  start: number;
+  duration: number;
+  easing?: "linear" | "spring" | "ease_out" | "ease_in_out";
+  from?: MotionValue;
+  to?: MotionValue;
+  target?: string;
+};
+
+export type MotionKindV2 =
+  | MotionKind
+  | "enter"
+  | "hold"
+  | "exit"
+  | "connect_to"
+  | "count"
+  | "draw_path"
+  | "highlight";
+
+export type MotionValue = {
+  x?: number;
+  y?: number;
+  scale?: number;
+  opacity?: number;
+  rotation?: number;
+  countFrom?: number;
+  countTo?: number;
+};
+
+export type BlueprintConnection = {
+  id: string;
+  kind: "line" | "arrow" | "range_ring" | "pulse" | "brace";
+  from: ElementRef;
+  to?: ElementRef;
+  colorRole?: ColorRole;
+  z?: number;
+  motion?: MotionStep[];
+};
+
+export type ElementRef =
+  | {element: string; attach?: "center" | "top" | "bottom" | "left" | "right"}
+  | {point: {x: number; y: number}}
+  | {anchor: AnchorId};
+
+export type CameraPlanV2 = {
+  move: CameraMove;
+  target: ElementRef | AnchorId;
+  intensity: CameraIntensity;
+  start?: number;
+  duration?: number;
+};
+
+export type BackgroundPlan = {
+  treatment: "plain" | "panel" | "grid" | "map" | "comparison_panels" | "paper_stack";
+  colorRole?: "paper" | "paper_deep";
+  elements?: BlueprintElement[];
+};
+
+export type ColorRole =
+  | "ink"
+  | "accent"
+  | "blue"
+  | "green"
+  | "yellow"
+  | "lavender"
+  | "muted";
+
+export type ValidationRepair = {
+  section?: number;
+  beat?: string;
+  code: string;
+  path?: string;
+  from?: unknown;
+  to?: unknown;
 };
 
 export type CutawaySection = {
@@ -159,14 +294,20 @@ export type DirectedBeat = {
   endFrame: number;
   scene_family: SceneFamily;
   layout: Layout;
-  camera: CameraPlan;
+  camera: CameraPlanV2;
   transition_in: Transition;
   transition_out: Transition;
-  background: BackgroundTreatment;
-  assets: VisualAsset[];
+  background: BackgroundPlan;
+  blueprint?: SceneBlueprint;
+  validation?: {
+    source: "rules" | "llm" | "repaired_llm" | "fallback_rules";
+    warnings: string[];
+    repairs: ValidationRepair[];
+  };
+  assets?: VisualAsset[];
   new_count?: number;
-  text_overlays: TextOverlay[];
-  motion: MotionCue[];
+  text_overlays?: TextOverlay[];
+  motion?: MotionCue[];
 };
 
 export type VisualAsset = {
@@ -177,7 +318,7 @@ export type VisualAsset = {
   pose?: string;
   count?: number;
   variant?: string;
-  colorRole?: "ink" | "accent" | "blue" | "green" | "yellow" | "lavender" | "muted";
+  colorRole?: ColorRole;
   is_new?: boolean;
 };
 
@@ -199,6 +340,14 @@ export type CameraPlan = {
   move: CameraMove;
   target: AnchorId;
   intensity: CameraIntensity;
+};
+
+export type LegacyDirectedBeat = DirectedBeat & {
+  camera: CameraPlan;
+  background: BackgroundTreatment;
+  assets: VisualAsset[];
+  text_overlays: TextOverlay[];
+  motion: MotionCue[];
 };
 
 export type BEAT_TYPES = BeatType;

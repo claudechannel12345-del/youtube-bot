@@ -1,14 +1,14 @@
 import type React from "react";
 import {interpolate, spring, useVideoConfig} from "remotion";
 import {renderRegistryAsset} from "../registry";
-import type {DirectedBeat, MotionCue, TextOverlay, VisualAsset} from "../types";
+import type {LegacyDirectedBeat, MotionCue, TextOverlay, VisualAsset} from "../types";
 import {BLUE, CORAL, fontFamily, GOLD, INK, INK_SOFT, PAPER, PAPER_DEEP, STROKE, STROKE_THIN, TEAL} from "../../flat/theme";
 
 export const W = 1920;
 export const H = 1080;
 
 export type FamilyProps = {
-  beat: DirectedBeat;
+  beat: LegacyDirectedBeat;
   localFrame: number;
 };
 
@@ -115,7 +115,7 @@ export const motionTransform = (cue: MotionCue | undefined, localFrame: number, 
 };
 
 export const renderAssets = (
-  beat: DirectedBeat,
+  beat: LegacyDirectedBeat,
   localFrame: number,
   placements?: (asset: VisualAsset, index: number, total: number) => Placement,
 ): React.ReactNode => {

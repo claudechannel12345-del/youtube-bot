@@ -124,6 +124,65 @@ MOTION_KIND = frozenset(
     ]
 )
 
+BLUEPRINT_ELEMENT_KIND = frozenset(
+    [
+        "prop",
+        "label",
+        "stamp",
+        "panel",
+        "connector",
+        "map_shape",
+        "chart",
+        "texture",
+        "generated_image",
+    ]
+)
+
+GENERATED_IMAGE_ENABLED = False
+
+MOTION_KIND_V2 = MOTION_KIND | frozenset(
+    [
+        "enter",
+        "hold",
+        "exit",
+        "connect_to",
+        "count",
+        "draw_path",
+        "highlight",
+    ]
+)
+
+POSITION_MODE = frozenset(["point", "anchor"])
+
+SIZE_MODE = frozenset(["scale", "box"])
+
+CONNECTION_KIND = frozenset(["line", "arrow", "range_ring", "pulse", "brace"])
+
+BACKGROUND_TREATMENT = frozenset(
+    [
+        "plain",
+        "panel",
+        "grid",
+        "map",
+        "comparison_panels",
+        "paper_stack",
+    ]
+)
+
+EASING = frozenset(["linear", "spring", "ease_out", "ease_in_out"])
+
+COLOR_ROLE = frozenset(
+    [
+        "ink",
+        "accent",
+        "blue",
+        "green",
+        "yellow",
+        "lavender",
+        "muted",
+    ]
+)
+
 TEXT_ROLE = frozenset(
     [
         "headline",

@@ -44,7 +44,7 @@ const defaultShortProps: ShortProps = {
 };
 
 const cutawayDefaultProps: CutawayEpisodeProps = {
-  schema_version: 1,
+  schema_version: 2,
   fps: 30,
   width: 1920,
   height: 1080,
@@ -80,7 +80,7 @@ const cutawayDefaultProps: CutawayEpisodeProps = {
           camera: {move: "hold_then_push", target: "phone", intensity: "small"},
           transition_in: "hard_cut",
           transition_out: "match_cut",
-          background: "plain",
+          background: {treatment: "plain"},
           assets: [
             {id: "phone", kind: "prop", name: "phone", anchor: "center_subject"},
             {id: "satellites", kind: "icon_cluster", name: "satellite", count: 3, anchor: "upper_band", colorRole: "blue"},
@@ -103,7 +103,7 @@ const cutawayDefaultProps: CutawayEpisodeProps = {
           camera: {move: "static", target: "center", intensity: "none"},
           transition_in: "match_cut",
           transition_out: "match_cut",
-          background: "plain",
+          background: {treatment: "plain"},
           assets: [
             {id: "phone_center", kind: "prop", name: "phone", anchor: "center"},
             {id: "satellite_a", kind: "icon", name: "satellite", anchor: "upper_left", colorRole: "blue"},
@@ -129,7 +129,7 @@ const cutawayDefaultProps: CutawayEpisodeProps = {
           camera: {move: "snap_zoom", target: "stamp", intensity: "small"},
           transition_in: "smash_cut",
           transition_out: "hard_cut",
-          background: "plain",
+          background: {treatment: "plain"},
           assets: [
             {id: "physics_label", kind: "label", name: "label", anchor: "left", variant: "PHYSICS"},
             {id: "stamp", kind: "stamp", name: "stamp", anchor: "center", variant: "APPROVED"},
