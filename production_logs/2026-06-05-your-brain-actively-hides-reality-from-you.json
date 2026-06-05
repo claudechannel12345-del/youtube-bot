@@ -1,0 +1,48 @@
+{
+  "utc": "2026-06-05T21:29:23.882509+00:00",
+  "video_id": "CwOtCBRJfVY",
+  "topic": "The 'Invisible Gorilla' Effect: Why Your Brain Actively Hides Reality From You",
+  "angle": "Most videos showcase the 'invisible gorilla' experiment. Our angle goes deeper: it's not a flaw, but an essential feature of your brain for survival and efficiency. We'll explore *why* your brain has to filter out massive amounts of sensory information, and the profound, often dangerous, implications for everyday life \u2013 from car accidents to medical errors \u2013 that you're completely unaware of. It's about how your brain constructs a highly confident, yet often incomplete, picture of the world, and how this fundamental design choice shapes your entire subjective experience without your conscious knowledge.",
+  "why_original": "This topic is materially different from 'mind makes you sick' (which focuses on psychosomatic physical health) and 'deletes dreams' (which focuses on sleep, memory, and subconscious processing). This video will delve into *conscious, awake perception* and how the brain actively filters and constructs our waking reality. While the 'invisible gorilla' is a known experiment, our approach moves beyond a simple demonstration to explore the underlying neuroscience, the evolutionary necessity of this filtering, and the widespread, often critical, real-world consequences beyond just 'missing something fun'. It challenges the fundamental assumption that we see everything that's right in front of us.",
+  "key_facts": [
+    "The original 'invisible gorilla' experiment (Simons & Chabris, 1999) showed that approximately 50% of participants failed to notice a person in a gorilla suit walking through a basketball game while focused on counting passes.",
+    "This phenomenon, known as inattentional blindness, occurs because the brain has limited attentional capacity and must filter sensory input to focus on salient information, preventing overload.",
+    "Similar perceptual blind spots, like change blindness, demonstrate our inability to notice even significant changes in our environment if our attention isn't directed towards them.",
+    "These inherent limitations in human perception have serious real-world consequences, contributing to 'looked but failed to see' car accidents, aviation incidents, and diagnostic errors in fields like medicine and radiology.",
+    "Our brains create a detailed, subjective experience of what we are actively attending to, yet simultaneously ignore vast amounts of other available information, creating a selective reality without our conscious awareness that information is being omitted."
+  ],
+  "title": "Your Brain Actively Hides Reality From You",
+  "title_options": [
+    "The Invisible Gorilla: How Your Brain Filters Reality",
+    "Why You Don't See What's Right In Front Of You"
+  ],
+  "hook_options": [
+    "In this infamous experiment, half the people who watched this video, focused on counting basketball passes, completely missed a person in a full gorilla suit walking right through the scene. It's not because they weren't paying attention... it's because they were.",
+    "Imagine you're watching this video, carefully counting basketball passes. You're focused. But what if I told you that while you were concentrating, something utterly bizarre, something impossible to miss... completely escaped your notice? This isn't a trick. It's how your brain works."
+  ],
+  "thumbnail_text_options": [
+    "YOU MISSED IT",
+    "BRAIN HIDES REALITY",
+    "INVISIBLE GORILLA SECRET"
+  ],
+  "section_count": 12,
+  "templates": [
+    "title_card",
+    "stat_reveal",
+    "diagram",
+    "process",
+    "comparison",
+    "image_focus",
+    "list",
+    "quote",
+    "diagram",
+    "list",
+    "title_card",
+    "title_card"
+  ],
+  "shorts": [
+    "hng4MTFMET0",
+    "RLeUfBh0CMA",
+    "R6LGoZ9vf-w"
+  ]
+}
