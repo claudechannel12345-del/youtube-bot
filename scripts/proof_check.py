@@ -16,6 +16,7 @@ import json
 import os
 import re
 import sys
+import time
 
 from google import genai
 from google.genai import types
@@ -24,7 +25,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 PROPS = os.path.join(ROOT, "remotion", "props_gps_local.json")
 SB = os.path.join(ROOT, "remotion", "slice_stills", "storyboard")
-MODEL = "gemini-2.5-flash"
+MODEL = "gemini-2.0-flash"  # higher free-tier rate limit than 2.5-flash
+THROTTLE = 4.5  # seconds between calls, to stay under the free-tier requests/min limit
 
 PROMPT = """You are a strict QA reviewer for a clean-flat animated explainer video (warm off-white
 background, bold flat shapes, thick dark outlines, occasional coral accent). You are given ONE
@@ -75,6 +77,23 @@ def parse_verdict(text):
         return {"ok": True, "issues": [], "_note": "bad json"}
 
 
+def _generate(client, contents, retries=4):
+    """Call Gemini, honoring 429 rate-limit retryDelay."""
+    for attempt in range(retries):
+        try:
+            return client.models.generate_content(model=MODEL, contents=contents)
+        except Exception as e:
+            msg = str(e)
+            if "429" in msg or "RESOURCE_EXHAUSTED" in msg:
+                m = re.search(r"retryDelay'?:?\s*'?(\d+)s", msg)
+                wait = (int(m.group(1)) + 2) if m else 35
+                print(f"  rate limited, waiting {wait}s...")
+                time.sleep(wait)
+            else:
+                raise
+    raise RuntimeError("Gemini retries exhausted (rate limit)")
+
+
 def main():
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
     with open(PROPS, "r", encoding="utf-8") as f:
@@ -91,8 +110,9 @@ def main():
             img = fh.read()
         intent = intent_for(beat, section)
         part = types.Part.from_bytes(data=img, mime_type="image/png")
-        resp = client.models.generate_content(model=MODEL, contents=[part, PROMPT.format(intent=intent)])
+        resp = _generate(client, [part, PROMPT.format(intent=intent)])
         verdict = parse_verdict(resp.text or "")
+        time.sleep(THROTTLE)
         name = os.path.basename(still)
         report.append({"scene": name, "ok": verdict["ok"], "issues": verdict["issues"]})
         if not verdict["ok"]:
