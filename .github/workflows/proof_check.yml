@@ -1,0 +1,50 @@
+name: Proof Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Install Remotion dependencies
+        working-directory: remotion
+        run: npm install
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Render storyboard (one still per scene)
+        run: python scripts/storyboard.py
+
+      - name: Vision proof check
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/proof_check.py
+
+      - name: Upload storyboard + report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: proof_storyboard
+          path: remotion/slice_stills/storyboard/
