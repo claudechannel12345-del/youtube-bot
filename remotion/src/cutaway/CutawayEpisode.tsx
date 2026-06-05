@@ -4,7 +4,7 @@ import {paperBackground} from "../flat/theme";
 import {CutawaySection} from "./CutawaySection";
 import type {EpisodeProps} from "./types";
 
-export const CutawayEpisode: React.FC<EpisodeProps> = ({sections}) => {
+export const CutawayEpisode: React.FC<EpisodeProps> = ({sections, renderer = "legacy"}) => {
   let cursor = 0;
   return (
     <AbsoluteFill style={paperBackground()}>
@@ -13,7 +13,7 @@ export const CutawayEpisode: React.FC<EpisodeProps> = ({sections}) => {
         cursor += Math.max(1, section.durationInFrames);
         return (
           <Sequence key={section.section_index} from={from} durationInFrames={Math.max(1, section.durationInFrames)}>
-            <CutawaySection section={section} />
+            <CutawaySection section={section} renderer={renderer} />
           </Sequence>
         );
       })}

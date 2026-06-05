@@ -14,6 +14,8 @@ import {TimelineStage} from "./families/TimelineStage";
 import {TitleStage} from "./families/TitleStage";
 import type {DirectedBeat, LegacyDirectedBeat, SceneFamily} from "./types";
 import {PAPER} from "../flat/theme";
+import {GenericBlueprintRenderer} from "./GenericBlueprintRenderer";
+import {legacyBeatToBlueprint} from "./legacyBlueprint";
 
 const familyForBeatType: Record<string, SceneFamily> = {
   establish: "object_stage",
@@ -97,9 +99,19 @@ const cameraStyle = (beat: DirectedBeat, localFrame: number, duration: number): 
   };
 };
 
-const CutawayBeatInner: React.FC<{beat: DirectedBeat; duration: number}> = ({beat, duration}) => {
+const CutawayBeatInner: React.FC<{beat: DirectedBeat; duration: number; renderer?: "legacy" | "blueprint"}> = ({beat, duration, renderer = "legacy"}) => {
   const localFrame = useCurrentFrame();
   const {fps} = useVideoConfig();
+  if (renderer === "blueprint") {
+    const blueprint = beat.blueprint ?? legacyBeatToBlueprint(beat);
+    return (
+      <AbsoluteFill style={{backgroundColor: PAPER}}>
+        <AbsoluteFill style={edgeStyle(beat, localFrame, duration, fps)}>
+          <GenericBlueprintRenderer blueprint={blueprint} localFrame={localFrame} duration={duration} />
+        </AbsoluteFill>
+      </AbsoluteFill>
+    );
+  }
   const family = beat.type === "cutaway_gag" ? "miniature_world" : beat.scene_family || familyForBeatType[beat.type] || "caption_punch";
   const Family = familyComponents[family] ?? CaptionPunch;
   const legacyBeat = beat as LegacyDirectedBeat;
@@ -114,11 +126,11 @@ const CutawayBeatInner: React.FC<{beat: DirectedBeat; duration: number}> = ({bea
   );
 };
 
-export const CutawayBeat: React.FC<{beat: DirectedBeat}> = ({beat}) => {
+export const CutawayBeat: React.FC<{beat: DirectedBeat; renderer?: "legacy" | "blueprint"}> = ({beat, renderer = "legacy"}) => {
   const duration = Math.max(1, beat.endFrame - beat.startFrame);
   return (
     <Sequence from={beat.startFrame} durationInFrames={duration}>
-      <CutawayBeatInner beat={beat} duration={duration} />
+      <CutawayBeatInner beat={beat} duration={duration} renderer={renderer} />
     </Sequence>
   );
 };

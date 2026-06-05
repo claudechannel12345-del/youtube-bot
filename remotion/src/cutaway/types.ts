@@ -132,6 +132,7 @@ export type EpisodeProps = {
   width: 1920;
   height: 1080;
   style_version: "clean_flat_light_v1";
+  renderer?: "legacy" | "blueprint";
   sections: CutawaySection[];
 };
 
