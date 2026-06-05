@@ -4,8 +4,10 @@ export type BeatType =
   | "stat_pop"
   | "compare"
   | "diagram_build"
+  | "process"
   | "map_focus"
   | "list_reveal"
+  | "quote"
   | "cutaway_gag"
   | "emphasize"
   | "transition";
@@ -31,6 +33,7 @@ export type SceneFamily =
   | "stat_stage"
   | "paperwork_stage"
   | "miniature_world"
+  | "quote_stage"
   | "caption_punch";
 
 export type Layout =
@@ -43,6 +46,7 @@ export type Layout =
   | "three_panel"
   | "paper_stack"
   | "wide_scene"
+  | "quote_card"
   | "caption_only";
 
 export type CameraMove =
@@ -160,6 +164,7 @@ export type DirectedBeat = {
   transition_out: Transition;
   background: BackgroundTreatment;
   assets: VisualAsset[];
+  new_count?: number;
   text_overlays: TextOverlay[];
   motion: MotionCue[];
 };
@@ -173,6 +178,7 @@ export type VisualAsset = {
   count?: number;
   variant?: string;
   colorRole?: "ink" | "accent" | "blue" | "green" | "yellow" | "lavender" | "muted";
+  is_new?: boolean;
 };
 
 export type TextOverlay = {

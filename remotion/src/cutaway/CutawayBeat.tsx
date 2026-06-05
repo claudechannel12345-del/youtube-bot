@@ -8,6 +8,7 @@ import {MapStage} from "./families/MapStage";
 import {MiniatureWorld} from "./families/MiniatureWorld";
 import {ObjectStage} from "./families/ObjectStage";
 import {PaperworkStage} from "./families/PaperworkStage";
+import {QuoteStage} from "./families/QuoteStage";
 import {StatStage} from "./families/StatStage";
 import {TimelineStage} from "./families/TimelineStage";
 import {TitleStage} from "./families/TitleStage";
@@ -20,8 +21,10 @@ const familyForBeatType: Record<string, SceneFamily> = {
   stat_pop: "stat_stage",
   compare: "comparison_stage",
   diagram_build: "diagram_stage",
+  process: "list_stage",
   map_focus: "map_stage",
   list_reveal: "list_stage",
+  quote: "quote_stage",
   cutaway_gag: "miniature_world",
   emphasize: "caption_punch",
   transition: "caption_punch",
@@ -38,6 +41,7 @@ const familyComponents: Record<SceneFamily, React.FC<{beat: DirectedBeat; localF
   stat_stage: StatStage,
   paperwork_stage: PaperworkStage,
   miniature_world: MiniatureWorld,
+  quote_stage: QuoteStage,
   caption_punch: CaptionPunch,
 };
 
@@ -99,9 +103,11 @@ const CutawayBeatInner: React.FC<{beat: DirectedBeat; duration: number}> = ({bea
   const family = beat.type === "cutaway_gag" ? "miniature_world" : beat.scene_family || familyForBeatType[beat.type] || "caption_punch";
   const Family = familyComponents[family] ?? CaptionPunch;
   return (
-    <AbsoluteFill style={edgeStyle(beat, localFrame, duration, fps)}>
-      <AbsoluteFill style={cameraStyle(beat, localFrame, duration)}>
-        <Family beat={beat} localFrame={localFrame} />
+    <AbsoluteFill style={{backgroundColor: PAPER}}>
+      <AbsoluteFill style={edgeStyle(beat, localFrame, duration, fps)}>
+        <AbsoluteFill style={cameraStyle(beat, localFrame, duration)}>
+          <Family beat={beat} localFrame={localFrame} />
+        </AbsoluteFill>
       </AbsoluteFill>
     </AbsoluteFill>
   );

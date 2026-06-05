@@ -64,8 +64,23 @@ export const Stage: React.FC<{children: React.ReactNode}> = ({children}) => (
   </svg>
 );
 
-const cueFor = (asset: VisualAsset, cues: MotionCue[]): MotionCue | undefined =>
-  cues.find((cue) => cue.target === asset.id || cue.target === asset.name);
+const cueFor = (asset: VisualAsset, cues: MotionCue[]): MotionCue | undefined => {
+  if (asset.is_new === false) {
+    return undefined;
+  }
+  return cues.find((cue) => cue.target === asset.id || cue.target === asset.name);
+};
+
+const idleTransform = (asset: VisualAsset, localFrame: number, index: number): string => {
+  const phase = localFrame / (26 + (index % 4) * 5) + index * 0.9;
+  if (asset.name === "satellite") {
+    return `translate(${Math.sin(phase) * 8}px ${Math.cos(phase * 0.8) * 6}px)`;
+  }
+  if (asset.name === "signal" || asset.name === "signal_beam") {
+    return `scale(${1 + Math.sin(phase) * 0.025})`;
+  }
+  return `translate(0 ${Math.sin(phase) * 5}px)`;
+};
 
 export const motionTransform = (cue: MotionCue | undefined, localFrame: number, fps: number): {opacity: number; transform: string} => {
   if (!cue || cue.kind === "none") {
@@ -116,7 +131,12 @@ export const renderAssets = (
       return (
         <g
           key={`${asset.id}-${subIndex}`}
-          style={{opacity: motion.opacity, transform: motion.transform, transformBox: "fill-box", transformOrigin: "center"}}
+          style={{
+            opacity: motion.opacity,
+            transform: `${idleTransform(asset, localFrame, index + subIndex)} ${motion.transform}`.trim(),
+            transformBox: "fill-box",
+            transformOrigin: "center",
+          }}
         >
           {renderRegistryAsset(asset.name, {
             x: place.x,

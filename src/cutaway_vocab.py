@@ -5,8 +5,10 @@ BEAT_TYPES = frozenset(
         "stat_pop",
         "compare",
         "diagram_build",
+        "process",
         "map_focus",
         "list_reveal",
+        "quote",
         "cutaway_gag",
         "emphasize",
         "transition",
@@ -38,6 +40,7 @@ SCENE_FAMILY = frozenset(
         "stat_stage",
         "paperwork_stage",
         "miniature_world",
+        "quote_stage",
         "caption_punch",
     ]
 )
@@ -53,6 +56,7 @@ LAYOUT = frozenset(
         "three_panel",
         "paper_stack",
         "wide_scene",
+        "quote_card",
         "caption_only",
     ]
 )
@@ -138,8 +142,10 @@ BEAT_TO_SCENE_FAMILY = {
     "stat_pop": "stat_stage",
     "compare": "comparison_stage",
     "diagram_build": "diagram_stage",
+    "process": "list_stage",
     "map_focus": "map_stage",
     "list_reveal": "list_stage",
+    "quote": "quote_stage",
     "cutaway_gag": "miniature_world",
     "emphasize": "caption_punch",
     "transition": "caption_punch",

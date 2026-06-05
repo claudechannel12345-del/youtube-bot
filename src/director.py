@@ -33,6 +33,7 @@ DEFAULT_LAYOUT = {
     "stat_stage": "center_subject",
     "paperwork_stage": "paper_stack",
     "miniature_world": "wide_scene",
+    "quote_stage": "quote_card",
     "caption_punch": "caption_only",
 }
 
@@ -43,8 +44,10 @@ DEFAULT_CAMERA = {
     "stat_pop": ("push_in", "small"),
     "compare": ("static", "none"),
     "diagram_build": ("hold_then_push", "small"),
+    "process": ("pan_right", "small"),
     "map_focus": ("push_in", "medium"),
     "list_reveal": ("static", "none"),
+    "quote": ("hold_then_push", "small"),
     "cutaway_gag": ("snap_zoom", "medium"),
     "emphasize": ("push_in", "small"),
     "transition": ("static", "none"),
@@ -57,8 +60,10 @@ DEFAULT_MOTION = {
     "stat_pop": ["count_up"],
     "compare": ["slide_in"],
     "diagram_build": ["draw_on"],
+    "process": ["slide_in"],
     "map_focus": ["wipe_reveal"],
     "list_reveal": ["slide_in"],
+    "quote": ["pop_in"],
     "cutaway_gag": ["pop_in", "stamp"],
     "emphasize": ["pop_in"],
     "transition": ["pop_in"],
@@ -74,8 +79,10 @@ DEFAULT_TEXT_ROLE = {
     "stat_pop": ("stat", "coral_stamp"),
     "compare": ("label", "ink"),
     "diagram_build": ("label", "ink"),
+    "process": ("label", "ink"),
     "map_focus": ("label", "ink"),
     "list_reveal": ("label", "ink"),
+    "quote": ("caption", "ink"),
     "cutaway_gag": ("stamp", "coral_stamp"),
     "emphasize": ("headline", "coral_stamp"),
     "transition": ("headline", "ink"),
@@ -103,6 +110,19 @@ _SUBJECT_ALIASES = {
     "signal beam": "signal_beam",
 }
 
+BUILD_RUN_TYPES = frozenset(["diagram_build", "process", "compare", "list_reveal"])
+EFFECT_ASSETS = frozenset(["signal", "signal_beam"])
+CONTEXT_ASSETS = frozenset(["phone", "satellite", "earth"])
+
+CAMERA_VARIANTS = [
+    ("hold_then_push", "small"),
+    ("push_in", "small"),
+    ("pull_back", "small"),
+    ("pan_left", "small"),
+    ("pan_right", "small"),
+    ("parallax_drift", "small"),
+]
+
 
 def _norm_subject(s):
     key = str(s).strip().lower()
@@ -114,7 +134,13 @@ def _clampi(v, lo, hi):
     return max(lo, min(hi, v))
 
 
-def _assets_from_subjects(subjects):
+def _anchor_sequence(count):
+    if count in ANCHOR_SPREAD:
+        return ANCHOR_SPREAD[count]
+    return ["upper_left", "upper_right", "center", "lower_left", "lower_right", "left"][:count]
+
+
+def _assets_from_subjects(subjects, beat_id="beat"):
     subjects = [s for s in (subjects or []) if str(s).strip()]
     if not subjects:
         subjects = ["generic_object"]
@@ -124,20 +150,51 @@ def _assets_from_subjects(subjects):
     for i, subj in enumerate(subjects):
         assets.append(
             {
-                "id": "a%d" % i,
+                "id": "%s_a%d" % (beat_id, i),
                 "kind": "prop",
                 "name": _norm_subject(subj),
                 "anchor": anchors[i],
+                "is_new": True,
             }
         )
-    return assets
+    return _ensure_effect_context(assets, beat_id)
+
+
+def _ensure_effect_context(assets, beat_id):
+    names = [a["name"] for a in assets]
+    has_effect = any(name in EFFECT_ASSETS for name in names)
+    has_context = any(name in CONTEXT_ASSETS for name in names)
+    if not has_effect or has_context:
+        return assets
+    context = {
+        "id": "%s_context_phone" % beat_id,
+        "kind": "prop",
+        "name": "phone",
+        "anchor": "left",
+        "is_new": True,
+    }
+    adjusted = [context]
+    for i, asset in enumerate(assets):
+        adjusted_asset = dict(asset)
+        adjusted_asset["anchor"] = "right" if i == 0 else adjusted_asset.get("anchor", "center")
+        adjusted.append(adjusted_asset)
+    return adjusted[:4]
+
+
+def _camera_for_beat(btype, beat_index):
+    move, intensity = DEFAULT_CAMERA.get(btype, ("static", "none"))
+    if move == "static" or intensity == "none":
+        move, intensity = CAMERA_VARIANTS[beat_index % len(CAMERA_VARIANTS)]
+    elif beat_index % 3 == 2:
+        move, intensity = CAMERA_VARIANTS[beat_index % len(CAMERA_VARIANTS)]
+    return _safe(move, CAMERA_MOVE, "static"), _safe(intensity, CAMERA_INTENSITY, "none")
 
 
 def _safe(value, vocab, fallback):
     return value if value in vocab else fallback
 
 
-def _direct_beat(beat, sentences_timing, fps, is_first):
+def _direct_beat(beat, sentences_timing, fps, is_first, beat_index):
     btype = coerce_beat_type(beat.get("type", "illustrate"))
     n = len(sentences_timing)
     s_start = _clampi(int(beat.get("sentence_start", 0)), 0, max(0, n - 1))
@@ -151,9 +208,7 @@ def _direct_beat(beat, sentences_timing, fps, is_first):
     if end <= start:
         end = start + 0.6
 
-    move, intensity = DEFAULT_CAMERA.get(btype, ("static", "none"))
-    move = _safe(move, CAMERA_MOVE, "static")
-    intensity = _safe(intensity, CAMERA_INTENSITY, "none")
+    move, intensity = _camera_for_beat(btype, beat_index)
 
     scene_family = _safe(BEAT_TO_SCENE_FAMILY.get(btype, "object_stage"), SCENE_FAMILY, "object_stage")
     layout = _safe(DEFAULT_LAYOUT.get(scene_family, "center_subject"), LAYOUT, "center_subject")
@@ -163,20 +218,46 @@ def _direct_beat(beat, sentences_timing, fps, is_first):
 
     background = "panel" if scene_family == "comparison_stage" else ("grid" if scene_family == "diagram_stage" else "plain")
 
-    assets = _assets_from_subjects(beat.get("subjects"))
+    beat_id = str(beat.get("id", "beat%d" % beat_index)).replace(" ", "_")
+    if btype == "quote":
+        assets = []
+    elif btype == "process" and beat.get("steps"):
+        assets = [
+            {
+                "id": "%s_step%d" % (beat_id, i),
+                "kind": "label",
+                "name": "label",
+                "anchor": "center",
+                "variant": str(step)[:26],
+                "is_new": True,
+            }
+            for i, step in enumerate(beat.get("steps", [])[:5])
+        ]
+    else:
+        assets = _assets_from_subjects(beat.get("subjects"), beat_id)
 
     overlays = []
     text = str(beat.get("text", "") or "").strip()
+    if btype == "quote":
+        quote = str(beat.get("quote", "") or text or "").strip()
+        attribution = str(beat.get("attribution", "") or "").strip()
+        if quote:
+            overlays.append({"role": "caption", "text": quote[:160], "anchor": "center", "tone": "ink"})
+        if attribution:
+            overlays.append({"role": "tiny_note", "text": attribution[:64], "anchor": "lower_center", "tone": "muted"})
     if text:
         role, tone = DEFAULT_TEXT_ROLE.get(btype, ("label", "ink"))
         anchor = "headline" if role == "headline" else ("stat" if role == "stat" else "lower_center")
-        overlays.append({"role": role, "text": text[:48], "anchor": anchor, "tone": tone})
+        if btype != "quote":
+            overlays.append({"role": role, "text": text[:48], "anchor": anchor, "tone": tone})
 
     motions = []
-    target = assets[0]["id"] if assets else "overlay"
-    for i, kind in enumerate(DEFAULT_MOTION.get(btype, ["pop_in"])):
-        kind = _safe(kind, MOTION_KIND, "pop_in")
-        motions.append({"target": target, "kind": kind, "delay": 0.12 * i, "duration": 0.4})
+    motion_kinds = DEFAULT_MOTION.get(btype, ["pop_in"])
+    for asset_index, asset in enumerate(assets):
+        kind = _safe(motion_kinds[min(asset_index, len(motion_kinds) - 1)], MOTION_KIND, "pop_in")
+        motions.append({"target": asset["id"], "kind": kind, "delay": 0.08 * asset_index, "duration": 0.38})
+    if not assets:
+        motions.append({"target": "overlay", "kind": "pop_in", "delay": 0.0, "duration": 0.3})
 
     return {
         "id": str(beat.get("id", "beat")),
@@ -221,6 +302,66 @@ def _fallback_beat(section, sentences_timing, fps):
     }
 
 
+def _settled_asset(asset):
+    settled = dict(asset)
+    settled["is_new"] = False
+    return settled
+
+
+def _new_asset(asset):
+    fresh = dict(asset)
+    fresh["is_new"] = True
+    return fresh
+
+
+def _rebuild_motion_for_new_assets(beat):
+    motion_kinds = DEFAULT_MOTION.get(beat["type"], ["pop_in"])
+    motions = []
+    new_index = 0
+    for asset in beat["assets"]:
+        if not asset.get("is_new"):
+            continue
+        kind = _safe(motion_kinds[min(new_index, len(motion_kinds) - 1)], MOTION_KIND, "pop_in")
+        motions.append({"target": asset["id"], "kind": kind, "delay": 0.08 * new_index, "duration": 0.38})
+        new_index += 1
+    beat["motion"] = motions or [{"target": "overlay", "kind": "none", "delay": 0.0, "duration": 0.1}]
+
+
+def _apply_progressive_builds(directed):
+    i = 0
+    while i < len(directed):
+        if directed[i]["type"] not in BUILD_RUN_TYPES:
+            i += 1
+            continue
+        j = i + 1
+        while j < len(directed) and directed[j]["type"] == directed[i]["type"]:
+            j += 1
+        run = directed[i:j]
+        if len(run) <= 1:
+            i = j
+            continue
+
+        all_assets = []
+        for beat in run:
+            for asset in beat["assets"]:
+                all_assets.append(dict(asset))
+        anchors = _anchor_sequence(len(all_assets))
+        for asset_index, asset in enumerate(all_assets):
+            asset["anchor"] = anchors[min(asset_index, len(anchors) - 1)]
+
+        cursor = 0
+        cumulative = []
+        for beat in run:
+            new_count = len(beat["assets"])
+            new_assets = [_new_asset(asset) for asset in all_assets[cursor : cursor + new_count]]
+            beat["assets"] = [_settled_asset(asset) for asset in cumulative] + new_assets
+            beat["new_count"] = new_count
+            _rebuild_motion_for_new_assets(beat)
+            cumulative.extend(new_assets)
+            cursor += new_count
+        i = j
+
+
 def direct_section(section, sentences_timing, fps, index):
     """sentences_timing: list of {text,start,end,delivery} relative to the section start."""
     duration = float(sentences_timing[-1]["end"]) if sentences_timing else 2.0
@@ -229,7 +370,7 @@ def direct_section(section, sentences_timing, fps, index):
     beats = section.get("beats") or []
     for i, beat in enumerate(beats):
         try:
-            directed.append(_direct_beat(beat, sentences_timing, fps, is_first=(i == 0)))
+            directed.append(_direct_beat(beat, sentences_timing, fps, is_first=(i == 0), beat_index=i))
         except Exception:
             continue
     if not directed:
@@ -239,6 +380,7 @@ def direct_section(section, sentences_timing, fps, index):
     # beats' frame windows renders as a blank frame, so each beat is stretched to
     # hold until the next one starts; the last beat holds to the section end.
     directed.sort(key=lambda b: b["startFrame"])
+    _apply_progressive_builds(directed)
     directed[0]["startFrame"] = 0
     for i in range(len(directed) - 1):
         directed[i]["endFrame"] = max(directed[i]["startFrame"] + 1, directed[i + 1]["startFrame"])

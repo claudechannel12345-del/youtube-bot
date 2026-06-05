@@ -7,44 +7,86 @@
   "sections": [
     {
       "section_index": 0,
-      "durationInFrames": 542,
+      "durationInFrames": 1418,
       "audioSrc": "",
-      "key_phrase": "THE BLUE DOT",
-      "narration": "Right now, a little blue dot on your phone knows where you are, give or take a few feet. It feels like magic, or possibly surveillance. It's neither. Your phone is just very good at eavesdropping on clocks in space.",
+      "key_phrase": "THE IMPOSSIBLE DOT",
+      "narration": "Look down at your phone and open the map. There you are. A little blue dot, sitting right on top of you, certain of itself, accurate to within a few feet. Now, here's the part nobody tells you. Your phone has no idea where it is. It can't see the street. It doesn't recognize the building you're standing in. Left entirely to itself, it is as lost as a tourist with a dead battery. And yet the dot is never wrong. So that's our mystery. How does a device that genuinely does not know where it is manage to know, every single time, exactly where you are?",
       "captions": [
         {
-          "text": "Right now, a little blue dot on your phone knows where you are, give or take a few feet.",
+          "text": "Look down at your phone and open the map.",
           "start": 0.35,
-          "end": 7.95,
-          "delivery": "curious"
-        },
-        {
-          "text": "It feels like magic, or possibly surveillance.",
-          "start": 8.27,
-          "end": 11.07,
+          "end": 3.95,
           "delivery": "neutral"
         },
         {
-          "text": "It's neither.",
-          "start": 11.39,
-          "end": 12.49,
+          "text": "There you are.",
+          "start": 4.27,
+          "end": 5.47,
+          "delivery": "curious"
+        },
+        {
+          "text": "A little blue dot, sitting right on top of you, certain of itself, accurate to within a few feet.",
+          "start": 5.79,
+          "end": 13.39,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Now, here's the part nobody tells you.",
+          "start": 13.71,
+          "end": 16.51,
+          "delivery": "curious"
+        },
+        {
+          "text": "Your phone has no idea where it is.",
+          "start": 16.83,
+          "end": 20.03,
           "delivery": "weighty"
         },
         {
-          "text": "Your phone is just very good at eavesdropping on clocks in space.",
-          "start": 13.26,
-          "end": 18.06,
-          "delivery": "curious"
+          "text": "It can't see the street.",
+          "start": 20.8,
+          "end": 22.8,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It doesn't recognize the building you're standing in.",
+          "start": 23.12,
+          "end": 26.32,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Left entirely to itself, it is as lost as a tourist with a dead battery.",
+          "start": 26.64,
+          "end": 32.64,
+          "delivery": "neutral"
+        },
+        {
+          "text": "And yet the dot is never wrong.",
+          "start": 32.96,
+          "end": 35.76,
+          "delivery": "weighty"
+        },
+        {
+          "text": "So that's our mystery.",
+          "start": 36.53,
+          "end": 38.13,
+          "delivery": "neutral"
+        },
+        {
+          "text": "How does a device that genuinely does not know where it is manage to know, every single time, exactly where you are?",
+          "start": 38.45,
+          "end": 47.25,
+          "delivery": "question"
         }
       ],
       "beats": [
         {
-          "id": "s1_blue_dot",
+          "id": "s1_dot",
           "type": "establish",
           "start": 0.0,
-          "end": 13.267,
+          "end": 16.833,
           "startFrame": 0,
-          "endFrame": 398,
+          "endFrame": 505,
           "scene_family": "object_stage",
           "layout": "center_subject",
           "camera": {
@@ -57,86 +99,139 @@
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s1_dot_a0",
               "kind": "prop",
               "name": "person",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s1_dot_a1",
               "kind": "prop",
               "name": "phone",
-              "anchor": "center"
+              "anchor": "center",
+              "is_new": true
             },
             {
-              "id": "a2",
+              "id": "s1_dot_a2",
               "kind": "prop",
               "name": "building",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
             {
               "role": "label",
-              "text": "WHERE AM I",
+              "text": "YOU ARE HERE",
               "anchor": "lower_center",
               "tone": "ink"
             }
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s1_dot_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s1_dot_a1",
+              "kind": "pop_in",
+              "delay": 0.08,
+              "duration": 0.38
+            },
+            {
+              "target": "s1_dot_a2",
+              "kind": "pop_in",
+              "delay": 0.16,
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s1_eavesdrop",
+          "id": "s1_lost",
           "type": "illustrate",
-          "start": 13.267,
-          "end": 18.067,
-          "startFrame": 398,
-          "endFrame": 542,
+          "start": 16.833,
+          "end": 38.467,
+          "startFrame": 505,
+          "endFrame": 1154,
           "scene_family": "object_stage",
           "layout": "center_subject",
           "camera": {
-            "move": "static",
+            "move": "push_in",
             "target": "center",
-            "intensity": "none"
+            "intensity": "small"
           },
           "transition_in": "hard_cut",
           "transition_out": "hard_cut",
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s1_lost_a0",
               "kind": "prop",
               "name": "phone",
-              "anchor": "left"
-            },
-            {
-              "id": "a1",
-              "kind": "prop",
-              "name": "clock",
-              "anchor": "right"
+              "anchor": "center",
+              "is_new": true
             }
           ],
           "text_overlays": [
             {
               "role": "label",
-              "text": "EAVESDROPPING",
+              "text": "NO IDEA",
               "anchor": "lower_center",
               "tone": "ink"
             }
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s1_lost_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            }
+          ]
+        },
+        {
+          "id": "s1_mystery",
+          "type": "emphasize",
+          "start": 38.467,
+          "end": 47.267,
+          "startFrame": 1154,
+          "endFrame": 1418,
+          "scene_family": "caption_punch",
+          "layout": "caption_only",
+          "camera": {
+            "move": "pull_back",
+            "target": "center",
+            "intensity": "small"
+          },
+          "transition_in": "hard_cut",
+          "transition_out": "hard_cut",
+          "background": "plain",
+          "assets": [
+            {
+              "id": "s1_mystery_a0",
+              "kind": "prop",
+              "name": "generic_object",
+              "anchor": "center",
+              "is_new": true
+            }
+          ],
+          "text_overlays": [
+            {
+              "role": "headline",
+              "text": "HOW?",
+              "anchor": "headline",
+              "tone": "coral_stamp"
+            }
+          ],
+          "motion": [
+            {
+              "target": "s1_mystery_a0",
+              "kind": "pop_in",
+              "delay": 0.0,
+              "duration": 0.38
             }
           ]
         }
@@ -144,44 +239,92 @@
     },
     {
       "section_index": 1,
-      "durationInFrames": 507,
+      "durationInFrames": 1471,
       "audioSrc": "",
-      "key_phrase": "ONE-WAY ONLY",
-      "narration": "Here's the first surprise. Your phone isn't sending anything to space. It isn't pinging satellites, and the satellites have no idea it exists. The whole system is a one-way broadcast, and your phone is just a very attentive listener.",
+      "key_phrase": "A ONE-WAY STREET",
+      "narration": "Most people picture it like this. Your phone reaches up, taps a satellite on the shoulder, and the satellite pings back your location. It's a nice idea. It's also completely wrong. Your phone never sends anything to space. It can't. The satellites are twenty thousand kilometers up, and your phone can barely hold a call in a parking garage. The entire system runs one way. The satellites talk, your phone listens, and the satellites have absolutely no idea your phone exists. Which is a little insulting, when you think about it. But it leaves us with a much better question. If they're not tracking you, what are they doing up there?",
       "captions": [
         {
-          "text": "Here's the first surprise.",
+          "text": "Most people picture it like this.",
           "start": 0.35,
-          "end": 1.95,
+          "end": 2.75,
           "delivery": "neutral"
         },
         {
-          "text": "Your phone isn't sending anything to space.",
-          "start": 2.27,
-          "end": 5.07,
+          "text": "Your phone reaches up, taps a satellite on the shoulder, and the satellite pings back your location.",
+          "start": 3.07,
+          "end": 9.87,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It's a nice idea.",
+          "start": 10.19,
+          "end": 11.79,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It's also completely wrong.",
+          "start": 12.11,
+          "end": 13.71,
+          "delivery": "weighty"
+        },
+        {
+          "text": "Your phone never sends anything to space.",
+          "start": 14.48,
+          "end": 17.28,
           "delivery": "skeptical"
         },
         {
-          "text": "It isn't pinging satellites, and the satellites have no idea it exists.",
-          "start": 5.39,
-          "end": 10.19,
+          "text": "It can't.",
+          "start": 17.6,
+          "end": 18.7,
           "delivery": "neutral"
         },
         {
-          "text": "The whole system is a one-way broadcast, and your phone is just a very attentive listener.",
-          "start": 10.51,
-          "end": 16.91,
+          "text": "The satellites are twenty thousand kilometers up, and your phone can barely hold a call in a parking garage.",
+          "start": 19.02,
+          "end": 26.62,
+          "delivery": "neutral"
+        },
+        {
+          "text": "The entire system runs one way.",
+          "start": 26.94,
+          "end": 29.34,
+          "delivery": "brisk"
+        },
+        {
+          "text": "The satellites talk, your phone listens, and the satellites have absolutely no idea your phone exists.",
+          "start": 29.66,
+          "end": 36.06,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Which is a little insulting, when you think about it.",
+          "start": 36.38,
+          "end": 40.38,
+          "delivery": "neutral"
+        },
+        {
+          "text": "But it leaves us with a much better question.",
+          "start": 40.7,
+          "end": 44.3,
           "delivery": "curious"
+        },
+        {
+          "text": "If they're not tracking you, what are they doing up there?",
+          "start": 44.62,
+          "end": 49.02,
+          "delivery": "question"
         }
       ],
       "beats": [
         {
-          "id": "s2_no_uplink",
+          "id": "s2_wrong",
           "type": "establish",
           "start": 0.0,
-          "end": 5.4,
+          "end": 29.667,
           "startFrame": 0,
-          "endFrame": 162,
+          "endFrame": 890,
           "scene_family": "object_stage",
           "layout": "center_subject",
           "camera": {
@@ -194,42 +337,50 @@
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s2_wrong_a0",
               "kind": "prop",
               "name": "phone",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s2_wrong_a1",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
             {
               "role": "label",
-              "text": "NOT SENDING",
+              "text": "NOPE",
               "anchor": "lower_center",
               "tone": "ink"
             }
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s2_wrong_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s2_wrong_a1",
+              "kind": "pop_in",
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         },
         {
           "id": "s2_oblivious",
           "type": "cutaway_gag",
-          "start": 5.4,
-          "end": 16.9,
-          "startFrame": 162,
-          "endFrame": 507,
+          "start": 29.667,
+          "end": 44.633,
+          "startFrame": 890,
+          "endFrame": 1339,
           "scene_family": "miniature_world",
           "layout": "wide_scene",
           "camera": {
@@ -242,38 +393,96 @@
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s2_oblivious_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s2_oblivious_a1",
               "kind": "prop",
               "name": "signal",
-              "anchor": "right"
+              "anchor": "center",
+              "is_new": true
+            },
+            {
+              "id": "s2_oblivious_a2",
+              "kind": "prop",
+              "name": "phone",
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
             {
               "role": "stamp",
-              "text": "NOBODY ANSWERS BACK",
+              "text": "DOESN'T KNOW YOU EXIST",
               "anchor": "lower_center",
               "tone": "coral_stamp"
             }
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s2_oblivious_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
             },
             {
-              "target": "a0",
+              "target": "s2_oblivious_a1",
               "kind": "stamp",
-              "delay": 0.12,
-              "duration": 0.4
+              "delay": 0.08,
+              "duration": 0.38
+            },
+            {
+              "target": "s2_oblivious_a2",
+              "kind": "stamp",
+              "delay": 0.16,
+              "duration": 0.38
+            }
+          ]
+        },
+        {
+          "id": "s2_q",
+          "type": "transition",
+          "start": 44.633,
+          "end": 49.033,
+          "startFrame": 1339,
+          "endFrame": 1471,
+          "scene_family": "caption_punch",
+          "layout": "caption_only",
+          "camera": {
+            "move": "pull_back",
+            "target": "center",
+            "intensity": "small"
+          },
+          "transition_in": "hard_cut",
+          "transition_out": "hard_cut",
+          "background": "plain",
+          "assets": [
+            {
+              "id": "s2_q_a0",
+              "kind": "prop",
+              "name": "generic_object",
+              "anchor": "center",
+              "is_new": true
+            }
+          ],
+          "text_overlays": [
+            {
+              "role": "headline",
+              "text": "SO WHAT ARE THEY DOING?",
+              "anchor": "headline",
+              "tone": "ink"
+            }
+          ],
+          "motion": [
+            {
+              "target": "s2_q_a0",
+              "kind": "pop_in",
+              "delay": 0.0,
+              "duration": 0.38
             }
           ]
         }
@@ -281,34 +490,64 @@
     },
     {
       "section_index": 2,
-      "durationInFrames": 623,
+      "durationInFrames": 1298,
       "audioSrc": "",
       "key_phrase": "SHOUTING THE TIME",
-      "narration": "So what are the satellites doing up there? Each one carries an atomic clock and a very boring script. Over and over, forever, it announces the exact time and where it was when it said it. Thirty-one of them are doing this constantly, to no one in particular.",
+      "narration": "Here's the answer, and it's almost disappointingly simple. Each satellite carries an atomic clock, the most precise kind of clock humanity knows how to build. And it uses that miracle of engineering to do exactly one thing: announce the time. Over and over, forever, it broadcasts a single message. The time is now precisely this, and I am right here. That's it. Thirty-one of them, circling the planet, endlessly shouting the time at anyone who happens to be listening. Which raises the strangest question yet. How on Earth does knowing what time it is tell you where you are?",
       "captions": [
         {
-          "text": "So what are the satellites doing up there?",
+          "text": "Here's the answer, and it's almost disappointingly simple.",
           "start": 0.35,
           "end": 3.55,
-          "delivery": "question"
+          "delivery": "curious"
         },
         {
-          "text": "Each one carries an atomic clock and a very boring script.",
-          "start": 4.12,
-          "end": 8.52,
+          "text": "Each satellite carries an atomic clock, the most precise kind of clock humanity knows how to build.",
+          "start": 3.87,
+          "end": 10.67,
           "delivery": "neutral"
         },
         {
-          "text": "Over and over, forever, it announces the exact time and where it was when it said it.",
-          "start": 8.84,
-          "end": 15.64,
+          "text": "And it uses that miracle of engineering to do exactly one thing: announce the time.",
+          "start": 10.99,
+          "end": 16.99,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Over and over, forever, it broadcasts a single message.",
+          "start": 17.31,
+          "end": 20.91,
           "delivery": "brisk"
         },
         {
-          "text": "Thirty-one of them are doing this constantly, to no one in particular.",
-          "start": 15.96,
-          "end": 20.76,
+          "text": "The time is now precisely this, and I am right here.",
+          "start": 21.23,
+          "end": 25.63,
           "delivery": "neutral"
+        },
+        {
+          "text": "That's it.",
+          "start": 25.95,
+          "end": 27.05,
+          "delivery": "weighty"
+        },
+        {
+          "text": "Thirty-one of them, circling the planet, endlessly shouting the time at anyone who happens to be listening.",
+          "start": 27.82,
+          "end": 34.62,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Which raises the strangest question yet.",
+          "start": 34.94,
+          "end": 37.34,
+          "delivery": "curious"
+        },
+        {
+          "text": "How on Earth does knowing what time it is tell you where you are?",
+          "start": 37.66,
+          "end": 43.26,
+          "delivery": "question"
         }
       ],
       "beats": [
@@ -316,9 +555,9 @@
           "id": "s3_clock",
           "type": "diagram_build",
           "start": 0.0,
-          "end": 8.833,
+          "end": 21.233,
           "startFrame": 0,
-          "endFrame": 265,
+          "endFrame": 637,
           "scene_family": "diagram_stage",
           "layout": "radial",
           "camera": {
@@ -331,16 +570,18 @@
           "background": "grid",
           "assets": [
             {
-              "id": "a0",
+              "id": "s3_clock_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s3_clock_a1",
               "kind": "prop",
               "name": "clock",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -353,42 +594,50 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s3_clock_a0",
               "kind": "draw_on",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s3_clock_a1",
+              "kind": "draw_on",
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s3_announce",
+          "id": "s3_msg",
           "type": "illustrate",
-          "start": 8.833,
-          "end": 15.967,
-          "startFrame": 265,
-          "endFrame": 479,
+          "start": 21.233,
+          "end": 27.833,
+          "startFrame": 637,
+          "endFrame": 835,
           "scene_family": "object_stage",
           "layout": "center_subject",
           "camera": {
-            "move": "static",
+            "move": "push_in",
             "target": "center",
-            "intensity": "none"
+            "intensity": "small"
           },
           "transition_in": "hard_cut",
           "transition_out": "hard_cut",
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s3_msg_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s3_msg_a1",
               "kind": "prop",
               "name": "signal",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -401,24 +650,30 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s3_msg_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s3_msg_a1",
+              "kind": "pop_in",
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         },
         {
           "id": "s3_count",
           "type": "stat_pop",
-          "start": 15.967,
-          "end": 20.767,
-          "startFrame": 479,
-          "endFrame": 623,
+          "start": 27.833,
+          "end": 43.267,
+          "startFrame": 835,
+          "endFrame": 1298,
           "scene_family": "stat_stage",
           "layout": "center_subject",
           "camera": {
-            "move": "push_in",
+            "move": "pull_back",
             "target": "center",
             "intensity": "small"
           },
@@ -427,10 +682,11 @@
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s3_count_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "center"
+              "anchor": "center",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -443,10 +699,10 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s3_count_a0",
               "kind": "count_up",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
             }
           ]
         }
@@ -454,34 +710,76 @@
     },
     {
       "section_index": 3,
-      "durationInFrames": 639,
+      "durationInFrames": 1604,
       "audioSrc": "",
-      "key_phrase": "LATE EQUALS FAR",
-      "narration": "Here's the clever part. That time signal travels at the speed of light, which is fast, but not infinitely fast. By the time it reaches your phone, it's a tiny bit old. Measure how old, multiply by the speed of light, and you've got the exact distance to that satellite.",
+      "key_phrase": "LATE MEANS FAR",
+      "narration": "The secret is hiding in the one thing we never think about: the message takes time to arrive. Radio signals travel at the speed of light. Fast, yes. Instant, no. By the time that little time-stamp reaches your phone, it's already a tiny bit out of date, by a few hundredths of a second. And your phone notices. It compares the time the satellite claimed it was, with the time it actually is, and measures the gap. Multiply that gap by the speed of light, and you get something remarkable: the exact distance to that satellite. So now you know you're, say, twenty thousand kilometers from one specific satellite. Which sounds like progress. It is the loosest possible kind of progress.",
       "captions": [
         {
-          "text": "Here's the clever part.",
+          "text": "The secret is hiding in the one thing we never think about: the message takes time to arrive.",
           "start": 0.35,
-          "end": 1.95,
-          "delivery": "neutral"
-        },
-        {
-          "text": "That time signal travels at the speed of light, which is fast, but not infinitely fast.",
-          "start": 2.27,
-          "end": 8.67,
+          "end": 7.55,
           "delivery": "curious"
         },
         {
-          "text": "By the time it reaches your phone, it's a tiny bit old.",
-          "start": 8.99,
-          "end": 13.79,
+          "text": "Radio signals travel at the speed of light.",
+          "start": 7.87,
+          "end": 11.07,
           "delivery": "neutral"
         },
         {
-          "text": "Measure how old, multiply by the speed of light, and you've got the exact distance to that satellite.",
-          "start": 14.11,
-          "end": 21.31,
+          "text": "Fast, yes.",
+          "start": 11.39,
+          "end": 12.49,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Instant, no.",
+          "start": 12.81,
+          "end": 13.91,
           "delivery": "weighty"
+        },
+        {
+          "text": "By the time that little time-stamp reaches your phone, it's already a tiny bit out of date, by a few hundredths of a second.",
+          "start": 14.68,
+          "end": 24.28,
+          "delivery": "neutral"
+        },
+        {
+          "text": "And your phone notices.",
+          "start": 24.6,
+          "end": 26.2,
+          "delivery": "curious"
+        },
+        {
+          "text": "It compares the time the satellite claimed it was, with the time it actually is, and measures the gap.",
+          "start": 26.52,
+          "end": 34.12,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Multiply that gap by the speed of light, and you get something remarkable: the exact distance to that satellite.",
+          "start": 34.44,
+          "end": 42.04,
+          "delivery": "weighty"
+        },
+        {
+          "text": "So now you know you're, say, twenty thousand kilometers from one specific satellite.",
+          "start": 42.81,
+          "end": 48.01,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Which sounds like progress.",
+          "start": 48.33,
+          "end": 49.93,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It is the loosest possible kind of progress.",
+          "start": 50.25,
+          "end": 53.45,
+          "delivery": "neutral"
         }
       ],
       "beats": [
@@ -489,9 +787,9 @@
           "id": "s4_travel",
           "type": "diagram_build",
           "start": 0.0,
-          "end": 9.0,
+          "end": 14.667,
           "startFrame": 0,
-          "endFrame": 270,
+          "endFrame": 440,
           "scene_family": "diagram_stage",
           "layout": "radial",
           "camera": {
@@ -504,22 +802,25 @@
           "background": "grid",
           "assets": [
             {
-              "id": "a0",
+              "id": "s4_travel_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s4_travel_a1",
               "kind": "prop",
               "name": "signal",
-              "anchor": "center"
+              "anchor": "center",
+              "is_new": true
             },
             {
-              "id": "a2",
+              "id": "s4_travel_a2",
               "kind": "prop",
               "name": "phone",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -532,70 +833,34 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s4_travel_a0",
               "kind": "draw_on",
               "delay": 0.0,
-              "duration": 0.4
-            }
-          ]
-        },
-        {
-          "id": "s4_delay",
-          "type": "illustrate",
-          "start": 9.0,
-          "end": 14.1,
-          "startFrame": 270,
-          "endFrame": 423,
-          "scene_family": "object_stage",
-          "layout": "center_subject",
-          "camera": {
-            "move": "static",
-            "target": "center",
-            "intensity": "none"
-          },
-          "transition_in": "hard_cut",
-          "transition_out": "hard_cut",
-          "background": "plain",
-          "assets": [
-            {
-              "id": "a0",
-              "kind": "prop",
-              "name": "clock",
-              "anchor": "left"
+              "duration": 0.38
             },
             {
-              "id": "a1",
-              "kind": "prop",
-              "name": "signal",
-              "anchor": "right"
-            }
-          ],
-          "text_overlays": [
+              "target": "s4_travel_a1",
+              "kind": "draw_on",
+              "delay": 0.08,
+              "duration": 0.38
+            },
             {
-              "role": "label",
-              "text": "A BIT OLD",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
-          "motion": [
-            {
-              "target": "a0",
-              "kind": "pop_in",
-              "delay": 0.0,
-              "duration": 0.4
+              "target": "s4_travel_a2",
+              "kind": "draw_on",
+              "delay": 0.16,
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s4_distance",
-          "type": "emphasize",
-          "start": 14.1,
-          "end": 21.3,
-          "startFrame": 423,
-          "endFrame": 639,
-          "scene_family": "caption_punch",
-          "layout": "caption_only",
+          "id": "s4_gap",
+          "type": "illustrate",
+          "start": 14.667,
+          "end": 34.433,
+          "startFrame": 440,
+          "endFrame": 1033,
+          "scene_family": "object_stage",
+          "layout": "center_subject",
           "camera": {
             "move": "push_in",
             "target": "center",
@@ -606,16 +871,94 @@
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s4_gap_context_phone",
               "kind": "prop",
-              "name": "ruler",
-              "anchor": "left"
+              "name": "phone",
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s4_gap_a0",
+              "kind": "prop",
+              "name": "clock",
+              "anchor": "right",
+              "is_new": true
+            },
+            {
+              "id": "s4_gap_a1",
               "kind": "prop",
               "name": "signal",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
+            }
+          ],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "THE GAP",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
+          "motion": [
+            {
+              "target": "s4_gap_context_phone",
+              "kind": "pop_in",
+              "delay": 0.0,
+              "duration": 0.38
+            },
+            {
+              "target": "s4_gap_a0",
+              "kind": "pop_in",
+              "delay": 0.08,
+              "duration": 0.38
+            },
+            {
+              "target": "s4_gap_a1",
+              "kind": "pop_in",
+              "delay": 0.16,
+              "duration": 0.38
+            }
+          ]
+        },
+        {
+          "id": "s4_dist",
+          "type": "emphasize",
+          "start": 34.433,
+          "end": 53.467,
+          "startFrame": 1033,
+          "endFrame": 1604,
+          "scene_family": "caption_punch",
+          "layout": "caption_only",
+          "camera": {
+            "move": "pull_back",
+            "target": "center",
+            "intensity": "small"
+          },
+          "transition_in": "hard_cut",
+          "transition_out": "hard_cut",
+          "background": "plain",
+          "assets": [
+            {
+              "id": "s4_dist_context_phone",
+              "kind": "prop",
+              "name": "phone",
+              "anchor": "left",
+              "is_new": true
+            },
+            {
+              "id": "s4_dist_a0",
+              "kind": "prop",
+              "name": "ruler",
+              "anchor": "right",
+              "is_new": true
+            },
+            {
+              "id": "s4_dist_a1",
+              "kind": "prop",
+              "name": "signal",
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -628,10 +971,22 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s4_dist_context_phone",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s4_dist_a0",
+              "kind": "pop_in",
+              "delay": 0.08,
+              "duration": 0.38
+            },
+            {
+              "target": "s4_dist_a1",
+              "kind": "pop_in",
+              "delay": 0.16,
+              "duration": 0.38
             }
           ]
         }
@@ -639,44 +994,86 @@
     },
     {
       "section_index": 4,
-      "durationInFrames": 447,
+      "durationInFrames": 1749,
       "audioSrc": "",
-      "key_phrase": "ONE BIG SPHERE",
-      "narration": "But one distance doesn't tell you where you are. It tells you you're somewhere on a giant invisible sphere around that satellite. Which is a start, technically. It's also several thousand kilometers of start.",
+      "key_phrase": "CLOSING IN",
+      "narration": "Knowing your distance from one satellite doesn't put you on a spot. It puts you on a sphere, an enormous invisible bubble thousands of kilometers across, with the satellite at the center. You're somewhere on that shell. Somewhere. So your phone listens to a second satellite, and gets a second sphere. Two spheres can only overlap in a ring, so now you're somewhere on that ring. A third satellite, a third sphere, and the ring collapses to just two possible points. One of them is sensibly here on Earth. The other is floating out in space, which your phone quietly discards without comment. And just like that, three distances have pinned you to a single point on the entire planet. It feels less like a gadget, and more like the universe slowly triangulating you.",
       "captions": [
         {
-          "text": "But one distance doesn't tell you where you are.",
+          "text": "Knowing your distance from one satellite doesn't put you on a spot.",
           "start": 0.35,
-          "end": 3.95,
+          "end": 5.15,
           "delivery": "skeptical"
         },
         {
-          "text": "It tells you you're somewhere on a giant invisible sphere around that satellite.",
-          "start": 4.27,
-          "end": 9.47,
+          "text": "It puts you on a sphere, an enormous invisible bubble thousands of kilometers across, with the satellite at the center.",
+          "start": 5.47,
+          "end": 13.47,
           "delivery": "neutral"
         },
         {
-          "text": "Which is a start, technically.",
-          "start": 9.79,
-          "end": 11.79,
+          "text": "You're somewhere on that shell.",
+          "start": 13.79,
+          "end": 15.79,
           "delivery": "neutral"
         },
         {
-          "text": "It's also several thousand kilometers of start.",
-          "start": 12.11,
-          "end": 14.91,
+          "text": "Somewhere.",
+          "start": 16.11,
+          "end": 17.21,
           "delivery": "neutral"
+        },
+        {
+          "text": "So your phone listens to a second satellite, and gets a second sphere.",
+          "start": 17.53,
+          "end": 22.73,
+          "delivery": "brisk"
+        },
+        {
+          "text": "Two spheres can only overlap in a ring, so now you're somewhere on that ring.",
+          "start": 23.05,
+          "end": 29.05,
+          "delivery": "neutral"
+        },
+        {
+          "text": "A third satellite, a third sphere, and the ring collapses to just two possible points.",
+          "start": 29.37,
+          "end": 35.37,
+          "delivery": "brisk"
+        },
+        {
+          "text": "One of them is sensibly here on Earth.",
+          "start": 35.69,
+          "end": 38.89,
+          "delivery": "neutral"
+        },
+        {
+          "text": "The other is floating out in space, which your phone quietly discards without comment.",
+          "start": 39.21,
+          "end": 44.81,
+          "delivery": "neutral"
+        },
+        {
+          "text": "And just like that, three distances have pinned you to a single point on the entire planet.",
+          "start": 45.13,
+          "end": 51.93,
+          "delivery": "weighty"
+        },
+        {
+          "text": "It feels less like a gadget, and more like the universe slowly triangulating you.",
+          "start": 52.7,
+          "end": 58.3,
+          "delivery": "curious"
         }
       ],
       "beats": [
         {
-          "id": "s5_sphere",
+          "id": "s5_one",
           "type": "diagram_build",
           "start": 0.0,
-          "end": 12.1,
+          "end": 17.533,
           "startFrame": 0,
-          "endFrame": 363,
+          "endFrame": 526,
           "scene_family": "diagram_stage",
           "layout": "radial",
           "camera": {
@@ -689,16 +1086,25 @@
           "background": "grid",
           "assets": [
             {
-              "id": "a0",
+              "id": "s5_one_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "left"
+              "anchor": "upper_left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s5_one_a1",
               "kind": "prop",
-              "name": "sphere",
-              "anchor": "right"
+              "name": "ring",
+              "anchor": "upper_right",
+              "is_new": true
+            },
+            {
+              "id": "s5_one_a2",
+              "kind": "prop",
+              "name": "earth",
+              "anchor": "center",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -711,64 +1117,262 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s5_one_a0",
               "kind": "draw_on",
               "delay": 0.0,
-              "duration": 0.4
-            }
-          ]
-        },
-        {
-          "id": "s5_big",
-          "type": "cutaway_gag",
-          "start": 12.1,
-          "end": 14.9,
-          "startFrame": 363,
-          "endFrame": 447,
-          "scene_family": "miniature_world",
-          "layout": "wide_scene",
-          "camera": {
-            "move": "snap_zoom",
-            "target": "center",
-            "intensity": "medium"
-          },
-          "transition_in": "smash_cut",
-          "transition_out": "hard_cut",
-          "background": "plain",
-          "assets": [
-            {
-              "id": "a0",
-              "kind": "prop",
-              "name": "sphere",
-              "anchor": "left"
+              "duration": 0.38
             },
             {
-              "id": "a1",
+              "target": "s5_one_a1",
+              "kind": "draw_on",
+              "delay": 0.08,
+              "duration": 0.38
+            },
+            {
+              "target": "s5_one_a2",
+              "kind": "draw_on",
+              "delay": 0.16,
+              "duration": 0.38
+            }
+          ],
+          "new_count": 3
+        },
+        {
+          "id": "s5_two",
+          "type": "diagram_build",
+          "start": 17.533,
+          "end": 29.367,
+          "startFrame": 526,
+          "endFrame": 881,
+          "scene_family": "diagram_stage",
+          "layout": "radial",
+          "camera": {
+            "move": "hold_then_push",
+            "target": "center",
+            "intensity": "small"
+          },
+          "transition_in": "hard_cut",
+          "transition_out": "hard_cut",
+          "background": "grid",
+          "assets": [
+            {
+              "id": "s5_one_a0",
               "kind": "prop",
-              "name": "label",
-              "anchor": "right"
+              "name": "satellite",
+              "anchor": "upper_left",
+              "is_new": false
+            },
+            {
+              "id": "s5_one_a1",
+              "kind": "prop",
+              "name": "ring",
+              "anchor": "upper_right",
+              "is_new": false
+            },
+            {
+              "id": "s5_one_a2",
+              "kind": "prop",
+              "name": "earth",
+              "anchor": "center",
+              "is_new": false
+            },
+            {
+              "id": "s5_two_a0",
+              "kind": "prop",
+              "name": "satellite",
+              "anchor": "lower_left",
+              "is_new": true
+            },
+            {
+              "id": "s5_two_a1",
+              "kind": "prop",
+              "name": "ring",
+              "anchor": "lower_right",
+              "is_new": true
             }
           ],
           "text_overlays": [
             {
-              "role": "stamp",
-              "text": "THOUSANDS OF KM OF START",
+              "role": "label",
+              "text": "TWO: A RING",
               "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
+          "motion": [
+            {
+              "target": "s5_two_a0",
+              "kind": "draw_on",
+              "delay": 0.0,
+              "duration": 0.38
+            },
+            {
+              "target": "s5_two_a1",
+              "kind": "draw_on",
+              "delay": 0.08,
+              "duration": 0.38
+            }
+          ],
+          "new_count": 2
+        },
+        {
+          "id": "s5_three",
+          "type": "diagram_build",
+          "start": 29.367,
+          "end": 45.133,
+          "startFrame": 881,
+          "endFrame": 1354,
+          "scene_family": "diagram_stage",
+          "layout": "radial",
+          "camera": {
+            "move": "pull_back",
+            "target": "center",
+            "intensity": "small"
+          },
+          "transition_in": "hard_cut",
+          "transition_out": "hard_cut",
+          "background": "grid",
+          "assets": [
+            {
+              "id": "s5_one_a0",
+              "kind": "prop",
+              "name": "satellite",
+              "anchor": "upper_left",
+              "is_new": false
+            },
+            {
+              "id": "s5_one_a1",
+              "kind": "prop",
+              "name": "ring",
+              "anchor": "upper_right",
+              "is_new": false
+            },
+            {
+              "id": "s5_one_a2",
+              "kind": "prop",
+              "name": "earth",
+              "anchor": "center",
+              "is_new": false
+            },
+            {
+              "id": "s5_two_a0",
+              "kind": "prop",
+              "name": "satellite",
+              "anchor": "lower_left",
+              "is_new": false
+            },
+            {
+              "id": "s5_two_a1",
+              "kind": "prop",
+              "name": "ring",
+              "anchor": "lower_right",
+              "is_new": false
+            },
+            {
+              "id": "s5_three_a0",
+              "kind": "prop",
+              "name": "satellite",
+              "anchor": "left",
+              "is_new": true
+            },
+            {
+              "id": "s5_three_a1",
+              "kind": "prop",
+              "name": "ring",
+              "anchor": "left",
+              "is_new": true
+            },
+            {
+              "id": "s5_three_a2",
+              "kind": "prop",
+              "name": "point",
+              "anchor": "left",
+              "is_new": true
+            }
+          ],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "THREE: A POINT",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
+          "motion": [
+            {
+              "target": "s5_three_a0",
+              "kind": "draw_on",
+              "delay": 0.0,
+              "duration": 0.38
+            },
+            {
+              "target": "s5_three_a1",
+              "kind": "draw_on",
+              "delay": 0.08,
+              "duration": 0.38
+            },
+            {
+              "target": "s5_three_a2",
+              "kind": "draw_on",
+              "delay": 0.16,
+              "duration": 0.38
+            }
+          ],
+          "new_count": 3
+        },
+        {
+          "id": "s5_pinned",
+          "type": "emphasize",
+          "start": 45.133,
+          "end": 58.3,
+          "startFrame": 1354,
+          "endFrame": 1749,
+          "scene_family": "caption_punch",
+          "layout": "caption_only",
+          "camera": {
+            "move": "push_in",
+            "target": "center",
+            "intensity": "small"
+          },
+          "transition_in": "hard_cut",
+          "transition_out": "hard_cut",
+          "background": "plain",
+          "assets": [
+            {
+              "id": "s5_pinned_a0",
+              "kind": "prop",
+              "name": "map_pin",
+              "anchor": "left",
+              "is_new": true
+            },
+            {
+              "id": "s5_pinned_a1",
+              "kind": "prop",
+              "name": "earth",
+              "anchor": "right",
+              "is_new": true
+            }
+          ],
+          "text_overlays": [
+            {
+              "role": "headline",
+              "text": "PINNED",
+              "anchor": "headline",
               "tone": "coral_stamp"
             }
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s5_pinned_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
             },
             {
-              "target": "a0",
-              "kind": "stamp",
-              "delay": 0.12,
-              "duration": 0.4
+              "target": "s5_pinned_a1",
+              "kind": "pop_in",
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         }
@@ -776,390 +1380,172 @@
     },
     {
       "section_index": 5,
-      "durationInFrames": 570,
-      "audioSrc": "",
-      "key_phrase": "NARROWING DOWN",
-      "narration": "Add a second satellite, and the two spheres overlap in a ring. A third narrows that ring down to just two possible points. One of those points is usually somewhere sensible, and the other is floating absurdly out in space, which your phone quietly ignores.",
-      "captions": [
-        {
-          "text": "Add a second satellite, and the two spheres overlap in a ring.",
-          "start": 0.35,
-          "end": 5.15,
-          "delivery": "neutral"
-        },
-        {
-          "text": "A third narrows that ring down to just two possible points.",
-          "start": 5.47,
-          "end": 9.87,
-          "delivery": "brisk"
-        },
-        {
-          "text": "One of those points is usually somewhere sensible, and the other is floating absurdly out in space, which your phone quietly ignores.",
-          "start": 10.19,
-          "end": 18.99,
-          "delivery": "neutral"
-        }
-      ],
-      "beats": [
-        {
-          "id": "s6_two",
-          "type": "diagram_build",
-          "start": 0.0,
-          "end": 5.467,
-          "startFrame": 0,
-          "endFrame": 164,
-          "scene_family": "diagram_stage",
-          "layout": "radial",
-          "camera": {
-            "move": "hold_then_push",
-            "target": "center",
-            "intensity": "small"
-          },
-          "transition_in": "dip_to_bg",
-          "transition_out": "hard_cut",
-          "background": "grid",
-          "assets": [
-            {
-              "id": "a0",
-              "kind": "prop",
-              "name": "sphere",
-              "anchor": "center"
-            }
-          ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "A RING",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
-          "motion": [
-            {
-              "target": "a0",
-              "kind": "draw_on",
-              "delay": 0.0,
-              "duration": 0.4
-            }
-          ]
-        },
-        {
-          "id": "s6_three",
-          "type": "diagram_build",
-          "start": 5.467,
-          "end": 10.2,
-          "startFrame": 164,
-          "endFrame": 306,
-          "scene_family": "diagram_stage",
-          "layout": "radial",
-          "camera": {
-            "move": "hold_then_push",
-            "target": "center",
-            "intensity": "small"
-          },
-          "transition_in": "hard_cut",
-          "transition_out": "hard_cut",
-          "background": "grid",
-          "assets": [
-            {
-              "id": "a0",
-              "kind": "prop",
-              "name": "sphere",
-              "anchor": "center"
-            }
-          ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "TWO POINTS",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
-          "motion": [
-            {
-              "target": "a0",
-              "kind": "draw_on",
-              "delay": 0.0,
-              "duration": 0.4
-            }
-          ]
-        },
-        {
-          "id": "s6_ignore",
-          "type": "cutaway_gag",
-          "start": 10.2,
-          "end": 19.0,
-          "startFrame": 306,
-          "endFrame": 570,
-          "scene_family": "miniature_world",
-          "layout": "wide_scene",
-          "camera": {
-            "move": "snap_zoom",
-            "target": "center",
-            "intensity": "medium"
-          },
-          "transition_in": "smash_cut",
-          "transition_out": "hard_cut",
-          "background": "plain",
-          "assets": [
-            {
-              "id": "a0",
-              "kind": "prop",
-              "name": "point",
-              "anchor": "left"
-            },
-            {
-              "id": "a1",
-              "kind": "prop",
-              "name": "label",
-              "anchor": "right"
-            }
-          ],
-          "text_overlays": [
-            {
-              "role": "stamp",
-              "text": "NOT THAT ONE",
-              "anchor": "lower_center",
-              "tone": "coral_stamp"
-            }
-          ],
-          "motion": [
-            {
-              "target": "a0",
-              "kind": "pop_in",
-              "delay": 0.0,
-              "duration": 0.4
-            },
-            {
-              "target": "a0",
-              "kind": "stamp",
-              "delay": 0.12,
-              "duration": 0.4
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "section_index": 6,
-      "durationInFrames": 378,
+      "durationInFrames": 1796,
       "audioSrc": "",
       "key_phrase": "WHY FOUR?",
-      "narration": "You'd think three satellites is enough. Three spheres, one point, done. But there's a catch hiding in the math, and its name is your phone's terrible sense of time.",
+      "narration": "So we're done. Three satellites, one location, mystery solved. Except we are not done, because I've been lying to you a little. All of this depends on measuring time incredibly precisely. The satellites can; they have atomic clocks. Your phone cannot. Your phone keeps time like a tired intern with a cheap watch. And at the speed of light, even a millionth of a second of error doesn't cost you a few meters. It costs you a few hundred. Your perfect little point would smear out into the width of a neighborhood. So your phone does something clever. It listens to a fourth satellite. Not to find another distance, but to solve for the one thing it can't measure on its own: the real, exact time. Four satellites. Four equations. One honest answer.",
       "captions": [
         {
-          "text": "You'd think three satellites is enough.",
+          "text": "So we're done.",
           "start": 0.35,
-          "end": 2.75,
+          "end": 1.55,
           "delivery": "neutral"
         },
         {
-          "text": "Three spheres, one point, done.",
-          "start": 3.07,
-          "end": 5.07,
+          "text": "Three satellites, one location, mystery solved.",
+          "start": 1.87,
+          "end": 4.27,
           "delivery": "brisk"
         },
         {
-          "text": "But there's a catch hiding in the math, and its name is your phone's terrible sense of time.",
-          "start": 5.39,
-          "end": 12.59,
+          "text": "Except we are not done, because I've been lying to you a little.",
+          "start": 4.59,
+          "end": 9.79,
           "delivery": "skeptical"
-        }
-      ],
-      "beats": [
-        {
-          "id": "s7_three_ok",
-          "type": "illustrate",
-          "start": 0.0,
-          "end": 5.4,
-          "startFrame": 0,
-          "endFrame": 162,
-          "scene_family": "object_stage",
-          "layout": "center_subject",
-          "camera": {
-            "move": "static",
-            "target": "center",
-            "intensity": "none"
-          },
-          "transition_in": "dip_to_bg",
-          "transition_out": "hard_cut",
-          "background": "plain",
-          "assets": [
-            {
-              "id": "a0",
-              "kind": "prop",
-              "name": "satellite",
-              "anchor": "left"
-            },
-            {
-              "id": "a1",
-              "kind": "prop",
-              "name": "point",
-              "anchor": "right"
-            }
-          ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "THREE = ONE POINT",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
-          "motion": [
-            {
-              "target": "a0",
-              "kind": "pop_in",
-              "delay": 0.0,
-              "duration": 0.4
-            }
-          ]
         },
         {
-          "id": "s7_catch",
-          "type": "transition",
-          "start": 5.4,
-          "end": 12.6,
-          "startFrame": 162,
-          "endFrame": 378,
-          "scene_family": "caption_punch",
-          "layout": "caption_only",
-          "camera": {
-            "move": "static",
-            "target": "center",
-            "intensity": "none"
-          },
-          "transition_in": "hard_cut",
-          "transition_out": "hard_cut",
-          "background": "plain",
-          "assets": [
-            {
-              "id": "a0",
-              "kind": "prop",
-              "name": "clock",
-              "anchor": "left"
-            },
-            {
-              "id": "a1",
-              "kind": "prop",
-              "name": "label",
-              "anchor": "right"
-            }
-          ],
-          "text_overlays": [
-            {
-              "role": "headline",
-              "text": "THE CATCH",
-              "anchor": "headline",
-              "tone": "ink"
-            }
-          ],
-          "motion": [
-            {
-              "target": "a0",
-              "kind": "pop_in",
-              "delay": 0.0,
-              "duration": 0.4
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "section_index": 7,
-      "durationInFrames": 806,
-      "audioSrc": "",
-      "key_phrase": "THE FOURTH FIXES TIME",
-      "narration": "The satellites keep perfect atomic time. Your phone keeps time like a tired intern with a cheap watch. Even a millionth of a second of error becomes hundreds of meters of wrong. So your phone uses a fourth satellite, not for position, but to solve for the one thing it can't measure: the real time. Four unknowns, four satellites, one honest answer.",
-      "captions": [
-        {
-          "text": "The satellites keep perfect atomic time.",
-          "start": 0.35,
-          "end": 2.75,
+          "text": "All of this depends on measuring time incredibly precisely.",
+          "start": 10.11,
+          "end": 13.71,
           "delivery": "neutral"
         },
         {
-          "text": "Your phone keeps time like a tired intern with a cheap watch.",
-          "start": 3.07,
-          "end": 7.87,
+          "text": "The satellites can; they have atomic clocks.",
+          "start": 14.03,
+          "end": 16.83,
           "delivery": "neutral"
         },
         {
-          "text": "Even a millionth of a second of error becomes hundreds of meters of wrong.",
-          "start": 8.19,
-          "end": 13.79,
+          "text": "Your phone cannot.",
+          "start": 17.15,
+          "end": 18.35,
           "delivery": "weighty"
         },
         {
-          "text": "So your phone uses a fourth satellite, not for position, but to solve for the one thing it can't measure: the real time.",
-          "start": 14.56,
-          "end": 23.76,
+          "text": "Your phone keeps time like a tired intern with a cheap watch.",
+          "start": 19.12,
+          "end": 23.92,
+          "delivery": "neutral"
+        },
+        {
+          "text": "And at the speed of light, even a millionth of a second of error doesn't cost you a few meters.",
+          "start": 24.24,
+          "end": 32.24,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It costs you a few hundred.",
+          "start": 32.56,
+          "end": 34.96,
+          "delivery": "weighty"
+        },
+        {
+          "text": "Your perfect little point would smear out into the width of a neighborhood.",
+          "start": 35.73,
+          "end": 40.93,
+          "delivery": "neutral"
+        },
+        {
+          "text": "So your phone does something clever.",
+          "start": 41.25,
+          "end": 43.65,
           "delivery": "curious"
         },
         {
-          "text": "Four unknowns, four satellites, one honest answer.",
-          "start": 24.08,
-          "end": 26.88,
+          "text": "It listens to a fourth satellite.",
+          "start": 43.97,
+          "end": 46.37,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Not to find another distance, but to solve for the one thing it can't measure on its own: the real, exact time.",
+          "start": 46.69,
+          "end": 55.49,
+          "delivery": "curious"
+        },
+        {
+          "text": "Four satellites.",
+          "start": 55.81,
+          "end": 56.91,
           "delivery": "brisk"
+        },
+        {
+          "text": "Four equations.",
+          "start": 57.23,
+          "end": 58.33,
+          "delivery": "brisk"
+        },
+        {
+          "text": "One honest answer.",
+          "start": 58.65,
+          "end": 59.85,
+          "delivery": "weighty"
         }
       ],
       "beats": [
         {
-          "id": "s8_compare",
+          "id": "s6_compare",
           "type": "compare",
           "start": 0.0,
-          "end": 8.2,
+          "end": 24.233,
           "startFrame": 0,
-          "endFrame": 246,
+          "endFrame": 727,
           "scene_family": "comparison_stage",
           "layout": "left_right",
           "camera": {
-            "move": "static",
+            "move": "hold_then_push",
             "target": "center",
-            "intensity": "none"
+            "intensity": "small"
           },
           "transition_in": "dip_to_bg",
           "transition_out": "hard_cut",
           "background": "panel",
           "assets": [
             {
-              "id": "a0",
+              "id": "s6_compare_a0",
               "kind": "prop",
               "name": "clock",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s6_compare_a1",
               "kind": "prop",
               "name": "watch",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
             {
               "role": "label",
-              "text": "PERFECT vs TIRED",
+              "text": "FLAWLESS vs TIRED",
               "anchor": "lower_center",
               "tone": "ink"
             }
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s6_compare_a0",
               "kind": "slide_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s6_compare_a1",
+              "kind": "slide_in",
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s8_error",
+          "id": "s6_error",
           "type": "stat_pop",
-          "start": 8.2,
-          "end": 14.567,
-          "startFrame": 246,
-          "endFrame": 437,
+          "start": 24.233,
+          "end": 43.967,
+          "startFrame": 727,
+          "endFrame": 1319,
           "scene_family": "stat_stage",
           "layout": "center_subject",
           "camera": {
@@ -1172,16 +1558,18 @@
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s6_error_a0",
               "kind": "prop",
               "name": "clock",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s6_error_a1",
               "kind": "prop",
               "name": "map",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -1194,24 +1582,30 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s6_error_a0",
               "kind": "count_up",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s6_error_a1",
+              "kind": "count_up",
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s8_fourth",
+          "id": "s6_fourth",
           "type": "diagram_build",
-          "start": 14.567,
-          "end": 26.867,
-          "startFrame": 437,
-          "endFrame": 806,
+          "start": 43.967,
+          "end": 59.867,
+          "startFrame": 1319,
+          "endFrame": 1796,
           "scene_family": "diagram_stage",
           "layout": "radial",
           "camera": {
-            "move": "hold_then_push",
+            "move": "pull_back",
             "target": "center",
             "intensity": "small"
           },
@@ -1220,83 +1614,149 @@
           "background": "grid",
           "assets": [
             {
-              "id": "a0",
+              "id": "s6_fourth_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "center"
+              "anchor": "center",
+              "is_new": true
             }
           ],
           "text_overlays": [
             {
               "role": "label",
-              "text": "4 UNKNOWNS, 4 SATS",
+              "text": "4 SATELLITES, 4 UNKNOWNS",
               "anchor": "lower_center",
               "tone": "ink"
             }
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s6_fourth_a0",
               "kind": "draw_on",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
             }
           ]
         }
       ]
     },
     {
-      "section_index": 8,
-      "durationInFrames": 734,
+      "section_index": 6,
+      "durationInFrames": 1527,
       "audioSrc": "",
-      "key_phrase": "EINSTEIN SHOWS UP",
-      "narration": "And now the part that shouldn't work. Those atomic clocks are racing around the planet at fourteen thousand kilometers an hour, way up where gravity is weaker. According to Einstein, both of those facts bend time. Their speed makes the clocks tick slower. The weaker gravity makes them tick faster. The two effects don't cancel.",
+      "key_phrase": "ENTER EINSTEIN",
+      "narration": "And here's where it stops being a clever engineering story, and starts being something stranger. Because those atomic clocks, the ones we are trusting completely, are wrong too. Not because they're broken. Because of Einstein. Every satellite is racing around the Earth at fourteen thousand kilometers an hour, and at that speed, time itself runs a little slower. That's special relativity. But each satellite is also twenty thousand kilometers up, where Earth's gravity is weaker, and weaker gravity makes time run a little faster. That's general relativity. So you've got two effects, pulling in opposite directions, on the most important clocks in the entire system. And here is the genuinely inconvenient part. They don't cancel out.",
       "captions": [
         {
-          "text": "And now the part that shouldn't work.",
+          "text": "And here's where it stops being a clever engineering story, and starts being something stranger.",
           "start": 0.35,
-          "end": 3.15,
-          "delivery": "ominous"
-        },
-        {
-          "text": "Those atomic clocks are racing around the planet at fourteen thousand kilometers an hour, way up where gravity is weaker.",
-          "start": 3.97,
-          "end": 11.97,
-          "delivery": "neutral"
-        },
-        {
-          "text": "According to Einstein, both of those facts bend time.",
-          "start": 12.29,
-          "end": 15.89,
+          "end": 6.35,
           "delivery": "curious"
         },
         {
-          "text": "Their speed makes the clocks tick slower.",
-          "start": 16.21,
-          "end": 19.01,
+          "text": "Because those atomic clocks, the ones we are trusting completely, are wrong too.",
+          "start": 6.67,
+          "end": 11.87,
+          "delivery": "skeptical"
+        },
+        {
+          "text": "Not because they're broken.",
+          "start": 12.19,
+          "end": 13.79,
           "delivery": "neutral"
         },
         {
-          "text": "The weaker gravity makes them tick faster.",
-          "start": 19.33,
-          "end": 22.13,
+          "text": "Because of Einstein.",
+          "start": 14.11,
+          "end": 15.31,
+          "delivery": "weighty"
+        },
+        {
+          "text": "Every satellite is racing around the Earth at fourteen thousand kilometers an hour, and at that speed, time itself runs a little slower.",
+          "start": 16.08,
+          "end": 25.28,
           "delivery": "neutral"
         },
         {
-          "text": "The two effects don't cancel.",
-          "start": 22.45,
-          "end": 24.45,
+          "text": "That's special relativity.",
+          "start": 25.6,
+          "end": 26.8,
+          "delivery": "neutral"
+        },
+        {
+          "text": "But each satellite is also twenty thousand kilometers up, where Earth's gravity is weaker, and weaker gravity makes time run a little faster.",
+          "start": 27.12,
+          "end": 36.32,
+          "delivery": "neutral"
+        },
+        {
+          "text": "That's general relativity.",
+          "start": 36.64,
+          "end": 37.84,
+          "delivery": "neutral"
+        },
+        {
+          "text": "So you've got two effects, pulling in opposite directions, on the most important clocks in the entire system.",
+          "start": 38.16,
+          "end": 45.36,
+          "delivery": "neutral"
+        },
+        {
+          "text": "And here is the genuinely inconvenient part.",
+          "start": 45.68,
+          "end": 48.48,
+          "delivery": "ominous"
+        },
+        {
+          "text": "They don't cancel out.",
+          "start": 49.3,
+          "end": 50.9,
           "delivery": "weighty"
         }
       ],
       "beats": [
         {
-          "id": "s9_orbit",
-          "type": "establish",
+          "id": "s7_quote",
+          "type": "quote",
           "start": 0.0,
-          "end": 12.3,
+          "end": 16.067,
           "startFrame": 0,
-          "endFrame": 369,
+          "endFrame": 482,
+          "scene_family": "quote_stage",
+          "layout": "quote_card",
+          "camera": {
+            "move": "hold_then_push",
+            "target": "center",
+            "intensity": "small"
+          },
+          "transition_in": "hard_cut",
+          "transition_out": "hard_cut",
+          "background": "plain",
+          "assets": [],
+          "text_overlays": [
+            {
+              "role": "caption",
+              "text": "The distinction between past, present and future is only a stubbornly persistent illusion. - Albert Einstein",
+              "anchor": "center",
+              "tone": "ink"
+            }
+          ],
+          "motion": [
+            {
+              "target": "overlay",
+              "kind": "pop_in",
+              "delay": 0.0,
+              "duration": 0.3
+            }
+          ]
+        },
+        {
+          "id": "s7_orbit",
+          "type": "establish",
+          "start": 16.067,
+          "end": 38.167,
+          "startFrame": 482,
+          "endFrame": 1145,
           "scene_family": "object_stage",
           "layout": "center_subject",
           "camera": {
@@ -1309,16 +1769,18 @@
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s7_orbit_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s7_orbit_a1",
               "kind": "prop",
               "name": "earth",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -1331,90 +1793,50 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s7_orbit_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
-            }
-          ]
-        },
-        {
-          "id": "s9_bend",
-          "type": "illustrate",
-          "start": 12.3,
-          "end": 16.2,
-          "startFrame": 369,
-          "endFrame": 486,
-          "scene_family": "object_stage",
-          "layout": "center_subject",
-          "camera": {
-            "move": "static",
-            "target": "center",
-            "intensity": "none"
-          },
-          "transition_in": "hard_cut",
-          "transition_out": "hard_cut",
-          "background": "plain",
-          "assets": [
-            {
-              "id": "a0",
-              "kind": "prop",
-              "name": "grid",
-              "anchor": "left"
+              "duration": 0.38
             },
             {
-              "id": "a1",
-              "kind": "prop",
-              "name": "earth",
-              "anchor": "right"
-            }
-          ],
-          "text_overlays": [
-            {
-              "role": "label",
-              "text": "TIME BENDS",
-              "anchor": "lower_center",
-              "tone": "ink"
-            }
-          ],
-          "motion": [
-            {
-              "target": "a0",
+              "target": "s7_orbit_a1",
               "kind": "pop_in",
-              "delay": 0.0,
-              "duration": 0.4
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s9_two_effects",
+          "id": "s7_two",
           "type": "compare",
-          "start": 16.2,
-          "end": 24.467,
-          "startFrame": 486,
-          "endFrame": 734,
+          "start": 38.167,
+          "end": 50.9,
+          "startFrame": 1145,
+          "endFrame": 1527,
           "scene_family": "comparison_stage",
           "layout": "left_right",
           "camera": {
-            "move": "static",
+            "move": "pull_back",
             "target": "center",
-            "intensity": "none"
+            "intensity": "small"
           },
           "transition_in": "hard_cut",
           "transition_out": "hard_cut",
           "background": "panel",
           "assets": [
             {
-              "id": "a0",
+              "id": "s7_two_a0",
               "kind": "prop",
               "name": "clock",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s7_two_a1",
               "kind": "prop",
               "name": "arrow",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -1427,61 +1849,103 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s7_two_a0",
               "kind": "slide_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s7_two_a1",
+              "kind": "slide_in",
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         }
       ]
     },
     {
-      "section_index": 9,
-      "durationInFrames": 563,
+      "section_index": 7,
+      "durationInFrames": 1444,
       "audioSrc": "",
       "key_phrase": "38 MICROSECONDS",
-      "narration": "The leftover difference is about thirty-eight millionths of a second per day. That sounds ignorable. It is not. If GPS ignored it, your position would drift by about ten kilometers every single day. The blue dot would be useless before lunch.",
+      "narration": "Add the two effects together, and the satellite clocks tick about thirty-eight millionths of a second faster than clocks down here, every single day. Thirty-eight microseconds. It's the kind of number that sounds like it could not possibly matter. It matters enormously. Remember, at light speed, time is distance. If GPS simply ignored Einstein, your position wouldn't drift by a little. It would drift by about ten kilometers. Every day. Within a couple of hours of switching it on, the blue dot would have you standing in the wrong part of town. By dinner, the wrong town entirely. The whole system, by every right, should not work.",
       "captions": [
         {
-          "text": "The leftover difference is about thirty-eight millionths of a second per day.",
+          "text": "Add the two effects together, and the satellite clocks tick about thirty-eight millionths of a second faster than clocks down here, every single day.",
           "start": 0.35,
-          "end": 5.15,
+          "end": 9.95,
           "delivery": "neutral"
         },
         {
-          "text": "That sounds ignorable.",
-          "start": 5.47,
-          "end": 6.67,
+          "text": "Thirty-eight microseconds.",
+          "start": 10.27,
+          "end": 11.37,
           "delivery": "neutral"
         },
         {
-          "text": "It is not.",
-          "start": 6.99,
-          "end": 8.19,
+          "text": "It's the kind of number that sounds like it could not possibly matter.",
+          "start": 11.69,
+          "end": 16.89,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It matters enormously.",
+          "start": 17.21,
+          "end": 18.41,
           "delivery": "weighty"
         },
         {
-          "text": "If GPS ignored it, your position would drift by about ten kilometers every single day.",
-          "start": 8.96,
-          "end": 14.96,
+          "text": "Remember, at light speed, time is distance.",
+          "start": 19.18,
+          "end": 21.98,
+          "delivery": "neutral"
+        },
+        {
+          "text": "If GPS simply ignored Einstein, your position wouldn't drift by a little.",
+          "start": 22.3,
+          "end": 27.1,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It would drift by about ten kilometers.",
+          "start": 27.42,
+          "end": 30.22,
           "delivery": "surprised"
         },
         {
-          "text": "The blue dot would be useless before lunch.",
-          "start": 15.58,
-          "end": 18.78,
+          "text": "Every day.",
+          "start": 30.84,
+          "end": 31.94,
+          "delivery": "weighty"
+        },
+        {
+          "text": "Within a couple of hours of switching it on, the blue dot would have you standing in the wrong part of town.",
+          "start": 32.71,
+          "end": 41.51,
           "delivery": "neutral"
+        },
+        {
+          "text": "By dinner, the wrong town entirely.",
+          "start": 41.83,
+          "end": 44.23,
+          "delivery": "neutral"
+        },
+        {
+          "text": "The whole system, by every right, should not work.",
+          "start": 44.55,
+          "end": 48.15,
+          "delivery": "ominous"
         }
       ],
       "beats": [
         {
-          "id": "s10_stat",
+          "id": "s8_stat",
           "type": "stat_pop",
           "start": 0.0,
-          "end": 8.967,
+          "end": 22.3,
           "startFrame": 0,
-          "endFrame": 269,
+          "endFrame": 669,
           "scene_family": "stat_stage",
           "layout": "center_subject",
           "camera": {
@@ -1494,10 +1958,11 @@
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s8_stat_a0",
               "kind": "prop",
               "name": "clock",
-              "anchor": "center"
+              "anchor": "center",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -1510,42 +1975,44 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s8_stat_a0",
               "kind": "count_up",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s10_drift",
+          "id": "s8_drift",
           "type": "illustrate",
-          "start": 8.967,
-          "end": 15.567,
-          "startFrame": 269,
-          "endFrame": 467,
+          "start": 22.3,
+          "end": 32.7,
+          "startFrame": 669,
+          "endFrame": 981,
           "scene_family": "object_stage",
           "layout": "center_subject",
           "camera": {
-            "move": "static",
+            "move": "push_in",
             "target": "center",
-            "intensity": "none"
+            "intensity": "small"
           },
           "transition_in": "hard_cut",
           "transition_out": "hard_cut",
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s8_drift_a0",
               "kind": "prop",
               "name": "map",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s8_drift_a1",
               "kind": "prop",
               "name": "dot",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -1558,151 +2025,216 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s8_drift_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s8_drift_a1",
+              "kind": "pop_in",
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s10_lunch",
+          "id": "s8_wrong",
           "type": "cutaway_gag",
-          "start": 15.567,
-          "end": 18.767,
-          "startFrame": 467,
-          "endFrame": 563,
+          "start": 32.7,
+          "end": 48.133,
+          "startFrame": 981,
+          "endFrame": 1444,
           "scene_family": "miniature_world",
           "layout": "wide_scene",
           "camera": {
-            "move": "snap_zoom",
+            "move": "pull_back",
             "target": "center",
-            "intensity": "medium"
+            "intensity": "small"
           },
           "transition_in": "smash_cut",
           "transition_out": "hard_cut",
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
-              "kind": "prop",
-              "name": "clock",
-              "anchor": "left"
-            },
-            {
-              "id": "a1",
-              "kind": "prop",
-              "name": "dot",
-              "anchor": "center"
-            },
-            {
-              "id": "a2",
+              "id": "s8_wrong_a0",
               "kind": "prop",
               "name": "map",
-              "anchor": "right"
+              "anchor": "left",
+              "is_new": true
+            },
+            {
+              "id": "s8_wrong_a1",
+              "kind": "prop",
+              "name": "dot",
+              "anchor": "center",
+              "is_new": true
+            },
+            {
+              "id": "s8_wrong_a2",
+              "kind": "prop",
+              "name": "clock",
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
             {
               "role": "stamp",
-              "text": "USELESS BY LUNCH",
+              "text": "WRONG TOWN BY DINNER",
               "anchor": "lower_center",
               "tone": "coral_stamp"
             }
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s8_wrong_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
             },
             {
-              "target": "a0",
+              "target": "s8_wrong_a1",
               "kind": "stamp",
-              "delay": 0.12,
-              "duration": 0.4
+              "delay": 0.08,
+              "duration": 0.38
+            },
+            {
+              "target": "s8_wrong_a2",
+              "kind": "stamp",
+              "delay": 0.16,
+              "duration": 0.38
             }
           ]
         }
       ]
     },
     {
-      "section_index": 10,
-      "durationInFrames": 619,
+      "section_index": 8,
+      "durationInFrames": 1578,
       "audioSrc": "",
       "key_phrase": "RELATIVITY, SHIPPED",
-      "narration": "So engineers built Einstein's correction right into the satellites. Every GPS device on Earth is quietly assuming relativity is true, and being proven right, billions of times a day. A hundred-year-old theory about space and time, reduced to a background process so you can find a coffee shop.",
+      "narration": "But it does work. Because the engineers who built GPS knew all of this. So before a single satellite ever launched, they did something quietly astonishing. They took Einstein's equations, the bending of time by speed and by gravity, and they built the correction directly into the satellites. The clocks up there are deliberately set to tick at the wrong rate, so that once relativity has had its way with them, they come out exactly right. Which means every time that blue dot finds you, a hundred-year-old theory about space and time is being tested, and confirmed, billions of times a day. Relativity isn't an abstraction in a textbook. It's a background process. Running silently, so you can find a coffee shop.",
       "captions": [
         {
-          "text": "So engineers built Einstein's correction right into the satellites.",
+          "text": "But it does work.",
           "start": 0.35,
-          "end": 3.95,
-          "delivery": "neutral"
-        },
-        {
-          "text": "Every GPS device on Earth is quietly assuming relativity is true, and being proven right, billions of times a day.",
-          "start": 4.27,
-          "end": 12.27,
+          "end": 1.95,
           "delivery": "weighty"
         },
         {
-          "text": "A hundred-year-old theory about space and time, reduced to a background process so you can find a coffee shop.",
-          "start": 13.04,
-          "end": 20.64,
+          "text": "Because the engineers who built GPS knew all of this.",
+          "start": 2.72,
+          "end": 6.72,
+          "delivery": "neutral"
+        },
+        {
+          "text": "So before a single satellite ever launched, they did something quietly astonishing.",
+          "start": 7.04,
+          "end": 11.84,
+          "delivery": "curious"
+        },
+        {
+          "text": "They took Einstein's equations, the bending of time by speed and by gravity, and they built the correction directly into the satellites.",
+          "start": 12.16,
+          "end": 20.96,
+          "delivery": "neutral"
+        },
+        {
+          "text": "The clocks up there are deliberately set to tick at the wrong rate, so that once relativity has had its way with them, they come out exactly right.",
+          "start": 21.28,
+          "end": 32.48,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Which means every time that blue dot finds you, a hundred-year-old theory about space and time is being tested, and confirmed, billions of times a day.",
+          "start": 32.8,
+          "end": 43.2,
+          "delivery": "weighty"
+        },
+        {
+          "text": "Relativity isn't an abstraction in a textbook.",
+          "start": 43.97,
+          "end": 46.77,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It's a background process.",
+          "start": 47.09,
+          "end": 48.69,
+          "delivery": "neutral"
+        },
+        {
+          "text": "Running silently, so you can find a coffee shop.",
+          "start": 49.01,
+          "end": 52.61,
           "delivery": "neutral"
         }
       ],
       "beats": [
         {
-          "id": "s11_loaded",
+          "id": "s9_fix",
           "type": "illustrate",
           "start": 0.0,
-          "end": 4.267,
+          "end": 32.8,
           "startFrame": 0,
-          "endFrame": 128,
+          "endFrame": 984,
           "scene_family": "object_stage",
           "layout": "center_subject",
           "camera": {
-            "move": "static",
+            "move": "hold_then_push",
             "target": "center",
-            "intensity": "none"
+            "intensity": "small"
           },
           "transition_in": "dip_to_bg",
           "transition_out": "hard_cut",
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s9_fix_a0",
               "kind": "prop",
               "name": "satellite",
-              "anchor": "center"
+              "anchor": "left",
+              "is_new": true
+            },
+            {
+              "id": "s9_fix_a1",
+              "kind": "prop",
+              "name": "clock",
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
             {
               "role": "label",
-              "text": "CORRECTION: ON",
+              "text": "CORRECTION BAKED IN",
               "anchor": "lower_center",
               "tone": "ink"
             }
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s9_fix_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s9_fix_a1",
+              "kind": "pop_in",
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s11_proven",
+          "id": "s9_proven",
           "type": "emphasize",
-          "start": 4.267,
-          "end": 13.033,
-          "startFrame": 128,
-          "endFrame": 391,
+          "start": 32.8,
+          "end": 49.0,
+          "startFrame": 984,
+          "endFrame": 1470,
           "scene_family": "caption_punch",
           "layout": "caption_only",
           "camera": {
@@ -1715,16 +2247,11 @@
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s9_proven_a0",
               "kind": "prop",
               "name": "earth",
-              "anchor": "left"
-            },
-            {
-              "id": "a1",
-              "kind": "prop",
-              "name": "counter",
-              "anchor": "right"
+              "anchor": "center",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -1737,42 +2264,44 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s9_proven_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s11_coffee",
+          "id": "s9_coffee",
           "type": "cutaway_gag",
-          "start": 13.033,
-          "end": 20.633,
-          "startFrame": 391,
-          "endFrame": 619,
+          "start": 49.0,
+          "end": 52.6,
+          "startFrame": 1470,
+          "endFrame": 1578,
           "scene_family": "miniature_world",
           "layout": "wide_scene",
           "camera": {
-            "move": "snap_zoom",
+            "move": "pull_back",
             "target": "center",
-            "intensity": "medium"
+            "intensity": "small"
           },
           "transition_in": "smash_cut",
           "transition_out": "hard_cut",
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
-              "kind": "prop",
-              "name": "map_pin",
-              "anchor": "left"
-            },
-            {
-              "id": "a1",
+              "id": "s9_coffee_a0",
               "kind": "prop",
               "name": "coffee",
-              "anchor": "right"
+              "anchor": "left",
+              "is_new": true
+            },
+            {
+              "id": "s9_coffee_a1",
+              "kind": "prop",
+              "name": "map_pin",
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -1785,101 +2314,129 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s9_coffee_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
             },
             {
-              "target": "a0",
+              "target": "s9_coffee_a1",
               "kind": "stamp",
-              "delay": 0.12,
-              "duration": 0.4
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         }
       ]
     },
     {
-      "section_index": 11,
-      "durationInFrames": 920,
+      "section_index": 9,
+      "durationInFrames": 1644,
       "audioSrc": "",
-      "key_phrase": "THE WHOLE TRICK",
-      "narration": "So the next time a little blue dot finds you on a map, remember what it actually took. Atomic clocks, a constellation of satellites, the speed of light, and Einstein, all working together so you don't have to ask a stranger for directions. It's one of the most quietly impressive things humans have ever built. If you like the universe explained without the breathless hype, stick around. New deep-dives every week.",
+      "key_phrase": "NEVER MAGIC",
+      "narration": "So the next time you glance down and that little blue dot snaps into place, maybe give it a second of respect. To draw that one dot, your phone is quietly eavesdropping on a constellation of atomic clocks, measuring the speed of light to within a hair, and silently correcting for the way time itself bends around the planet. All so you don't have to ask a stranger for directions. It looks like the most ordinary thing in the world. It is, secretly, one of the most quietly impressive things our species has ever built. And it was never magic. It was just very, very good physics, hiding in plain sight. If you like the universe explained without the breathless hype, stick around. New deep-dives every week.",
       "captions": [
         {
-          "text": "So the next time a little blue dot finds you on a map, remember what it actually took.",
+          "text": "So the next time you glance down and that little blue dot snaps into place, maybe give it a second of respect.",
           "start": 0.35,
-          "end": 7.55,
+          "end": 9.15,
           "delivery": "curious"
         },
         {
-          "text": "Atomic clocks, a constellation of satellites, the speed of light, and Einstein, all working together so you don't have to ask a stranger for directions.",
-          "start": 7.87,
-          "end": 17.87,
+          "text": "To draw that one dot, your phone is quietly eavesdropping on a constellation of atomic clocks, measuring the speed of light to within a hair, and silently correcting for the way time itself bends around the planet.",
+          "start": 9.47,
+          "end": 24.27,
           "delivery": "neutral"
         },
         {
-          "text": "It's one of the most quietly impressive things humans have ever built.",
-          "start": 18.19,
-          "end": 22.99,
+          "text": "All so you don't have to ask a stranger for directions.",
+          "start": 24.59,
+          "end": 28.99,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It looks like the most ordinary thing in the world.",
+          "start": 29.31,
+          "end": 33.31,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It is, secretly, one of the most quietly impressive things our species has ever built.",
+          "start": 33.63,
+          "end": 39.63,
+          "delivery": "weighty"
+        },
+        {
+          "text": "And it was never magic.",
+          "start": 40.4,
+          "end": 42.4,
+          "delivery": "neutral"
+        },
+        {
+          "text": "It was just very, very good physics, hiding in plain sight.",
+          "start": 42.72,
+          "end": 47.12,
           "delivery": "weighty"
         },
         {
           "text": "If you like the universe explained without the breathless hype, stick around.",
-          "start": 23.76,
-          "end": 28.56,
+          "start": 47.89,
+          "end": 52.69,
           "delivery": "warm_cta"
         },
         {
           "text": "New deep-dives every week.",
-          "start": 29.08,
-          "end": 30.68,
+          "start": 53.21,
+          "end": 54.81,
           "delivery": "warm_cta"
         }
       ],
       "beats": [
         {
-          "id": "s12_recap",
+          "id": "s10_recap",
           "type": "list_reveal",
           "start": 0.0,
-          "end": 18.2,
+          "end": 33.633,
           "startFrame": 0,
-          "endFrame": 546,
+          "endFrame": 1009,
           "scene_family": "list_stage",
           "layout": "top_down_stack",
           "camera": {
-            "move": "static",
+            "move": "hold_then_push",
             "target": "center",
-            "intensity": "none"
+            "intensity": "small"
           },
           "transition_in": "dip_to_bg",
           "transition_out": "hard_cut",
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s10_recap_a0",
               "kind": "prop",
               "name": "clock",
-              "anchor": "upper_left"
+              "anchor": "upper_left",
+              "is_new": true
             },
             {
-              "id": "a1",
-              "kind": "prop",
-              "name": "satellite",
-              "anchor": "upper_right"
-            },
-            {
-              "id": "a2",
+              "id": "s10_recap_a1",
               "kind": "prop",
               "name": "light",
-              "anchor": "lower_left"
+              "anchor": "upper_right",
+              "is_new": true
             },
             {
-              "id": "a3",
+              "id": "s10_recap_a2",
               "kind": "prop",
-              "name": "einstein",
-              "anchor": "lower_right"
+              "name": "earth",
+              "anchor": "lower_left",
+              "is_new": true
+            },
+            {
+              "id": "s10_recap_a3",
+              "kind": "prop",
+              "name": "dot",
+              "anchor": "lower_right",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -1892,20 +2449,38 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s10_recap_a0",
               "kind": "slide_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s10_recap_a1",
+              "kind": "slide_in",
+              "delay": 0.08,
+              "duration": 0.38
+            },
+            {
+              "target": "s10_recap_a2",
+              "kind": "slide_in",
+              "delay": 0.16,
+              "duration": 0.38
+            },
+            {
+              "target": "s10_recap_a3",
+              "kind": "slide_in",
+              "delay": 0.24,
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s12_impressive",
+          "id": "s10_impressive",
           "type": "emphasize",
-          "start": 18.2,
-          "end": 23.767,
-          "startFrame": 546,
-          "endFrame": 713,
+          "start": 33.633,
+          "end": 47.9,
+          "startFrame": 1009,
+          "endFrame": 1437,
           "scene_family": "caption_punch",
           "layout": "caption_only",
           "camera": {
@@ -1918,58 +2493,67 @@
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s10_impressive_a0",
               "kind": "prop",
               "name": "map",
-              "anchor": "left"
+              "anchor": "left",
+              "is_new": true
             },
             {
-              "id": "a1",
+              "id": "s10_impressive_a1",
               "kind": "prop",
               "name": "dot",
-              "anchor": "right"
+              "anchor": "right",
+              "is_new": true
             }
           ],
           "text_overlays": [
             {
               "role": "headline",
-              "text": "QUIETLY IMPRESSIVE",
+              "text": "NEVER MAGIC",
               "anchor": "headline",
               "tone": "coral_stamp"
             }
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s10_impressive_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
+            },
+            {
+              "target": "s10_impressive_a1",
+              "kind": "pop_in",
+              "delay": 0.08,
+              "duration": 0.38
             }
           ]
         },
         {
-          "id": "s12_cta",
+          "id": "s10_cta",
           "type": "transition",
-          "start": 23.767,
-          "end": 30.667,
-          "startFrame": 713,
-          "endFrame": 920,
+          "start": 47.9,
+          "end": 54.8,
+          "startFrame": 1437,
+          "endFrame": 1644,
           "scene_family": "caption_punch",
           "layout": "caption_only",
           "camera": {
-            "move": "static",
+            "move": "pull_back",
             "target": "center",
-            "intensity": "none"
+            "intensity": "small"
           },
           "transition_in": "hard_cut",
           "transition_out": "hard_cut",
           "background": "plain",
           "assets": [
             {
-              "id": "a0",
+              "id": "s10_cta_a0",
               "kind": "prop",
               "name": "subscribe",
-              "anchor": "center"
+              "anchor": "center",
+              "is_new": true
             }
           ],
           "text_overlays": [
@@ -1982,10 +2566,10 @@
           ],
           "motion": [
             {
-              "target": "a0",
+              "target": "s10_cta_a0",
               "kind": "pop_in",
               "delay": 0.0,
-              "duration": 0.4
+              "duration": 0.38
             }
           ]
         }

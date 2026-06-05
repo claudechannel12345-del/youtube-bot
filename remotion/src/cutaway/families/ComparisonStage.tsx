@@ -13,11 +13,14 @@ export const ComparisonStage: React.FC<FamilyProps> = ({beat, localFrame}) => (
       <text x={960} y={533} textAnchor="middle" fontSize={54} fontWeight={900} fontFamily="Inter, Arial, sans-serif" fill={CORAL}>
         VS
       </text>
-      {renderAssets(beat, localFrame, (_asset, index) => ({
-        x: index % 2 === 0 ? 540 : 1380,
-        y: 525,
-        scale: 0.78,
-      }))}
+      {renderAssets(beat, localFrame, (_asset, index) => {
+        const sideIndex = Math.floor(index / 2);
+        return {
+          x: index % 2 === 0 ? 540 : 1380,
+          y: 470 + sideIndex * 150,
+          scale: 0.66,
+        };
+      })}
     </Stage>
     <OverlayText overlays={beat.text_overlays} localFrame={localFrame} />
   </AbsoluteFill>

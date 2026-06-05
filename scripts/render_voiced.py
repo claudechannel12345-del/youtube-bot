@@ -18,8 +18,15 @@ from caption_generator import build_srt  # noqa: E402
 from director import build_episode  # noqa: E402
 from remotion_renderer import render_cutaway  # noqa: E402
 from thumbnail_generator import generate_thumbnail  # noqa: E402
-from tts_generator import get_audio_duration, synthesize_section  # noqa: E402
 from uploader import upload_video  # noqa: E402
+
+# Pluggable narration voice. Default = ElevenLabs (Chris, then owner's clone later);
+# set TTS_PROVIDER=openai to fall back to gpt-4o-mini-tts.
+TTS_PROVIDER = os.environ.get("TTS_PROVIDER", "elevenlabs").lower()
+if TTS_PROVIDER == "openai":
+    from tts_generator import synthesize_section  # noqa: E402
+else:
+    from elevenlabs_tts import synthesize_section  # noqa: E402
 
 FPS = 30
 
@@ -55,7 +62,7 @@ def main():
                         "end": cue["end"] + offset,
                     }
                 )
-            offset += get_audio_duration(audio_path)
+            offset += timings[-1]["end"] if timings else 0.0
 
         episode = build_episode(script, per_section_timings, fps=FPS)
 

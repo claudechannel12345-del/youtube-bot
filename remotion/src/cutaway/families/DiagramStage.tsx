@@ -12,8 +12,14 @@ export const DiagramStage: React.FC<FamilyProps> = ({beat, localFrame}) => {
         {beat.assets
           .filter((asset) => asset.anchor !== "center" && asset.anchor !== "center_subject")
           .slice(0, 6)
-          .map((asset, index, arr) => (
-            <ConnectorLine key={asset.id} from={anchorPoint(asset.anchor, index, arr.length)} to={center} progress={progress} color={CORAL} />
+          .map((asset) => (
+            <ConnectorLine
+              key={asset.id}
+              from={anchorPoint(asset.anchor)}
+              to={center}
+              progress={asset.is_new === false ? 1 : progress}
+              color={CORAL}
+            />
           ))}
         {renderAssets(beat, localFrame, (asset, index, total) => {
           const p = anchorPoint(asset.anchor, index, total);

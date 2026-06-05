@@ -1,226 +1,263 @@
 {
-  "title": "GPS Is Quietly Proving Einstein Right",
-  "title_options": ["How Your Phone Actually Finds You", "The Space Clocks Hiding In Your Phone"],
+  "title": "How Your Phone Secretly Uses Einstein To Find You",
+  "title_options": ["The Blue Dot Is Lying To You", "GPS Shouldn't Work. Here's Why It Does."],
   "hook_options": [
-    "Right now, a little blue dot on your phone knows where you are, give or take a few feet. It feels like magic, or possibly surveillance. It's neither. Your phone is just very good at eavesdropping on clocks in space.",
-    "Your phone's blue dot isn't tracking you. It's eavesdropping on atomic clocks in orbit, and quietly proving Einstein right, just so you can find a coffee shop."
+    "Look down at your phone and open the map. There you are. A little blue dot, sitting right on top of you, certain of itself, accurate to within a few feet. Now, here's the part nobody tells you. Your phone has no idea where it is. It can't see the street. It doesn't recognize the building you're standing in. Left entirely to itself, it is as lost as a tourist with a dead battery. And yet the dot is never wrong. So that's our mystery. How does a device that genuinely does not know where it is manage to know, every single time, exactly where you are?",
+    "Your phone's blue dot has no idea where it is. It's hopelessly lost, all on its own. And yet it finds you within a few feet, every time, by quietly eavesdropping on space and bending the rules of time."
   ],
-  "thumbnail_text_options": ["EINSTEIN IN YOUR POCKET", "HOW GPS REALLY WORKS", "THE BLUE DOT SECRET"],
-  "description": "Your phone's blue dot isn't tracking you, and it isn't magic. It's quietly eavesdropping on atomic clocks in space, doing some genuinely beautiful math, and proving a hundred-year-old Einstein theory right billions of times a day.\n\nIn this one we break down how GPS actually works: why satellites only ever shout the time, how a tiny delay becomes an exact distance, why your phone needs four satellites instead of three, and the relativity correction that keeps the whole thing from drifting ten kilometers off by lunchtime.\n\nNo breathless hype, just the universe explained clearly. If that's your kind of thing, subscribe. New deep-dives every week.",
-  "tags": ["gps", "how gps works", "gps explained", "relativity", "einstein", "atomic clock", "satellites", "trilateration", "science explained", "how it works"],
+  "thumbnail_text_options": ["EINSTEIN IN YOUR POCKET", "THE BLUE DOT'S SECRET", "WHY GPS SHOULDN'T WORK"],
+  "description": "Your phone's blue dot has no idea where it is. Genuinely none. And yet it finds you to within a few feet, anywhere on Earth, every single time. This is the story of how it pulls that off, and why it secretly shouldn't work at all.\n\nWe go from a one-way conversation with space, to clocks shouting the time into the void, to the speed of light, to the moment Einstein quietly walks in and breaks everything, to the correction that holds the whole thing together. No breathless hype, just the universe explained clearly.\n\nIf that's your kind of thing, stick around. New deep-dives every week.",
+  "tags": ["gps", "how gps works", "gps explained", "relativity", "einstein", "atomic clock", "satellites", "speed of light", "science explained", "physics"],
   "sections": [
     {
-      "narration": "Right now, a little blue dot on your phone knows where you are, give or take a few feet. It feels like magic, or possibly surveillance. It's neither. Your phone is just very good at eavesdropping on clocks in space.",
+      "narration": "Look down at your phone and open the map. There you are. A little blue dot, sitting right on top of you, certain of itself, accurate to within a few feet. Now, here's the part nobody tells you. Your phone has no idea where it is. It can't see the street. It doesn't recognize the building you're standing in. Left entirely to itself, it is as lost as a tourist with a dead battery. And yet the dot is never wrong. So that's our mystery. How does a device that genuinely does not know where it is manage to know, every single time, exactly where you are?",
       "sentences": [
-        {"text": "Right now, a little blue dot on your phone knows where you are, give or take a few feet.", "delivery": "curious"},
-        {"text": "It feels like magic, or possibly surveillance.", "delivery": "neutral"},
-        {"text": "It's neither.", "delivery": "weighty"},
-        {"text": "Your phone is just very good at eavesdropping on clocks in space.", "delivery": "curious"}
+        {"text": "Look down at your phone and open the map.", "delivery": "neutral"},
+        {"text": "There you are.", "delivery": "curious"},
+        {"text": "A little blue dot, sitting right on top of you, certain of itself, accurate to within a few feet.", "delivery": "neutral"},
+        {"text": "Now, here's the part nobody tells you.", "delivery": "curious"},
+        {"text": "Your phone has no idea where it is.", "delivery": "weighty"},
+        {"text": "It can't see the street.", "delivery": "neutral"},
+        {"text": "It doesn't recognize the building you're standing in.", "delivery": "neutral"},
+        {"text": "Left entirely to itself, it is as lost as a tourist with a dead battery.", "delivery": "neutral"},
+        {"text": "And yet the dot is never wrong.", "delivery": "weighty"},
+        {"text": "So that's our mystery.", "delivery": "neutral"},
+        {"text": "How does a device that genuinely does not know where it is manage to know, every single time, exactly where you are?", "delivery": "question"}
       ],
-      "key_phrase": "THE BLUE DOT",
+      "key_phrase": "THE IMPOSSIBLE DOT",
       "template": "title_card",
-      "on_screen": {"subtitle": "give or take a few feet"},
-      "broll_keywords": ["smartphone map", "blue location dot", "city street"],
+      "on_screen": {"subtitle": "accurate to a few feet"},
+      "broll_keywords": ["phone map blue dot", "person on sidewalk", "city"],
       "beats": [
-        {"id": "s1_blue_dot", "type": "establish", "sentence_start": 0, "sentence_end": 1, "visual_intent": "Person on a sidewalk, pulsing blue dot beneath them, city behind.", "text": "WHERE AM I", "subjects": ["person", "phone", "city"], "importance": "high"},
-        {"id": "s1_eavesdrop", "type": "illustrate", "sentence_start": 3, "sentence_end": 3, "visual_intent": "Phone leaning up toward a tiny clock in space, listening.", "text": "EAVESDROPPING", "subjects": ["phone", "clock"], "importance": "medium"}
+        {"id": "s1_dot", "type": "establish", "sentence_start": 0, "sentence_end": 2, "visual_intent": "Person on a sidewalk, city behind, pulsing blue dot beneath them.", "text": "YOU ARE HERE", "subjects": ["person", "phone", "city"], "importance": "high"},
+        {"id": "s1_lost", "type": "illustrate", "sentence_start": 4, "sentence_end": 7, "visual_intent": "The phone alone with a big question mark - it has no idea where it is.", "text": "NO IDEA", "subjects": ["phone"], "importance": "medium"},
+        {"id": "s1_mystery", "type": "emphasize", "sentence_start": 10, "sentence_end": 10, "visual_intent": "The central question on a clean card.", "text": "HOW?", "subjects": [], "importance": "high"}
       ]
     },
     {
-      "narration": "Here's the first surprise. Your phone isn't sending anything to space. It isn't pinging satellites, and the satellites have no idea it exists. The whole system is a one-way broadcast, and your phone is just a very attentive listener.",
+      "narration": "Most people picture it like this. Your phone reaches up, taps a satellite on the shoulder, and the satellite pings back your location. It's a nice idea. It's also completely wrong. Your phone never sends anything to space. It can't. The satellites are twenty thousand kilometers up, and your phone can barely hold a call in a parking garage. The entire system runs one way. The satellites talk, your phone listens, and the satellites have absolutely no idea your phone exists. Which is a little insulting, when you think about it. But it leaves us with a much better question. If they're not tracking you, what are they doing up there?",
       "sentences": [
-        {"text": "Here's the first surprise.", "delivery": "neutral"},
-        {"text": "Your phone isn't sending anything to space.", "delivery": "skeptical"},
-        {"text": "It isn't pinging satellites, and the satellites have no idea it exists.", "delivery": "neutral"},
-        {"text": "The whole system is a one-way broadcast, and your phone is just a very attentive listener.", "delivery": "curious"}
+        {"text": "Most people picture it like this.", "delivery": "neutral"},
+        {"text": "Your phone reaches up, taps a satellite on the shoulder, and the satellite pings back your location.", "delivery": "neutral"},
+        {"text": "It's a nice idea.", "delivery": "neutral"},
+        {"text": "It's also completely wrong.", "delivery": "weighty"},
+        {"text": "Your phone never sends anything to space.", "delivery": "skeptical"},
+        {"text": "It can't.", "delivery": "neutral"},
+        {"text": "The satellites are twenty thousand kilometers up, and your phone can barely hold a call in a parking garage.", "delivery": "neutral"},
+        {"text": "The entire system runs one way.", "delivery": "brisk"},
+        {"text": "The satellites talk, your phone listens, and the satellites have absolutely no idea your phone exists.", "delivery": "neutral"},
+        {"text": "Which is a little insulting, when you think about it.", "delivery": "neutral"},
+        {"text": "But it leaves us with a much better question.", "delivery": "curious"},
+        {"text": "If they're not tracking you, what are they doing up there?", "delivery": "question"}
       ],
-      "key_phrase": "ONE-WAY ONLY",
+      "key_phrase": "A ONE-WAY STREET",
       "template": "diagram",
       "on_screen": {"parts": ["phone", "satellite", "signal"]},
       "broll_keywords": ["satellite broadcast", "one way signal", "phone"],
       "beats": [
-        {"id": "s2_no_uplink", "type": "establish", "sentence_start": 1, "sentence_end": 1, "visual_intent": "Phone with an upward arrow to a satellite, crossed out.", "text": "NOT SENDING", "subjects": ["phone", "satellite"], "importance": "high"},
-        {"id": "s2_oblivious", "type": "cutaway_gag", "sentence_start": 2, "sentence_end": 3, "visual_intent": "Satellite cheerfully broadcasting into empty space, unaware of the phone.", "text": "NOBODY ANSWERS BACK", "subjects": ["satellite", "signal"], "comedy_role": "quiet_contradiction", "importance": "medium"}
+        {"id": "s2_wrong", "type": "establish", "sentence_start": 1, "sentence_end": 3, "visual_intent": "Phone sending an arrow up to a satellite, then a big red X over it.", "text": "NOPE", "subjects": ["phone", "satellite"], "importance": "high"},
+        {"id": "s2_oblivious", "type": "cutaway_gag", "sentence_start": 8, "sentence_end": 9, "visual_intent": "Satellite happily broadcasting into empty space, ignoring the tiny phone.", "text": "DOESN'T KNOW YOU EXIST", "subjects": ["satellite", "signal", "phone"], "comedy_role": "quiet_contradiction", "importance": "medium"},
+        {"id": "s2_q", "type": "transition", "sentence_start": 11, "sentence_end": 11, "visual_intent": "The new question on a clean card.", "text": "SO WHAT ARE THEY DOING?", "subjects": [], "importance": "medium"}
       ]
     },
     {
-      "narration": "So what are the satellites doing up there? Each one carries an atomic clock and a very boring script. Over and over, forever, it announces the exact time and where it was when it said it. Thirty-one of them are doing this constantly, to no one in particular.",
+      "narration": "Here's the answer, and it's almost disappointingly simple. Each satellite carries an atomic clock, the most precise kind of clock humanity knows how to build. And it uses that miracle of engineering to do exactly one thing: announce the time. Over and over, forever, it broadcasts a single message. The time is now precisely this, and I am right here. That's it. Thirty-one of them, circling the planet, endlessly shouting the time at anyone who happens to be listening. Which raises the strangest question yet. How on Earth does knowing what time it is tell you where you are?",
       "sentences": [
-        {"text": "So what are the satellites doing up there?", "delivery": "question"},
-        {"text": "Each one carries an atomic clock and a very boring script.", "delivery": "neutral"},
-        {"text": "Over and over, forever, it announces the exact time and where it was when it said it.", "delivery": "brisk"},
-        {"text": "Thirty-one of them are doing this constantly, to no one in particular.", "delivery": "neutral"}
+        {"text": "Here's the answer, and it's almost disappointingly simple.", "delivery": "curious"},
+        {"text": "Each satellite carries an atomic clock, the most precise kind of clock humanity knows how to build.", "delivery": "neutral"},
+        {"text": "And it uses that miracle of engineering to do exactly one thing: announce the time.", "delivery": "neutral"},
+        {"text": "Over and over, forever, it broadcasts a single message.", "delivery": "brisk"},
+        {"text": "The time is now precisely this, and I am right here.", "delivery": "neutral"},
+        {"text": "That's it.", "delivery": "weighty"},
+        {"text": "Thirty-one of them, circling the planet, endlessly shouting the time at anyone who happens to be listening.", "delivery": "neutral"},
+        {"text": "Which raises the strangest question yet.", "delivery": "curious"},
+        {"text": "How on Earth does knowing what time it is tell you where you are?", "delivery": "question"}
       ],
       "key_phrase": "SHOUTING THE TIME",
       "template": "diagram",
       "on_screen": {"parts": ["satellite", "atomic clock", "timestamp"]},
       "broll_keywords": ["gps satellite", "atomic clock", "orbit"],
       "beats": [
-        {"id": "s3_clock", "type": "diagram_build", "sentence_start": 1, "sentence_end": 1, "visual_intent": "Satellite with an atomic clock face.", "text": "ATOMIC CLOCK", "subjects": ["satellite", "clock"], "importance": "high"},
-        {"id": "s3_announce", "type": "illustrate", "sentence_start": 2, "sentence_end": 2, "visual_intent": "Speech bubble with a timestamp and a position.", "text": "TIME + PLACE", "subjects": ["satellite", "signal"], "importance": "medium"},
-        {"id": "s3_count", "type": "stat_pop", "sentence_start": 3, "sentence_end": 3, "visual_intent": "Counter ticking to 31 satellites scattered in orbit.", "text": "31", "subjects": ["satellite"], "importance": "medium"}
+        {"id": "s3_clock", "type": "diagram_build", "sentence_start": 1, "sentence_end": 2, "visual_intent": "A satellite with an atomic clock face.", "text": "ATOMIC CLOCK", "subjects": ["satellite", "clock"], "importance": "high"},
+        {"id": "s3_msg", "type": "illustrate", "sentence_start": 4, "sentence_end": 4, "visual_intent": "Speech bubble: the time, and a position.", "text": "TIME + PLACE", "subjects": ["satellite", "signal"], "importance": "medium"},
+        {"id": "s3_count", "type": "stat_pop", "sentence_start": 6, "sentence_end": 6, "visual_intent": "Counter ticking to 31 satellites around Earth.", "text": "31", "subjects": ["satellite"], "importance": "medium"}
       ]
     },
     {
-      "narration": "Here's the clever part. That time signal travels at the speed of light, which is fast, but not infinitely fast. By the time it reaches your phone, it's a tiny bit old. Measure how old, multiply by the speed of light, and you've got the exact distance to that satellite.",
+      "narration": "The secret is hiding in the one thing we never think about: the message takes time to arrive. Radio signals travel at the speed of light. Fast, yes. Instant, no. By the time that little time-stamp reaches your phone, it's already a tiny bit out of date, by a few hundredths of a second. And your phone notices. It compares the time the satellite claimed it was, with the time it actually is, and measures the gap. Multiply that gap by the speed of light, and you get something remarkable: the exact distance to that satellite. So now you know you're, say, twenty thousand kilometers from one specific satellite. Which sounds like progress. It is the loosest possible kind of progress.",
       "sentences": [
-        {"text": "Here's the clever part.", "delivery": "neutral"},
-        {"text": "That time signal travels at the speed of light, which is fast, but not infinitely fast.", "delivery": "curious"},
-        {"text": "By the time it reaches your phone, it's a tiny bit old.", "delivery": "neutral"},
-        {"text": "Measure how old, multiply by the speed of light, and you've got the exact distance to that satellite.", "delivery": "weighty"}
+        {"text": "The secret is hiding in the one thing we never think about: the message takes time to arrive.", "delivery": "curious"},
+        {"text": "Radio signals travel at the speed of light.", "delivery": "neutral"},
+        {"text": "Fast, yes.", "delivery": "neutral"},
+        {"text": "Instant, no.", "delivery": "weighty"},
+        {"text": "By the time that little time-stamp reaches your phone, it's already a tiny bit out of date, by a few hundredths of a second.", "delivery": "neutral"},
+        {"text": "And your phone notices.", "delivery": "curious"},
+        {"text": "It compares the time the satellite claimed it was, with the time it actually is, and measures the gap.", "delivery": "neutral"},
+        {"text": "Multiply that gap by the speed of light, and you get something remarkable: the exact distance to that satellite.", "delivery": "weighty"},
+        {"text": "So now you know you're, say, twenty thousand kilometers from one specific satellite.", "delivery": "neutral"},
+        {"text": "Which sounds like progress.", "delivery": "neutral"},
+        {"text": "It is the loosest possible kind of progress.", "delivery": "neutral"}
       ],
-      "key_phrase": "LATE EQUALS FAR",
+      "key_phrase": "LATE MEANS FAR",
       "template": "process",
-      "on_screen": {"steps": ["signal sent", "tiny delay", "delay x light speed = distance"]},
+      "on_screen": {"steps": ["signal sent at light speed", "arrives a little late", "delay x light speed = distance"]},
       "broll_keywords": ["speed of light", "signal delay", "distance"],
       "beats": [
-        {"id": "s4_travel", "type": "diagram_build", "sentence_start": 1, "sentence_end": 1, "visual_intent": "A pulse travels from satellite to phone along a line.", "text": "SPEED OF LIGHT", "subjects": ["satellite", "signal", "phone"], "importance": "high"},
-        {"id": "s4_delay", "type": "illustrate", "sentence_start": 2, "sentence_end": 2, "visual_intent": "A clock showing a tiny delay on arrival.", "text": "A BIT OLD", "subjects": ["clock", "signal"], "importance": "medium"},
-        {"id": "s4_distance", "type": "emphasize", "sentence_start": 3, "sentence_end": 3, "visual_intent": "Equation: delay x c = distance, distance measured along the line.", "text": "= DISTANCE", "subjects": ["ruler", "signal"], "importance": "high"}
+        {"id": "s4_travel", "type": "diagram_build", "sentence_start": 0, "sentence_end": 1, "visual_intent": "A pulse travels from satellite to phone along a line.", "text": "SPEED OF LIGHT", "subjects": ["satellite", "signal", "phone"], "importance": "high"},
+        {"id": "s4_gap", "type": "illustrate", "sentence_start": 4, "sentence_end": 6, "visual_intent": "Two clocks side by side showing the tiny gap.", "text": "THE GAP", "subjects": ["clock", "signal"], "importance": "medium"},
+        {"id": "s4_dist", "type": "emphasize", "sentence_start": 7, "sentence_end": 7, "visual_intent": "Gap x speed of light = distance, measured along the line.", "text": "= DISTANCE", "subjects": ["ruler", "signal"], "importance": "high"}
       ]
     },
     {
-      "narration": "But one distance doesn't tell you where you are. It tells you you're somewhere on a giant invisible sphere around that satellite. Which is a start, technically. It's also several thousand kilometers of start.",
+      "narration": "Knowing your distance from one satellite doesn't put you on a spot. It puts you on a sphere, an enormous invisible bubble thousands of kilometers across, with the satellite at the center. You're somewhere on that shell. Somewhere. So your phone listens to a second satellite, and gets a second sphere. Two spheres can only overlap in a ring, so now you're somewhere on that ring. A third satellite, a third sphere, and the ring collapses to just two possible points. One of them is sensibly here on Earth. The other is floating out in space, which your phone quietly discards without comment. And just like that, three distances have pinned you to a single point on the entire planet. It feels less like a gadget, and more like the universe slowly triangulating you.",
       "sentences": [
-        {"text": "But one distance doesn't tell you where you are.", "delivery": "skeptical"},
-        {"text": "It tells you you're somewhere on a giant invisible sphere around that satellite.", "delivery": "neutral"},
-        {"text": "Which is a start, technically.", "delivery": "neutral"},
-        {"text": "It's also several thousand kilometers of start.", "delivery": "neutral"}
+        {"text": "Knowing your distance from one satellite doesn't put you on a spot.", "delivery": "skeptical"},
+        {"text": "It puts you on a sphere, an enormous invisible bubble thousands of kilometers across, with the satellite at the center.", "delivery": "neutral"},
+        {"text": "You're somewhere on that shell.", "delivery": "neutral"},
+        {"text": "Somewhere.", "delivery": "neutral"},
+        {"text": "So your phone listens to a second satellite, and gets a second sphere.", "delivery": "brisk"},
+        {"text": "Two spheres can only overlap in a ring, so now you're somewhere on that ring.", "delivery": "neutral"},
+        {"text": "A third satellite, a third sphere, and the ring collapses to just two possible points.", "delivery": "brisk"},
+        {"text": "One of them is sensibly here on Earth.", "delivery": "neutral"},
+        {"text": "The other is floating out in space, which your phone quietly discards without comment.", "delivery": "neutral"},
+        {"text": "And just like that, three distances have pinned you to a single point on the entire planet.", "delivery": "weighty"},
+        {"text": "It feels less like a gadget, and more like the universe slowly triangulating you.", "delivery": "curious"}
       ],
-      "key_phrase": "ONE BIG SPHERE",
+      "key_phrase": "CLOSING IN",
       "template": "diagram",
-      "on_screen": {"parts": ["satellite", "sphere", "you are somewhere here"]},
-      "broll_keywords": ["sphere", "satellite range", "geometry"],
+      "on_screen": {"parts": ["one sphere", "two: a ring", "three: a point"]},
+      "broll_keywords": ["trilateration", "intersecting spheres", "geometry"],
       "beats": [
-        {"id": "s5_sphere", "type": "diagram_build", "sentence_start": 0, "sentence_end": 1, "visual_intent": "Satellite with a huge ring/sphere of possible positions.", "text": "SOMEWHERE ON HERE", "subjects": ["satellite", "sphere"], "importance": "high"},
-        {"id": "s5_big", "type": "cutaway_gag", "sentence_start": 3, "sentence_end": 3, "visual_intent": "The sphere is enormous; a tiny arrow labeled YOU is lost on it.", "text": "THOUSANDS OF KM OF START", "subjects": ["sphere", "label"], "comedy_role": "scale_absurdity", "importance": "medium"}
+        {"id": "s5_one", "type": "diagram_build", "sentence_start": 0, "sentence_end": 3, "visual_intent": "One satellite with a big range ring; a YOU marker lost somewhere on it.", "text": "SOMEWHERE ON HERE", "subjects": ["satellite", "ring", "earth"], "importance": "high"},
+        {"id": "s5_two", "type": "diagram_build", "sentence_start": 4, "sentence_end": 5, "visual_intent": "A second satellite + ring is ADDED; the two rings cross.", "text": "TWO: A RING", "subjects": ["satellite", "ring"], "importance": "high"},
+        {"id": "s5_three", "type": "diagram_build", "sentence_start": 6, "sentence_end": 8, "visual_intent": "A third satellite + ring is ADDED; everything converges on one point.", "text": "THREE: A POINT", "subjects": ["satellite", "ring", "point"], "importance": "high"},
+        {"id": "s5_pinned", "type": "emphasize", "sentence_start": 9, "sentence_end": 10, "visual_intent": "The point locks onto the map with a confident pin.", "text": "PINNED", "subjects": ["map_pin", "earth"], "importance": "medium"}
       ]
     },
     {
-      "narration": "Add a second satellite, and the two spheres overlap in a ring. A third narrows that ring down to just two possible points. One of those points is usually somewhere sensible, and the other is floating absurdly out in space, which your phone quietly ignores.",
+      "narration": "So we're done. Three satellites, one location, mystery solved. Except we are not done, because I've been lying to you a little. All of this depends on measuring time incredibly precisely. The satellites can; they have atomic clocks. Your phone cannot. Your phone keeps time like a tired intern with a cheap watch. And at the speed of light, even a millionth of a second of error doesn't cost you a few meters. It costs you a few hundred. Your perfect little point would smear out into the width of a neighborhood. So your phone does something clever. It listens to a fourth satellite. Not to find another distance, but to solve for the one thing it can't measure on its own: the real, exact time. Four satellites. Four equations. One honest answer.",
       "sentences": [
-        {"text": "Add a second satellite, and the two spheres overlap in a ring.", "delivery": "neutral"},
-        {"text": "A third narrows that ring down to just two possible points.", "delivery": "brisk"},
-        {"text": "One of those points is usually somewhere sensible, and the other is floating absurdly out in space, which your phone quietly ignores.", "delivery": "neutral"}
-      ],
-      "key_phrase": "NARROWING DOWN",
-      "template": "process",
-      "on_screen": {"steps": ["two spheres: a ring", "three spheres: two points", "ignore the silly one"]},
-      "broll_keywords": ["trilateration", "intersection", "spheres"],
-      "beats": [
-        {"id": "s6_two", "type": "diagram_build", "sentence_start": 0, "sentence_end": 0, "visual_intent": "Two spheres intersecting into a ring.", "text": "A RING", "subjects": ["sphere"], "importance": "high"},
-        {"id": "s6_three", "type": "diagram_build", "sentence_start": 1, "sentence_end": 1, "visual_intent": "Third sphere narrows the ring to two points.", "text": "TWO POINTS", "subjects": ["sphere"], "importance": "high"},
-        {"id": "s6_ignore", "type": "cutaway_gag", "sentence_start": 2, "sentence_end": 2, "visual_intent": "One point on the ground, one floating in space with an X.", "text": "NOT THAT ONE", "subjects": ["point", "label"], "comedy_role": "quiet_contradiction", "importance": "medium"}
-      ]
-    },
-    {
-      "narration": "You'd think three satellites is enough. Three spheres, one point, done. But there's a catch hiding in the math, and its name is your phone's terrible sense of time.",
-      "sentences": [
-        {"text": "You'd think three satellites is enough.", "delivery": "neutral"},
-        {"text": "Three spheres, one point, done.", "delivery": "brisk"},
-        {"text": "But there's a catch hiding in the math, and its name is your phone's terrible sense of time.", "delivery": "skeptical"}
+        {"text": "So we're done.", "delivery": "neutral"},
+        {"text": "Three satellites, one location, mystery solved.", "delivery": "brisk"},
+        {"text": "Except we are not done, because I've been lying to you a little.", "delivery": "skeptical"},
+        {"text": "All of this depends on measuring time incredibly precisely.", "delivery": "neutral"},
+        {"text": "The satellites can; they have atomic clocks.", "delivery": "neutral"},
+        {"text": "Your phone cannot.", "delivery": "weighty"},
+        {"text": "Your phone keeps time like a tired intern with a cheap watch.", "delivery": "neutral"},
+        {"text": "And at the speed of light, even a millionth of a second of error doesn't cost you a few meters.", "delivery": "neutral"},
+        {"text": "It costs you a few hundred.", "delivery": "weighty"},
+        {"text": "Your perfect little point would smear out into the width of a neighborhood.", "delivery": "neutral"},
+        {"text": "So your phone does something clever.", "delivery": "curious"},
+        {"text": "It listens to a fourth satellite.", "delivery": "neutral"},
+        {"text": "Not to find another distance, but to solve for the one thing it can't measure on its own: the real, exact time.", "delivery": "curious"},
+        {"text": "Four satellites.", "delivery": "brisk"},
+        {"text": "Four equations.", "delivery": "brisk"},
+        {"text": "One honest answer.", "delivery": "weighty"}
       ],
       "key_phrase": "WHY FOUR?",
-      "template": "title_card",
-      "on_screen": {"subtitle": "there's a catch"},
-      "broll_keywords": ["three satellites", "catch", "clock error"],
-      "beats": [
-        {"id": "s7_three_ok", "type": "illustrate", "sentence_start": 0, "sentence_end": 1, "visual_intent": "Three satellites converging on a single point.", "text": "THREE = ONE POINT", "subjects": ["satellite", "point"], "importance": "medium"},
-        {"id": "s7_catch", "type": "transition", "sentence_start": 2, "sentence_end": 2, "visual_intent": "A wobbly, sweating clock labeled YOUR PHONE.", "text": "THE CATCH", "subjects": ["clock", "label"], "importance": "high"}
-      ]
-    },
-    {
-      "narration": "The satellites keep perfect atomic time. Your phone keeps time like a tired intern with a cheap watch. Even a millionth of a second of error becomes hundreds of meters of wrong. So your phone uses a fourth satellite, not for position, but to solve for the one thing it can't measure: the real time. Four unknowns, four satellites, one honest answer.",
-      "sentences": [
-        {"text": "The satellites keep perfect atomic time.", "delivery": "neutral"},
-        {"text": "Your phone keeps time like a tired intern with a cheap watch.", "delivery": "neutral"},
-        {"text": "Even a millionth of a second of error becomes hundreds of meters of wrong.", "delivery": "weighty"},
-        {"text": "So your phone uses a fourth satellite, not for position, but to solve for the one thing it can't measure: the real time.", "delivery": "curious"},
-        {"text": "Four unknowns, four satellites, one honest answer.", "delivery": "brisk"}
-      ],
-      "key_phrase": "THE FOURTH FIXES TIME",
       "template": "comparison",
-      "on_screen": {"left": "atomic clock", "right": "cheap phone clock", "left_label": "perfect", "right_label": "tired intern"},
-      "broll_keywords": ["atomic clock vs watch", "clock error", "fourth satellite"],
+      "on_screen": {"left": "atomic clock", "right": "your phone's clock", "left_label": "flawless", "right_label": "tired intern"},
+      "broll_keywords": ["atomic clock vs watch", "timing error", "fourth satellite"],
       "beats": [
-        {"id": "s8_compare", "type": "compare", "sentence_start": 0, "sentence_end": 1, "visual_intent": "Pristine atomic clock vs a wobbly cheap watch.", "text": "PERFECT vs TIRED", "subjects": ["clock", "watch"], "importance": "high"},
-        {"id": "s8_error", "type": "stat_pop", "sentence_start": 2, "sentence_end": 2, "visual_intent": "A millionth of a second balloons into hundreds of meters on a map.", "text": "1 MICROSECOND = 300 M", "subjects": ["clock", "map"], "importance": "high"},
-        {"id": "s8_fourth", "type": "diagram_build", "sentence_start": 3, "sentence_end": 4, "visual_intent": "A fourth satellite joins; four equations solve for x, y, z, and time.", "text": "4 UNKNOWNS, 4 SATS", "subjects": ["satellite"], "importance": "high"}
+        {"id": "s6_compare", "type": "compare", "sentence_start": 4, "sentence_end": 6, "visual_intent": "Pristine atomic clock vs a wobbly cheap wristwatch.", "text": "FLAWLESS vs TIRED", "subjects": ["clock", "watch"], "importance": "high"},
+        {"id": "s6_error", "type": "stat_pop", "sentence_start": 7, "sentence_end": 8, "visual_intent": "A millionth of a second balloons into hundreds of meters on a map.", "text": "1 MICROSECOND = 300 M", "subjects": ["clock", "map"], "importance": "high"},
+        {"id": "s6_fourth", "type": "diagram_build", "sentence_start": 11, "sentence_end": 15, "visual_intent": "A fourth satellite joins; four equations solving for x, y, z, and time.", "text": "4 SATELLITES, 4 UNKNOWNS", "subjects": ["satellite"], "importance": "high"}
       ]
     },
     {
-      "narration": "And now the part that shouldn't work. Those atomic clocks are racing around the planet at fourteen thousand kilometers an hour, way up where gravity is weaker. According to Einstein, both of those facts bend time. Their speed makes the clocks tick slower. The weaker gravity makes them tick faster. The two effects don't cancel.",
+      "narration": "And here's where it stops being a clever engineering story, and starts being something stranger. Because those atomic clocks, the ones we are trusting completely, are wrong too. Not because they're broken. Because of Einstein. Every satellite is racing around the Earth at fourteen thousand kilometers an hour, and at that speed, time itself runs a little slower. That's special relativity. But each satellite is also twenty thousand kilometers up, where Earth's gravity is weaker, and weaker gravity makes time run a little faster. That's general relativity. So you've got two effects, pulling in opposite directions, on the most important clocks in the entire system. And here is the genuinely inconvenient part. They don't cancel out.",
       "sentences": [
-        {"text": "And now the part that shouldn't work.", "delivery": "ominous"},
-        {"text": "Those atomic clocks are racing around the planet at fourteen thousand kilometers an hour, way up where gravity is weaker.", "delivery": "neutral"},
-        {"text": "According to Einstein, both of those facts bend time.", "delivery": "curious"},
-        {"text": "Their speed makes the clocks tick slower.", "delivery": "neutral"},
-        {"text": "The weaker gravity makes them tick faster.", "delivery": "neutral"},
-        {"text": "The two effects don't cancel.", "delivery": "weighty"}
+        {"text": "And here's where it stops being a clever engineering story, and starts being something stranger.", "delivery": "curious"},
+        {"text": "Because those atomic clocks, the ones we are trusting completely, are wrong too.", "delivery": "skeptical"},
+        {"text": "Not because they're broken.", "delivery": "neutral"},
+        {"text": "Because of Einstein.", "delivery": "weighty"},
+        {"text": "Every satellite is racing around the Earth at fourteen thousand kilometers an hour, and at that speed, time itself runs a little slower.", "delivery": "neutral"},
+        {"text": "That's special relativity.", "delivery": "neutral"},
+        {"text": "But each satellite is also twenty thousand kilometers up, where Earth's gravity is weaker, and weaker gravity makes time run a little faster.", "delivery": "neutral"},
+        {"text": "That's general relativity.", "delivery": "neutral"},
+        {"text": "So you've got two effects, pulling in opposite directions, on the most important clocks in the entire system.", "delivery": "neutral"},
+        {"text": "And here is the genuinely inconvenient part.", "delivery": "ominous"},
+        {"text": "They don't cancel out.", "delivery": "weighty"}
       ],
-      "key_phrase": "EINSTEIN SHOWS UP",
+      "key_phrase": "ENTER EINSTEIN",
       "template": "comparison",
       "on_screen": {"left": "speed", "right": "gravity", "left_label": "ticks slower", "right_label": "ticks faster"},
-      "broll_keywords": ["relativity", "einstein", "spacetime", "orbit speed"],
+      "broll_keywords": ["relativity", "einstein", "spacetime", "orbit"],
       "beats": [
-        {"id": "s9_orbit", "type": "establish", "sentence_start": 1, "sentence_end": 1, "visual_intent": "Satellite whipping around Earth, high up.", "text": "14,000 KM/H", "subjects": ["satellite", "earth"], "importance": "high"},
-        {"id": "s9_bend", "type": "illustrate", "sentence_start": 2, "sentence_end": 2, "visual_intent": "Time grid bending near Earth.", "text": "TIME BENDS", "subjects": ["grid", "earth"], "importance": "medium"},
-        {"id": "s9_two_effects", "type": "compare", "sentence_start": 3, "sentence_end": 5, "visual_intent": "Speed arrow pulls clock slower, gravity arrow pushes faster, not equal.", "text": "THEY DON'T CANCEL", "subjects": ["clock", "arrow"], "importance": "high"}
+        {"id": "s7_orbit", "type": "establish", "sentence_start": 4, "sentence_end": 4, "visual_intent": "A satellite whipping around Earth, fast and high.", "text": "14,000 KM/H", "subjects": ["satellite", "earth"], "importance": "high"},
+        {"id": "s7_quote", "type": "quote", "sentence_start": 3, "sentence_end": 3, "visual_intent": "A clean quote card with a speech bubble.", "text": "The distinction between past, present and future is only a stubbornly persistent illusion. - Albert Einstein", "subjects": ["quote"], "importance": "medium"},
+        {"id": "s7_two", "type": "compare", "sentence_start": 8, "sentence_end": 10, "visual_intent": "Speed pulls a clock slower, gravity pushes it faster; they don't match.", "text": "THEY DON'T CANCEL", "subjects": ["clock", "arrow"], "importance": "high"}
       ]
     },
     {
-      "narration": "The leftover difference is about thirty-eight millionths of a second per day. That sounds ignorable. It is not. If GPS ignored it, your position would drift by about ten kilometers every single day. The blue dot would be useless before lunch.",
+      "narration": "Add the two effects together, and the satellite clocks tick about thirty-eight millionths of a second faster than clocks down here, every single day. Thirty-eight microseconds. It's the kind of number that sounds like it could not possibly matter. It matters enormously. Remember, at light speed, time is distance. If GPS simply ignored Einstein, your position wouldn't drift by a little. It would drift by about ten kilometers. Every day. Within a couple of hours of switching it on, the blue dot would have you standing in the wrong part of town. By dinner, the wrong town entirely. The whole system, by every right, should not work.",
       "sentences": [
-        {"text": "The leftover difference is about thirty-eight millionths of a second per day.", "delivery": "neutral"},
-        {"text": "That sounds ignorable.", "delivery": "neutral"},
-        {"text": "It is not.", "delivery": "weighty"},
-        {"text": "If GPS ignored it, your position would drift by about ten kilometers every single day.", "delivery": "surprised"},
-        {"text": "The blue dot would be useless before lunch.", "delivery": "neutral"}
+        {"text": "Add the two effects together, and the satellite clocks tick about thirty-eight millionths of a second faster than clocks down here, every single day.", "delivery": "neutral"},
+        {"text": "Thirty-eight microseconds.", "delivery": "neutral"},
+        {"text": "It's the kind of number that sounds like it could not possibly matter.", "delivery": "neutral"},
+        {"text": "It matters enormously.", "delivery": "weighty"},
+        {"text": "Remember, at light speed, time is distance.", "delivery": "neutral"},
+        {"text": "If GPS simply ignored Einstein, your position wouldn't drift by a little.", "delivery": "neutral"},
+        {"text": "It would drift by about ten kilometers.", "delivery": "surprised"},
+        {"text": "Every day.", "delivery": "weighty"},
+        {"text": "Within a couple of hours of switching it on, the blue dot would have you standing in the wrong part of town.", "delivery": "neutral"},
+        {"text": "By dinner, the wrong town entirely.", "delivery": "neutral"},
+        {"text": "The whole system, by every right, should not work.", "delivery": "ominous"}
       ],
       "key_phrase": "38 MICROSECONDS",
       "template": "stat_reveal",
       "on_screen": {"stat": "38 us/day", "label": "the leftover difference"},
-      "broll_keywords": ["microseconds", "gps drift", "error accumulation"],
+      "broll_keywords": ["microseconds", "gps drift", "error"],
       "beats": [
-        {"id": "s10_stat", "type": "stat_pop", "sentence_start": 0, "sentence_end": 0, "visual_intent": "Counter lands on 38 microseconds per day.", "text": "38 us / DAY", "subjects": ["clock"], "importance": "high"},
-        {"id": "s10_drift", "type": "illustrate", "sentence_start": 3, "sentence_end": 3, "visual_intent": "Blue dot drifting off a map by 10 km.", "text": "10 KM / DAY", "subjects": ["map", "dot"], "importance": "high"},
-        {"id": "s10_lunch", "type": "cutaway_gag", "sentence_start": 4, "sentence_end": 4, "visual_intent": "A clock at lunchtime; the dot is hopelessly across town.", "text": "USELESS BY LUNCH", "subjects": ["clock", "dot", "map"], "comedy_role": "scale_absurdity", "importance": "medium"}
+        {"id": "s8_stat", "type": "stat_pop", "sentence_start": 0, "sentence_end": 1, "visual_intent": "Counter lands on 38 microseconds per day.", "text": "38 us / DAY", "subjects": ["clock"], "importance": "high"},
+        {"id": "s8_drift", "type": "illustrate", "sentence_start": 5, "sentence_end": 7, "visual_intent": "The blue dot sliding 10 km off a map.", "text": "10 KM / DAY", "subjects": ["map", "dot"], "importance": "high"},
+        {"id": "s8_wrong", "type": "cutaway_gag", "sentence_start": 8, "sentence_end": 9, "visual_intent": "The dot stranded across town by dinnertime.", "text": "WRONG TOWN BY DINNER", "subjects": ["map", "dot", "clock"], "comedy_role": "scale_absurdity", "importance": "medium"}
       ]
     },
     {
-      "narration": "So engineers built Einstein's correction right into the satellites. Every GPS device on Earth is quietly assuming relativity is true, and being proven right, billions of times a day. A hundred-year-old theory about space and time, reduced to a background process so you can find a coffee shop.",
+      "narration": "But it does work. Because the engineers who built GPS knew all of this. So before a single satellite ever launched, they did something quietly astonishing. They took Einstein's equations, the bending of time by speed and by gravity, and they built the correction directly into the satellites. The clocks up there are deliberately set to tick at the wrong rate, so that once relativity has had its way with them, they come out exactly right. Which means every time that blue dot finds you, a hundred-year-old theory about space and time is being tested, and confirmed, billions of times a day. Relativity isn't an abstraction in a textbook. It's a background process. Running silently, so you can find a coffee shop.",
       "sentences": [
-        {"text": "So engineers built Einstein's correction right into the satellites.", "delivery": "neutral"},
-        {"text": "Every GPS device on Earth is quietly assuming relativity is true, and being proven right, billions of times a day.", "delivery": "weighty"},
-        {"text": "A hundred-year-old theory about space and time, reduced to a background process so you can find a coffee shop.", "delivery": "neutral"}
+        {"text": "But it does work.", "delivery": "weighty"},
+        {"text": "Because the engineers who built GPS knew all of this.", "delivery": "neutral"},
+        {"text": "So before a single satellite ever launched, they did something quietly astonishing.", "delivery": "curious"},
+        {"text": "They took Einstein's equations, the bending of time by speed and by gravity, and they built the correction directly into the satellites.", "delivery": "neutral"},
+        {"text": "The clocks up there are deliberately set to tick at the wrong rate, so that once relativity has had its way with them, they come out exactly right.", "delivery": "neutral"},
+        {"text": "Which means every time that blue dot finds you, a hundred-year-old theory about space and time is being tested, and confirmed, billions of times a day.", "delivery": "weighty"},
+        {"text": "Relativity isn't an abstraction in a textbook.", "delivery": "neutral"},
+        {"text": "It's a background process.", "delivery": "neutral"},
+        {"text": "Running silently, so you can find a coffee shop.", "delivery": "neutral"}
       ],
       "key_phrase": "RELATIVITY, SHIPPED",
       "template": "diagram",
-      "on_screen": {"parts": ["einstein correction", "satellite", "your phone"]},
+      "on_screen": {"parts": ["Einstein's correction", "satellite", "the blue dot"]},
       "broll_keywords": ["relativity correction", "engineering", "proof"],
       "beats": [
-        {"id": "s11_loaded", "type": "illustrate", "sentence_start": 0, "sentence_end": 0, "visual_intent": "A correction value loaded into a satellite.", "text": "CORRECTION: ON", "subjects": ["satellite"], "importance": "medium"},
-        {"id": "s11_proven", "type": "emphasize", "sentence_start": 1, "sentence_end": 1, "visual_intent": "Counter of proofs ticking up insanely fast across a globe.", "text": "PROVEN, BILLIONS/DAY", "subjects": ["earth", "counter"], "importance": "high"},
-        {"id": "s11_coffee", "type": "cutaway_gag", "sentence_start": 2, "sentence_end": 2, "visual_intent": "Grand spacetime diagram shrinking into a coffee-shop map pin.", "text": "...TO FIND COFFEE", "subjects": ["map pin", "coffee"], "comedy_role": "bureaucracy_metaphor", "importance": "medium"}
+        {"id": "s9_fix", "type": "illustrate", "sentence_start": 3, "sentence_end": 4, "visual_intent": "The correction value loaded into a satellite's clock.", "text": "CORRECTION BAKED IN", "subjects": ["satellite", "clock"], "importance": "high"},
+        {"id": "s9_proven", "type": "emphasize", "sentence_start": 5, "sentence_end": 5, "visual_intent": "A counter of confirmations racing upward over a spinning globe.", "text": "PROVEN, BILLIONS/DAY", "subjects": ["earth"], "importance": "high"},
+        {"id": "s9_coffee", "type": "cutaway_gag", "sentence_start": 8, "sentence_end": 8, "visual_intent": "A grand spacetime diagram shrinking into a humble coffee-shop pin.", "text": "...TO FIND COFFEE", "subjects": ["coffee", "map_pin"], "comedy_role": "bureaucracy_metaphor", "importance": "medium"}
       ]
     },
     {
-      "narration": "So the next time a little blue dot finds you on a map, remember what it actually took. Atomic clocks, a constellation of satellites, the speed of light, and Einstein, all working together so you don't have to ask a stranger for directions. It's one of the most quietly impressive things humans have ever built. If you like the universe explained without the breathless hype, stick around. New deep-dives every week.",
+      "narration": "So the next time you glance down and that little blue dot snaps into place, maybe give it a second of respect. To draw that one dot, your phone is quietly eavesdropping on a constellation of atomic clocks, measuring the speed of light to within a hair, and silently correcting for the way time itself bends around the planet. All so you don't have to ask a stranger for directions. It looks like the most ordinary thing in the world. It is, secretly, one of the most quietly impressive things our species has ever built. And it was never magic. It was just very, very good physics, hiding in plain sight. If you like the universe explained without the breathless hype, stick around. New deep-dives every week.",
       "sentences": [
-        {"text": "So the next time a little blue dot finds you on a map, remember what it actually took.", "delivery": "curious"},
-        {"text": "Atomic clocks, a constellation of satellites, the speed of light, and Einstein, all working together so you don't have to ask a stranger for directions.", "delivery": "neutral"},
-        {"text": "It's one of the most quietly impressive things humans have ever built.", "delivery": "weighty"},
+        {"text": "So the next time you glance down and that little blue dot snaps into place, maybe give it a second of respect.", "delivery": "curious"},
+        {"text": "To draw that one dot, your phone is quietly eavesdropping on a constellation of atomic clocks, measuring the speed of light to within a hair, and silently correcting for the way time itself bends around the planet.", "delivery": "neutral"},
+        {"text": "All so you don't have to ask a stranger for directions.", "delivery": "neutral"},
+        {"text": "It looks like the most ordinary thing in the world.", "delivery": "neutral"},
+        {"text": "It is, secretly, one of the most quietly impressive things our species has ever built.", "delivery": "weighty"},
+        {"text": "And it was never magic.", "delivery": "neutral"},
+        {"text": "It was just very, very good physics, hiding in plain sight.", "delivery": "weighty"},
         {"text": "If you like the universe explained without the breathless hype, stick around.", "delivery": "warm_cta"},
         {"text": "New deep-dives every week.", "delivery": "warm_cta"}
       ],
-      "key_phrase": "THE WHOLE TRICK",
+      "key_phrase": "NEVER MAGIC",
       "template": "list",
-      "on_screen": {"items": ["atomic clocks", "satellites", "speed of light", "Einstein"]},
+      "on_screen": {"items": ["atomic clocks", "the speed of light", "relativity", "one blue dot"]},
       "broll_keywords": ["blue dot", "map", "subscribe"],
       "beats": [
-        {"id": "s12_recap", "type": "list_reveal", "sentence_start": 1, "sentence_end": 1, "visual_intent": "Four icons assemble: clock, satellites, light beam, Einstein.", "text": "THE WHOLE TRICK", "subjects": ["clock", "satellite", "light", "einstein"], "importance": "high"},
-        {"id": "s12_impressive", "type": "emphasize", "sentence_start": 2, "sentence_end": 2, "visual_intent": "The blue dot settles confidently on a map.", "text": "QUIETLY IMPRESSIVE", "subjects": ["map", "dot"], "importance": "medium"},
-        {"id": "s12_cta", "type": "transition", "sentence_start": 3, "sentence_end": 4, "visual_intent": "Clean subscribe prompt in the flat style.", "text": "NEW DEEP-DIVES WEEKLY", "subjects": ["subscribe"], "importance": "medium"}
+        {"id": "s10_recap", "type": "list_reveal", "sentence_start": 1, "sentence_end": 1, "visual_intent": "Four icons assemble: atomic clock, light beam, spacetime curve, blue dot.", "text": "THE WHOLE TRICK", "subjects": ["clock", "light", "earth", "dot"], "importance": "high"},
+        {"id": "s10_impressive", "type": "emphasize", "sentence_start": 4, "sentence_end": 6, "visual_intent": "The blue dot settles confidently onto the map.", "text": "NEVER MAGIC", "subjects": ["map", "dot"], "importance": "medium"},
+        {"id": "s10_cta", "type": "transition", "sentence_start": 7, "sentence_end": 8, "visual_intent": "A clean subscribe prompt in the flat style.", "text": "NEW DEEP-DIVES WEEKLY", "subjects": ["subscribe"], "importance": "medium"}
       ]
     }
   ]

@@ -196,13 +196,43 @@ export const Satellite: React.FC<{x: number; y: number; scale?: number; rotate?:
 );
 
 // --- earth curve (simple, crisp) -------------------------------------------
-export const EarthArc: React.FC<{cx: number; cy: number; r: number}> = ({cx, cy, r}) => (
-  <g>
-    <circle cx={cx} cy={cy} r={r} fill={TEAL} {...round} strokeWidth={STROKE_BOLD} />
-    <path d={`M ${cx - r * 0.55} ${cy - r * 0.8} q 80 -22 150 18 q -40 64 -150 38 Z`} fill="#3FCBB8" stroke={INK} strokeWidth={3} />
-    <path d={`M ${cx + r * 0.08} ${cy - r * 0.93} q 120 8 182 70 q -92 32 -182 -8 Z`} fill="#3FCBB8" stroke={INK} strokeWidth={3} />
-  </g>
-);
+export const EarthArc: React.FC<{cx: number; cy: number; r: number}> = ({cx, cy, r}) => {
+  const ocean = "#2B6CB0";
+  const land = "#2FAE66";
+  const landStroke = 3.5;
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r={r} fill={ocean} {...round} strokeWidth={STROKE_BOLD} />
+      <path
+        d={`M ${cx - r * 0.72} ${cy - r * 0.68}
+            C ${cx - r * 0.58} ${cy - r * 0.82} ${cx - r * 0.36} ${cy - r * 0.78} ${cx - r * 0.28} ${cy - r * 0.62}
+            C ${cx - r * 0.42} ${cy - r * 0.56} ${cx - r * 0.44} ${cy - r * 0.4} ${cx - r * 0.28} ${cy - r * 0.33}
+            C ${cx - r * 0.48} ${cy - r * 0.28} ${cx - r * 0.64} ${cy - r * 0.42} ${cx - r * 0.72} ${cy - r * 0.68} Z`}
+        fill={land}
+        stroke={INK}
+        strokeWidth={landStroke}
+      />
+      <path
+        d={`M ${cx - r * 0.06} ${cy - r * 0.88}
+            C ${cx + r * 0.18} ${cy - r * 0.9} ${cx + r * 0.42} ${cy - r * 0.78} ${cx + r * 0.48} ${cy - r * 0.58}
+            C ${cx + r * 0.3} ${cy - r * 0.54} ${cx + r * 0.2} ${cy - r * 0.42} ${cx + r * 0.28} ${cy - r * 0.28}
+            C ${cx + r * 0.06} ${cy - r * 0.34} ${cx - r * 0.08} ${cy - r * 0.54} ${cx - r * 0.06} ${cy - r * 0.88} Z`}
+        fill={land}
+        stroke={INK}
+        strokeWidth={landStroke}
+      />
+      <path
+        d={`M ${cx + r * 0.48} ${cy - r * 0.42}
+            C ${cx + r * 0.68} ${cy - r * 0.34} ${cx + r * 0.78} ${cy - r * 0.14} ${cx + r * 0.68} ${cy + r * 0.04}
+            C ${cx + r * 0.52} ${cy - r * 0.04} ${cx + r * 0.42} ${cy - r * 0.2} ${cx + r * 0.48} ${cy - r * 0.42} Z`}
+        fill={land}
+        stroke={INK}
+        strokeWidth={landStroke}
+      />
+      <path d={`M ${cx - r * 0.32} ${cy - r * 0.9} C ${cx + r * 0.1} ${cy - r * 1.02} ${cx + r * 0.5} ${cy - r * 0.78} ${cx + r * 0.7} ${cy - r * 0.5}`} fill="none" stroke="#7DB3E7" strokeWidth={10} strokeLinecap="round" opacity={0.82} />
+    </g>
+  );
+};
 
 // --- star / sparkle ---------------------------------------------------------
 export const Star: React.FC<{x: number; y: number; s?: number; color?: string}> = ({
