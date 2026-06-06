@@ -29,7 +29,7 @@ Olympics - boxing, taekwondo, and two kinds of wrestling. The crucial detail: in
 are handed red or blue gear at random. Nobody chooses. It's a coin flip. If color did nothing, red
 should win half the time. It didn't. Red won fifty-five percent of bouts. And in the closest, most
 evenly matched fights - the ones that could tip either way - red won sixty-two percent. A coin that lands
-heads sixty-two percent of the time is not a fair coin. So something was loading it. The only question
+heads sixty-two percent of the time isn't a fair coin. So something was loading it. The only question
 was what.
 
 ## 4. Two suspects
@@ -62,13 +62,13 @@ watching what you wore.
 
 ## 7. The courtroom
 Now move it somewhere the score actually matters. A courtroom is just another room where humans watch a
-person and decide a number, except the number is years. And juries, it turns out, are not immune to the
+person and decide a number, except the number is years. And juries, it turns out, aren't immune to the
 packaging. Defendants who look the part - the wrong tattoos, the wrong clothes - are reliably judged more
 dangerous and sentenced harder, for the same alleged crime. Lawyers have known this forever, which is why
 defendants tend to show up in soft grays and quiet collars, never red. Now - be careful here. This is
 softer science than the sports studies. It's mostly mock juries, not real verdicts, and the cleanest
 findings are about tattoos and dress, not color specifically. But the machine underneath is the same one
-we just watched mis-score a kick. It does not switch off because the stakes went up. If anything, it gets
+we just watched mis-score a kick. It doesn't switch off because the stakes went up. If anything, it gets
 better at hiding.
 
 ## 8. Romantic red

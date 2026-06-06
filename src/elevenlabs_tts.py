@@ -13,9 +13,10 @@ import urllib.error
 import urllib.request
 
 DEFAULT_MODEL = "eleven_multilingual_v2"
-# Locked production voice (for now). The owner will swap in a clone of his own voice at
-# upload time; override with the ELEVENLABS_VOICE_ID env var.
-CHRIS_VOICE_ID = "iP95p4xoKVk53GoZ742B"
+# Production voice = the owner's cloned voice "Caden Narrator v2 (RodeCaster)" (instant clone from
+# a clean RODECaster brain-dump). Override with the ELEVENLABS_VOICE_ID env var (CI sets it as a
+# secret). Old clone OOLdd0jihd5eCDYx6lL9 and premade "Chris" iP95p4xoKVk53GoZ742B are fallbacks.
+CHRIS_VOICE_ID = "WNhDx8wlTpzgEKtePF2W"
 DEFAULT_SETTINGS = {
     "stability": 0.45,       # the natural "Chris recipe" the owner picked (nat_chris)
     "similarity_boost": 0.8,
