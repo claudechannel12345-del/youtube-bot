@@ -19,11 +19,12 @@ DEFAULT_MODEL = "eleven_multilingual_v2"
 # ELEVENLABS_VOICE_ID env var (CI sets it as a secret); premade "Chris" iP95p4xoKVk53GoZ742B is a last resort.
 CHRIS_VOICE_ID = "OOLdd0jihd5eCDYx6lL9"
 DEFAULT_SETTINGS = {
-    "stability": 0.45,       # low enough to stay expressive, high enough not to rush/warble
+    "stability": 0.5,        # a touch higher = fewer hallucinated breaths/garble (owner: "no grunts")
     "similarity_boost": 0.8,
-    "style": 0.30,           # owner wanted it more UPBEAT/emotional, not flat - style adds inflection
+    "style": 0.0,            # style>0 on this instant clone caused GIBBERISH; keep 0. Emotion comes
+                             # from the script-read clone itself + the pauses, not from style.
     "use_speaker_boost": True,
-    "speed": 0.94,           # natural-but-deliberate; drama comes from the inter-sentence PAUSES below
+    "speed": 0.95,           # natural-but-deliberate; drama comes from the inter-sentence PAUSES below
 }
 _SENTENCE_SPLIT_RE = r"(?<=[.!?])\s+"
 
@@ -51,12 +52,22 @@ def _post(url, body, api_key):
         return resp.read()
 
 
-def synthesize(text, out_path, voice_id, model_id=DEFAULT_MODEL, api_key=None, voice_settings=None):
-    """Synthesize `text` with `voice_id`/`model_id` and write an mp3 to `out_path`."""
+def synthesize(text, out_path, voice_id, model_id=DEFAULT_MODEL, api_key=None, voice_settings=None,
+               previous_text=None, next_text=None):
+    """Synthesize `text` with `voice_id`/`model_id` and write an mp3 to `out_path`.
+
+    `previous_text`/`next_text` give the model the surrounding narration as CONTEXT (not voiced) so
+    short clips render stably - this is the fix for the gibberish/garble that short isolated
+    sentences ("Back off.", "Gone.") produced.
+    """
     api_key = api_key or os.environ["ELEVENLABS_API_KEY"]
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
     settings = dict(voice_settings or DEFAULT_SETTINGS)
     body = {"text": text, "model_id": model_id, "voice_settings": settings}
+    if previous_text:
+        body["previous_text"] = previous_text
+    if next_text:
+        body["next_text"] = next_text
     try:
         audio = _post(url, body, api_key)
     except urllib.error.HTTPError as e:
@@ -97,17 +108,19 @@ def _sentence_items(text, sentences):
 # Per-delivery pacing. Slower baseline + a real beat of silence after each sentence
 # (longer after the dramatic ones) so lines land, reveals breathe, and sentences never
 # run together. Owner feedback: it sped through and skipped the dramatic pauses.
+# Keep speeds in a SAFE band (>=0.92): the extreme-slow values (0.86) warbled on this clone. Drama
+# comes from the pauses below, not from slowing the speech.
 DELIVERY_SPEED = {
-    "neutral": 0.94, "curious": 0.95, "question": 0.93, "brisk": 1.0,
-    "weighty": 0.9, "surprised": 0.93, "skeptical": 0.93, "ominous": 0.88, "warm_cta": 0.93,
-    "transition": 0.93, "punch": 0.95,
+    "neutral": 0.95, "curious": 0.96, "question": 0.94, "brisk": 1.0,
+    "weighty": 0.93, "surprised": 0.94, "skeptical": 0.94, "ominous": 0.93, "warm_cta": 0.94,
+    "transition": 0.94, "punch": 0.97,
 }
-# Owner critique: lots of spots "need a pause" - especially major section transitions and the short
-# punch lines (which also had weird exhales). Bigger dramatic gaps; a dedicated long "transition" gap.
+# v2 had "a lot of really weird pauses" (too big, and some landed mid-thought). Moderated here; the
+# script also no longer splits mid-sentence, so pauses only fall at real sentence ends.
 PAUSE_AFTER = {
-    "neutral": 0.34, "curious": 0.42, "question": 0.7, "brisk": 0.22,
-    "weighty": 0.95, "surprised": 0.65, "skeptical": 0.5, "ominous": 1.05, "warm_cta": 0.5,
-    "transition": 1.25, "punch": 0.85,
+    "neutral": 0.3, "curious": 0.38, "question": 0.5, "brisk": 0.2,
+    "weighty": 0.5, "surprised": 0.45, "skeptical": 0.4, "ominous": 0.62, "warm_cta": 0.42,
+    "transition": 0.8, "punch": 0.4,
 }
 
 
@@ -138,7 +151,10 @@ def synthesize_section(text, output_path, temp_dir, sentences=None, voice=None, 
             sent_path = os.path.join(temp_dir, f"_el_sent_{i:03d}.mp3")
             settings = dict(DEFAULT_SETTINGS)
             settings["speed"] = DELIVERY_SPEED.get(delivery, 1.0)
-            synthesize(item["text"], sent_path, voice_id, model_id=model_id, voice_settings=settings)
+            prev_text = items[i - 1]["text"] if i > 0 else None
+            next_text = items[i + 1]["text"] if i < len(items) - 1 else None
+            synthesize(item["text"], sent_path, voice_id, model_id=model_id, voice_settings=settings,
+                       previous_text=prev_text, next_text=next_text)
             duration = _audio_duration(sent_path)
             timings.append({
                 "text": item["text"], "start": current, "end": current + duration, "delivery": delivery,

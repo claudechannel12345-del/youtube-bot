@@ -25,23 +25,15 @@
   ],
   "sections": [
     {
-      "narration": "Two athletes step onto the mat. Same height. Same weight. Same training. They fight, and it's close - the kind that could go either way. And then one of them wins. Now watch what happens if we rewind, swap the color of their gear, and run it back. The winner might change. Not the fighting. Just the color. I first ran into this on a test, of all places. A reading passage claimed the color you wear can change who wins, and who loses. It sounded like nonsense. It isn't. And it goes a lot deeper than sports.",
+      "narration": "Two athletes step onto the mat. Same height, same weight, same training. They fight, and it's close - the kind that could go either way. And then one of them wins. Now watch what happens if we rewind, swap the color of their gear, and run it back. The winner might change. Not the fighting - just the color. Same two people, same moves, and a different hand gets raised. I first ran into this on a test, of all places. A reading passage claimed the color you wear can change who wins, and who loses. It sounded like nonsense. It isn't. And it goes a lot deeper than sports.",
       "sentences": [
         {
           "text": "Two athletes step onto the mat.",
           "delivery": "neutral"
         },
         {
-          "text": "Same height.",
-          "delivery": "punch"
-        },
-        {
-          "text": "Same weight.",
-          "delivery": "punch"
-        },
-        {
-          "text": "Same training.",
-          "delivery": "weighty"
+          "text": "Same height, same weight, same training.",
+          "delivery": "neutral"
         },
         {
           "text": "They fight, and it's close - the kind that could go either way.",
@@ -60,12 +52,12 @@
           "delivery": "weighty"
         },
         {
-          "text": "Not the fighting.",
-          "delivery": "punch"
+          "text": "Not the fighting - just the color.",
+          "delivery": "weighty"
         },
         {
-          "text": "Just the color.",
-          "delivery": "transition"
+          "text": "Same two people, same moves, and a different hand gets raised.",
+          "delivery": "neutral"
         },
         {
           "text": "I first ran into this on a test, of all places.",
@@ -111,7 +103,7 @@
           "id": "s1_2",
           "type": "emphasize",
           "sentence_start": 6,
-          "sentence_end": 9,
+          "sentence_end": 7,
           "visual_intent": "JUST THE COLOR",
           "text": "JUST THE COLOR",
           "subjects": [
@@ -122,8 +114,8 @@
         {
           "id": "s1_3",
           "type": "establish",
-          "sentence_start": 10,
-          "sentence_end": 11,
+          "sentence_start": 8,
+          "sentence_end": 9,
           "visual_intent": "FROM A TEST",
           "text": "FROM A TEST",
           "subjects": [
@@ -134,8 +126,8 @@
         {
           "id": "s1_4",
           "type": "emphasize",
-          "sentence_start": 12,
-          "sentence_end": 14,
+          "sentence_start": 10,
+          "sentence_end": 12,
           "visual_intent": "DEEPER THAN SPORTS",
           "text": "DEEPER THAN SPORTS",
           "subjects": [
@@ -146,42 +138,30 @@
       ]
     },
     {
-      "narration": "So why would a color do anything at all? Because in nature, red is rarely a decoration. It's a status report. A male mandrill's face turns a brighter red as he climbs the ranks, and fades when he falls. That color is wired straight to his testosterone. He can't fake it. Small songbirds size each other up by the red of their beaks - and the redder bird usually wins. Across primates, birds, and fish, red keeps meaning the same thing. Back off. So the real question isn't why animals react to red. It's whether we ever stopped.",
+      "narration": "So why would a color do anything at all? Because in nature, red is rarely a decoration - it's a status report. A male mandrill's face turns a brighter red as he climbs the ranks, and fades when he falls. That color is wired straight to his testosterone, and he can't fake it. Small songbirds size each other up by the red of their beaks, and the redder bird usually wins. Across primates, birds, and fish, red keeps meaning the same thing. Back off. So the real question isn't why animals react to red. It's whether we ever stopped.",
       "sentences": [
         {
           "text": "So why would a color do anything at all?",
           "delivery": "question"
         },
         {
-          "text": "Because in nature, red is rarely a decoration.",
+          "text": "Because in nature, red is rarely a decoration - it's a status report.",
           "delivery": "neutral"
-        },
-        {
-          "text": "It's a status report.",
-          "delivery": "weighty"
         },
         {
           "text": "A male mandrill's face turns a brighter red as he climbs the ranks, and fades when he falls.",
           "delivery": "neutral"
         },
         {
-          "text": "That color is wired straight to his testosterone.",
-          "delivery": "neutral"
-        },
-        {
-          "text": "He can't fake it.",
+          "text": "That color is wired straight to his testosterone, and he can't fake it.",
           "delivery": "weighty"
         },
         {
-          "text": "Small songbirds size each other up by the red of their beaks - and the redder bird usually wins.",
+          "text": "Small songbirds size each other up by the red of their beaks, and the redder bird usually wins.",
           "delivery": "neutral"
         },
         {
-          "text": "Across primates, birds, and fish,",
-          "delivery": "neutral"
-        },
-        {
-          "text": "red keeps meaning the same thing.",
+          "text": "Across primates, birds, and fish, red keeps meaning the same thing.",
           "delivery": "weighty"
         },
         {
@@ -203,7 +183,7 @@
           "id": "s2_1",
           "type": "establish",
           "sentence_start": 0,
-          "sentence_end": 2,
+          "sentence_end": 1,
           "visual_intent": "A STATUS REPORT",
           "text": "A STATUS REPORT",
           "subjects": [
@@ -214,8 +194,8 @@
         {
           "id": "s2_2",
           "type": "establish",
-          "sentence_start": 3,
-          "sentence_end": 5,
+          "sentence_start": 2,
+          "sentence_end": 3,
           "visual_intent": "WIRED IN, NOT CHOSEN",
           "text": "WIRED IN, NOT CHOSEN",
           "subjects": [
@@ -226,8 +206,8 @@
         {
           "id": "s2_3",
           "type": "establish",
-          "sentence_start": 6,
-          "sentence_end": 6,
+          "sentence_start": 4,
+          "sentence_end": 4,
           "visual_intent": "THE REDDER BIRD WINS",
           "text": "THE REDDER BIRD WINS",
           "subjects": [
@@ -238,8 +218,8 @@
         {
           "id": "s2_4",
           "type": "emphasize",
-          "sentence_start": 7,
-          "sentence_end": 9,
+          "sentence_start": 5,
+          "sentence_end": 6,
           "visual_intent": "BACK OFF",
           "text": "BACK OFF",
           "subjects": [
@@ -250,8 +230,8 @@
         {
           "id": "s2_5",
           "type": "emphasize",
-          "sentence_start": 10,
-          "sentence_end": 11,
+          "sentence_start": 7,
+          "sentence_end": 8,
           "visual_intent": "DID WE EVER STOP?",
           "text": "DID WE EVER STOP?",
           "subjects": [
@@ -262,7 +242,7 @@
       ]
     },
     {
-      "narration": "In 2004, two researchers went looking. They pulled the results from four combat sports at the Athens Olympics. Boxing, taekwondo, and two kinds of wrestling. Here's the crucial part. In these sports, the athletes are handed red or blue gear at random. Nobody picks. It's a coin flip. So if color did nothing, red should win half the time. It didn't. Red won fifty-five percent of bouts. And in the closest fights - the ones that could tip either way - red won sixty-two. A coin that lands red sixty-two percent of the time isn't a fair coin. Something was loading it.",
+      "narration": "In 2004, two researchers went looking. They pulled the results from four combat sports at the Athens Olympics. Boxing, taekwondo, and two kinds of wrestling. And here's the crucial part: in these sports, the gear is handed out at random. Red or blue, nobody picks. It's a coin flip. So if color did nothing, red should win half the time. It didn't. Red won fifty-five percent of bouts. And in the closest fights, the ones that could tip either way, red won sixty-two. A coin that lands red sixty-two percent of the time isn't a fair coin. Something was loading it.",
       "sentences": [
         {
           "text": "In 2004, two researchers went looking.",
@@ -277,16 +257,12 @@
           "delivery": "neutral"
         },
         {
-          "text": "Here's the crucial part.",
-          "delivery": "curious"
-        },
-        {
-          "text": "In these sports, the athletes are handed red or blue gear at random.",
+          "text": "And here's the crucial part: in these sports, the gear is handed out at random.",
           "delivery": "neutral"
         },
         {
-          "text": "Nobody picks.",
-          "delivery": "punch"
+          "text": "Red or blue, nobody picks.",
+          "delivery": "neutral"
         },
         {
           "text": "It's a coin flip.",
@@ -305,15 +281,11 @@
           "delivery": "weighty"
         },
         {
-          "text": "And in the closest fights - the ones that could tip either way - red won sixty-two.",
+          "text": "And in the closest fights, the ones that could tip either way, red won sixty-two.",
           "delivery": "weighty"
         },
         {
-          "text": "A coin that lands red sixty-two percent of the time",
-          "delivery": "neutral"
-        },
-        {
-          "text": "isn't a fair coin.",
+          "text": "A coin that lands red sixty-two percent of the time isn't a fair coin.",
           "delivery": "weighty"
         },
         {
@@ -327,7 +299,7 @@
           "id": "s3_1",
           "type": "establish",
           "sentence_start": 0,
-          "sentence_end": 5,
+          "sentence_end": 4,
           "visual_intent": "RED OR BLUE, AT RANDOM",
           "text": "RED OR BLUE, AT RANDOM",
           "subjects": [
@@ -343,8 +315,8 @@
         {
           "id": "s3_2",
           "type": "stat_pop",
-          "sentence_start": 6,
-          "sentence_end": 9,
+          "sentence_start": 5,
+          "sentence_end": 8,
           "visual_intent": "RED WON 55%",
           "text": "RED WON 55%",
           "subjects": [],
@@ -353,8 +325,8 @@
         {
           "id": "s3_3",
           "type": "stat_pop",
-          "sentence_start": 10,
-          "sentence_end": 10,
+          "sentence_start": 9,
+          "sentence_end": 9,
           "visual_intent": "62% IN CLOSE FIGHTS",
           "text": "62% IN CLOSE FIGHTS",
           "subjects": [],
@@ -363,8 +335,8 @@
         {
           "id": "s3_4",
           "type": "emphasize",
-          "sentence_start": 11,
-          "sentence_end": 13,
+          "sentence_start": 10,
+          "sentence_end": 11,
           "visual_intent": "NOT A FAIR COIN",
           "text": "NOT A FAIR COIN",
           "subjects": [
@@ -375,10 +347,10 @@
       ]
     },
     {
-      "narration": "There were two suspects. Suspect one: the color changes the fighters. Maybe red makes you feel a little more dangerous, and makes your opponent flinch. Suspect two: the color changes the person keeping score. The fighters are identical. The referee is the one who's biased. In a real match, both could be true at once, and you'd never tell them apart. You'd need a way to freeze the fighters, and test only the judge.",
+      "narration": "So there were two suspects. Suspect one: the color changes the fighters. Maybe red makes you feel more dangerous, and makes your opponent flinch. Suspect two: the color changes the person keeping score. The fighters are identical - the referee is the one who's biased. In a real match, both could be true at once, and you'd never tell them apart. You'd need a way to freeze the fighters, and test only the judge.",
       "sentences": [
         {
-          "text": "There were two suspects.",
+          "text": "So there were two suspects.",
           "delivery": "weighty"
         },
         {
@@ -386,7 +358,7 @@
           "delivery": "neutral"
         },
         {
-          "text": "Maybe red makes you feel a little more dangerous, and makes your opponent flinch.",
+          "text": "Maybe red makes you feel more dangerous, and makes your opponent flinch.",
           "delivery": "neutral"
         },
         {
@@ -394,11 +366,7 @@
           "delivery": "neutral"
         },
         {
-          "text": "The fighters are identical.",
-          "delivery": "punch"
-        },
-        {
-          "text": "The referee is the one who's biased.",
+          "text": "The fighters are identical - the referee is the one who's biased.",
           "delivery": "weighty"
         },
         {
@@ -416,7 +384,7 @@
           "id": "s4_1",
           "type": "compare",
           "sentence_start": 0,
-          "sentence_end": 5,
+          "sentence_end": 4,
           "visual_intent": "THE FIGHTER  or  THE JUDGE",
           "text": "THE FIGHTER  or  THE JUDGE",
           "subjects": [
@@ -432,8 +400,8 @@
         {
           "id": "s4_2",
           "type": "emphasize",
-          "sentence_start": 6,
-          "sentence_end": 7,
+          "sentence_start": 5,
+          "sentence_end": 6,
           "visual_intent": "FREEZE THE FIGHTERS",
           "text": "FREEZE THE FIGHTERS",
           "subjects": [
@@ -444,7 +412,7 @@
       ]
     },
     {
-      "narration": "Which is exactly what someone did. They took real taekwondo footage and showed it to forty-two experienced referees to score. Then they took the same clips and digitally swapped the colors. The fighter who was in red was now in blue. Same kick. Same human. Same exact moment. The only thing that changed was a color filter. The red athletes scored about thirteen percent higher. Thirteen percent more points, for being wrapped in red. The bias wasn't on the mat. It was behind the scoring table - in the eyes of people who'd have sworn they were being fair.",
+      "narration": "Which is exactly what someone did. They took real taekwondo footage and showed it to forty-two experienced referees to score. Then they took the same clips and digitally swapped the colors. The fighter who was in red was now in blue. Same kick, same human, same exact moment. The only thing that changed was a color filter. The red athletes scored about thirteen percent higher. Thirteen percent more points, just for being wrapped in red. The bias wasn't on the mat. It was behind the scoring table, in the eyes of people who'd have sworn they were being fair.",
       "sentences": [
         {
           "text": "Which is exactly what someone did.",
@@ -463,7 +431,7 @@
           "delivery": "neutral"
         },
         {
-          "text": "Same kick. Same human. Same exact moment.",
+          "text": "Same kick, same human, same exact moment.",
           "delivery": "weighty"
         },
         {
@@ -475,11 +443,7 @@
           "delivery": "weighty"
         },
         {
-          "text": "Thirteen percent more points,",
-          "delivery": "neutral"
-        },
-        {
-          "text": "for being wrapped in red.",
+          "text": "Thirteen percent more points, just for being wrapped in red.",
           "delivery": "weighty"
         },
         {
@@ -487,7 +451,7 @@
           "delivery": "punch"
         },
         {
-          "text": "It was behind the scoring table - in the eyes of people who'd have sworn they were being fair.",
+          "text": "It was behind the scoring table, in the eyes of people who'd have sworn they were being fair.",
           "delivery": "transition"
         }
       ],
@@ -526,7 +490,7 @@
           "id": "s5_3",
           "type": "stat_pop",
           "sentence_start": 6,
-          "sentence_end": 8,
+          "sentence_end": 7,
           "visual_intent": "RED:  +13%",
           "text": "RED:  +13%",
           "subjects": [],
@@ -535,8 +499,8 @@
         {
           "id": "s5_4",
           "type": "emphasize",
-          "sentence_start": 9,
-          "sentence_end": 10,
+          "sentence_start": 8,
+          "sentence_end": 9,
           "visual_intent": "IT WAS THE JUDGE",
           "text": "IT WAS THE JUDGE",
           "subjects": [
@@ -547,10 +511,10 @@
       ]
     },
     {
-      "narration": "And once you know to look for it, you see it everywhere. Years earlier, researchers dug through penalty records in pro football and hockey. Teams that wore black got penalized more. Not occasionally. Consistently. Two teams even switched their jerseys to black partway through their history, and their penalties jumped right after. Now, maybe players in black really do play dirtier. So the researchers filmed the exact same plays, once in white, once in black. Referees called the black version more aggressive. Red flatters you to the judge. Black incriminates you. Either way, they're not scoring what you did. They're scoring what you wore.",
+      "narration": "And once you know to look for it, you start seeing it everywhere. Years earlier, researchers dug through penalty records in pro football and hockey. Teams that wore black got penalized more - not occasionally, but consistently. Two teams even changed their jerseys to black one season, and their penalties jumped right after. Now, maybe players in black really do play dirtier. So the researchers filmed the exact same plays, once in white, once in black. Referees called the black version more aggressive. Red flatters you to the judge, and black incriminates you. Either way, they're not scoring what you did. They're scoring what you wore.",
       "sentences": [
         {
-          "text": "And once you know to look for it, you see it everywhere.",
+          "text": "And once you know to look for it, you start seeing it everywhere.",
           "delivery": "transition"
         },
         {
@@ -558,24 +522,12 @@
           "delivery": "neutral"
         },
         {
-          "text": "Teams that wore black got penalized more.",
-          "delivery": "neutral"
-        },
-        {
-          "text": "Not occasionally.",
-          "delivery": "punch"
-        },
-        {
-          "text": "Consistently.",
+          "text": "Teams that wore black got penalized more - not occasionally, but consistently.",
           "delivery": "weighty"
         },
         {
-          "text": "Two teams even switched their jerseys to black partway through their history,",
+          "text": "Two teams even changed their jerseys to black one season, and their penalties jumped right after.",
           "delivery": "neutral"
-        },
-        {
-          "text": "and their penalties jumped right after.",
-          "delivery": "weighty"
         },
         {
           "text": "Now, maybe players in black really do play dirtier.",
@@ -590,12 +542,8 @@
           "delivery": "weighty"
         },
         {
-          "text": "Red flatters you to the judge.",
+          "text": "Red flatters you to the judge, and black incriminates you.",
           "delivery": "neutral"
-        },
-        {
-          "text": "Black incriminates you.",
-          "delivery": "punch"
         },
         {
           "text": "Either way, they're not scoring what you did.",
@@ -612,7 +560,7 @@
           "id": "s6_1",
           "type": "compare",
           "sentence_start": 0,
-          "sentence_end": 6,
+          "sentence_end": 4,
           "visual_intent": "WHITE  vs  BLACK",
           "text": "WHITE  vs  BLACK",
           "subjects": [
@@ -628,8 +576,8 @@
         {
           "id": "s6_2",
           "type": "emphasize",
-          "sentence_start": 7,
-          "sentence_end": 9,
+          "sentence_start": 5,
+          "sentence_end": 6,
           "visual_intent": "SAME PLAY, MORE FLAGS",
           "text": "SAME PLAY, MORE FLAGS",
           "subjects": [
@@ -640,8 +588,8 @@
         {
           "id": "s6_3",
           "type": "emphasize",
-          "sentence_start": 10,
-          "sentence_end": 13,
+          "sentence_start": 7,
+          "sentence_end": 9,
           "visual_intent": "THEY SCORE THE JERSEY",
           "text": "THEY SCORE THE JERSEY",
           "subjects": [
@@ -652,7 +600,7 @@
       ]
     },
     {
-      "narration": "Now take it somewhere the score actually matters. A courtroom is just another room where people watch someone and decide a number. Except here, the number is years. And juries aren't immune to the packaging either. Defendants who look the part - the wrong tattoos, the wrong clothes - get judged more dangerous, and sentenced harder, for the same crime. Lawyers have known this forever. It's why they put defendants in soft grays and quiet collars. Never red. Now - be honest with yourself here. This is softer science than the sports studies - mostly mock juries, and more about clothes than color. But it's the same machine we just watched mis-score a kick. And it doesn't switch off when the stakes go up. If anything, it just hides better.",
+      "narration": "Now take it somewhere the score actually matters. A courtroom is just another room where people watch someone and decide a number. Except here, the number is years. And juries aren't immune to the packaging either. Defendants who look the part get judged more dangerous, and sentenced harder, for the same crime. Lawyers have known this forever. It's why they put their clients in soft grays and quiet collars, never red. Now, be honest with yourself here. This is softer science than the sports studies - mostly mock juries, and more about clothes than color. But it's the same machine we just watched mis-score a kick. And it doesn't switch off when the stakes go up. If anything, it just hides better.",
       "sentences": [
         {
           "text": "Now take it somewhere the score actually matters.",
@@ -671,11 +619,7 @@
           "delivery": "neutral"
         },
         {
-          "text": "Defendants who look the part - the wrong tattoos, the wrong clothes -",
-          "delivery": "neutral"
-        },
-        {
-          "text": "get judged more dangerous, and sentenced harder, for the same crime.",
+          "text": "Defendants who look the part get judged more dangerous, and sentenced harder, for the same crime.",
           "delivery": "weighty"
         },
         {
@@ -683,15 +627,11 @@
           "delivery": "neutral"
         },
         {
-          "text": "It's why they put defendants in soft grays and quiet collars.",
+          "text": "It's why they put their clients in soft grays and quiet collars, never red.",
           "delivery": "neutral"
         },
         {
-          "text": "Never red.",
-          "delivery": "punch"
-        },
-        {
-          "text": "Now - be honest with yourself here.",
+          "text": "Now, be honest with yourself here.",
           "delivery": "curious"
         },
         {
@@ -729,7 +669,7 @@
           "id": "s7_2",
           "type": "emphasize",
           "sentence_start": 3,
-          "sentence_end": 8,
+          "sentence_end": 6,
           "visual_intent": "DRESSED FOR THE JURY",
           "text": "DRESSED FOR THE JURY",
           "subjects": [
@@ -743,8 +683,8 @@
         {
           "id": "s7_3",
           "type": "emphasize",
-          "sentence_start": 9,
-          "sentence_end": 11,
+          "sentence_start": 7,
+          "sentence_end": 9,
           "visual_intent": "SOFTER SCIENCE - BE HONEST",
           "text": "SOFTER SCIENCE - BE HONEST",
           "subjects": [
@@ -755,8 +695,8 @@
         {
           "id": "s7_4",
           "type": "emphasize",
-          "sentence_start": 12,
-          "sentence_end": 13,
+          "sentence_start": 10,
+          "sentence_end": 11,
           "visual_intent": "IT JUST HIDES BETTER",
           "text": "IT JUST HIDES BETTER",
           "subjects": [
@@ -767,30 +707,22 @@
       ]
     },
     {
-      "narration": "And then there's the one everybody wants to be true. Around 2008, studies claimed a woman in red looked more attractive to men. And the men had no idea it was even happening. It's a great story. But here's the catch. When other scientists tried to repeat it, it mostly fell apart. So I'm not going to promise you that red fixes your dating life. Honestly, nobody's sure this one is even real. And that's kind of the point. A good color story is so tempting, even the scientists chasing it can get fooled.",
+      "narration": "And then there's the one everybody wants to be true. Around 2008, studies claimed a woman in red looked more attractive to men, and the men had no idea it was happening. It's a great story. But here's the catch: when other scientists tried to repeat it, it mostly fell apart. So I'm not going to promise you that red fixes your dating life. Honestly, nobody's even sure this one is real. And that's kind of the point. A good color story is so tempting that even the scientists chasing it can get fooled.",
       "sentences": [
         {
           "text": "And then there's the one everybody wants to be true.",
           "delivery": "curious"
         },
         {
-          "text": "Around 2008, studies claimed a woman in red looked more attractive to men.",
+          "text": "Around 2008, studies claimed a woman in red looked more attractive to men, and the men had no idea it was happening.",
           "delivery": "neutral"
-        },
-        {
-          "text": "And the men had no idea it was even happening.",
-          "delivery": "weighty"
         },
         {
           "text": "It's a great story.",
           "delivery": "neutral"
         },
         {
-          "text": "But here's the catch.",
-          "delivery": "curious"
-        },
-        {
-          "text": "When other scientists tried to repeat it, it mostly fell apart.",
+          "text": "But here's the catch: when other scientists tried to repeat it, it mostly fell apart.",
           "delivery": "weighty"
         },
         {
@@ -798,7 +730,7 @@
           "delivery": "neutral"
         },
         {
-          "text": "Honestly, nobody's sure this one is even real.",
+          "text": "Honestly, nobody's even sure this one is real.",
           "delivery": "weighty"
         },
         {
@@ -806,11 +738,7 @@
           "delivery": "neutral"
         },
         {
-          "text": "A good color story is so tempting,",
-          "delivery": "neutral"
-        },
-        {
-          "text": "even the scientists chasing it can get fooled.",
+          "text": "A good color story is so tempting that even the scientists chasing it can get fooled.",
           "delivery": "transition"
         }
       ],
@@ -820,7 +748,7 @@
           "id": "s8_1",
           "type": "compare",
           "sentence_start": 0,
-          "sentence_end": 3,
+          "sentence_end": 2,
           "visual_intent": "RED  =  ATTRACTIVE?",
           "text": "RED  =  ATTRACTIVE?",
           "subjects": [
@@ -836,8 +764,8 @@
         {
           "id": "s8_2",
           "type": "cutaway_gag",
-          "sentence_start": 4,
-          "sentence_end": 5,
+          "sentence_start": 3,
+          "sentence_end": 3,
           "visual_intent": "IT FELL APART",
           "text": "IT FELL APART",
           "subjects": [
@@ -848,8 +776,8 @@
         {
           "id": "s8_3",
           "type": "emphasize",
-          "sentence_start": 6,
-          "sentence_end": 10,
+          "sentence_start": 4,
+          "sentence_end": 7,
           "visual_intent": "EVEN SCIENTISTS GET FOOLED",
           "text": "EVEN SCIENTISTS GET FOOLED",
           "subjects": [
@@ -860,7 +788,7 @@
       ]
     },
     {
-      "narration": "So where does that leave the red advantage - the original, solid one? You'd expect it to still be there. For twenty years, everyone assumed it was. Then someone went back and checked, with two decades of new data. And the advantage was gone. Today, red wins about fifty point five percent. A coin flip again. So what changed? The sport did. Taekwondo brought in electronic scoring and instant replay. The human referee got quietly demoted, and a machine started counting the hits. And the moment the biased judge stepped back, the magic evaporated. Think about that. If red had been making the fighters better, it should have survived. The fighters are still human. It died the instant we stopped trusting a person to score. Which means the advantage was never really in the red. It was in us.",
+      "narration": "So where does that leave the red advantage - the original, solid one? You'd expect it to still be there. For twenty years, everyone assumed it was. Then someone went back and checked, with two decades of new data. And the advantage was gone. Today, red wins about fifty point five percent - a coin flip again. So what changed? The sport did. Taekwondo brought in electronic scoring and instant replay. The human referee got quietly demoted, and a machine started counting the hits. And the moment the biased judge stepped back, the magic evaporated. Think about that. If red had been making the fighters better, it should have survived. The fighters are still human. It died the instant we stopped trusting a person to score. Which tells you the advantage was never really in the red. It was in us.",
       "sentences": [
         {
           "text": "So where does that leave the red advantage - the original, solid one?",
@@ -883,12 +811,8 @@
           "delivery": "ominous"
         },
         {
-          "text": "Today, red wins about fifty point five percent.",
+          "text": "Today, red wins about fifty point five percent - a coin flip again.",
           "delivery": "weighty"
-        },
-        {
-          "text": "A coin flip again.",
-          "delivery": "punch"
         },
         {
           "text": "So what changed?",
@@ -907,11 +831,7 @@
           "delivery": "neutral"
         },
         {
-          "text": "And the moment the biased judge stepped back,",
-          "delivery": "neutral"
-        },
-        {
-          "text": "the magic evaporated.",
+          "text": "And the moment the biased judge stepped back, the magic evaporated.",
           "delivery": "weighty"
         },
         {
@@ -931,7 +851,7 @@
           "delivery": "weighty"
         },
         {
-          "text": "Which means the advantage was never really in the red.",
+          "text": "Which tells you the advantage was never really in the red.",
           "delivery": "ominous"
         },
         {
@@ -979,7 +899,7 @@
           "id": "s9_4",
           "type": "establish",
           "sentence_start": 7,
-          "sentence_end": 12,
+          "sentence_end": 10,
           "visual_intent": "THE MACHINE COUNTS",
           "text": "THE MACHINE COUNTS",
           "subjects": [
@@ -990,8 +910,8 @@
         {
           "id": "s9_5",
           "type": "emphasize",
-          "sentence_start": 13,
-          "sentence_end": 16,
+          "sentence_start": 11,
+          "sentence_end": 14,
           "visual_intent": "IT DIED WITH THE JUDGE",
           "text": "IT DIED WITH THE JUDGE",
           "subjects": [
@@ -1002,8 +922,8 @@
         {
           "id": "s9_6",
           "type": "emphasize",
-          "sentence_start": 17,
-          "sentence_end": 18,
+          "sentence_start": 15,
+          "sentence_end": 16,
           "visual_intent": "IT WAS IN US",
           "text": "IT WAS IN US",
           "subjects": [
@@ -1014,18 +934,18 @@
       ]
     },
     {
-      "narration": "We'd like to believe we judge what's actually in front of us. The kick. The play. The person. Mostly, we judge the wrapping - and then invent a reason that sounds like merit. The fix is almost insultingly simple. Take the human out of the scoring, and the bias leaves with them. But most of life doesn't have instant replay. Most of the time, it's just you, a color you barely chose, and someone across the table who's certain they're being fair. So here's the thing worth chewing on. If a single color can quietly bend a trained referee, what else are you being scored on that you've never once noticed?",
+      "narration": "We'd like to believe we judge what's actually in front of us. The kick, the play, the person. But mostly, we judge the wrapping, and then invent a reason that sounds like merit. The fix is almost insultingly simple. Take the human out of the scoring, and the bias leaves with them. But most of life doesn't have instant replay. Most of the time, it's just you, a color you barely chose, and someone across the table who's certain they're being fair. So here's the thing worth chewing on. If a single color can quietly bend a trained referee, what else are you being scored on that you've never once noticed?",
       "sentences": [
         {
           "text": "We'd like to believe we judge what's actually in front of us.",
           "delivery": "neutral"
         },
         {
-          "text": "The kick. The play. The person.",
+          "text": "The kick, the play, the person.",
           "delivery": "weighty"
         },
         {
-          "text": "Mostly, we judge the wrapping - and then invent a reason that sounds like merit.",
+          "text": "But mostly, we judge the wrapping, and then invent a reason that sounds like merit.",
           "delivery": "weighty"
         },
         {
@@ -1041,15 +961,7 @@
           "delivery": "weighty"
         },
         {
-          "text": "Most of the time, it's just you,",
-          "delivery": "neutral"
-        },
-        {
-          "text": "a color you barely chose,",
-          "delivery": "neutral"
-        },
-        {
-          "text": "and someone across the table who's certain they're being fair.",
+          "text": "Most of the time, it's just you, a color you barely chose, and someone across the table who's certain they're being fair.",
           "delivery": "weighty"
         },
         {
@@ -1057,11 +969,7 @@
           "delivery": "curious"
         },
         {
-          "text": "If a single color can quietly bend a trained referee,",
-          "delivery": "neutral"
-        },
-        {
-          "text": "what else are you being scored on that you've never once noticed?",
+          "text": "If a single color can quietly bend a trained referee, what else are you being scored on that you've never once noticed?",
           "delivery": "transition"
         }
       ],
@@ -1095,7 +1003,7 @@
           "id": "s10_3",
           "type": "compare",
           "sentence_start": 6,
-          "sentence_end": 8,
+          "sentence_end": 6,
           "visual_intent": "YOU  vs  THE TABLE",
           "text": "YOU  vs  THE TABLE",
           "subjects": [
@@ -1111,8 +1019,8 @@
         {
           "id": "s10_4",
           "type": "emphasize",
-          "sentence_start": 9,
-          "sentence_end": 11,
+          "sentence_start": 7,
+          "sentence_end": 8,
           "visual_intent": "WHAT ELSE AREN'T YOU SEEING?",
           "text": "WHAT ELSE AREN'T YOU SEEING?",
           "subjects": [
