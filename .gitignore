@@ -23,3 +23,12 @@ codex_*_out.txt
 # Owner voice-clone corpus + brain-dump audio (large, kept local / out of git)
 data/persona/voice_corpus/
 data/persona/_braindump_*.txt
+
+# Local ffmpeg static build (large, not committed)
+tools/
+out/
+
+# Generated per-section narration audio
+remotion/public/cut_audio_*.mp3
+remotion/slice_stills/*.mp4
+remotion/props_cutaway.json
