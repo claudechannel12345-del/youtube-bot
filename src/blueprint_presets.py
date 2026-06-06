@@ -88,7 +88,7 @@ def build_comparison_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str
             el["colorRole"] = side_colors[ci % len(side_colors)]
     label = _first_overlay(beat, roles=("label", "caption", "headline", "stamp"))
     if label:
-        assets.append(_text_element(label, "comparison_label", 960, 858, "label", 1.0, z=50))
+        assets.append(_text_element(label, "comparison_label", 960, 868, "label", 1.0, z=50, box=(1100, 90)))
     return _blueprint(beat, "comparison_stage", "comparison_panels", assets[:6], [])
 
 
@@ -129,7 +129,7 @@ def build_stat_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]
     # The big stat text IS the number; drop number/counter supporting assets so they don't render a
     # redundant placeholder ("42") box on top of the real stat.
     stat_beat = dict(beat)
-    stat_beat["assets"] = [a for a in (beat.get("assets") or []) if a.get("name") not in ("number", "counter")]
+    stat_beat["assets"] = [a for a in (beat.get("assets") or []) if a.get("name") not in ("number", "counter", "generic_object")]
     elements.extend(_asset_elements(stat_beat, _stat_place, max_assets=3, start_z=30))
     return _blueprint(beat, "stat_stage", "panel", elements[:4], [])
 

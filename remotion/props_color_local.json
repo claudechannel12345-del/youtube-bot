@@ -209,11 +209,12 @@
                 "position": {
                   "mode": "point",
                   "x": 960.0,
-                  "y": 858.0
+                  "y": 868.0
                 },
                 "size": {
-                  "mode": "scale",
-                  "scale": 1.0
+                  "mode": "box",
+                  "w": 1100.0,
+                  "h": 90.0
                 },
                 "z": 50,
                 "text": {
@@ -1545,28 +1546,6 @@
                     "duration": 0.25
                   }
                 ]
-              },
-              {
-                "id": "s3_2_a0",
-                "kind": "prop",
-                "asset": "generic_object",
-                "position": {
-                  "mode": "point",
-                  "x": 960.0,
-                  "y": 760.0
-                },
-                "size": {
-                  "mode": "scale",
-                  "scale": 0.58
-                },
-                "z": 30,
-                "motion": [
-                  {
-                    "kind": "count_up",
-                    "start": 0.0,
-                    "duration": 0.38
-                  }
-                ]
               }
             ],
             "connections": [],
@@ -1660,28 +1639,6 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.25
-                  }
-                ]
-              },
-              {
-                "id": "s3_3_a0",
-                "kind": "prop",
-                "asset": "generic_object",
-                "position": {
-                  "mode": "point",
-                  "x": 960.0,
-                  "y": 760.0
-                },
-                "size": {
-                  "mode": "scale",
-                  "scale": 0.58
-                },
-                "z": 30,
-                "motion": [
-                  {
-                    "kind": "count_up",
-                    "start": 0.0,
-                    "duration": 0.38
                   }
                 ]
               }
@@ -1985,11 +1942,12 @@
                 "position": {
                   "mode": "point",
                   "x": 960.0,
-                  "y": 858.0
+                  "y": 868.0
                 },
                 "size": {
-                  "mode": "scale",
-                  "scale": 1.0
+                  "mode": "box",
+                  "w": 1100.0,
+                  "h": 90.0
                 },
                 "z": 50,
                 "text": {
@@ -2441,11 +2399,12 @@
                 "position": {
                   "mode": "point",
                   "x": 960.0,
-                  "y": 858.0
+                  "y": 868.0
                 },
                 "size": {
-                  "mode": "scale",
-                  "scale": 1.0
+                  "mode": "box",
+                  "w": 1100.0,
+                  "h": 90.0
                 },
                 "z": 50,
                 "text": {
@@ -2555,28 +2514,6 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.25
-                  }
-                ]
-              },
-              {
-                "id": "s5_3_a0",
-                "kind": "prop",
-                "asset": "generic_object",
-                "position": {
-                  "mode": "point",
-                  "x": 960.0,
-                  "y": 760.0
-                },
-                "size": {
-                  "mode": "scale",
-                  "scale": 0.58
-                },
-                "z": 30,
-                "motion": [
-                  {
-                    "kind": "count_up",
-                    "start": 0.0,
-                    "duration": 0.38
                   }
                 ]
               }
@@ -2898,11 +2835,12 @@
                 "position": {
                   "mode": "point",
                   "x": 960.0,
-                  "y": 858.0
+                  "y": 868.0
                 },
                 "size": {
-                  "mode": "scale",
-                  "scale": 1.0
+                  "mode": "box",
+                  "w": 1100.0,
+                  "h": 90.0
                 },
                 "z": 50,
                 "text": {
@@ -3879,11 +3817,12 @@
                 "position": {
                   "mode": "point",
                   "x": 960.0,
-                  "y": 858.0
+                  "y": 868.0
                 },
                 "size": {
-                  "mode": "scale",
-                  "scale": 1.0
+                  "mode": "box",
+                  "w": 1100.0,
+                  "h": 90.0
                 },
                 "z": 50,
                 "text": {
@@ -4561,28 +4500,6 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.25
-                  }
-                ]
-              },
-              {
-                "id": "s9_3_a0",
-                "kind": "prop",
-                "asset": "generic_object",
-                "position": {
-                  "mode": "point",
-                  "x": 960.0,
-                  "y": 760.0
-                },
-                "size": {
-                  "mode": "scale",
-                  "scale": 0.58
-                },
-                "z": 30,
-                "motion": [
-                  {
-                    "kind": "count_up",
-                    "start": 0.0,
-                    "duration": 0.38
                   }
                 ]
               }
@@ -5350,11 +5267,12 @@
                 "position": {
                   "mode": "point",
                   "x": 960.0,
-                  "y": 858.0
+                  "y": 868.0
                 },
                 "size": {
-                  "mode": "scale",
-                  "scale": 1.0
+                  "mode": "box",
+                  "w": 1100.0,
+                  "h": 90.0
                 },
                 "z": 50,
                 "text": {
