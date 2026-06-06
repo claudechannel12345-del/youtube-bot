@@ -12,7 +12,20 @@ The channel + first video are LIVE. We are **mid channel-migration** to a Brand 
 - **Short** (public, vertical, links to full video): https://youtube.com/watch?v=2gDdnd9Od0k
 - Old quiet first upload `bIoV9d9R_dU` was DELETED.
 
-### >>> PENDING: finish moving to the Brand Account "Second Glance"
+### >>> DECISION REVERSED (2026-06-06 later): DON'T migrate — STAY on the current personal channel
+The Short hit **1000 views in a few hours** (0-sub channel) and is gaining momentum. Migrating would
+mean delete+re-upload = throwing away those views + the algorithm's momentum. Not worth the Brand
+Account's (minor, viewer-invisible) benefits. NEW PLAN:
+- Owner is on a **24h cooldown** for name changes (so it WAS a rate limit, not a permanent block —
+  "Second Glance" should work in ~24h).
+- When the cooldown lifts: on the CURRENT channel, set Customization -> Basic info Name = "Second
+  Glance", grab the @handle (@secondglance taken -> use a variant like @secondglancetv), upload
+  avatar + banner -> Publish. That's the whole rebrand; everything else stays put.
+- The empty "Second Glance" Brand Account the owner created can sit unused or be deleted later.
+- Strategy: make MORE Shorts (this one works) pointing at the main video. Pipeline does vertical now.
+- Uploads/automation keep working as-is (no re-auth needed since we're NOT moving channels).
+
+### (SUPERSEDED) earlier plan: move to the Brand Account "Second Glance"
 Personal->Brand *move* is impossible (Google removed it). Owner instead **created a NEW Brand Account
 channel** by making a channel with a custom name — handle had to be suffixed (e.g. "...TV") because
 `@secondglance` was taken. DISPLAY NAME can still be exactly "Second Glance" (handle just needs to be
