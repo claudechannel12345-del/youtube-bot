@@ -377,7 +377,7 @@
                 },
                 "size": {
                   "mode": "scale",
-                  "scale": 0.92
+                  "scale": 1.55
                 },
                 "z": 20,
                 "motion": [
@@ -635,7 +635,7 @@
                 },
                 "size": {
                   "mode": "scale",
-                  "scale": 0.92
+                  "scale": 1.55
                 },
                 "z": 20,
                 "motion": [
@@ -715,7 +715,7 @@
                 },
                 "size": {
                   "mode": "scale",
-                  "scale": 0.92
+                  "scale": 1.55
                 },
                 "z": 20,
                 "motion": [
@@ -795,7 +795,7 @@
                 },
                 "size": {
                   "mode": "scale",
-                  "scale": 0.92
+                  "scale": 1.55
                 },
                 "z": 20,
                 "motion": [
@@ -1200,7 +1200,7 @@
                 },
                 "size": {
                   "mode": "scale",
-                  "scale": 0.92
+                  "scale": 1.1
                 },
                 "z": 20,
                 "motion": [
@@ -1209,7 +1209,8 @@
                     "start": 0.0,
                     "duration": 0.38
                   }
-                ]
+                ],
+                "colorRole": "accent"
               },
               {
                 "id": "s3_1_a1",
@@ -1222,7 +1223,7 @@
                 },
                 "size": {
                   "mode": "scale",
-                  "scale": 0.92
+                  "scale": 1.1
                 },
                 "z": 21,
                 "motion": [
@@ -1231,7 +1232,8 @@
                     "start": 0.08,
                     "duration": 0.38
                   }
-                ]
+                ],
+                "colorRole": "blue"
               }
             ],
             "connections": [],
@@ -2006,7 +2008,7 @@
                 },
                 "size": {
                   "mode": "scale",
-                  "scale": 0.92
+                  "scale": 1.55
                 },
                 "z": 20,
                 "motion": [
@@ -2936,7 +2938,7 @@
                 },
                 "size": {
                   "mode": "scale",
-                  "scale": 0.92
+                  "scale": 1.55
                 },
                 "z": 20,
                 "motion": [
@@ -4221,7 +4223,7 @@
                 },
                 "size": {
                   "mode": "scale",
-                  "scale": 0.92
+                  "scale": 1.55
                 },
                 "z": 20,
                 "motion": [

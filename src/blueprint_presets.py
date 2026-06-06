@@ -147,7 +147,14 @@ def build_object_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, An
     elements = []
     # (Removed the "ground_shadow" ring element: the ring asset rendered as a big stray circle behind
     # every object, which read as nonsense. Flat cream background is the cleaner CGP-Grey look.)
-    elements.extend(_asset_elements(beat, _object_place, max_assets=4, start_z=20))
+    obj_assets = _asset_elements(beat, _object_place, max_assets=4, start_z=20)
+    # Route per-side colors (e.g. red vs blue) onto object scenes too, like comparison does.
+    side_colors = beat.get("compare_colors")
+    if side_colors:
+        for ci, el in enumerate(obj_assets):
+            if not el.get("colorRole"):
+                el["colorRole"] = side_colors[ci % len(side_colors)]
+    elements.extend(obj_assets)
     elements.extend(_overlay_elements(beat, start_z=50, max_items=max(0, 5 - len(elements))))
     return _blueprint(beat, "object_stage", "plain", elements[:5], [])
 
@@ -360,8 +367,14 @@ def _diagram_place(asset: Dict[str, Any], index: int, total: int) -> Dict[str, f
 def _object_place(asset: Dict[str, Any], index: int, total: int) -> Dict[str, float]:
     p = anchor_point(asset.get("anchor", "center"), index, total)
     name = _asset_name(asset)
-    scale = 0.62 if asset.get("kind") == "icon_cluster" else 0.72 if name == "phone" else 0.92
-    return {"x": p["x"], "y": p["y"], "scale": scale}
+    # Scale by how many assets share the stage so a single subject fills the frame instead of floating
+    # tiny in dead space (owner: scenes felt plain/bare).
+    base = 1.55 if total <= 1 else 1.1 if total == 2 else 0.9
+    if asset.get("kind") == "icon_cluster":
+        base = 0.62
+    elif name == "phone":
+        base *= 0.8
+    return {"x": p["x"], "y": p["y"], "scale": base}
 
 
 def _stat_place(asset: Dict[str, Any], index: int, total: int) -> Dict[str, float]:
