@@ -162,10 +162,29 @@ export type BlueprintElement = {
   colorRole?: ColorRole;
   text?: BlueprintText;
   propShape?: "rule" | "disc" | "tick";
+  // A list of primitive shapes drawn in ABSOLUTE frame coords with palette-role fills + the brand
+  // ink stroke. This is how ENVIRONMENTS/backdrops are composed (and, later, generated assets).
+  shapes?: PrimitiveShape[];
   z?: number;
   opacity?: number;
   rotation?: number;
   motion?: MotionStep[];
+};
+
+export type PrimitiveShape = {
+  type: "rect" | "circle" | "ellipse" | "polygon" | "line" | "path";
+  // rect
+  x?: number; y?: number; w?: number; h?: number; rx?: number;
+  // circle / ellipse
+  cx?: number; cy?: number; r?: number; ry?: number;
+  // polygon (flat [x1,y1,x2,y2,...]) / line (x1,y1,x2,y2) / path (d)
+  points?: number[];
+  x1?: number; y1?: number; x2?: number; y2?: number;
+  d?: string;
+  fill?: ColorRole | "none";
+  stroke?: boolean;       // apply the brand ink stroke
+  strokeW?: number;       // override stroke width
+  opacity?: number;
 };
 
 export type BlueprintElementKind =
@@ -267,7 +286,10 @@ export type ColorRole =
   | "green"
   | "yellow"
   | "lavender"
-  | "muted";
+  | "muted"
+  | "white"
+  | "paper"
+  | "paper_deep";
 
 export type ValidationRepair = {
   section?: number;

@@ -24,6 +24,8 @@ export const palette = {
   lavender: "#7A5BD8",
   muted: INK_SOFT,
   white: "#FFFFFF",
+  paper: PAPER,
+  paper_deep: PAPER_DEEP,
 };
 
 export const colorFor = (asset: VisualAsset): string => {

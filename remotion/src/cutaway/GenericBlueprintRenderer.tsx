@@ -345,10 +345,37 @@ const renderPropShape = (element: ResolvedElement): React.ReactNode => {
   return null;
 };
 
+// Draw a list of primitive shapes (ABSOLUTE frame coords) with palette-role fills + the brand ink
+// stroke. This is how environments/backdrops (and later generated assets) are composed on-style.
+const renderShapes = (element: ResolvedElement): React.ReactNode => {
+  if (!element.shapes || element.shapes.length === 0) {
+    return null;
+  }
+  return (
+    <>
+      {element.shapes.map((s, i) => {
+        const fill = !s.fill || s.fill === "none" ? "none" : palette[s.fill] ?? CORAL;
+        const strokeProps = s.stroke
+          ? {stroke: INK, strokeWidth: s.strokeW ?? STROKE, strokeLinejoin: "round" as const, strokeLinecap: "round" as const}
+          : {stroke: "none" as const};
+        const common = {key: i, fill, opacity: s.opacity ?? 1, ...strokeProps};
+        if (s.type === "rect") return <rect x={s.x} y={s.y} width={s.w} height={s.h} rx={s.rx ?? 0} {...common} />;
+        if (s.type === "circle") return <circle cx={s.cx} cy={s.cy} r={s.r} {...common} />;
+        if (s.type === "ellipse") return <ellipse cx={s.cx} cy={s.cy} rx={s.r} ry={s.ry} {...common} />;
+        if (s.type === "line") return <line x1={s.x1} y1={s.y1} x2={s.x2} y2={s.y2} {...common} />;
+        if (s.type === "polygon") return <polygon points={(s.points ?? []).join(" ")} {...common} />;
+        if (s.type === "path") return <path d={s.d} {...common} />;
+        return null;
+      })}
+    </>
+  );
+};
+
 const ElementNode: React.FC<{element: ResolvedElement; localFrame: number}> = ({element, localFrame}) => {
   const {fps} = useVideoConfig();
   const motion = applyMotion(element.motion, localFrame, fps);
   const text = element.text?.text;
+  const shapes = element.shapes && element.shapes.length ? renderShapes(element) : null;
   const textOnly = isTextOnlyElement(element);
   const propShape = element.kind === "prop" && element.propShape ? renderPropShape(element) : null;
   return (
@@ -360,9 +387,10 @@ const ElementNode: React.FC<{element: ResolvedElement; localFrame: number}> = ({
         transformOrigin: "center",
       }}
     >
-      {propShape}
-      {!propShape && textOnly ? renderFittedText(element) : null}
-      {!propShape && !textOnly
+      {shapes}
+      {!shapes && propShape}
+      {!shapes && !propShape && textOnly ? renderFittedText(element) : null}
+      {!shapes && !propShape && !textOnly
         ? renderRegistryAsset(element.asset, {
             x: element.point.x,
             y: element.point.y,
@@ -372,7 +400,7 @@ const ElementNode: React.FC<{element: ResolvedElement; localFrame: number}> = ({
             extra: {text},
           })
         : null}
-      {!propShape && !textOnly ? renderTextFallback(element) : null}
+      {!shapes && !propShape && !textOnly ? renderTextFallback(element) : null}
     </g>
   );
 };

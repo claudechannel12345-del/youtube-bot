@@ -187,6 +187,8 @@ COLOR_ROLE = frozenset(
         "lavender",
         "muted",
         "white",
+        "paper",
+        "paper_deep",
     ]
 )
 
