@@ -351,14 +351,18 @@
       ]
     },
     {
-      "narration": "So there were two suspects. Suspect one, the color changes the fighters. Maybe red makes you feel more dangerous, and makes your opponent flinch. Suspect two, the color changes the person keeping score. The fighters are identical, the referee is the one who's biased. In a real match, both could be true at once, and you'd never tell them apart. You'd need a way to freeze the fighters, and test only the judge.",
+      "narration": "So there were two suspects. Suspect one. The color changes the fighters themselves. Maybe red makes you feel more dangerous, and makes your opponent flinch. Suspect two. The color changes the person keeping score. Either way, the fighters are identical. The referee is the one who's biased. In a real match, both could be true at once, and you would never tell them apart. You would need a way to freeze the fighters, and test only the judge.",
       "sentences": [
         {
           "text": "So there were two suspects.",
           "delivery": "weighty"
         },
         {
-          "text": "Suspect one, the color changes the fighters.",
+          "text": "Suspect one.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "The color changes the fighters themselves.",
           "delivery": "neutral"
         },
         {
@@ -366,19 +370,23 @@
           "delivery": "neutral"
         },
         {
-          "text": "Suspect two, the color changes the person keeping score.",
-          "delivery": "neutral"
-        },
-        {
-          "text": "The fighters are identical, the referee is the one who's biased.",
+          "text": "Suspect two.",
           "delivery": "weighty"
         },
         {
-          "text": "In a real match, both could be true at once, and you'd never tell them apart.",
+          "text": "The color changes the person keeping score.",
           "delivery": "neutral"
         },
         {
-          "text": "You'd need a way to freeze the fighters, and test only the judge.",
+          "text": "Either way, the fighters are identical. The referee is the one who's biased.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "In a real match, both could be true at once, and you would never tell them apart.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "You would need a way to freeze the fighters, and test only the judge.",
           "delivery": "transition"
         }
       ],
@@ -388,7 +396,7 @@
           "id": "s4_1",
           "type": "compare",
           "sentence_start": 0,
-          "sentence_end": 4,
+          "sentence_end": 5,
           "visual_intent": "THE FIGHTER  or  THE JUDGE",
           "text": "THE FIGHTER  or  THE JUDGE",
           "subjects": [
@@ -404,8 +412,8 @@
         {
           "id": "s4_2",
           "type": "emphasize",
-          "sentence_start": 5,
-          "sentence_end": 6,
+          "sentence_start": 6,
+          "sentence_end": 8,
           "visual_intent": "FREEZE THE FIGHTERS",
           "text": "FREEZE THE FIGHTERS",
           "subjects": [

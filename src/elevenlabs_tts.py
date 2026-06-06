@@ -182,12 +182,20 @@ def synthesize_section(text, output_path, temp_dir, sentences=None, voice=None, 
             })
             clip_paths.append(sent_path)
             current += duration
-            pause = PAUSE_AFTER.get(delivery, 0.34) if i < len(items) - 1 else 0.0
+            is_last = i == len(items) - 1
+            # Section-ending "transition" lines get a closing BREATH so topic shifts (e.g. into the
+            # twist) don't feel abrupt at the section boundary, which otherwise has no pause at all.
+            if is_last:
+                pause = PAUSE_AFTER.get("transition", 0.8) if delivery == "transition" else 0.0
+            else:
+                pause = PAUSE_AFTER.get(delivery, 0.34)
             if pause > 0:
                 gap_path = os.path.join(temp_dir, f"_el_gap_{i:03d}.mp3")
                 _silence(gap_path, pause)
                 clip_paths.append(gap_path)
                 current += pause
+                if is_last:
+                    timings[-1]["end"] = current  # include the closing breath in the section duration
 
         concat_txt = os.path.join(temp_dir, "_el_concat.txt")
         with open(concat_txt, "w", encoding="utf-8") as f:
