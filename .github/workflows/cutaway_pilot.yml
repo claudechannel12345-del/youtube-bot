@@ -8,6 +8,11 @@ on:
         required: true
         type: boolean
         default: true
+      script_path:
+        description: Which script JSON to voice + render
+        required: false
+        type: string
+        default: data/color_script.json
 
 jobs:
   render:
@@ -50,6 +55,7 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
           DO_UPLOAD: ${{ inputs.do_upload && '1' || '0' }}
           UPLOAD_PRIVACY: unlisted
+          SCRIPT_PATH: ${{ inputs.script_path }}
         run: python scripts/render_voiced.py
 
       - name: Upload render artifact

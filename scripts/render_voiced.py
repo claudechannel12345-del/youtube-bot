@@ -32,7 +32,11 @@ FPS = 30
 
 
 def main():
-    script_path = os.path.join(ROOT, "data", "gps_script.json")
+    # Which script to voice. Default GPS for back-compat; set SCRIPT_PATH=data/color_script.json
+    # (or any path) to render a different video.
+    script_path = os.environ.get("SCRIPT_PATH") or os.path.join(ROOT, "data", "gps_script.json")
+    if not os.path.isabs(script_path):
+        script_path = os.path.join(ROOT, script_path)
     with open(script_path, "r", encoding="utf-8") as f:
         script = json.load(f)
 
@@ -65,6 +69,9 @@ def main():
             offset += timings[-1]["end"] if timings else 0.0
 
         episode = build_episode(script, per_section_timings, fps=FPS)
+        # Use the faithful blueprint renderer by default (the engine's current path); override with
+        # CUTAWAY_RENDERER=legacy to fall back to the old family renderer.
+        episode["renderer"] = os.environ.get("CUTAWAY_RENDERER", "blueprint")
 
         out_mp4 = os.path.join(ROOT, "remotion", "slice_stills", "gps_voiced.mp4")
         render_cutaway(episode, audio_paths, out_mp4)
