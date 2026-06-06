@@ -1,8 +1,8 @@
 name: Daily YouTube Video
 
 on:
-  schedule:
-    - cron: '0 16 * * 1,3,5'
+  # Schedule disabled: this is the OLD slideshow pipeline. Kept dispatch-only so it can't auto-post
+  # while cutaway-engine is the default branch. The cutaway pipeline publishes via publish.yml.
   workflow_dispatch:
 
 permissions:
