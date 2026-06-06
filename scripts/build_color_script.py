@@ -248,10 +248,16 @@ SECTIONS = [
 ]
 
 
+def _tts_norm(text):
+    """Strip punctuation that makes ElevenLabs stutter/garble: mid-sentence dashes and colons become
+    commas. (These caused the jibberish at the suspect/black/softer-science lines.)"""
+    return text.replace(" - ", ", ").replace(": ", ", ").replace("  ", " ")
+
+
 def build():
     sections = []
     for i, sec in enumerate(SECTIONS):
-        sentences = [{"text": t, "delivery": d} for (t, d) in sec["sent"]]
+        sentences = [{"text": _tts_norm(t), "delivery": d} for (t, d) in sec["sent"]]
         narration = " ".join(s["text"] for s in sentences)
         beats = []
         for j, b in enumerate(sec["beats"]):

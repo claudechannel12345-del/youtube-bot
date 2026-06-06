@@ -19,9 +19,9 @@ DEFAULT_MODEL = "eleven_multilingual_v2"
 # ELEVENLABS_VOICE_ID env var (CI sets it as a secret); premade "Chris" iP95p4xoKVk53GoZ742B is a last resort.
 CHRIS_VOICE_ID = "OOLdd0jihd5eCDYx6lL9"
 DEFAULT_SETTINGS = {
-    "stability": 0.45,       # lower = more expressive/dynamic. Safe now that context-passing is in.
+    "stability": 0.42,       # lower = more expressive/dynamic. Safe now that context-passing is in.
     "similarity_boost": 0.8,
-    "style": 0.22,           # owner wanted MORE ENERGY (dry deadpan didn't land). Earlier style 0.30
+    "style": 0.30,           # owner wanted MORE ENERGY (dry deadpan didn't land). Earlier style 0.30
                              # garbled, but that was WITHOUT the previous/next_text context; with it +
                              # complete sentences, a moderate style is safe (verified by re-transcribing).
     "use_speaker_boost": True,
@@ -127,14 +127,14 @@ PAUSE_AFTER = {
 # more dynamic). Enthusiastic/curious/punch lines swing UP; weighty/ominous stay grounded. This is
 # what gives the "shifts in tone" so it doesn't read flat. Kept moderate to avoid re-introducing garble.
 DELIVERY_STYLE = {
-    "neutral": 0.22, "curious": 0.42, "question": 0.34, "brisk": 0.34,
-    "weighty": 0.12, "surprised": 0.5, "skeptical": 0.28, "ominous": 0.1, "warm_cta": 0.46,
-    "transition": 0.26, "punch": 0.4,
+    "neutral": 0.32, "curious": 0.52, "question": 0.42, "brisk": 0.42,
+    "weighty": 0.2, "surprised": 0.6, "skeptical": 0.36, "ominous": 0.16, "warm_cta": 0.56,
+    "transition": 0.34, "punch": 0.46,
 }
 DELIVERY_STABILITY = {
-    "neutral": 0.45, "curious": 0.4, "question": 0.42, "brisk": 0.42,
-    "weighty": 0.55, "surprised": 0.36, "skeptical": 0.44, "ominous": 0.58, "warm_cta": 0.38,
-    "transition": 0.45, "punch": 0.4,
+    "neutral": 0.4, "curious": 0.34, "question": 0.38, "brisk": 0.38,
+    "weighty": 0.5, "surprised": 0.32, "skeptical": 0.4, "ominous": 0.52, "warm_cta": 0.34,
+    "transition": 0.4, "punch": 0.36,
 }
 
 
