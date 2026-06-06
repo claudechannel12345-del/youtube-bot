@@ -134,7 +134,7 @@ SECTIONS = [
             ("They're scoring what you wore.", "transition"),
         ],
         "beats": [
-            {"type": "compare", "s": [0, 4], "text": "WHITE  vs  BLACK", "subjects": ["person", "person"], "colors": ["muted", "ink"], "importance": "high"},
+            {"type": "compare", "s": [0, 4], "text": "WHITE  vs  BLACK", "subjects": ["person", "person"], "colors": ["white", "ink"], "importance": "high"},
             {"type": "emphasize", "s": [5, 6], "text": "SAME PLAY, MORE FLAGS", "subjects": ["light"], "importance": "high"},
             {"type": "emphasize", "s": [7, 9], "text": "THEY SCORE THE JERSEY", "subjects": ["light"], "importance": "high"},
         ],

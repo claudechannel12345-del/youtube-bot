@@ -31,6 +31,27 @@ else:
 FPS = 30
 
 
+def _audio_cache_key(script):
+    """Hash everything that affects the rendered audio (text + delivery + voice + TTS settings) so a
+    cache can be safely reused for VISUAL-only changes but is invalidated when the audio would differ."""
+    import hashlib
+    import elevenlabs_tts as el
+
+    h = hashlib.sha256()
+    for s in script["sections"]:
+        for x in s["sentences"]:
+            h.update(("%s\x1f%s\x1e" % (x.get("text", ""), x.get("delivery", ""))).encode("utf-8"))
+    sig = {
+        "voice": os.environ.get("ELEVENLABS_VOICE_ID") or el.CHRIS_VOICE_ID,
+        "provider": TTS_PROVIDER,
+        "defaults": el.DEFAULT_SETTINGS,
+        "style": el.DELIVERY_STYLE, "stability": el.DELIVERY_STABILITY,
+        "speed": el.DELIVERY_SPEED, "pause": el.PAUSE_AFTER,
+    }
+    h.update(json.dumps(sig, sort_keys=True).encode("utf-8"))
+    return h.hexdigest()
+
+
 def main():
     # Which script to voice. Default GPS for back-compat; set SCRIPT_PATH=data/color_script.json
     # (or any path) to render a different video.
@@ -40,32 +61,53 @@ def main():
     with open(script_path, "r", encoding="utf-8") as f:
         script = json.load(f)
 
+    # Audio cache: lets a VISUAL-only re-render skip TTS entirely. Set REUSE_AUDIO=1 to reuse the
+    # cached audio when text/delivery/voice/settings are unchanged (key match); otherwise re-synth.
+    cache_dir = os.path.join(ROOT, "out", "voiced_cache")
+    os.makedirs(cache_dir, exist_ok=True)
+    cache_meta = os.path.join(cache_dir, "meta.json")
+    cache_key = _audio_cache_key(script) if TTS_PROVIDER == "elevenlabs" else None
+
     temp_dir = tempfile.mkdtemp(prefix="cutaway_voiced_")
     try:
-        per_section_timings = []
-        audio_paths = []
+        per_section_timings = None
+        audio_paths = None
+        if os.environ.get("REUSE_AUDIO") == "1" and cache_key and os.path.exists(cache_meta):
+            with open(cache_meta, "r", encoding="utf-8") as f:
+                meta = json.load(f)
+            files = [os.path.join(cache_dir, p) for p in meta.get("audio", [])]
+            if meta.get("key") == cache_key and files and all(os.path.exists(p) for p in files):
+                per_section_timings = meta["timings"]
+                audio_paths = files
+                print("REUSING cached audio - %d sections, NO TTS" % len(files))
+            else:
+                print("REUSE_AUDIO set but cache stale/missing; re-synthesizing.")
+
+        if per_section_timings is None:
+            per_section_timings = []
+            audio_paths = []
+            for i, section in enumerate(script["sections"]):
+                audio_path = os.path.join(temp_dir, f"cut_audio_{i:03d}.mp3")
+                timings = synthesize_section(
+                    section["narration"], audio_path, temp_dir, sentences=section["sentences"],
+                )
+                per_section_timings.append(timings)
+                audio_paths.append(audio_path)
+            # Save to cache for future visual-only re-renders.
+            if cache_key:
+                cached = []
+                for i, p in enumerate(audio_paths):
+                    name = "cut_audio_%03d.mp3" % i
+                    shutil.copy(p, os.path.join(cache_dir, name))
+                    cached.append(name)
+                with open(cache_meta, "w", encoding="utf-8") as f:
+                    json.dump({"key": cache_key, "timings": per_section_timings, "audio": cached}, f)
+
         global_cues = []
         offset = 0.0
-
-        for i, section in enumerate(script["sections"]):
-            audio_path = os.path.join(temp_dir, f"cut_audio_{i:03d}.mp3")
-            timings = synthesize_section(
-                section["narration"],
-                audio_path,
-                temp_dir,
-                sentences=section["sentences"],
-            )
-            per_section_timings.append(timings)
-            audio_paths.append(audio_path)
-
+        for timings in per_section_timings:
             for cue in timings:
-                global_cues.append(
-                    {
-                        "text": cue["text"],
-                        "start": cue["start"] + offset,
-                        "end": cue["end"] + offset,
-                    }
-                )
+                global_cues.append({"text": cue["text"], "start": cue["start"] + offset, "end": cue["end"] + offset})
             offset += timings[-1]["end"] if timings else 0.0
 
         episode = build_episode(script, per_section_timings, fps=FPS)

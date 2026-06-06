@@ -186,6 +186,7 @@ COLOR_ROLE = frozenset(
         "yellow",
         "lavender",
         "muted",
+        "white",
     ]
 )
 

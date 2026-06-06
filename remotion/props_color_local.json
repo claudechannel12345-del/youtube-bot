@@ -2774,7 +2774,7 @@
             }
           ],
           "compare_colors": [
-            "muted",
+            "white",
             "ink"
           ],
           "blueprint": {
@@ -2803,7 +2803,7 @@
                     "duration": 0.38
                   }
                 ],
-                "colorRole": "muted"
+                "colorRole": "white"
               },
               {
                 "id": "s6_1_a1",

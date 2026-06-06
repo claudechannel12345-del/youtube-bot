@@ -23,6 +23,7 @@ export const palette = {
   yellow: GOLD,
   lavender: "#7A5BD8",
   muted: INK_SOFT,
+  white: "#FFFFFF",
 };
 
 export const colorFor = (asset: VisualAsset): string => {
