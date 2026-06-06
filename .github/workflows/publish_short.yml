@@ -1,0 +1,23 @@
+name: Publish Short
+on:
+  workflow_dispatch:
+    inputs:
+      full_video_url:
+        description: URL of the full video to link in the description
+        required: true
+        type: string
+jobs:
+  publish-short:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -r requirements.txt
+      - env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          UPLOAD_PRIVACY: public
+          FULL_VIDEO_URL: ${{ inputs.full_video_url }}
+        run: python scripts/publish_short.py
