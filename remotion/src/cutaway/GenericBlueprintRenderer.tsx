@@ -20,6 +20,7 @@ type Bounds = Point & {w: number; h: number; scale: number};
 type ResolvedElement = BlueprintElement & {point: Point; bounds: Bounds; scale: number};
 type MotionState = {opacity: number; x: number; y: number; scale: number; rotation: number; drawProgress: number};
 type Attachment = "center" | "top" | "bottom" | "left" | "right" | undefined;
+type TextElementKind = "label" | "headline" | "caption" | "stat" | "quote" | "title" | "tiny_note";
 
 const assetBaseSize: Record<string, {w: number; h: number}> = {
   label: {w: 380, h: 128},
@@ -36,6 +37,8 @@ const assetBaseSize: Record<string, {w: number; h: number}> = {
 };
 
 const defaultBaseSize = {w: 320, h: 260};
+const placeholderAssets = new Set(["generic_object", "none", "text", undefined]);
+const textElementKinds = new Set<TextElementKind>(["label", "headline", "caption", "stat", "quote", "title", "tiny_note"]);
 
 const colorForRole = (role?: ColorRole): string => (role ? palette[role] ?? CORAL : CORAL);
 
@@ -259,9 +262,42 @@ const renderTextFallback = (element: ResolvedElement): React.ReactNode => {
   if (!element.text || element.asset === "label" || element.asset === "stamp" || element.asset === "counter" || element.asset === "number") {
     return null;
   }
-  const width = element.size.mode === "box" ? element.size.w : Math.max(280, element.bounds.w);
-  const height = element.size.mode === "box" ? element.size.h : Math.max(90, element.bounds.h);
-  const baseSize = element.text.role === "headline" ? 112 : element.text.role === "stat" ? 120 : element.text.role === "tiny_note" ? 36 : 58;
+  return renderFittedText(element);
+};
+
+const baseTextSize = (role: string): number => {
+  if (role === "headline" || role === "title") {
+    return 112;
+  }
+  if (role === "stat") {
+    return 120;
+  }
+  if (role === "quote" || role === "caption") {
+    return 56;
+  }
+  if (role === "label") {
+    return 64;
+  }
+  if (role === "tiny_note") {
+    return 36;
+  }
+  return 56;
+};
+
+const isTextOnlyElement = (element: ResolvedElement): boolean => {
+  if (!element.text?.text) {
+    return false;
+  }
+  return textElementKinds.has(element.kind as TextElementKind) || placeholderAssets.has(element.asset);
+};
+
+const renderFittedText = (element: ResolvedElement): React.ReactNode => {
+  if (!element.text?.text) {
+    return null;
+  }
+  const width = element.size.mode === "box" ? element.size.w : Math.max(300, element.bounds.w);
+  const height = element.size.mode === "box" ? element.size.h : Math.max(100, element.bounds.h);
+  const align = element.id.startsWith("row_") ? "left" : "center";
   return (
     <SvgTextBlock
       text={element.text.text}
@@ -269,16 +305,45 @@ const renderTextFallback = (element: ResolvedElement): React.ReactNode => {
       y={element.point.y - height / 2}
       width={width}
       height={height}
-      baseSize={baseSize}
+      baseSize={baseTextSize(element.text.role)}
       fill={textColorForTone(element.text.tone)}
+      align={align}
     />
   );
+};
+
+const renderPropShape = (element: ResolvedElement): React.ReactNode => {
+  const color = colorForRole(element.colorRole ?? "accent");
+  if (element.propShape === "rule") {
+    const width = element.size.mode === "box" ? element.size.w : Math.max(120, element.bounds.w);
+    const height = element.size.mode === "box" ? element.size.h : Math.max(12, Math.min(16, element.scale * 14));
+    return <rect x={element.point.x - width / 2} y={element.point.y - height / 2} width={width} height={height} rx={height / 2} fill={color} />;
+  }
+  if (element.propShape === "disc" || element.propShape === "tick") {
+    const radius = element.size.mode === "box" ? Math.min(element.size.w, element.size.h) / 2 : Math.max(6, element.scale * 18);
+    if (element.propShape === "tick") {
+      return (
+        <path
+          d={`M ${element.point.x - radius * 1.1} ${element.point.y} L ${element.point.x - radius * 0.25} ${element.point.y + radius * 0.85} L ${element.point.x + radius * 1.25} ${element.point.y - radius}`}
+          fill="none"
+          stroke={color}
+          strokeWidth={Math.max(8, radius * 0.55)}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      );
+    }
+    return <circle cx={element.point.x} cy={element.point.y} r={radius} fill={color} />;
+  }
+  return null;
 };
 
 const ElementNode: React.FC<{element: ResolvedElement; localFrame: number}> = ({element, localFrame}) => {
   const {fps} = useVideoConfig();
   const motion = applyMotion(element.motion, localFrame, fps);
   const text = element.text?.text;
+  const textOnly = isTextOnlyElement(element);
+  const propShape = element.kind === "prop" && element.propShape ? renderPropShape(element) : null;
   return (
     <g
       style={{
@@ -288,15 +353,19 @@ const ElementNode: React.FC<{element: ResolvedElement; localFrame: number}> = ({
         transformOrigin: "center",
       }}
     >
-      {renderRegistryAsset(element.asset, {
-        x: element.point.x,
-        y: element.point.y,
-        scale: element.scale,
-        color: colorForRole(element.colorRole),
-        localFrame,
-        extra: {text},
-      })}
-      {renderTextFallback(element)}
+      {propShape}
+      {!propShape && textOnly ? renderFittedText(element) : null}
+      {!propShape && !textOnly
+        ? renderRegistryAsset(element.asset, {
+            x: element.point.x,
+            y: element.point.y,
+            scale: element.scale,
+            color: colorForRole(element.colorRole),
+            localFrame,
+            extra: {text},
+          })
+        : null}
+      {!propShape && !textOnly ? renderTextFallback(element) : null}
     </g>
   );
 };

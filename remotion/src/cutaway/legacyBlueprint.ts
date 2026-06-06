@@ -24,9 +24,11 @@ const textCaps: Record<TextRole, number> = {
   headline: 34,
   label: 28,
   caption: 160,
+  quote: 160,
   stat: 22,
   stamp: 30,
   callout: 42,
+  title: 34,
   tiny_note: 42,
 };
 

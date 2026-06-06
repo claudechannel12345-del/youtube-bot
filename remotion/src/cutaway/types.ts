@@ -106,9 +106,11 @@ export type TextRole =
   | "headline"
   | "label"
   | "caption"
+  | "quote"
   | "stat"
   | "stamp"
   | "callout"
+  | "title"
   | "tiny_note";
 
 export type Delivery =
@@ -149,7 +151,7 @@ export type SceneBlueprint = {
 export type BlueprintElement = {
   id: string;
   kind: BlueprintElementKind;
-  asset: RegistryAssetName | "generated_image";
+  asset: RegistryAssetName | "generated_image" | "none" | "text";
   generated_image?: {
     asset_id: string;
     prompt?: string;
@@ -159,6 +161,7 @@ export type BlueprintElement = {
   size: BlueprintSize;
   colorRole?: ColorRole;
   text?: BlueprintText;
+  propShape?: "rule" | "disc" | "tick";
   z?: number;
   opacity?: number;
   rotation?: number;
@@ -168,6 +171,12 @@ export type BlueprintElement = {
 export type BlueprintElementKind =
   | "prop"
   | "label"
+  | "headline"
+  | "caption"
+  | "stat"
+  | "quote"
+  | "title"
+  | "tiny_note"
   | "stamp"
   | "panel"
   | "connector"

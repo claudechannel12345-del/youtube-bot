@@ -118,7 +118,7 @@ def build_diagram_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, A
 def build_stat_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
     text = _overlay_text(beat, "stat") or _first_overlay_text(beat) or _fallback_text(beat, section, "100")
     elements = [
-        _text_element({"role": "stat", "text": text, "tone": "coral_stamp"}, "stat_number", 960, 449, "counter", 2.0, z=20),
+        _text_element({"role": "stat", "text": text, "tone": "coral_stamp"}, "stat_number", 960, 449, "none", 2.0, z=20, box=(720, 240)),
     ]
     elements.extend(_asset_elements(beat, _stat_place, max_assets=3, start_z=30))
     return _blueprint(beat, "stat_stage", "panel", elements[:4], [])
@@ -127,8 +127,8 @@ def build_stat_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]
 def build_caption_punch(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
     text = _first_overlay_text(beat) or _fallback_text(beat, section, "YES")
     elements = [
-        _text_element({"role": "headline", "text": text, "tone": "ink"}, "headline", 980, 455, "generic_object", 1.0, z=20, box=(1080, 210)),
-        _element("coral_underline", "prop", "arrow", 960, 590, 1.7, color_role="accent", z=10),
+        _text_element({"role": "headline", "text": text, "tone": "ink"}, "headline", 980, 455, "none", 1.0, z=20, box=(1080, 210)),
+        _element("coral_underline", "prop", "none", 960, 590, 1.0, color_role="accent", z=10, box=(540, 16), prop_shape="rule"),
     ]
     return _blueprint(beat, "caption_punch", "plain", elements, [])
 
@@ -146,17 +146,18 @@ def build_object_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, An
 
 def build_list_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
     elements = []
-    assets = (beat.get("assets") or [])[:5]
+    assets = (beat.get("assets") or [])[:3]
     for index, asset in enumerate(assets):
         y = 247 + index * 125
         row_text = _list_row_text(asset)
-        elements.append(_text_element({"role": "label", "text": row_text, "tone": "ink"}, "row_%d" % (index + 1), 1080, y, "label", 1.15, z=20 + index))
-        if index < 2:
-            elements.append(_element("bullet_%d" % (index + 1), "prop", "dot", 486, y, 0.32, color_role="accent", z=30 + index))
+        elements.append(_element("bullet_%d" % (index + 1), "prop", "none", 486, y, 0.36, color_role="accent", z=30 + index, prop_shape="disc"))
+        elements.append(_text_element({"role": "label", "text": row_text, "tone": "ink"}, "row_%d" % (index + 1), 1080, y, "none", 1.15, z=20 + index, box=(820, 88)))
     if not elements:
         text = _fallback_text(beat, section, "ITEM")
-        elements.append(_text_element({"role": "label", "text": text, "tone": "ink"}, "row_1", 1080, 247, "label", 1.15, z=20))
-        elements.append(_text_element({"role": "label", "text": "NEXT", "tone": "ink"}, "row_2", 1080, 372, "label", 1.15, z=21))
+        elements.append(_element("bullet_1", "prop", "none", 486, 247, 0.36, color_role="accent", z=30, prop_shape="disc"))
+        elements.append(_text_element({"role": "label", "text": text, "tone": "ink"}, "row_1", 1080, 247, "none", 1.15, z=20, box=(820, 88)))
+        elements.append(_element("bullet_2", "prop", "none", 486, 372, 0.36, color_role="accent", z=31, prop_shape="disc"))
+        elements.append(_text_element({"role": "label", "text": "NEXT", "tone": "ink"}, "row_2", 1080, 372, "none", 1.15, z=21, box=(820, 88)))
     return _blueprint(beat, "list_stage", "plain", elements[:6], [])
 
 
@@ -164,11 +165,10 @@ def build_quote_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any
     quote = _overlay_text(beat, "caption") or _fallback_text(beat, section, "Quote")
     attribution = _overlay_text(beat, "tiny_note")
     elements = [
-        _text_element({"role": "caption", "text": quote, "tone": "ink"}, "quote_card", 960, 405, "generic_object", 1.0, z=20, box=(900, 330)),
+        _text_element({"role": "caption", "text": quote, "tone": "ink"}, "quote_body", 960, 420, "none", 1.0, z=20, box=(1200, 420)),
     ]
     if attribution:
-        elements.append(_text_element({"role": "tiny_note", "text": attribution, "tone": "muted"}, "quote_attribution", 960, 620, "label", 1.0, z=30))
-    elements.append(_element("quote_dot", "prop", "dot", 1424, 232, 0.46, color_role="accent", z=40))
+        elements.append(_text_element({"role": "tiny_note", "text": attribution, "tone": "muted"}, "quote_attribution", 960, 700, "none", 1.0, z=30, box=(900, 86)))
     return _blueprint(beat, "quote_stage", "panel", elements[:3], [])
 
 
@@ -209,15 +209,15 @@ def build_timeline_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, 
 def build_title_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
     text = _first_overlay_text(beat) or _fallback_text(beat, section, "CUTAWAY")
     elements = [
-        _text_element({"role": "headline", "text": text, "tone": "ink"}, "title_headline", 960, 425, "generic_object", 1.0, z=30, box=(1060, 190)),
-        _element("title_underline", "prop", "arrow", 960, 520, 1.45, color_role="accent", z=20),
+        _text_element({"role": "headline", "text": text, "tone": "ink"}, "title_headline", 960, 425, "none", 1.0, z=30, box=(1060, 190)),
+        _element("title_underline", "prop", "none", 960, 520, 1.0, color_role="accent", z=20, box=(520, 16), prop_shape="rule"),
     ]
     elements.extend(_asset_elements(beat, _title_place, max_assets=3, start_z=40))
     return _blueprint(beat, "title_stage", "plain", elements[:5], [])
 
 
 def build_paperwork_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
-    elements = [_element("paper_slash", "prop", "arrow", 960, 670, 1.0, color_role="accent", z=15, rotation=-9)]
+    elements = [_element("paper_slash", "prop", "none", 960, 670, 1.0, color_role="accent", z=15, rotation=-9, box=(480, 14), prop_shape="rule")]
     elements.extend(_asset_elements(beat, _paperwork_place, max_assets=4, start_z=30))
     return _blueprint(beat, "paperwork_stage", "paper_stack", elements[:5], [])
 
@@ -295,7 +295,7 @@ def _asset_element(asset: Dict[str, Any], index: int, total: int, placer: Callab
     return element
 
 
-def _element(element_id: str, kind: str, asset: str, x: float, y: float, scale: float, color_role: Optional[str] = None, z: int = 10, opacity: Optional[float] = None, rotation: Optional[float] = None, box: Optional[Tuple[int, int]] = None) -> Dict[str, Any]:
+def _element(element_id: str, kind: str, asset: str, x: float, y: float, scale: float, color_role: Optional[str] = None, z: int = 10, opacity: Optional[float] = None, rotation: Optional[float] = None, box: Optional[Tuple[int, int]] = None, prop_shape: Optional[str] = None) -> Dict[str, Any]:
     item = {
         "id": _safe_id(element_id, "element"),
         "kind": kind,
@@ -310,6 +310,8 @@ def _element(element_id: str, kind: str, asset: str, x: float, y: float, scale: 
         item["opacity"] = opacity
     if rotation is not None:
         item["rotation"] = rotation
+    if prop_shape:
+        item["propShape"] = prop_shape
     return item
 
 
@@ -317,7 +319,8 @@ def _text_element(overlay: Dict[str, Any], element_id: str, x: float, y: float, 
     role = overlay.get("role", "label")
     text = str(overlay.get("text") or "").strip()
     tone = overlay.get("tone", "ink")
-    item = _element(element_id, "stamp" if role == "stamp" or asset == "stamp" else "label", asset, x, y, scale, z=z, box=box)
+    kind = "stamp" if role == "stamp" or asset == "stamp" else role if role in ("headline", "label", "caption", "stat", "quote", "title", "tiny_note") else "label"
+    item = _element(element_id, kind, asset, x, y, scale, z=z, box=box)
     item["text"] = {"role": role, "text": text, "tone": tone, "maxChars": TEXT_CAPS.get(role, 42), "fit": "multi_line" if role == "caption" else "auto"}
     item["motion"] = [{"kind": "stamp" if role == "stamp" else "pop_in", "start": 0, "duration": 0.25}]
     return item
@@ -442,6 +445,8 @@ def _asset_name(asset: Dict[str, Any]) -> str:
 
 
 def _registry_asset(name: str) -> str:
+    if name in ("none", "text"):
+        return name
     return name if name in REGISTRY_ASSETS else "generic_object"
 
 

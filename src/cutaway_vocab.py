@@ -128,6 +128,12 @@ BLUEPRINT_ELEMENT_KIND = frozenset(
     [
         "prop",
         "label",
+        "headline",
+        "caption",
+        "stat",
+        "quote",
+        "title",
+        "tiny_note",
         "stamp",
         "panel",
         "connector",
@@ -222,9 +228,11 @@ TEXT_ROLE = frozenset(
         "headline",
         "label",
         "caption",
+        "quote",
         "stat",
         "stamp",
         "callout",
+        "title",
         "tiny_note",
     ]
 )

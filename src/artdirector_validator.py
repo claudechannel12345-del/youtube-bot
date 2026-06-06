@@ -68,16 +68,21 @@ SAFE_X = (96, 1824)
 SAFE_Y = (72, 1008)
 SCALE_RANGE = (0.15, 2.0)
 BOX_W_RANGE = (40, 1400)
-BOX_H_RANGE = (30, 900)
+BOX_H_RANGE = (12, 900)
 TEXT_CAPS = {
     "headline": 34,
     "label": 28,
     "caption": 160,
+    "quote": 160,
     "stat": 22,
     "stamp": 30,
     "callout": 42,
+    "title": 34,
     "tiny_note": 42,
 }
+
+PLACEHOLDER_ASSETS = frozenset(["none", "text"])
+PROP_SHAPES = frozenset(["rule", "disc", "tick"])
 
 SCENE_CONTRACTS = {
     "caption_punch": {
@@ -375,10 +380,15 @@ def _repair_element(element, index, seen_ids, log, beat_duration):
         item["kind"] = "prop"
         item.pop("generated_image", None)
         log("generated_image_disabled", path + ".asset", asset, "generic_object")
-    elif asset not in REGISTRY_ASSETS:
+    elif asset not in REGISTRY_ASSETS and asset not in PLACEHOLDER_ASSETS:
         replacement = ASSET_ALIASES.get(str(asset).strip().lower(), "generic_object")
         item["asset"] = replacement
         log("unknown_asset", path + ".asset", asset, replacement)
+
+    prop_shape = item.get("propShape")
+    if prop_shape is not None and prop_shape not in PROP_SHAPES:
+        item.pop("propShape", None)
+        log("unknown_prop_shape", path + ".propShape", prop_shape, None)
 
     _repair_position(item, path, log)
     _repair_size(item, path, log)
@@ -697,7 +707,9 @@ def _valid_camera_ref(ref):
 
 def _has_drawable_element(bp):
     for element in bp.get("elements", []):
-        if isinstance(element, dict) and element.get("asset") in REGISTRY_ASSETS:
+        if not isinstance(element, dict):
+            continue
+        if element.get("asset") in REGISTRY_ASSETS or isinstance(element.get("text"), dict) or element.get("propShape") in PROP_SHAPES:
             return True
     return False
 
@@ -721,10 +733,10 @@ def _caption_element(beat_text, key_phrase, element_id):
 
 def _text_element(role, beat_text, key_phrase, element_id):
     text = _fallback_text(beat_text, key_phrase, role)
-    asset = "counter" if role == "stat" else ("stamp" if role == "stamp" else "label")
+    asset = "stamp" if role == "stamp" else "none"
     return {
         "id": element_id,
-        "kind": "label" if role != "stamp" else "stamp",
+        "kind": role if role != "stamp" else "stamp",
         "asset": asset,
         "position": {"mode": "point", "x": 960, "y": 540},
         "size": {"mode": "scale", "scale": 1.0},
