@@ -28,7 +28,7 @@ SECTIONS = [
             ("It isn't.", "ominous"),
         ],
         "beats": [
-            {"type": "compare", "s": [0, 3], "text": "RED  vs  BLUE", "subjects": ["person", "person"], "importance": "high"},
+            {"type": "compare", "s": [0, 3], "text": "RED  vs  BLUE", "subjects": ["person", "person"], "colors": ["accent", "blue"], "importance": "high"},
             {"type": "emphasize", "s": [4, 7], "text": "JUST THE COLOR", "subjects": ["light"], "importance": "high"},
             {"type": "emphasize", "s": [8, 9], "text": "NOT SUPERSTITION", "subjects": ["light"], "importance": "high"},
         ],
@@ -84,7 +84,7 @@ SECTIONS = [
             ("You need a way to freeze the fighters and test only the judge.", "weighty"),
         ],
         "beats": [
-            {"type": "compare", "s": [0, 4], "text": "THE FIGHTER  vs  THE JUDGE", "subjects": ["person", "person"], "importance": "high"},
+            {"type": "compare", "s": [0, 4], "text": "THE FIGHTER  vs  THE JUDGE", "subjects": ["person", "person"], "colors": ["accent", "ink"], "importance": "high"},
             {"type": "emphasize", "s": [5, 6], "text": "FREEZE THE FIGHTERS", "subjects": ["light"], "importance": "high"},
         ],
     },
@@ -102,7 +102,7 @@ SECTIONS = [
         ],
         "beats": [
             {"type": "establish", "s": [0, 1], "text": "42 REFEREES", "subjects": ["person"], "importance": "medium"},
-            {"type": "compare", "s": [2, 3], "text": "SAME CLIP, SWAPPED", "subjects": ["person", "person"], "importance": "high"},
+            {"type": "compare", "s": [2, 3], "text": "SAME CLIP, SWAPPED", "subjects": ["person", "person"], "colors": ["accent", "blue"], "importance": "high"},
             {"type": "stat_pop", "s": [4, 5], "text": "RED:  +13%", "subjects": ["number"], "importance": "high"},
             {"type": "emphasize", "s": [6, 7], "text": "IT WAS THE JUDGE", "subjects": ["light"], "importance": "high"},
         ],
@@ -120,7 +120,7 @@ SECTIONS = [
             ("Either way, the person scoring isn't watching what you did. They're watching what you wore.", "ominous"),
         ],
         "beats": [
-            {"type": "compare", "s": [0, 3], "text": "WHITE  vs  BLACK", "subjects": ["person", "person"], "importance": "high"},
+            {"type": "compare", "s": [0, 3], "text": "WHITE  vs  BLACK", "subjects": ["person", "person"], "colors": ["muted", "ink"], "importance": "high"},
             {"type": "emphasize", "s": [4, 5], "text": "BLACK = MORE FLAGS", "subjects": ["light"], "importance": "high"},
             {"type": "emphasize", "s": [6, 7], "text": "THEY JUDGE THE JERSEY", "subjects": ["light"], "importance": "high"},
         ],

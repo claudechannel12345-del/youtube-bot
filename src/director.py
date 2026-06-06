@@ -525,6 +525,7 @@ def _direct_beat(beat, sentences_timing, fps, is_first, beat_index):
         "assets": assets,
         "text_overlays": overlays,
         "motion": motions,
+        "compare_colors": beat.get("colors"),
     }
 
 

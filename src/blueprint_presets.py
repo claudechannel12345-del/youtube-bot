@@ -80,6 +80,12 @@ def build_blueprint(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]]
 
 def build_comparison_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
     assets = _asset_elements(beat, _comparison_place, max_assets=4)
+    # Color the two sides distinctly so a comparison reads as A-vs-B (e.g. red vs blue). The script
+    # can specify exact roles via beat["compare_colors"]; otherwise alternate accent/blue/green/yellow.
+    side_colors = beat.get("compare_colors") or ["accent", "blue", "green", "yellow"]
+    for ci, el in enumerate(assets):
+        if not el.get("colorRole"):
+            el["colorRole"] = side_colors[ci % len(side_colors)]
     label = _first_overlay(beat, roles=("label", "caption", "headline", "stamp"))
     if label:
         assets.append(_text_element(label, "comparison_label", 960, 858, "label", 1.0, z=50))
@@ -120,7 +126,11 @@ def build_stat_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]
     elements = [
         _text_element({"role": "stat", "text": text, "tone": "coral_stamp"}, "stat_number", 960, 449, "none", 2.0, z=20, box=(720, 240)),
     ]
-    elements.extend(_asset_elements(beat, _stat_place, max_assets=3, start_z=30))
+    # The big stat text IS the number; drop number/counter supporting assets so they don't render a
+    # redundant placeholder ("42") box on top of the real stat.
+    stat_beat = dict(beat)
+    stat_beat["assets"] = [a for a in (beat.get("assets") or []) if a.get("name") not in ("number", "counter")]
+    elements.extend(_asset_elements(stat_beat, _stat_place, max_assets=3, start_z=30))
     return _blueprint(beat, "stat_stage", "panel", elements[:4], [])
 
 

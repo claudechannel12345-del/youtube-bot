@@ -122,6 +122,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "comparison_stage",
@@ -147,7 +148,8 @@
                     "start": 0.0,
                     "duration": 0.38
                   }
-                ]
+                ],
+                "colorRole": "accent"
               },
               {
                 "id": "s1_1_a1",
@@ -169,7 +171,8 @@
                     "start": 0.08,
                     "duration": 0.38
                   }
-                ]
+                ],
+                "colorRole": "blue"
               }
             ],
             "connections": [],
@@ -230,6 +233,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -342,6 +346,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -513,6 +518,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -631,6 +637,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "object_stage",
@@ -756,6 +763,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -945,6 +953,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "object_stage",
@@ -1070,6 +1079,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "stat_stage",
@@ -1102,28 +1112,6 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.25
-                  }
-                ]
-              },
-              {
-                "id": "s3_2_a0",
-                "kind": "prop",
-                "asset": "number",
-                "position": {
-                  "mode": "point",
-                  "x": 960.0,
-                  "y": 760.0
-                },
-                "size": {
-                  "mode": "scale",
-                  "scale": 0.58
-                },
-                "z": 30,
-                "motion": [
-                  {
-                    "kind": "count_up",
-                    "start": 0.0,
-                    "duration": 0.38
                   }
                 ]
               }
@@ -1186,6 +1174,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "stat_stage",
@@ -1218,28 +1207,6 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.25
-                  }
-                ]
-              },
-              {
-                "id": "s3_3_a0",
-                "kind": "prop",
-                "asset": "number",
-                "position": {
-                  "mode": "point",
-                  "x": 960.0,
-                  "y": 760.0
-                },
-                "size": {
-                  "mode": "scale",
-                  "scale": 0.58
-                },
-                "z": 30,
-                "motion": [
-                  {
-                    "kind": "count_up",
-                    "start": 0.0,
-                    "duration": 0.38
                   }
                 ]
               }
@@ -1302,6 +1269,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -1473,6 +1441,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "comparison_stage",
@@ -1498,7 +1467,8 @@
                     "start": 0.0,
                     "duration": 0.38
                   }
-                ]
+                ],
+                "colorRole": "accent"
               },
               {
                 "id": "s4_1_a1",
@@ -1520,7 +1490,8 @@
                     "start": 0.08,
                     "duration": 0.38
                   }
-                ]
+                ],
+                "colorRole": "blue"
               }
             ],
             "connections": [],
@@ -1581,6 +1552,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -1745,6 +1717,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "object_stage",
@@ -1854,6 +1827,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "comparison_stage",
@@ -1879,7 +1853,8 @@
                     "start": 0.0,
                     "duration": 0.38
                   }
-                ]
+                ],
+                "colorRole": "accent"
               },
               {
                 "id": "s5_2_a1",
@@ -1901,7 +1876,8 @@
                     "start": 0.08,
                     "duration": 0.38
                   }
-                ]
+                ],
+                "colorRole": "blue"
               }
             ],
             "connections": [],
@@ -1962,6 +1938,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "stat_stage",
@@ -1994,28 +1971,6 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.25
-                  }
-                ]
-              },
-              {
-                "id": "s5_3_a0",
-                "kind": "prop",
-                "asset": "number",
-                "position": {
-                  "mode": "point",
-                  "x": 960.0,
-                  "y": 760.0
-                },
-                "size": {
-                  "mode": "scale",
-                  "scale": 0.58
-                },
-                "z": 30,
-                "motion": [
-                  {
-                    "kind": "count_up",
-                    "start": 0.0,
-                    "duration": 0.38
                   }
                 ]
               }
@@ -2078,6 +2033,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -2255,6 +2211,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "comparison_stage",
@@ -2280,7 +2237,8 @@
                     "start": 0.0,
                     "duration": 0.38
                   }
-                ]
+                ],
+                "colorRole": "accent"
               },
               {
                 "id": "s6_1_a1",
@@ -2302,7 +2260,8 @@
                     "start": 0.08,
                     "duration": 0.38
                   }
-                ]
+                ],
+                "colorRole": "blue"
               }
             ],
             "connections": [],
@@ -2363,6 +2322,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -2475,6 +2435,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -2645,6 +2606,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "object_stage",
@@ -2748,6 +2710,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -2860,6 +2823,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -2972,6 +2936,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -3149,6 +3114,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "object_stage",
@@ -3274,6 +3240,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -3386,6 +3353,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -3575,6 +3543,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "stat_stage",
@@ -3607,28 +3576,6 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.25
-                  }
-                ]
-              },
-              {
-                "id": "s9_1_a0",
-                "kind": "prop",
-                "asset": "number",
-                "position": {
-                  "mode": "point",
-                  "x": 960.0,
-                  "y": 760.0
-                },
-                "size": {
-                  "mode": "scale",
-                  "scale": 0.58
-                },
-                "z": 30,
-                "motion": [
-                  {
-                    "kind": "count_up",
-                    "start": 0.0,
-                    "duration": 0.38
                   }
                 ]
               }
@@ -3684,6 +3631,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "object_stage",
@@ -3787,6 +3735,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -3899,6 +3848,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -4052,6 +4002,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -4164,6 +4115,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
@@ -4276,6 +4228,7 @@
               "duration": 0.38
             }
           ],
+          "compare_colors": null,
           "blueprint": {
             "version": 1,
             "preset": "caption_punch",
