@@ -122,7 +122,10 @@
               "duration": 0.38
             }
           ],
-          "compare_colors": null,
+          "compare_colors": [
+            "accent",
+            "blue"
+          ],
           "blueprint": {
             "version": 1,
             "preset": "comparison_stage",
@@ -1441,7 +1444,10 @@
               "duration": 0.38
             }
           ],
-          "compare_colors": null,
+          "compare_colors": [
+            "accent",
+            "ink"
+          ],
           "blueprint": {
             "version": 1,
             "preset": "comparison_stage",
@@ -1491,7 +1497,7 @@
                     "duration": 0.38
                   }
                 ],
-                "colorRole": "blue"
+                "colorRole": "ink"
               }
             ],
             "connections": [],
@@ -1827,7 +1833,10 @@
               "duration": 0.38
             }
           ],
-          "compare_colors": null,
+          "compare_colors": [
+            "accent",
+            "blue"
+          ],
           "blueprint": {
             "version": 1,
             "preset": "comparison_stage",
@@ -2211,7 +2220,10 @@
               "duration": 0.38
             }
           ],
-          "compare_colors": null,
+          "compare_colors": [
+            "muted",
+            "ink"
+          ],
           "blueprint": {
             "version": 1,
             "preset": "comparison_stage",
@@ -2238,7 +2250,7 @@
                     "duration": 0.38
                   }
                 ],
-                "colorRole": "accent"
+                "colorRole": "muted"
               },
               {
                 "id": "s6_1_a1",
@@ -2261,7 +2273,7 @@
                     "duration": 0.38
                   }
                 ],
-                "colorRole": "blue"
+                "colorRole": "ink"
               }
             ],
             "connections": [],

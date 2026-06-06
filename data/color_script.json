@@ -81,7 +81,11 @@
             "person",
             "person"
           ],
-          "importance": "high"
+          "importance": "high",
+          "colors": [
+            "accent",
+            "blue"
+          ]
         },
         {
           "id": "s1_2",
@@ -328,7 +332,11 @@
             "person",
             "person"
           ],
-          "importance": "high"
+          "importance": "high",
+          "colors": [
+            "accent",
+            "ink"
+          ]
         },
         {
           "id": "s4_2",
@@ -405,7 +413,11 @@
             "person",
             "person"
           ],
-          "importance": "high"
+          "importance": "high",
+          "colors": [
+            "accent",
+            "blue"
+          ]
         },
         {
           "id": "s5_3",
@@ -482,7 +494,11 @@
             "person",
             "person"
           ],
-          "importance": "high"
+          "importance": "high",
+          "colors": [
+            "muted",
+            "ink"
+          ]
         },
         {
           "id": "s6_2",

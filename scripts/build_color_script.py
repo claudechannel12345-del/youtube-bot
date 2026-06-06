@@ -210,7 +210,7 @@ def build():
         narration = " ".join(s["text"] for s in sentences)
         beats = []
         for j, b in enumerate(sec["beats"]):
-            beats.append({
+            beat = {
                 "id": "s%d_%d" % (i + 1, j + 1),
                 "type": b["type"],
                 "sentence_start": b["s"][0],
@@ -219,7 +219,10 @@ def build():
                 "text": b["text"],
                 "subjects": b["subjects"],
                 "importance": b.get("importance", "medium"),
-            })
+            }
+            if b.get("colors"):
+                beat["colors"] = b["colors"]
+            beats.append(beat)
         sections.append({
             "narration": narration,
             "sentences": sentences,
