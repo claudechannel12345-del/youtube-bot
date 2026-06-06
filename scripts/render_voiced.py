@@ -76,6 +76,24 @@ def main():
         out_mp4 = os.path.join(ROOT, "remotion", "slice_stills", "gps_voiced.mp4")
         render_cutaway(episode, audio_paths, out_mp4)
 
+        # Subtle background-music bed (CGP-Grey style), if a track is available. Looped under the
+        # narration at low volume with fades. Drop a file in data/music/ or set MUSIC_PATH; set
+        # MUSIC_VOLUME to tune (default 0.10), MUSIC_DUCK=1 to dip music under the voice.
+        from mix_music import find_music, mix_music  # noqa: E402
+        music = find_music()
+        if music:
+            mixed = os.path.join(ROOT, "remotion", "slice_stills", "gps_voiced_music.mp4")
+            try:
+                mix_music(
+                    out_mp4, music, mixed,
+                    volume=float(os.environ.get("MUSIC_VOLUME", "0.10")),
+                    duck=os.environ.get("MUSIC_DUCK") == "1",
+                )
+                out_mp4 = mixed
+                print("mixed background music:", os.path.basename(music))
+            except Exception as e:
+                print("music mix skipped (", e, ")")
+
         srt_path = os.path.join(temp_dir, "gps_voiced.srt")
         build_srt(global_cues, srt_path)
 

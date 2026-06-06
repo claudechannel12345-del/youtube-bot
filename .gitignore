@@ -32,3 +32,9 @@ out/
 remotion/public/cut_audio_*.mp3
 remotion/slice_stills/*.mp4
 remotion/props_cutaway.json
+
+# Background music beds (licensed/large - keep out of git; attribution tracked in MUSIC_CREDITS.md)
+data/music/*.mp3
+data/music/*.m4a
+data/music/*.wav
+data/music/*.ogg
