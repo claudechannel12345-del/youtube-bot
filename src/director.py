@@ -128,7 +128,12 @@ _SUBJECT_ALIASES = {
 BUILD_RUN_TYPES = frozenset(["diagram_build", "process", "compare", "list_reveal"])
 EFFECT_ASSETS = frozenset(["signal", "signal_beam"])
 CONTEXT_ASSETS = frozenset(["phone", "satellite", "earth"])
-TEXT_OVERLAY_BEAT_TYPES = frozenset(["stat_pop", "quote", "cutaway_gag", "emphasize", "transition"])
+# Beat types that render their `text` as an on-screen label. Includes compare/establish/illustrate so
+# comparison panels ("RED vs BLUE") and object scenes ("A STATUS REPORT") actually caption themselves
+# (a bottom "label", which won't overlap the centered art).
+TEXT_OVERLAY_BEAT_TYPES = frozenset(
+    ["stat_pop", "quote", "cutaway_gag", "emphasize", "transition", "compare", "establish", "illustrate"]
+)
 GENERIC_OVERLAY_TEXT = frozenset(
     [
         "label",

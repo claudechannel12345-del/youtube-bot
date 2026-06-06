@@ -125,7 +125,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "RED vs BLUE",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s1_1_a0",
@@ -194,6 +201,35 @@
                   }
                 ],
                 "colorRole": "blue"
+              },
+              {
+                "id": "comparison_label",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "RED vs BLUE",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
               }
             ],
             "connections": [],
@@ -351,7 +387,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "FROM A TEST",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s1_3_a0",
@@ -385,6 +428,35 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "label_1",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "FROM A TEST",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
                   }
                 ]
               }
@@ -609,7 +681,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "A STATUS REPORT",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s2_1_a0",
@@ -643,6 +722,35 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "label_1",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "A STATUS REPORT",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
                   }
                 ]
               }
@@ -689,7 +797,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "WIRED IN, NOT CHOSEN",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s2_2_a0",
@@ -723,6 +838,35 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "label_1",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "WIRED IN, NOT CHOSEN",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
                   }
                 ]
               }
@@ -769,7 +913,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "THE REDDER BIRD WINS",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s2_3_a0",
@@ -803,6 +954,35 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "label_1",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "THE REDDER BIRD WINS",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
                   }
                 ]
               }
@@ -1165,7 +1345,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "RED OR BLUE, AT RANDOM",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s3_1_a0",
@@ -1234,6 +1421,35 @@
                   }
                 ],
                 "colorRole": "blue"
+              },
+              {
+                "id": "label_1",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "RED OR BLUE, AT RANDOM",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
               }
             ],
             "connections": [],
@@ -1685,7 +1901,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "THE FIGHTER or THE JUDGE",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s4_1_a0",
@@ -1754,6 +1977,35 @@
                   }
                 ],
                 "colorRole": "ink"
+              },
+              {
+                "id": "comparison_label",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "THE FIGHTER or THE JUDGE",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
               }
             ],
             "connections": [],
@@ -1982,7 +2234,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "42 REFEREES",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s5_1_a0",
@@ -2016,6 +2275,35 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "label_1",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "42 REFEREES",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
                   }
                 ]
               }
@@ -2069,7 +2357,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "SAME CLIP, SWAPPED",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s5_2_a0",
@@ -2138,6 +2433,35 @@
                   }
                 ],
                 "colorRole": "blue"
+              },
+              {
+                "id": "comparison_label",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "SAME CLIP, SWAPPED",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
               }
             ],
             "connections": [],
@@ -2490,7 +2814,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "WHITE vs BLACK",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s6_1_a0",
@@ -2559,6 +2890,35 @@
                   }
                 ],
                 "colorRole": "ink"
+              },
+              {
+                "id": "comparison_label",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "WHITE vs BLACK",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
               }
             ],
             "connections": [],
@@ -2912,7 +3272,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "THE NUMBER IS YEARS",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s7_1_a0",
@@ -2946,6 +3313,35 @@
                     "kind": "pop_in",
                     "start": 0.0,
                     "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "label_1",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "THE NUMBER IS YEARS",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
                   }
                 ]
               }
@@ -3399,7 +3795,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "RED = ATTRACTIVE?",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s8_1_a0",
@@ -3468,6 +3871,35 @@
                   }
                 ],
                 "colorRole": "ink"
+              },
+              {
+                "id": "comparison_label",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "RED = ATTRACTIVE?",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
               }
             ],
             "connections": [],
@@ -4834,7 +5266,14 @@
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "YOU vs THE TABLE",
+              "anchor": "lower_center",
+              "tone": "ink"
+            }
+          ],
           "motion": [
             {
               "target": "s10_3_a0",
@@ -4903,6 +5342,35 @@
                   }
                 ],
                 "colorRole": "ink"
+              },
+              {
+                "id": "comparison_label",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "label",
+                  "text": "YOU vs THE TABLE",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
               }
             ],
             "connections": [],
