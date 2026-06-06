@@ -208,19 +208,23 @@ const Stamp: RegistryRenderer = ({x, y, scale = 1, color = CORAL, extra}) => {
   );
 };
 
-const Mandrill: RegistryRenderer = ({x, y, scale = 1, color = GOLD}) => (
+// A clearer "colorful monkey face": rounded ears, forward close-set eyes, a central vertical CORAL
+// muzzle, and the signature BLUE ridged cheek pads flanking it.
+const Mandrill: RegistryRenderer = ({x, y, scale = 1}) => (
   <g transform={`translate(${x} ${y}) scale(${scale})`}>
-    <path d="M -54 -132 L -18 -194 L 0 -132 L 18 -194 L 54 -132 Z" fill={color} {...round} />
-    <path d="M -132 -92 Q -178 -10 -128 102 Q -72 188 0 188 Q 72 188 128 102 Q 178 -10 132 -92 Q 86 -164 0 -164 Q -86 -164 -132 -92 Z" fill={PAPER} {...round} strokeWidth={STROKE_BOLD} />
-    <path d="M -118 -82 Q -158 4 -106 88 Q -74 50 -66 -28 Q -58 -88 -28 -128 Q -82 -132 -118 -82 Z" fill={BLUE} {...round} />
-    <path d="M 118 -82 Q 158 4 106 88 Q 74 50 66 -28 Q 58 -88 28 -128 Q 82 -132 118 -82 Z" fill={BLUE} {...round} />
-    <path d="M -40 -128 Q -12 -150 0 -102 Q 12 -150 40 -128 Q 22 -94 0 -86 Q -22 -94 -40 -128 Z" fill={PAPER_DEEP} {...round} strokeWidth={STROKE_THIN} />
-    <path d="M -40 -74 L 0 -96 L 40 -74 L 32 88 Q 0 128 -32 88 Z" fill={CORAL} {...round} />
-    <path d="M -24 -54 Q 0 -68 24 -54 L 18 -16 Q 0 -4 -18 -16 Z" fill={INK} stroke="none" />
-    <path d="M -54 -46 L -28 -50 M 54 -46 L 28 -50" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
-    <circle cx={-50} cy={-54} r={6} fill={INK} stroke="none" />
-    <circle cx={50} cy={-54} r={6} fill={INK} stroke="none" />
-    <path d="M -38 86 Q 0 110 38 86" fill="none" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+    <circle cx={-116} cy={-34} r={28} fill={PAPER_DEEP} {...round} strokeWidth={STROKE_BOLD} />
+    <circle cx={116} cy={-34} r={28} fill={PAPER_DEEP} {...round} strokeWidth={STROKE_BOLD} />
+    <path d="M -118 -56 Q -118 -150 0 -150 Q 118 -150 118 -56 Q 118 96 0 152 Q -118 96 -118 -56 Z" fill={PAPER} {...round} strokeWidth={STROKE_BOLD} />
+    <path d="M -28 -44 Q -86 -26 -80 74 Q -54 96 -40 72 Q -48 6 -28 -44 Z" fill={BLUE} {...round} />
+    <path d="M 28 -44 Q 86 -26 80 74 Q 54 96 40 72 Q 48 6 28 -44 Z" fill={BLUE} {...round} />
+    <path d="M -64 -6 Q -66 38 -56 70 M -48 -14 Q -50 32 -44 66" fill="none" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+    <path d="M 64 -6 Q 66 38 56 70 M 48 -14 Q 50 32 44 66" fill="none" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+    <path d="M -26 -50 Q 0 -60 26 -50 L 32 98 Q 0 124 -32 98 Z" fill={CORAL} {...round} strokeWidth={STROKE_BOLD} />
+    <circle cx={-9} cy={92} r={4.5} fill={INK} stroke="none" />
+    <circle cx={9} cy={92} r={4.5} fill={INK} stroke="none" />
+    <path d="M -68 -86 Q -44 -100 -22 -88 M 22 -88 Q 44 -100 68 -86" fill="none" stroke={INK} strokeWidth={STROKE} strokeLinecap="round" />
+    <circle cx={-42} cy={-66} r={9} fill={INK} stroke="none" />
+    <circle cx={42} cy={-66} r={9} fill={INK} stroke="none" />
   </g>
 );
 
@@ -236,16 +240,17 @@ const Finch: RegistryRenderer = ({x, y, scale = 1}) => (
   </g>
 );
 
+// Identical to Person (same head, NO hair, same narrow shoulders) - differs ONLY by clothing: an
+// A-line dress instead of the straight torso. Owner: "just change the clothes, not the hair, and make
+// the shoulder area less broad."
 const PersonFemale: RegistryRenderer = ({x, y, scale = 1, color = CORAL}) => (
   <g transform={`translate(${x} ${y}) scale(${scale})`}>
-    <path d="M -66 -96 Q -58 -152 0 -152 Q 58 -152 66 -96 L 58 -42 Q 28 -70 0 -70 Q -28 -70 -58 -42 Z" fill={INK} {...round} />
+    <path d="M -18 78 L -18 122" {...round} strokeWidth={STROKE_BOLD} />
+    <path d="M 18 78 L 18 122" {...round} strokeWidth={STROKE_BOLD} />
+    <path d="M -42 -6 Q -42 -52 0 -52 Q 42 -52 42 -6 L 62 80 Q 0 96 -62 80 Z" fill={color} {...round} />
     <circle cx={0} cy={-92} r={42} fill="#F0D2B8" {...round} />
-    <path d="M -42 -106 Q -12 -136 42 -108" fill="none" stroke={INK} strokeWidth={STROKE_BOLD} strokeLinecap="round" />
     <circle cx={-14} cy={-96} r={5.5} fill={INK} stroke="none" />
     <circle cx={14} cy={-96} r={5.5} fill={INK} stroke="none" />
-    <path d="M -40 -42 Q 0 -70 40 -42 L 74 82 L -74 82 Z" fill={color} {...round} />
-    <path d="M -46 -12 L -86 54 M 46 -12 L 86 54" {...round} strokeWidth={STROKE_THIN} />
-    <path d="M -28 82 L -30 126 M 28 82 L 30 126" {...round} strokeWidth={STROKE_BOLD} />
   </g>
 );
 
@@ -255,15 +260,21 @@ const Heart: RegistryRenderer = ({x, y, scale = 1}) => (
   </g>
 );
 
+// Upright, clearly-readable gavel: a horizontal cylinder head (with banded ends) on a handle, resting
+// over a sound block.
 const Gavel: RegistryRenderer = ({x, y, scale = 1}) => (
   <g transform={`translate(${x} ${y}) scale(${scale})`}>
-    <ellipse cx={76} cy={112} rx={118} ry={34} fill={PAPER_DEEP} {...round} />
-    <path d="M -74 -8 L 124 132" stroke={INK} strokeWidth={STROKE_BOLD} strokeLinecap="round" />
-    <rect x={-154} y={-100} width={184} height={72} rx={4} fill={PAPER_DEEP} {...sharp} transform="rotate(-35 -62 -64)" />
-    <rect x={-172} y={-116} width={48} height={104} rx={3} fill={PAPER_DEEP} {...sharp} transform="rotate(-35 -148 -64)" />
-    <rect x={-2} y={-116} width={48} height={104} rx={3} fill={PAPER_DEEP} {...sharp} transform="rotate(-35 22 -64)" />
-    <path d="M 28 72 L 152 160" stroke={PAPER_DEEP} strokeWidth={STROKE_BOLD} strokeLinecap="round" />
-    <path d="M 28 72 L 152 160" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+    {/* sound block */}
+    <rect x={-78} y={104} width={156} height={30} rx={10} fill={PAPER_DEEP} {...round} strokeWidth={STROKE_BOLD} />
+    {/* gavel, gently tilted */}
+    <g transform="rotate(-16 0 0)">
+      {/* handle */}
+      <rect x={-12} y={-6} width={24} height={108} rx={11} fill={PAPER} {...round} strokeWidth={STROKE_BOLD} />
+      {/* cylinder head */}
+      <rect x={-92} y={-66} width={184} height={64} rx={14} fill={PAPER_DEEP} {...round} strokeWidth={STROKE_BOLD} />
+      {/* end bands */}
+      <path d="M -58 -66 L -58 -2 M 58 -66 L 58 -2" stroke={INK} strokeWidth={STROKE} strokeLinecap="round" />
+    </g>
   </g>
 );
 
