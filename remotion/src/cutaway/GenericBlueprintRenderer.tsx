@@ -33,6 +33,11 @@ const assetBaseSize: Record<string, {w: number; h: number}> = {
   earth: {w: 340, h: 340},
   map: {w: 440, h: 308},
   grid: {w: 560, h: 300},
+  mandrill: {w: 356, h: 388},
+  finch: {w: 328, h: 178},
+  person_female: {w: 172, h: 278},
+  heart: {w: 332, h: 282},
+  gavel: {w: 412, h: 276},
   generic_object: {w: 240, h: 180},
 };
 

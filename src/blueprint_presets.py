@@ -145,10 +145,8 @@ def build_caption_punch(beat: Dict[str, Any], sentences_timing: List[Dict[str, A
 
 def build_object_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
     elements = []
-    assets = beat.get("assets") or []
-    has_grounded = any(_asset_name(asset) not in SPACE_ASSETS for asset in assets)
-    if has_grounded:
-        elements.append(_element("ground_shadow", "texture", "ring", 960, 830, 2.0, color_role="muted", z=1, opacity=0.18))
+    # (Removed the "ground_shadow" ring element: the ring asset rendered as a big stray circle behind
+    # every object, which read as nonsense. Flat cream background is the cleaner CGP-Grey look.)
     elements.extend(_asset_elements(beat, _object_place, max_assets=4, start_z=20))
     elements.extend(_overlay_elements(beat, start_z=50, max_items=max(0, 5 - len(elements))))
     return _blueprint(beat, "object_stage", "plain", elements[:5], [])

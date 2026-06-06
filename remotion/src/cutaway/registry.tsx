@@ -208,6 +208,65 @@ const Stamp: RegistryRenderer = ({x, y, scale = 1, color = CORAL, extra}) => {
   );
 };
 
+const Mandrill: RegistryRenderer = ({x, y, scale = 1, color = GOLD}) => (
+  <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <path d="M -54 -132 L -18 -194 L 0 -132 L 18 -194 L 54 -132 Z" fill={color} {...round} />
+    <path d="M -132 -92 Q -178 -10 -128 102 Q -72 188 0 188 Q 72 188 128 102 Q 178 -10 132 -92 Q 86 -164 0 -164 Q -86 -164 -132 -92 Z" fill={PAPER} {...round} strokeWidth={STROKE_BOLD} />
+    <path d="M -118 -82 Q -158 4 -106 88 Q -74 50 -66 -28 Q -58 -88 -28 -128 Q -82 -132 -118 -82 Z" fill={BLUE} {...round} />
+    <path d="M 118 -82 Q 158 4 106 88 Q 74 50 66 -28 Q 58 -88 28 -128 Q 82 -132 118 -82 Z" fill={BLUE} {...round} />
+    <path d="M -40 -128 Q -12 -150 0 -102 Q 12 -150 40 -128 Q 22 -94 0 -86 Q -22 -94 -40 -128 Z" fill={PAPER_DEEP} {...round} strokeWidth={STROKE_THIN} />
+    <path d="M -40 -74 L 0 -96 L 40 -74 L 32 88 Q 0 128 -32 88 Z" fill={CORAL} {...round} />
+    <path d="M -24 -54 Q 0 -68 24 -54 L 18 -16 Q 0 -4 -18 -16 Z" fill={INK} stroke="none" />
+    <path d="M -54 -46 L -28 -50 M 54 -46 L 28 -50" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+    <circle cx={-50} cy={-54} r={6} fill={INK} stroke="none" />
+    <circle cx={50} cy={-54} r={6} fill={INK} stroke="none" />
+    <path d="M -38 86 Q 0 110 38 86" fill="none" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+  </g>
+);
+
+const Finch: RegistryRenderer = ({x, y, scale = 1}) => (
+  <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <path d="M -104 -10 Q -70 -82 26 -78 Q 104 -76 130 -14 Q 94 58 2 58 Q -74 58 -104 -10 Z" fill={PAPER} {...round} />
+    <path d="M 118 -36 L 184 -12 L 118 12 Z" fill={CORAL} {...sharp} />
+    <path d="M -94 -14 L -144 -54 L -130 18 Z" fill={PAPER_DEEP} {...round} />
+    <path d="M -36 -44 Q -2 -18 -30 24" fill="none" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+    <circle cx={66} cy={-38} r={6} fill={INK} stroke="none" />
+    <path d="M -24 56 L -34 96 M 30 56 L 42 96" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+    <path d="M -50 96 L -18 96 M 28 96 L 60 96" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+  </g>
+);
+
+const PersonFemale: RegistryRenderer = ({x, y, scale = 1, color = CORAL}) => (
+  <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <path d="M -66 -96 Q -58 -152 0 -152 Q 58 -152 66 -96 L 58 -42 Q 28 -70 0 -70 Q -28 -70 -58 -42 Z" fill={INK} {...round} />
+    <circle cx={0} cy={-92} r={42} fill="#F0D2B8" {...round} />
+    <path d="M -42 -106 Q -12 -136 42 -108" fill="none" stroke={INK} strokeWidth={STROKE_BOLD} strokeLinecap="round" />
+    <circle cx={-14} cy={-96} r={5.5} fill={INK} stroke="none" />
+    <circle cx={14} cy={-96} r={5.5} fill={INK} stroke="none" />
+    <path d="M -40 -42 Q 0 -70 40 -42 L 74 82 L -74 82 Z" fill={color} {...round} />
+    <path d="M -46 -12 L -86 54 M 46 -12 L 86 54" {...round} strokeWidth={STROKE_THIN} />
+    <path d="M -28 82 L -30 126 M 28 82 L 30 126" {...round} strokeWidth={STROKE_BOLD} />
+  </g>
+);
+
+const Heart: RegistryRenderer = ({x, y, scale = 1}) => (
+  <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <path d="M 0 118 L -112 8 Q -166 -52 -120 -104 Q -76 -150 0 -86 Q 76 -150 120 -104 Q 166 -52 112 8 Z" fill={CORAL} {...round} strokeWidth={STROKE_BOLD} />
+  </g>
+);
+
+const Gavel: RegistryRenderer = ({x, y, scale = 1}) => (
+  <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <ellipse cx={76} cy={112} rx={118} ry={34} fill={PAPER_DEEP} {...round} />
+    <path d="M -74 -8 L 124 132" stroke={INK} strokeWidth={STROKE_BOLD} strokeLinecap="round" />
+    <rect x={-154} y={-100} width={184} height={72} rx={4} fill={PAPER_DEEP} {...sharp} transform="rotate(-35 -62 -64)" />
+    <rect x={-172} y={-116} width={48} height={104} rx={3} fill={PAPER_DEEP} {...sharp} transform="rotate(-35 -148 -64)" />
+    <rect x={-2} y={-116} width={48} height={104} rx={3} fill={PAPER_DEEP} {...sharp} transform="rotate(-35 22 -64)" />
+    <path d="M 28 72 L 152 160" stroke={PAPER_DEEP} strokeWidth={STROKE_BOLD} strokeLinecap="round" />
+    <path d="M 28 72 L 152 160" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+  </g>
+);
+
 const GenericObject: RegistryRenderer = ({x, y, scale = 1, color = PAPER_DEEP}) => (
   <g transform={`translate(${x} ${y}) scale(${scale})`}>
     <rect x={-120} y={-90} width={240} height={180} rx={8} fill={color} {...sharp} />
@@ -219,6 +278,7 @@ const GenericObject: RegistryRenderer = ({x, y, scale = 1, color = PAPER_DEEP}) 
 
 export const registry = {
   person: ({x, y, scale = 1, color = CORAL}: RegistryRendererProps) => <Person x={x} y={y} scale={scale} shirt={color} />,
+  person_female: PersonFemale,
   phone: ({x, y, scale = 1, localFrame}: RegistryRendererProps) => <Phone x={x} y={y} scale={scale} dotPulse={(localFrame / 45) % 1} />,
   city: ({x, y, scale = 1}: RegistryRendererProps) => (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
@@ -265,6 +325,10 @@ export const registry = {
   arrow: ArrowProp,
   light: Light,
   einstein: Einstein,
+  mandrill: Mandrill,
+  finch: Finch,
+  heart: Heart,
+  gavel: Gavel,
   map: MapProp,
   coffee: Coffee,
   counter: Counter,

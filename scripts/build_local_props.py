@@ -19,7 +19,8 @@ from director import build_episode  # noqa: E402
 FPS = 30
 WPS = 2.5  # words per second, measured dry pace
 LEAD = 0.35  # silence before a section's first sentence
-EXTRA_PAUSE = {"weighty": 0.45, "ominous": 0.5, "question": 0.25, "surprised": 0.3, "warm_cta": 0.2}
+EXTRA_PAUSE = {"weighty": 0.6, "ominous": 0.7, "question": 0.35, "surprised": 0.3, "warm_cta": 0.2,
+               "transition": 0.9, "punch": 0.5}
 
 
 def estimate_section_timings(section):

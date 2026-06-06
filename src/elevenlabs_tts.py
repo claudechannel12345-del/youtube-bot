@@ -13,14 +13,15 @@ import urllib.error
 import urllib.request
 
 DEFAULT_MODEL = "eleven_multilingual_v2"
-# Production voice = the owner's cloned voice "Caden Narrator v2 (RodeCaster)" (instant clone from
-# a clean RODECaster brain-dump). Override with the ELEVENLABS_VOICE_ID env var (CI sets it as a
-# secret). Old clone OOLdd0jihd5eCDYx6lL9 and premade "Chris" iP95p4xoKVk53GoZ742B are fallbacks.
-CHRIS_VOICE_ID = "WNhDx8wlTpzgEKtePF2W"
+# Production voice = the owner's ORIGINAL clone OOLdd0jihd5eCDYx6lL9 ("Caden Narrator") - made from a
+# SCRIPT read, so it carries more emotion than the calmer brain-dump clone. Owner picked it over the
+# RodeCaster clone WNhDx8wlTpzgEKtePF2W (kept as a fallback) for being livelier. Override via the
+# ELEVENLABS_VOICE_ID env var (CI sets it as a secret); premade "Chris" iP95p4xoKVk53GoZ742B is a last resort.
+CHRIS_VOICE_ID = "OOLdd0jihd5eCDYx6lL9"
 DEFAULT_SETTINGS = {
-    "stability": 0.45,       # the natural "Chris recipe" the owner picked (nat_chris)
+    "stability": 0.45,       # low enough to stay expressive, high enough not to rush/warble
     "similarity_boost": 0.8,
-    "style": 0.0,
+    "style": 0.30,           # owner wanted it more UPBEAT/emotional, not flat - style adds inflection
     "use_speaker_boost": True,
     "speed": 0.94,           # natural-but-deliberate; drama comes from the inter-sentence PAUSES below
 }
@@ -97,12 +98,16 @@ def _sentence_items(text, sentences):
 # (longer after the dramatic ones) so lines land, reveals breathe, and sentences never
 # run together. Owner feedback: it sped through and skipped the dramatic pauses.
 DELIVERY_SPEED = {
-    "neutral": 0.94, "curious": 0.94, "question": 0.92, "brisk": 1.0,
-    "weighty": 0.88, "surprised": 0.92, "skeptical": 0.93, "ominous": 0.86, "warm_cta": 0.92,
+    "neutral": 0.94, "curious": 0.95, "question": 0.93, "brisk": 1.0,
+    "weighty": 0.9, "surprised": 0.93, "skeptical": 0.93, "ominous": 0.88, "warm_cta": 0.93,
+    "transition": 0.93, "punch": 0.95,
 }
+# Owner critique: lots of spots "need a pause" - especially major section transitions and the short
+# punch lines (which also had weird exhales). Bigger dramatic gaps; a dedicated long "transition" gap.
 PAUSE_AFTER = {
-    "neutral": 0.32, "curious": 0.4, "question": 0.55, "brisk": 0.2,
-    "weighty": 0.8, "surprised": 0.6, "skeptical": 0.45, "ominous": 0.85, "warm_cta": 0.45,
+    "neutral": 0.34, "curious": 0.42, "question": 0.7, "brisk": 0.22,
+    "weighty": 0.95, "surprised": 0.65, "skeptical": 0.5, "ominous": 1.05, "warm_cta": 0.5,
+    "transition": 1.25, "punch": 0.85,
 }
 
 
