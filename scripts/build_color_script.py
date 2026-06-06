@@ -284,7 +284,7 @@ def build():
         })
 
     return {
-        "title": "The Referee Sees Red",
+        "title": "Wearing Red Is Basically Cheating",
         "title_options": [
             "The Referee Sees Red",
             "Red Doesn't Make You Better. It Makes Them Worse.",

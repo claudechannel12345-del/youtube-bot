@@ -1,0 +1,33 @@
+name: Publish Prebuilt Video
+
+on:
+  workflow_dispatch:
+    inputs:
+      privacy:
+        description: Privacy status (public / unlisted / private)
+        required: true
+        type: string
+        default: public
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Upload to YouTube
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          UPLOAD_PRIVACY: ${{ inputs.privacy }}
+        run: python scripts/publish_prebuilt.py

@@ -1,0 +1,460 @@
+1
+00:00:00,000 --> 00:00:01,393
+Two athletes step onto the mat.
+
+2
+00:00:01,693 --> 00:00:03,551
+Same height, same weight, same training.
+
+3
+00:00:03,851 --> 00:00:06,312
+They fight, and it's close, the kind that could go either way.
+
+4
+00:00:06,612 --> 00:00:07,634
+And then one of them wins.
+
+5
+00:00:08,134 --> 00:00:11,385
+Now watch what happens if we rewind, swap the color of their gear, and run it back.
+
+6
+00:00:11,685 --> 00:00:12,799
+The winner might change.
+
+7
+00:00:13,299 --> 00:00:14,925
+Not the fighting, just the color.
+
+8
+00:00:15,425 --> 00:00:18,072
+Same two people, same moves, and a different hand gets raised.
+
+9
+00:00:18,372 --> 00:00:20,647
+I first ran into this on a test, of all places.
+
+10
+00:00:20,947 --> 00:00:24,384
+A reading passage claimed the color you wear can change who wins, and who loses.
+
+11
+00:00:24,684 --> 00:00:25,845
+It sounded like nonsense.
+
+12
+00:00:26,345 --> 00:00:26,948
+It isn't.
+
+13
+00:00:27,348 --> 00:00:28,881
+And it goes a lot deeper than sports.
+
+14
+00:00:28,881 --> 00:00:31,017
+So why would a color do anything at all?
+
+15
+00:00:31,517 --> 00:00:33,700
+Because in nature, red is rarely a decoration.
+
+16
+00:00:34,000 --> 00:00:34,975
+It's a status report.
+
+17
+00:00:35,475 --> 00:00:39,237
+A male mandrill's face turns a brighter red as he climbs the ranks, and fades when he falls.
+
+18
+00:00:39,537 --> 00:00:42,137
+That color is wired straight to his testosterone, and he can't fake it.
+
+19
+00:00:42,637 --> 00:00:46,167
+Small songbirds size each other up by the red of their beaks, and the redder bird usually wins.
+
+20
+00:00:46,467 --> 00:00:49,578
+Across primates, birds, and fish, red keeps meaning the same thing.
+
+21
+00:00:50,078 --> 00:00:50,775
+Back off.
+
+22
+00:00:51,175 --> 00:00:53,265
+So the real question isn't why animals react to red.
+
+23
+00:00:53,565 --> 00:00:54,865
+It's whether we ever stopped.
+
+24
+00:00:54,865 --> 00:00:57,048
+In 2004, two researchers went looking.
+
+25
+00:00:57,348 --> 00:01:00,273
+They pulled the results from four combat sports at the Athens Olympics.
+
+26
+00:01:00,573 --> 00:01:02,942
+Boxing, taekwondo, and two kinds of wrestling.
+
+27
+00:01:03,242 --> 00:01:06,493
+And here's the crucial part, in these sports, the gear is handed out at random.
+
+28
+00:01:06,793 --> 00:01:08,418
+Red or blue, nobody picks.
+
+29
+00:01:08,718 --> 00:01:09,647
+It's a coin flip.
+
+30
+00:01:10,147 --> 00:01:12,608
+So if color did nothing, red should win half the time.
+
+31
+00:01:12,908 --> 00:01:13,465
+It didn't.
+
+32
+00:01:13,865 --> 00:01:15,398
+Red won fifty-five percent of bouts.
+
+33
+00:01:15,898 --> 00:01:19,288
+And in the closest fights, the ones that could tip either way, red won sixty-two.
+
+34
+00:01:19,788 --> 00:01:22,667
+A coin that lands red sixty-two percent of the time isn't a fair coin.
+
+35
+00:01:23,167 --> 00:01:24,235
+Something was loading it.
+
+36
+00:01:24,235 --> 00:01:25,768
+So there were two suspects.
+
+37
+00:01:26,268 --> 00:01:27,197
+Suspect one.
+
+38
+00:01:27,697 --> 00:01:29,322
+The color changes the fighters themselves.
+
+39
+00:01:29,622 --> 00:01:32,501
+Maybe red makes you feel more dangerous, and makes your opponent flinch.
+
+40
+00:01:32,801 --> 00:01:33,637
+Suspect two.
+
+41
+00:01:34,137 --> 00:01:35,856
+The color changes the person keeping score.
+
+42
+00:01:36,156 --> 00:01:39,081
+Either way, the fighters are identical. The referee is the one who's biased.
+
+43
+00:01:39,581 --> 00:01:42,925
+In a real match, both could be true at once, and you would never tell them apart.
+
+44
+00:01:43,225 --> 00:01:46,811
+You would need a way to freeze the fighters, and test only the judge.
+
+45
+00:01:46,811 --> 00:01:48,251
+Which is exactly what someone did.
+
+46
+00:01:48,551 --> 00:01:52,080
+They took real taekwondo footage and showed it to forty-two experienced referees to score.
+
+47
+00:01:52,380 --> 00:01:55,120
+Then they took the same clips and digitally swapped the colors.
+
+48
+00:01:55,420 --> 00:01:57,417
+The fighter who was in red was now in blue.
+
+49
+00:01:57,717 --> 00:01:59,807
+Same kick, same human, same exact moment.
+
+50
+00:02:00,307 --> 00:02:02,211
+The only thing that changed was a color filter.
+
+51
+00:02:02,511 --> 00:02:04,694
+The red athletes scored about thirteen percent higher.
+
+52
+00:02:05,194 --> 00:02:07,469
+Thirteen percent more points, just for being wrapped in red.
+
+53
+00:02:07,969 --> 00:02:09,270
+The bias wasn't on the mat.
+
+54
+00:02:09,670 --> 00:02:13,199
+It was behind the scoring table, in the eyes of people who'd have sworn they were being fair.
+
+55
+00:02:13,199 --> 00:02:15,660
+And once you know to look for it, you start seeing it everywhere.
+
+56
+00:02:16,460 --> 00:02:19,525
+Years earlier, researchers dug through penalty records in pro football and hockey.
+
+57
+00:02:19,825 --> 00:02:23,355
+Teams that wore black got penalized more, not occasionally, but consistently.
+
+58
+00:02:23,855 --> 00:02:28,035
+Two teams even changed their jerseys to black one season, and their penalties jumped right after.
+
+59
+00:02:28,335 --> 00:02:30,564
+Now, maybe players in black really do play dirtier.
+
+60
+00:02:30,864 --> 00:02:34,114
+So the researchers filmed the exact same plays, once in white, once in black.
+
+61
+00:02:34,414 --> 00:02:36,272
+Referees called the black version more aggressive.
+
+62
+00:02:36,772 --> 00:02:39,187
+Red flatters you to the judge, and black incriminates you.
+
+63
+00:02:39,487 --> 00:02:41,252
+Either way, they're not scoring what you did.
+
+64
+00:02:41,552 --> 00:02:42,945
+They're scoring what you wore.
+
+65
+00:02:42,945 --> 00:02:44,802
+Now take it somewhere the score actually matters.
+
+66
+00:02:45,602 --> 00:02:48,575
+A courtroom is just another room where people watch someone and decide a number.
+
+67
+00:02:48,875 --> 00:02:50,593
+Except here, the number is years.
+
+68
+00:02:51,093 --> 00:02:53,090
+And juries aren't immune to the packaging either.
+
+69
+00:02:53,390 --> 00:02:57,291
+Defendants who look the part get judged more dangerous, and sentenced harder, for the same crime.
+
+70
+00:02:57,791 --> 00:02:59,045
+Lawyers have known this forever.
+
+71
+00:02:59,345 --> 00:03:02,828
+It's why they put their clients in soft grays and quiet collars, never red.
+
+72
+00:03:03,128 --> 00:03:04,474
+Now, be honest with yourself here.
+
+73
+00:03:04,854 --> 00:03:09,080
+This is softer science than the sports studies, mostly mock juries, and more about clothes than color.
+
+74
+00:03:09,380 --> 00:03:11,563
+But it's the same machine we just watched mis-score a kick.
+
+75
+00:03:11,863 --> 00:03:13,628
+And it doesn't switch off when the stakes go up.
+
+76
+00:03:14,128 --> 00:03:15,800
+If anything, it just hides better.
+
+77
+00:03:15,800 --> 00:03:17,889
+And then there's the one everybody wants to be true.
+
+78
+00:03:18,269 --> 00:03:23,238
+Around 2008, studies claimed a woman in red looked more attractive to men, and the men had no idea it was happening.
+
+79
+00:03:23,538 --> 00:03:24,467
+It's a great story.
+
+80
+00:03:24,767 --> 00:03:28,111
+But here's the catch, when other scientists tried to repeat it, it mostly fell apart.
+
+81
+00:03:28,611 --> 00:03:31,769
+So I'm not going to promise you that red fixes your dating life.
+
+82
+00:03:32,069 --> 00:03:33,926
+Honestly, nobody's even sure this one is real.
+
+83
+00:03:34,426 --> 00:03:35,541
+And that's kind of the point.
+
+84
+00:03:35,841 --> 00:03:40,263
+A good color story is so tempting that even the scientists chasing it can get fooled.
+
+85
+00:03:40,263 --> 00:03:43,003
+So where does that leave the red advantage, the original, solid one?
+
+86
+00:03:43,503 --> 00:03:44,850
+You'd expect it to still be there.
+
+87
+00:03:45,150 --> 00:03:46,822
+For twenty years, everyone assumed it was.
+
+88
+00:03:47,122 --> 00:03:49,722
+Then someone went back and checked, with two decades of new data.
+
+89
+00:03:50,022 --> 00:03:51,230
+And the advantage was gone.
+
+90
+00:03:51,850 --> 00:03:54,961
+Today, red wins about fifty point five percent, a coin flip again.
+
+91
+00:03:55,461 --> 00:03:56,204
+So what changed?
+
+92
+00:03:56,704 --> 00:03:57,355
+The sport did.
+
+93
+00:03:57,855 --> 00:04:00,084
+Taekwondo brought in electronic scoring and instant replay.
+
+94
+00:04:00,384 --> 00:04:03,635
+The human referee got quietly demoted, and a machine started counting the hits.
+
+95
+00:04:03,935 --> 00:04:06,767
+And the moment the biased judge stepped back, the magic evaporated.
+
+96
+00:04:07,267 --> 00:04:08,103
+Think about that.
+
+97
+00:04:08,483 --> 00:04:10,898
+If red had been making the fighters better, it should have survived.
+
+98
+00:04:11,198 --> 00:04:12,313
+The fighters are still human.
+
+99
+00:04:12,613 --> 00:04:14,749
+It died the instant we stopped trusting a person to score.
+
+100
+00:04:15,249 --> 00:04:17,478
+Which tells you the advantage was never really in the red.
+
+101
+00:04:18,098 --> 00:04:18,934
+It was in us.
+
+102
+00:04:18,934 --> 00:04:21,256
+We'd like to believe we judge what's actually in front of us.
+
+103
+00:04:21,556 --> 00:04:23,181
+The kick, the play, the person.
+
+104
+00:04:23,681 --> 00:04:26,746
+But mostly, we judge the wrapping, and then invent a reason that sounds like merit.
+
+105
+00:04:27,246 --> 00:04:28,825
+The fix is almost insultingly simple.
+
+106
+00:04:29,125 --> 00:04:32,005
+Take the human out of the scoring, and the bias leaves with them.
+
+107
+00:04:32,305 --> 00:04:34,162
+But most of life doesn't have instant replay.
+
+108
+00:04:34,662 --> 00:04:39,585
+Most of the time, it's just you, a color you barely chose, and someone across the table who's certain they're being fair.
+
+109
+00:04:40,085 --> 00:04:41,478
+So here's the thing worth chewing on.
+
+110
+00:04:41,858 --> 00:04:46,688
+If a single color can quietly bend a trained referee, what else are you being scored on that you've never once noticed?
+
+111
+00:04:46,688 --> 00:04:49,056
+If you had fun chasing that one down, good news.
+
+112
+00:04:49,436 --> 00:04:52,548
+That's pretty much the whole channel, one strange, true thing at a time.
+
+113
+00:04:52,968 --> 00:04:54,825
+So stick around, and come back for the next one.
+
+114
+00:04:55,245 --> 00:04:58,775
+And if this made you look twice at something in your own life, do me a favor and hit subscribe.
+
+115
+00:04:59,195 --> 00:05:01,656
+It genuinely helps a channel like this one more than you'd think.
+
