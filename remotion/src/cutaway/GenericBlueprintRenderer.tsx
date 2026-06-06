@@ -427,7 +427,7 @@ export const GenericBlueprintRenderer: React.FC<{blueprint: SceneBlueprint; loca
   localFrame,
   duration,
 }) => {
-  const {fps} = useVideoConfig();
+  const {fps, width, height} = useVideoConfig();
   const backgroundElements = resolveElements(blueprint.background.elements ?? []);
   const foregroundElements = resolveElements(blueprint.elements);
   const elements = [...backgroundElements, ...foregroundElements];
@@ -438,7 +438,7 @@ export const GenericBlueprintRenderer: React.FC<{blueprint: SceneBlueprint; loca
   const sortedElements = [...foregroundElements].sort((a, b) => (a.z ?? 0) - (b.z ?? 0));
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" style={cameraStyle(blueprint.camera, cameraTarget, localFrame, duration, fps)}>
+    <svg viewBox={`0 0 ${width || W} ${height || H}`} width="100%" height="100%" style={cameraStyle(blueprint.camera, cameraTarget, localFrame, duration, fps)}>
       <Background background={blueprint.background} />
       {sortedBackgroundElements.map((element) => (
         <ElementNode key={element.id} element={element} localFrame={localFrame} />
