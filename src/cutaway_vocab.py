@@ -217,7 +217,7 @@ REGISTRY_ASSETS = frozenset(
         "finch",
         "person_female",
         "heart",
-        "gavel", "document",
+        "gavel", "document", "eye",
         "map",
         "coffee",
         "counter",

@@ -286,6 +286,16 @@ const GenericObject: RegistryRenderer = ({x, y, scale = 1, color = PAPER_DEEP}) 
   </g>
 );
 
+// A bold flat eye - the "Second Glance" brand mark (almond + coral iris + ink pupil + glint).
+const Eye: RegistryRenderer = ({x, y, scale = 1, color = CORAL}) => (
+  <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <path d="M -176 0 Q 0 -132 176 0 Q 0 132 -176 0 Z" fill={PAPER} {...round} strokeWidth={STROKE_BOLD} />
+    <circle cx={0} cy={0} r={72} fill={color} {...round} strokeWidth={STROKE_BOLD} />
+    <circle cx={0} cy={0} r={31} fill={INK} stroke="none" />
+    <circle cx={24} cy={-24} r={12} fill={PAPER} stroke="none" />
+  </g>
+);
+
 // A sheet of paper with text lines - for "from a test" / document / paperwork beats.
 const Document: RegistryRenderer = ({x, y, scale = 1}) => (
   <g transform={`translate(${x} ${y}) scale(${scale})`}>
@@ -348,6 +358,7 @@ export const registry = {
   heart: Heart,
   gavel: Gavel,
   document: Document,
+  eye: Eye,
   map: MapProp,
   coffee: Coffee,
   counter: Counter,

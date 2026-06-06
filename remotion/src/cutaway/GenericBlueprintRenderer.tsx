@@ -39,6 +39,7 @@ const assetBaseSize: Record<string, {w: number; h: number}> = {
   heart: {w: 332, h: 282},
   gavel: {w: 412, h: 276},
   document: {w: 172, h: 236},
+  eye: {w: 352, h: 264},
   generic_object: {w: 240, h: 180},
 };
 
