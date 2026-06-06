@@ -42,7 +42,10 @@ def estimate_section_timings(section):
 
 
 def main():
-    script_path = os.path.join(ROOT, "data", "gps_script.json")
+    # Optional args: <script.json> <out_props.json>. Defaults to the GPS script for back-compat.
+    script_path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "data", "gps_script.json")
+    if not os.path.isabs(script_path):
+        script_path = os.path.join(ROOT, script_path)
     with open(script_path, "r", encoding="utf-8") as f:
         script = json.load(f)
 
@@ -50,7 +53,10 @@ def main():
     episode = build_episode(script, per_section, fps=FPS)
 
     total_frames = sum(s["durationInFrames"] for s in episode["sections"])
-    out_path = os.path.join(ROOT, "remotion", "props_gps_local.json")
+    default_out = os.path.join(ROOT, "remotion", "props_gps_local.json")
+    out_path = sys.argv[2] if len(sys.argv) > 2 else default_out
+    if not os.path.isabs(out_path):
+        out_path = os.path.join(ROOT, out_path)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(episode, f, indent=2)
 
