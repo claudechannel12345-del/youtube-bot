@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "fps": 30,
   "width": 1920,
   "height": 1080,
@@ -140,7 +140,111 @@
               "delay": 0.16,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "object_stage",
+            "intent": "s1_dot",
+            "elements": [
+              {
+                "id": "ground_shadow",
+                "kind": "texture",
+                "asset": "ring",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 830.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 2.0
+                },
+                "z": 1,
+                "colorRole": "muted",
+                "opacity": 0.18
+              },
+              {
+                "id": "s1_dot_a0",
+                "kind": "prop",
+                "asset": "person",
+                "position": {
+                  "mode": "point",
+                  "x": 560.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s1_dot_a1",
+                "kind": "prop",
+                "asset": "phone",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 540.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.72
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s1_dot_a2",
+                "kind": "prop",
+                "asset": "building",
+                "position": {
+                  "mode": "point",
+                  "x": 1360.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 22,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.16,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s1_lost",
@@ -176,7 +280,67 @@
               "delay": 0.0,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "object_stage",
+            "intent": "s1_lost",
+            "elements": [
+              {
+                "id": "ground_shadow",
+                "kind": "texture",
+                "asset": "ring",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 830.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 2.0
+                },
+                "z": 1,
+                "colorRole": "muted",
+                "opacity": 0.18
+              },
+              {
+                "id": "s1_lost_a0",
+                "kind": "prop",
+                "asset": "phone",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 540.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.72
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "push_in",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s1_mystery",
@@ -219,9 +383,80 @@
               "delay": 0.0,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "caption_punch",
+            "intent": "s1_mystery",
+            "elements": [
+              {
+                "id": "headline",
+                "kind": "label",
+                "asset": "generic_object",
+                "position": {
+                  "mode": "point",
+                  "x": 980.0,
+                  "y": 455.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 1080.0,
+                  "h": 210.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "headline",
+                  "text": "HOW?",
+                  "tone": "ink",
+                  "maxChars": 34,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "coral_underline",
+                "kind": "prop",
+                "asset": "arrow",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 590.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.7
+                },
+                "z": 10,
+                "colorRole": "accent"
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "pull_back",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         }
-      ]
+      ],
+      "validation": {
+        "source": "fallback_rules",
+        "repairs": []
+      }
     },
     {
       "section_index": 1,
@@ -351,7 +586,89 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "object_stage",
+            "intent": "s2_wrong",
+            "elements": [
+              {
+                "id": "ground_shadow",
+                "kind": "texture",
+                "asset": "ring",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 830.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 2.0
+                },
+                "z": 1,
+                "colorRole": "muted",
+                "opacity": 0.18
+              },
+              {
+                "id": "s2_wrong_a0",
+                "kind": "prop",
+                "asset": "phone",
+                "position": {
+                  "mode": "point",
+                  "x": 560.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.72
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s2_wrong_a1",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 1360.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s2_oblivious",
@@ -420,7 +737,123 @@
               "delay": 0.16,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "miniature_world",
+            "intent": "s2_oblivious",
+            "elements": [
+              {
+                "id": "s2_oblivious_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 620.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s2_oblivious_a1",
+                "kind": "prop",
+                "asset": "signal",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "stamp",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s2_oblivious_a2",
+                "kind": "prop",
+                "asset": "phone",
+                "position": {
+                  "mode": "point",
+                  "x": 1300.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 22,
+                "motion": [
+                  {
+                    "kind": "stamp",
+                    "start": 0.16,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "gag_stamp",
+                "kind": "stamp",
+                "asset": "stamp",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "stamp",
+                  "text": "DOESN'T KNOW YOU EXIST",
+                  "tone": "coral_stamp",
+                  "maxChars": 30,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "stamp",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "snap_zoom",
+              "target": "center",
+              "intensity": "medium"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s2_q",
@@ -463,9 +896,80 @@
               "delay": 0.0,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "caption_punch",
+            "intent": "s2_q",
+            "elements": [
+              {
+                "id": "headline",
+                "kind": "label",
+                "asset": "generic_object",
+                "position": {
+                  "mode": "point",
+                  "x": 980.0,
+                  "y": 455.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 1080.0,
+                  "h": 210.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "headline",
+                  "text": "SO WHAT ARE THEY DOING?",
+                  "tone": "ink",
+                  "maxChars": 34,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "coral_underline",
+                "kind": "prop",
+                "asset": "arrow",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 590.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.7
+                },
+                "z": 10,
+                "colorRole": "accent"
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "pull_back",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         }
-      ]
+      ],
+      "validation": {
+        "source": "fallback_rules",
+        "repairs": []
+      }
     },
     {
       "section_index": 2,
@@ -577,7 +1081,72 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "diagram_stage",
+            "intent": "s3_clock",
+            "elements": [
+              {
+                "id": "s3_clock_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 560.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.56
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s3_clock_a1",
+                "kind": "prop",
+                "asset": "clock",
+                "position": {
+                  "mode": "point",
+                  "x": 1360.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "grid"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s3_msg",
@@ -626,7 +1195,72 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "object_stage",
+            "intent": "s3_msg",
+            "elements": [
+              {
+                "id": "s3_msg_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 560.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s3_msg_a1",
+                "kind": "prop",
+                "asset": "signal",
+                "position": {
+                  "mode": "point",
+                  "x": 1360.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "push_in",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s3_count",
@@ -669,9 +1303,85 @@
               "delay": 0.0,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "stat_stage",
+            "intent": "s3_count",
+            "elements": [
+              {
+                "id": "stat_number",
+                "kind": "label",
+                "asset": "counter",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 449.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 2.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "stat",
+                  "text": "31",
+                  "tone": "coral_stamp",
+                  "maxChars": 22,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "s3_count_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 760.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.58
+                },
+                "z": 30,
+                "motion": [
+                  {
+                    "kind": "count_up",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "pull_back",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "panel"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         }
-      ]
+      ],
+      "validation": {
+        "source": "fallback_rules",
+        "repairs": []
+      }
     },
     {
       "section_index": 3,
@@ -808,7 +1518,116 @@
               "delay": 0.16,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "diagram_stage",
+            "intent": "s4_travel",
+            "elements": [
+              {
+                "id": "s4_travel_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 560.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.56
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s4_travel_a1",
+                "kind": "prop",
+                "asset": "signal",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 540.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s4_travel_a2",
+                "kind": "prop",
+                "asset": "phone",
+                "position": {
+                  "mode": "point",
+                  "x": 1360.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.5
+                },
+                "z": 22,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.16,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [
+              {
+                "id": "satellite_line_1",
+                "kind": "line",
+                "from": {
+                  "element": "s4_travel_a0",
+                  "attach": "center"
+                },
+                "to": {
+                  "element": "s4_travel_a2",
+                  "attach": "center"
+                },
+                "colorRole": "accent",
+                "z": 5,
+                "motion": [
+                  {
+                    "kind": "trace_line",
+                    "start": 0.0,
+                    "duration": 0.733
+                  }
+                ]
+              }
+            ],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "grid"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s4_gap",
@@ -870,7 +1689,111 @@
               "delay": 0.16,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "object_stage",
+            "intent": "s4_gap",
+            "elements": [
+              {
+                "id": "ground_shadow",
+                "kind": "texture",
+                "asset": "ring",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 830.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 2.0
+                },
+                "z": 1,
+                "colorRole": "muted",
+                "opacity": 0.18
+              },
+              {
+                "id": "s4_gap_context_phone",
+                "kind": "prop",
+                "asset": "phone",
+                "position": {
+                  "mode": "point",
+                  "x": 560.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.72
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s4_gap_a0",
+                "kind": "prop",
+                "asset": "clock",
+                "position": {
+                  "mode": "point",
+                  "x": 1360.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s4_gap_a1",
+                "kind": "prop",
+                "asset": "signal",
+                "position": {
+                  "mode": "point",
+                  "x": 1360.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 22,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.16,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "push_in",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s4_dist",
@@ -939,9 +1862,80 @@
               "delay": 0.16,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "caption_punch",
+            "intent": "s4_dist",
+            "elements": [
+              {
+                "id": "headline",
+                "kind": "label",
+                "asset": "generic_object",
+                "position": {
+                  "mode": "point",
+                  "x": 980.0,
+                  "y": 455.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 1080.0,
+                  "h": 210.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "headline",
+                  "text": "= DISTANCE",
+                  "tone": "ink",
+                  "maxChars": 34,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "coral_underline",
+                "kind": "prop",
+                "asset": "arrow",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 590.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.7
+                },
+                "z": 10,
+                "colorRole": "accent"
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "pull_back",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         }
-      ]
+      ],
+      "validation": {
+        "source": "fallback_rules",
+        "repairs": []
+      }
     },
     {
       "section_index": 4,
@@ -1066,7 +2060,94 @@
               "duration": 0.38
             }
           ],
-          "new_count": 2
+          "new_count": 2,
+          "blueprint": {
+            "version": 1,
+            "preset": "diagram_stage",
+            "intent": "s5_one",
+            "elements": [
+              {
+                "id": "s5_one_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 370.0,
+                  "y": 190.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.56
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s5_one_a1",
+                "kind": "prop",
+                "asset": "earth",
+                "position": {
+                  "mode": "point",
+                  "x": 1550.0,
+                  "y": 190.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.5
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [
+              {
+                "id": "satellite_line_1",
+                "kind": "line",
+                "from": {
+                  "element": "s5_one_a0",
+                  "attach": "center"
+                },
+                "to": {
+                  "element": "s5_one_a1",
+                  "attach": "center"
+                },
+                "colorRole": "accent",
+                "z": 5,
+                "motion": [
+                  {
+                    "kind": "trace_line",
+                    "start": 0.0,
+                    "duration": 0.733
+                  }
+                ]
+              }
+            ],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "grid"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s5_two",
@@ -1117,7 +2198,117 @@
               "duration": 0.38
             }
           ],
-          "new_count": 1
+          "new_count": 1,
+          "blueprint": {
+            "version": 1,
+            "preset": "diagram_stage",
+            "intent": "s5_two",
+            "elements": [
+              {
+                "id": "s5_one_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 370.0,
+                  "y": 190.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.56
+                },
+                "z": 20
+              },
+              {
+                "id": "s5_one_a1",
+                "kind": "prop",
+                "asset": "earth",
+                "position": {
+                  "mode": "point",
+                  "x": 1550.0,
+                  "y": 190.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.5
+                },
+                "z": 21
+              },
+              {
+                "id": "s5_two_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 540.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.56
+                },
+                "z": 22,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [
+              {
+                "id": "satellite_line_1",
+                "kind": "line",
+                "from": {
+                  "element": "s5_one_a0",
+                  "attach": "center"
+                },
+                "to": {
+                  "element": "s5_one_a1",
+                  "attach": "center"
+                },
+                "colorRole": "accent",
+                "z": 5,
+                "motion": null
+              },
+              {
+                "id": "satellite_line_3",
+                "kind": "line",
+                "from": {
+                  "element": "s5_two_a0",
+                  "attach": "center"
+                },
+                "to": {
+                  "element": "s5_one_a1",
+                  "attach": "center"
+                },
+                "colorRole": "accent",
+                "z": 5,
+                "motion": [
+                  {
+                    "kind": "trace_line",
+                    "start": 0.0,
+                    "duration": 0.733
+                  }
+                ]
+              }
+            ],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "grid"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s5_three",
@@ -1188,7 +2379,169 @@
               "duration": 0.38
             }
           ],
-          "new_count": 2
+          "new_count": 2,
+          "blueprint": {
+            "version": 1,
+            "preset": "diagram_stage",
+            "intent": "s5_three",
+            "elements": [
+              {
+                "id": "s5_one_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 370.0,
+                  "y": 190.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.56
+                },
+                "z": 20
+              },
+              {
+                "id": "s5_one_a1",
+                "kind": "prop",
+                "asset": "earth",
+                "position": {
+                  "mode": "point",
+                  "x": 1550.0,
+                  "y": 190.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.5
+                },
+                "z": 21
+              },
+              {
+                "id": "s5_two_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 540.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.56
+                },
+                "z": 22
+              },
+              {
+                "id": "s5_three_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 390.0,
+                  "y": 850.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.56
+                },
+                "z": 23,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s5_three_a1",
+                "kind": "prop",
+                "asset": "point",
+                "position": {
+                  "mode": "point",
+                  "x": 1530.0,
+                  "y": 850.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 24,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [
+              {
+                "id": "satellite_line_1",
+                "kind": "line",
+                "from": {
+                  "element": "s5_one_a0",
+                  "attach": "center"
+                },
+                "to": {
+                  "element": "s5_three_a1",
+                  "attach": "center"
+                },
+                "colorRole": "accent",
+                "z": 5,
+                "motion": null
+              },
+              {
+                "id": "satellite_line_3",
+                "kind": "line",
+                "from": {
+                  "element": "s5_two_a0",
+                  "attach": "center"
+                },
+                "to": {
+                  "element": "s5_three_a1",
+                  "attach": "center"
+                },
+                "colorRole": "accent",
+                "z": 5,
+                "motion": null
+              },
+              {
+                "id": "satellite_line_4",
+                "kind": "line",
+                "from": {
+                  "element": "s5_three_a0",
+                  "attach": "center"
+                },
+                "to": {
+                  "element": "s5_three_a1",
+                  "attach": "center"
+                },
+                "colorRole": "accent",
+                "z": 5,
+                "motion": [
+                  {
+                    "kind": "trace_line",
+                    "start": 0.0,
+                    "duration": 0.733
+                  }
+                ]
+              }
+            ],
+            "camera": {
+              "move": "pull_back",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "grid"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s5_pinned",
@@ -1244,9 +2597,80 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "caption_punch",
+            "intent": "s5_pinned",
+            "elements": [
+              {
+                "id": "headline",
+                "kind": "label",
+                "asset": "generic_object",
+                "position": {
+                  "mode": "point",
+                  "x": 980.0,
+                  "y": 455.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 1080.0,
+                  "h": 210.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "headline",
+                  "text": "PINNED",
+                  "tone": "ink",
+                  "maxChars": 34,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "coral_underline",
+                "kind": "prop",
+                "asset": "arrow",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 590.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.7
+                },
+                "z": 10,
+                "colorRole": "accent"
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "push_in",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         }
-      ]
+      ],
+      "validation": {
+        "source": "fallback_rules",
+        "repairs": []
+      }
     },
     {
       "section_index": 5,
@@ -1400,7 +2824,72 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "comparison_stage",
+            "intent": "s6_compare",
+            "elements": [
+              {
+                "id": "s6_compare_a0",
+                "kind": "prop",
+                "asset": "clock",
+                "position": {
+                  "mode": "point",
+                  "x": 540.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.66
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "slide_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s6_compare_a1",
+                "kind": "prop",
+                "asset": "watch",
+                "position": {
+                  "mode": "point",
+                  "x": 1380.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.66
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "slide_in",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "comparison_panels"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s6_error",
@@ -1456,7 +2945,101 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "stat_stage",
+            "intent": "s6_error",
+            "elements": [
+              {
+                "id": "stat_number",
+                "kind": "label",
+                "asset": "counter",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 449.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 2.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "stat",
+                  "text": "1 MICROSECOND = 300 M",
+                  "tone": "coral_stamp",
+                  "maxChars": 22,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "s6_error_a0",
+                "kind": "prop",
+                "asset": "clock",
+                "position": {
+                  "mode": "point",
+                  "x": 780.0,
+                  "y": 760.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.58
+                },
+                "z": 30,
+                "motion": [
+                  {
+                    "kind": "count_up",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s6_error_a1",
+                "kind": "prop",
+                "asset": "map",
+                "position": {
+                  "mode": "point",
+                  "x": 1140.0,
+                  "y": 760.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.58
+                },
+                "z": 31,
+                "motion": [
+                  {
+                    "kind": "count_up",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "push_in",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "panel"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s6_fourth",
@@ -1492,9 +3075,94 @@
               "delay": 0.0,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "diagram_stage",
+            "intent": "s6_fourth",
+            "elements": [
+              {
+                "id": "s6_fourth_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 540.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.56
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "draw_on",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "diagram_target",
+                "kind": "prop",
+                "asset": "point",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 720.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.5
+                },
+                "z": 30,
+                "colorRole": "blue"
+              }
+            ],
+            "connections": [
+              {
+                "id": "satellite_line_1",
+                "kind": "line",
+                "from": {
+                  "element": "s6_fourth_a0",
+                  "attach": "center"
+                },
+                "to": {
+                  "element": "diagram_target",
+                  "attach": "center"
+                },
+                "colorRole": "accent",
+                "z": 5,
+                "motion": [
+                  {
+                    "kind": "trace_line",
+                    "start": 0.0,
+                    "duration": 0.733
+                  }
+                ]
+              }
+            ],
+            "camera": {
+              "move": "pull_back",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "grid"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         }
-      ]
+      ],
+      "validation": {
+        "source": "fallback_rules",
+        "repairs": []
+      }
     },
     {
       "section_index": 6,
@@ -1604,7 +3272,74 @@
               "delay": 0.0,
               "duration": 0.3
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "quote_stage",
+            "intent": "s7_quote",
+            "elements": [
+              {
+                "id": "quote_card",
+                "kind": "label",
+                "asset": "generic_object",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 405.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 900.0,
+                  "h": 330.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "caption",
+                  "text": "The distinction between past, present and future is only a stubbornly persistent illusion. - Albert Einstein",
+                  "tone": "ink",
+                  "maxChars": 160,
+                  "fit": "multi_line"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "quote_dot",
+                "kind": "prop",
+                "asset": "dot",
+                "position": {
+                  "mode": "point",
+                  "x": 1424.0,
+                  "y": 232.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.46
+                },
+                "z": 40,
+                "colorRole": "accent"
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "panel"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s7_orbit",
@@ -1653,7 +3388,72 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "object_stage",
+            "intent": "s7_orbit",
+            "elements": [
+              {
+                "id": "s7_orbit_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 560.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s7_orbit_a1",
+                "kind": "prop",
+                "asset": "earth",
+                "position": {
+                  "mode": "point",
+                  "x": 1360.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s7_two",
@@ -1702,9 +3502,78 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "comparison_stage",
+            "intent": "s7_two",
+            "elements": [
+              {
+                "id": "s7_two_a0",
+                "kind": "prop",
+                "asset": "clock",
+                "position": {
+                  "mode": "point",
+                  "x": 540.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.66
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "slide_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s7_two_a1",
+                "kind": "prop",
+                "asset": "arrow",
+                "position": {
+                  "mode": "point",
+                  "x": 1380.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.66
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "slide_in",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "pull_back",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "comparison_panels"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         }
-      ]
+      ],
+      "validation": {
+        "source": "fallback_rules",
+        "repairs": []
+      }
     },
     {
       "section_index": 7,
@@ -1822,7 +3691,79 @@
               "delay": 0.0,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "stat_stage",
+            "intent": "s8_stat",
+            "elements": [
+              {
+                "id": "stat_number",
+                "kind": "label",
+                "asset": "counter",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 449.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 2.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "stat",
+                  "text": "38 us / DAY",
+                  "tone": "coral_stamp",
+                  "maxChars": 22,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "s8_stat_a0",
+                "kind": "prop",
+                "asset": "clock",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 760.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.58
+                },
+                "z": 30,
+                "motion": [
+                  {
+                    "kind": "count_up",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "push_in",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "panel"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s8_drift",
@@ -1871,7 +3812,89 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "object_stage",
+            "intent": "s8_drift",
+            "elements": [
+              {
+                "id": "ground_shadow",
+                "kind": "texture",
+                "asset": "ring",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 830.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 2.0
+                },
+                "z": 1,
+                "colorRole": "muted",
+                "opacity": 0.18
+              },
+              {
+                "id": "s8_drift_a0",
+                "kind": "prop",
+                "asset": "map",
+                "position": {
+                  "mode": "point",
+                  "x": 560.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s8_drift_a1",
+                "kind": "prop",
+                "asset": "dot",
+                "position": {
+                  "mode": "point",
+                  "x": 1360.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "push_in",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s8_wrong",
@@ -1940,9 +3963,129 @@
               "delay": 0.16,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "miniature_world",
+            "intent": "s8_wrong",
+            "elements": [
+              {
+                "id": "s8_wrong_a0",
+                "kind": "prop",
+                "asset": "map",
+                "position": {
+                  "mode": "point",
+                  "x": 620.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s8_wrong_a1",
+                "kind": "prop",
+                "asset": "dot",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "stamp",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s8_wrong_a2",
+                "kind": "prop",
+                "asset": "clock",
+                "position": {
+                  "mode": "point",
+                  "x": 1300.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 22,
+                "motion": [
+                  {
+                    "kind": "stamp",
+                    "start": 0.16,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "gag_stamp",
+                "kind": "stamp",
+                "asset": "stamp",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "stamp",
+                  "text": "WRONG TOWN BY DINNER",
+                  "tone": "coral_stamp",
+                  "maxChars": 30,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "stamp",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "pull_back",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         }
-      ]
+      ],
+      "validation": {
+        "source": "fallback_rules",
+        "repairs": []
+      }
     },
     {
       "section_index": 8,
@@ -2054,7 +4197,89 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "object_stage",
+            "intent": "s9_fix",
+            "elements": [
+              {
+                "id": "ground_shadow",
+                "kind": "texture",
+                "asset": "ring",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 830.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 2.0
+                },
+                "z": 1,
+                "colorRole": "muted",
+                "opacity": 0.18
+              },
+              {
+                "id": "s9_fix_a0",
+                "kind": "prop",
+                "asset": "satellite",
+                "position": {
+                  "mode": "point",
+                  "x": 560.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s9_fix_a1",
+                "kind": "prop",
+                "asset": "clock",
+                "position": {
+                  "mode": "point",
+                  "x": 1360.0,
+                  "y": 560.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.92
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s9_proven",
@@ -2097,7 +4322,74 @@
               "delay": 0.0,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "caption_punch",
+            "intent": "s9_proven",
+            "elements": [
+              {
+                "id": "headline",
+                "kind": "label",
+                "asset": "generic_object",
+                "position": {
+                  "mode": "point",
+                  "x": 980.0,
+                  "y": 455.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 1080.0,
+                  "h": 210.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "headline",
+                  "text": "PROVEN, BILLIONS/DAY",
+                  "tone": "ink",
+                  "maxChars": 34,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "coral_underline",
+                "kind": "prop",
+                "asset": "arrow",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 590.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.7
+                },
+                "z": 10,
+                "colorRole": "accent"
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "push_in",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s9_coffee",
@@ -2153,9 +4445,107 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "miniature_world",
+            "intent": "s9_coffee",
+            "elements": [
+              {
+                "id": "s9_coffee_a0",
+                "kind": "prop",
+                "asset": "coffee",
+                "position": {
+                  "mode": "point",
+                  "x": 790.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "s9_coffee_a1",
+                "kind": "prop",
+                "asset": "map_pin",
+                "position": {
+                  "mode": "point",
+                  "x": 1130.0,
+                  "y": 470.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.78
+                },
+                "z": 21,
+                "motion": [
+                  {
+                    "kind": "stamp",
+                    "start": 0.08,
+                    "duration": 0.38
+                  }
+                ]
+              },
+              {
+                "id": "gag_stamp",
+                "kind": "stamp",
+                "asset": "stamp",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 858.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.0
+                },
+                "z": 50,
+                "text": {
+                  "role": "stamp",
+                  "text": "...TO FIND COFFEE",
+                  "tone": "coral_stamp",
+                  "maxChars": 30,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "stamp",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "pull_back",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         }
-      ]
+      ],
+      "validation": {
+        "source": "fallback_rules",
+        "repairs": []
+      }
     },
     {
       "section_index": 9,
@@ -2293,7 +4683,176 @@
               "delay": 0.24,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "list_stage",
+            "intent": "s10_recap",
+            "elements": [
+              {
+                "id": "row_1",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 1080.0,
+                  "y": 247.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.15
+                },
+                "z": 20,
+                "text": {
+                  "role": "label",
+                  "text": "ATOMIC CLOCK",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "bullet_1",
+                "kind": "prop",
+                "asset": "dot",
+                "position": {
+                  "mode": "point",
+                  "x": 486.0,
+                  "y": 247.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.32
+                },
+                "z": 30,
+                "colorRole": "accent"
+              },
+              {
+                "id": "row_2",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 1080.0,
+                  "y": 372.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.15
+                },
+                "z": 21,
+                "text": {
+                  "role": "label",
+                  "text": "LIGHT SPEED",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "bullet_2",
+                "kind": "prop",
+                "asset": "dot",
+                "position": {
+                  "mode": "point",
+                  "x": 486.0,
+                  "y": 372.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 0.32
+                },
+                "z": 31,
+                "colorRole": "accent"
+              },
+              {
+                "id": "row_3",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 1080.0,
+                  "y": 497.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.15
+                },
+                "z": 22,
+                "text": {
+                  "role": "label",
+                  "text": "RELATIVITY",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "row_4",
+                "kind": "label",
+                "asset": "label",
+                "position": {
+                  "mode": "point",
+                  "x": 1080.0,
+                  "y": 622.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.15
+                },
+                "z": 23,
+                "text": {
+                  "role": "label",
+                  "text": "BLUE DOT",
+                  "tone": "ink",
+                  "maxChars": 28,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s10_impressive",
@@ -2349,7 +4908,74 @@
               "delay": 0.08,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "caption_punch",
+            "intent": "s10_impressive",
+            "elements": [
+              {
+                "id": "headline",
+                "kind": "label",
+                "asset": "generic_object",
+                "position": {
+                  "mode": "point",
+                  "x": 980.0,
+                  "y": 455.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 1080.0,
+                  "h": 210.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "headline",
+                  "text": "NEVER MAGIC",
+                  "tone": "ink",
+                  "maxChars": 34,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "coral_underline",
+                "kind": "prop",
+                "asset": "arrow",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 590.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.7
+                },
+                "z": 10,
+                "colorRole": "accent"
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "push_in",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         },
         {
           "id": "s10_cta",
@@ -2392,9 +5018,80 @@
               "delay": 0.0,
               "duration": 0.38
             }
-          ]
+          ],
+          "blueprint": {
+            "version": 1,
+            "preset": "caption_punch",
+            "intent": "s10_cta",
+            "elements": [
+              {
+                "id": "headline",
+                "kind": "label",
+                "asset": "generic_object",
+                "position": {
+                  "mode": "point",
+                  "x": 980.0,
+                  "y": 455.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 1080.0,
+                  "h": 210.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "headline",
+                  "text": "NEW DEEP-DIVES WEEKLY",
+                  "tone": "ink",
+                  "maxChars": 34,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "coral_underline",
+                "kind": "prop",
+                "asset": "arrow",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 590.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.7
+                },
+                "z": 10,
+                "colorRole": "accent"
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "pull_back",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "fallback_rules",
+            "warnings": [],
+            "repairs": []
+          }
         }
-      ]
+      ],
+      "validation": {
+        "source": "fallback_rules",
+        "repairs": []
+      }
     }
   ]
 }

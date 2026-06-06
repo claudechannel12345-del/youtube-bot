@@ -8,18 +8,30 @@ section). An optional LLM director can be layered later that only SUGGESTS into 
 validator; the rules here always own the render.
 """
 
+import copy
+import json
+import os
+import sys
+
 from cutaway_vocab import (
     BEAT_TO_SCENE_FAMILY,
+    BACKGROUND_TREATMENT,
     CAMERA_INTENSITY,
     CAMERA_MOVE,
+    CONNECTION_KIND,
     LAYOUT,
     MOTION_KIND,
+    MOTION_KIND_V2,
+    REGISTRY_ASSETS,
     SCENE_FAMILY,
     TRANSITION,
     coerce_beat_type,
 )
+from blueprint_presets import build_blueprint
 
 STYLE_VERSION = "clean_flat_light_v1"
+DIRECTOR_MODE = os.environ.get("DIRECTOR_MODE", "rules").strip().lower()
+# allowed: rules | llm
 
 # default screen layout per scene family
 DEFAULT_LAYOUT = {
@@ -139,6 +151,209 @@ CAMERA_VARIANTS = [
     ("pan_right", "small"),
     ("parallax_drift", "small"),
 ]
+
+_CATALOG_ASSET_ORDER = [
+    "person",
+    "phone",
+    "satellite",
+    "signal",
+    "signal_beam",
+    "earth",
+    "map_pin",
+    "dot",
+    "clock",
+    "atomic_clock",
+    "watch",
+    "grid",
+    "sphere",
+    "ring",
+    "point",
+    "ruler",
+    "arrow",
+    "light",
+    "einstein",
+    "map",
+    "coffee",
+    "counter",
+    "number",
+    "subscribe",
+    "label",
+    "stamp",
+    "generic_object",
+]
+
+_CATALOG_ASSET_META = {
+    "person": {"typical_scale": 0.8, "notes": "human figure"},
+    "phone": {"typical_scale": 0.55},
+    "satellite": {"typical_scale": 0.55},
+    "signal": {"typical_scale": 1.0},
+    "signal_beam": {"typical_scale": 1.0},
+    "earth": {"typical_scale": 1.2},
+    "map_pin": {"typical_scale": 0.5},
+    "dot": {"typical_scale": 0.45},
+    "clock": {"typical_scale": 0.7},
+    "atomic_clock": {"typical_scale": 0.7},
+    "watch": {"typical_scale": 0.65},
+    "grid": {"typical_scale": 1.0},
+    "sphere": {"typical_scale": 1.0},
+    "ring": {"typical_scale": 1.0},
+    "point": {"typical_scale": 0.45},
+    "ruler": {"typical_scale": 0.7},
+    "arrow": {"typical_scale": 0.75},
+    "light": {"typical_scale": 0.8},
+    "einstein": {"typical_scale": 0.75},
+    "map": {"typical_scale": 1.1},
+    "coffee": {"typical_scale": 0.75},
+    "counter": {"typical_scale": 1.0},
+    "number": {"typical_scale": 1.0},
+    "subscribe": {"typical_scale": 0.9},
+    "label": {"typical_scale": 1.0},
+    "stamp": {"typical_scale": 1.0},
+    "generic_object": {"typical_scale": 0.8},
+}
+
+_CATALOG_ANCHORS = {
+    "center": [960, 540],
+    "left": [560, 560],
+    "right": [1360, 560],
+    "upper_left": [370, 190],
+    "upper_right": [1550, 190],
+    "lower_left": [390, 850],
+    "lower_right": [1530, 850],
+    "upper_center": [960, 170],
+    "lower_center": [960, 858],
+    "headline": [960, 210],
+    "stat": [960, 470],
+    "diagram_core": [960, 540],
+}
+
+_MOTION_KIND_ORDER = [
+    "none",
+    "pop_in",
+    "pop_out",
+    "slide_in",
+    "slide_out",
+    "draw_on",
+    "count_up",
+    "stamp",
+    "shake_once",
+    "micro_bob",
+    "orbit",
+    "pulse",
+    "trace_line",
+    "wipe_reveal",
+    "enter",
+    "hold",
+    "exit",
+    "connect_to",
+    "count",
+    "draw_path",
+    "highlight",
+]
+
+_CAMERA_MOVE_ORDER = [
+    "static",
+    "hold_then_push",
+    "push_in",
+    "pull_back",
+    "pan_left",
+    "pan_right",
+    "snap_zoom",
+    "tilt_down",
+    "parallax_drift",
+]
+
+_BACKGROUND_ORDER = ["plain", "panel", "grid", "map", "comparison_panels", "paper_stack"]
+_CONNECTION_KIND_ORDER = ["line", "arrow", "range_ring", "pulse", "brace"]
+
+_ART_DIRECTOR_PROMPT = """You are the art director for a clean flat vector explainer video.
+
+Return ONLY valid JSON. No markdown. No comments.
+
+You must produce one storyboard blueprint per beat. You may only use the supplied closed vocabulary:
+- registry_assets exactly as named
+- anchors exactly as named, or explicit x/y coordinates inside 1920x1080
+- motion_kinds exactly as named
+- camera_moves exactly as named
+- backgrounds exactly as named
+- connection_kinds exactly as named
+
+Do not invent assets. Do not request generated images. Do not use photorealism. Do not describe visuals the engine cannot draw.
+
+Style:
+- clean flat vector, light paper background
+- few large readable elements
+- no crowded diagrams
+- text must be short and uppercase unless it is a quote
+- prefer concrete spatial staging over generic centered icons
+- every important narration beat must have a visual action
+
+Input:
+%s
+
+Output schema:
+{
+  "section_index": number,
+  "beats": [
+    {
+      "id": string,
+      "blueprint": {
+        "version": 1,
+        "preset": SceneFamily,
+        "intent": string,
+        "background": {"treatment": BackgroundTreatment},
+        "camera": {"move": CameraMove, "target": ElementRef or AnchorId, "intensity": CameraIntensity},
+        "elements": [...],
+        "connections": [...]
+      }
+    }
+  ]
+}
+
+Rules:
+- Preserve every input beat id exactly.
+- Do not change timing fields; timing is owned by the rules director.
+- Use 1 to 7 elements per beat, excluding connections.
+- Use at most 2 text elements per beat.
+- Text caps: label 28 chars, headline 34, stamp 30, stat 22, caption 160, tiny_note 42.
+- All element ids must be unique within a beat.
+- Every connection must reference existing element ids or legal anchors.
+- Motion start and duration are seconds relative to the beat, not frames.
+- Motion must stay within the beat duration implied by sentence timings.
+- Use coordinates inside safe area unless intentionally entering/exiting.
+- Prefer explicit point coordinates for important elements.
+"""
+
+
+def _ordered_from_vocab(order, vocab):
+    return [name for name in order if name in vocab]
+
+
+def build_capabilities_catalog():
+    registry_assets = []
+    for name in _ordered_from_vocab(_CATALOG_ASSET_ORDER, REGISTRY_ASSETS):
+        item = {"name": name}
+        item.update(_CATALOG_ASSET_META[name])
+        registry_assets.append(item)
+    return {
+        "world": {"width": 1920, "height": 1080, "safe_margin": 96},
+        "style": {
+            "version": "clean_flat_light_v1",
+            "rules": [
+                "flat vector only",
+                "no raster images",
+                "no photorealism",
+                "use few large readable elements",
+                "uppercase short text",
+            ],
+        },
+        "registry_assets": registry_assets,
+        "anchors": dict(_CATALOG_ANCHORS),
+        "motion_kinds": _ordered_from_vocab(_MOTION_KIND_ORDER, MOTION_KIND_V2),
+        "camera_moves": _ordered_from_vocab(_CAMERA_MOVE_ORDER, CAMERA_MOVE),
+        "backgrounds": _ordered_from_vocab(_BACKGROUND_ORDER, BACKGROUND_TREATMENT),
+        "connection_kinds": _ordered_from_vocab(_CONNECTION_KIND_ORDER, CONNECTION_KIND),
+    }
 
 
 def _norm_subject(s):
@@ -397,7 +612,183 @@ def _apply_progressive_builds(directed):
         i = j
 
 
-def direct_section(section, sentences_timing, fps, index):
+def _attach_validated_blueprints(directed, sentences_timing, section):
+    from artdirector_validator import validate_blueprint
+
+    for beat in directed:
+        blueprint = build_blueprint(beat, sentences_timing, section)
+        repaired, repairs = validate_blueprint(blueprint, beat.get("scene_family", "object_stage"))
+        beat["blueprint"] = repaired
+        beat["validation"] = {
+            "source": "rules",
+            "warnings": [],
+            "repairs": repairs,
+        }
+
+
+def _response_text(response):
+    text = getattr(response, "text", None)
+    if text:
+        return text
+    try:
+        parts = response.candidates[0].content.parts
+        return "".join(str(getattr(part, "text", "") or "") for part in parts)
+    except Exception:
+        return str(response)
+
+
+def _extract_first_json_object(text):
+    decoder = json.JSONDecoder()
+    start = str(text or "").find("{")
+    while start >= 0:
+        try:
+            obj, _ = decoder.raw_decode(str(text)[start:])
+            if isinstance(obj, dict):
+                return obj
+        except ValueError:
+            start = str(text).find("{", start + 1)
+            continue
+        break
+    raise ValueError("No JSON object found in LLM response")
+
+
+def _parse_llm_json(text):
+    try:
+        parsed = json.loads(text)
+    except Exception:
+        parsed = _extract_first_json_object(text)
+    if not isinstance(parsed, dict):
+        raise ValueError("LLM response JSON root must be an object")
+    return parsed
+
+
+def _sentence_payload(sentences_timing):
+    sentences = []
+    for i, sentence in enumerate(sentences_timing or []):
+        sentences.append(
+            {
+                "index": i,
+                "text": str(sentence.get("text", "")),
+                "start": float(sentence.get("start", 0.0)),
+                "end": float(sentence.get("end", 0.0)),
+                "delivery": str(sentence.get("delivery", "neutral") or "neutral"),
+            }
+        )
+    return sentences
+
+
+def _input_beat_payload(beat, source_beat=None):
+    source = source_beat if isinstance(source_beat, dict) else beat
+    return {
+        "id": str(beat.get("id", "")),
+        "type": str(beat.get("type", "")),
+        "sentence_start": int(source.get("sentence_start", 0) or 0),
+        "sentence_end": int(source.get("sentence_end", source.get("sentence_start", 0)) or 0),
+        "visual_intent": str(source.get("visual_intent", "") or ""),
+        "text": str(source.get("text", beat.get("text", "")) or ""),
+        "subjects": [str(s) for s in (source.get("subjects") or beat.get("subjects") or [])],
+        "importance": str(source.get("importance", "medium") or "medium"),
+        "comedy_role": str(source.get("comedy_role", "") or ""),
+    }
+
+
+def _copy_rules_with_llm_blueprints(rules_section, llm_plan):
+    if not isinstance(llm_plan.get("beats"), list):
+        raise ValueError("LLM response missing beats list")
+    llm_by_id = {}
+    for item in llm_plan.get("beats", []):
+        if isinstance(item, dict) and isinstance(item.get("blueprint"), dict):
+            llm_by_id[str(item.get("id"))] = item["blueprint"]
+    rules_beats = rules_section.get("beats", []) or []
+    if rules_beats and len(llm_by_id) < max(1, (len(rules_beats) + 1) // 2):
+        raise ValueError("LLM response missing most beats")
+    merged = copy.deepcopy(rules_section)
+    for beat in merged.get("beats", []) or []:
+        beat_id = str(beat.get("id"))
+        if beat_id in llm_by_id:
+            beat["blueprint"] = llm_by_id[beat_id]
+            beat["validation"] = {"source": "llm", "warnings": [], "repairs": []}
+            beat["_llm_blueprint_present"] = True
+        else:
+            beat["validation"] = {"source": "repaired_llm", "warnings": ["missing_llm_beat"], "repairs": []}
+            beat["_llm_blueprint_present"] = False
+    return merged
+
+
+def direct_section_llm(section, sentences_timing, fps, index, catalog, client):
+    if client is None:
+        raise ValueError("DIRECTOR_MODE=llm requires a Gemini client")
+    from gemini_utils import PRO_MODELS, generate
+
+    rules_section = direct_section_rules(section, sentences_timing, fps, index)
+    source_by_id = {str(beat.get("id", "beat%d" % i)): beat for i, beat in enumerate(section.get("beats") or [])}
+    duration = float(sentences_timing[-1]["end"]) if sentences_timing else 2.0
+    payload = {
+        "section_index": index,
+        "fps": fps,
+        "section_duration_frames": int(round(duration * fps)),
+        "sentences": _sentence_payload(sentences_timing),
+        "beats": [_input_beat_payload(beat, source_by_id.get(str(beat.get("id")))) for beat in (rules_section.get("beats") or [])],
+        "capabilities": catalog,
+    }
+    prompt = _ART_DIRECTOR_PROMPT % json.dumps(payload, sort_keys=True, separators=(",", ":"))
+    response = generate(client, prompt, models=PRO_MODELS)
+    llm_plan = _parse_llm_json(_response_text(response))
+    return _copy_rules_with_llm_blueprints(rules_section, llm_plan)
+
+
+def log_artdirector_fallback(index, reason):
+    print(
+        json.dumps(
+            {
+                "event": "artdirector_fallback",
+                "section_index": index,
+                "reason": str(reason),
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        ),
+        file=sys.stderr,
+    )
+
+
+def _stamp_validation_source(section_plan, source):
+    stamped = copy.deepcopy(section_plan)
+    for beat in stamped.get("beats", []) or []:
+        validation = dict(beat.get("validation") or {})
+        validation["source"] = source
+        validation.setdefault("warnings", [])
+        validation.setdefault("repairs", [])
+        beat["validation"] = validation
+    stamped["validation"] = {"source": source, "repairs": []}
+    return stamped
+
+
+def _validate_llm_with_rules_fallback(llm_section, rules_section):
+    from artdirector_validator import validate_and_repair_section
+
+    repaired = validate_and_repair_section(llm_section, source="llm")
+    rules_by_id = {str(beat.get("id")): beat for beat in (rules_section.get("beats", []) or [])}
+    for beat in repaired.get("beats", []) or []:
+        beat_id = str(beat.get("id"))
+        llm_present = beat.pop("_llm_blueprint_present", True)
+        if not isinstance(beat.get("blueprint"), dict) and beat_id in rules_by_id:
+            beat["blueprint"] = copy.deepcopy(rules_by_id[beat_id].get("blueprint"))
+            beat["validation"] = {"source": "repaired_llm", "warnings": ["invalid_llm_blueprint"], "repairs": []}
+        elif not llm_present and beat_id in rules_by_id:
+            beat["blueprint"] = copy.deepcopy(rules_by_id[beat_id].get("blueprint"))
+            validation = dict(beat.get("validation") or {})
+            validation["source"] = "repaired_llm"
+            warnings = list(validation.get("warnings") or [])
+            if "missing_llm_beat" not in warnings:
+                warnings.append("missing_llm_beat")
+            validation["warnings"] = warnings
+            validation.setdefault("repairs", [])
+            beat["validation"] = validation
+    return repaired
+
+
+def direct_section_rules(section, sentences_timing, fps, index):
     """sentences_timing: list of {text,start,end,delivery} relative to the section start."""
     duration = float(sentences_timing[-1]["end"]) if sentences_timing else 2.0
     section_frames = int(round(duration * fps))
@@ -423,6 +814,7 @@ def direct_section(section, sentences_timing, fps, index):
     for b in directed:
         b["start"] = round(b["startFrame"] / fps, 3)
         b["end"] = round(b["endFrame"] / fps, 3)
+    _attach_validated_blueprints(directed, sentences_timing, section)
 
     return {
         "section_index": index,
@@ -435,14 +827,27 @@ def direct_section(section, sentences_timing, fps, index):
     }
 
 
-def build_episode(script, per_section_timings, fps=30, width=1920, height=1080):
+def direct_section(section, sentences_timing, fps, index, client=None):
+    rules_section = direct_section_rules(section, sentences_timing, fps, index)
+    if DIRECTOR_MODE != "llm":
+        return rules_section
+    try:
+        catalog = build_capabilities_catalog()
+        llm_section = direct_section_llm(section, sentences_timing, fps, index, catalog, client)
+        return _validate_llm_with_rules_fallback(llm_section, rules_section)
+    except Exception as e:
+        log_artdirector_fallback(index, reason=str(e))
+        return _stamp_validation_source(rules_section, "fallback_rules")
+
+
+def build_episode(script, per_section_timings, fps=30, width=1920, height=1080, client=None):
     """per_section_timings: list (one per section) of sentence-timing lists."""
     sections = []
     for i, section in enumerate(script.get("sections", [])):
         timings = per_section_timings[i] if i < len(per_section_timings) else []
-        sections.append(direct_section(section, timings, fps, i))
+        sections.append(direct_section(section, timings, fps, i, client=client))
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "fps": fps,
         "width": width,
         "height": height,
