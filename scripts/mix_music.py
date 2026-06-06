@@ -35,13 +35,15 @@ def mix_music(video_in, music, video_out, volume=0.10, duck=False, fade=2.5):
             f"[1:a]volume={volume * 1.7:.3f},afade=t=in:st=0:d={fade},"
             f"afade=t=out:st={fade_out_start:.2f}:d={fade}[bg];"
             f"[bg][0:a]sidechaincompress=threshold=0.02:ratio=4:attack=15:release=350[bgd];"
-            f"[0:a][bgd]amix=inputs=2:duration=first:normalize=0[aout]"
+            f"[0:a][bgd]amix=inputs=2:duration=first:normalize=0[mix];"
+            f"[mix]loudnorm=I=-14:TP=-1.5:LRA=11[aout]"
         )
     else:
         filt = (
             f"[1:a]volume={volume:.3f},afade=t=in:st=0:d={fade},"
             f"afade=t=out:st={fade_out_start:.2f}:d={fade}[bg];"
-            f"[0:a][bg]amix=inputs=2:duration=first:normalize=0[aout]"
+            f"[0:a][bg]amix=inputs=2:duration=first:normalize=0[mix];"
+            f"[mix]loudnorm=I=-14:TP=-1.5:LRA=11[aout]"
         )
     cmd = [
         "ffmpeg", "-y", "-i", video_in, "-stream_loop", "-1", "-i", music,
