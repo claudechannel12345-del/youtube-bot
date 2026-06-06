@@ -51,3 +51,23 @@ C4. Male character should read as male / female as female (romantic-red "woman i
 ## Execution notes
 - A3-A15 + B*: doable locally now (script + pacing rebuild, then re-render voiced - free, no upload).
 - A1 (upbeat voice) + C2/C4 (new animal + gendered characters): need owner decision on approach.
+
+## v3 RESOLUTION (2026-06-05, autonomous pass)
+JIBBERISH (the big one) - likely cause = style 0.30 on the instant clone + ultra-short isolated
+clips. Fixed defensively: (1) pass previous_text/next_text CONTEXT to ElevenLabs so short clips render
+stably; (2) style 0.30->0.0; (3) stability 0.45->0.5; (4) script uses COMPLETE sentences only (no
+1-2 word fragments rendered alone). NOTE: unverifiable by ear here - owner must confirm on the v3.
+PAUSES - moderated all tiers + removed every mid-sentence fragment split, so pauses only fall at real
+sentence ends. EXHALES/UM - addressed via higher stability + context + no stray text (no perfect TTS
+toggle exists in v2 model). VOICE - reverted to the old clone (OOLdd0, script-read, more emotional)
+per owner.
+SCRIPT - intro discovery hook added, romantic-red simplified, section-9 suspense fixed, real outro,
+"mid-history" replaced.
+GRAPHICS (all verified via stills): person_female simplified (no hair, dress only, narrow shoulders);
+mandrill redesigned to read as a primate face + scaled up; gavel redesigned (clear); generic_object
+face-card removed -> plain box; new 'document' asset for the test scene; stray ground-ring removed;
+single-subject object scenes scaled up (less bare); red/blue routed into object scenes too; the
+counter '42' placeholder + net-grid scenes replaced.
+OUTPUT: v3 = Desktop/color_VOICED_v3.mp4 (rendered autonomously). Still OPEN for owner: judge the
+voice energy + confirm jibberish gone; mandrill could be refined further; music bed still to be added
+(drop a YT Audio Library track in data/music/).
