@@ -109,6 +109,9 @@ ANCHOR_SPREAD = {
 }
 
 _SUBJECT_ALIASES = {
+    "paperwork": "document",
+    "paper": "document",
+    "test": "document",
     "city": "building",
     "buildings": "building",
     "atomic clock": "clock",
@@ -177,6 +180,7 @@ _CATALOG_ASSET_ORDER = [
     "person_female",
     "heart",
     "gavel",
+    "document",
     "map",
     "coffee",
     "counter",
@@ -212,6 +216,7 @@ _CATALOG_ASSET_META = {
     "person_female": {"typical_scale": 0.8, "notes": "female human figure"},
     "heart": {"typical_scale": 0.5, "notes": "coral attraction heart"},
     "gavel": {"typical_scale": 0.7, "notes": "judge gavel and sound block"},
+    "document": {"typical_scale": 0.8, "notes": "sheet of paper with text lines"},
     "map": {"typical_scale": 1.1},
     "coffee": {"typical_scale": 0.75},
     "counter": {"typical_scale": 1.0},

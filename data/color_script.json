@@ -897,15 +897,15 @@
         },
         {
           "id": "s9_4",
-          "type": "establish",
+          "type": "emphasize",
           "sentence_start": 7,
           "sentence_end": 10,
           "visual_intent": "THE MACHINE COUNTS",
           "text": "THE MACHINE COUNTS",
           "subjects": [
-            "counter"
+            "light"
           ],
-          "importance": "medium"
+          "importance": "high"
         },
         {
           "id": "s9_5",

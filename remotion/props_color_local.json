@@ -346,7 +346,7 @@
             {
               "id": "s1_3_a0",
               "kind": "prop",
-              "name": "paperwork",
+              "name": "document",
               "anchor": "center",
               "is_new": true
             }
@@ -369,7 +369,7 @@
               {
                 "id": "s1_3_a0",
                 "kind": "prop",
-                "asset": "generic_object",
+                "asset": "document",
                 "position": {
                   "mode": "point",
                   "x": 960.0,
@@ -4173,15 +4173,15 @@
         },
         {
           "id": "s9_4",
-          "type": "establish",
+          "type": "emphasize",
           "start": 28.6,
           "end": 45.067,
           "startFrame": 858,
           "endFrame": 1352,
-          "scene_family": "object_stage",
-          "layout": "center_subject",
+          "scene_family": "caption_punch",
+          "layout": "caption_only",
           "camera": {
-            "move": "hold_then_push",
+            "move": "push_in",
             "target": "center",
             "intensity": "small"
           },
@@ -4192,12 +4192,19 @@
             {
               "id": "s9_4_a0",
               "kind": "prop",
-              "name": "counter",
+              "name": "light",
               "anchor": "center",
               "is_new": true
             }
           ],
-          "text_overlays": [],
+          "text_overlays": [
+            {
+              "role": "headline",
+              "text": "THE MACHINE COUNTS",
+              "anchor": "headline",
+              "tone": "coral_stamp"
+            }
+          ],
           "motion": [
             {
               "target": "s9_4_a0",
@@ -4209,35 +4216,61 @@
           "compare_colors": null,
           "blueprint": {
             "version": 1,
-            "preset": "object_stage",
+            "preset": "caption_punch",
             "intent": "s9_4",
             "elements": [
               {
-                "id": "s9_4_a0",
-                "kind": "prop",
-                "asset": "counter",
+                "id": "headline",
+                "kind": "headline",
+                "asset": "none",
                 "position": {
                   "mode": "point",
-                  "x": 960.0,
-                  "y": 540.0
+                  "x": 980.0,
+                  "y": 455.0
                 },
                 "size": {
-                  "mode": "scale",
-                  "scale": 1.55
+                  "mode": "box",
+                  "w": 1080.0,
+                  "h": 210.0
                 },
                 "z": 20,
+                "text": {
+                  "role": "headline",
+                  "text": "THE MACHINE COUNTS",
+                  "tone": "ink",
+                  "maxChars": 34,
+                  "fit": "auto"
+                },
                 "motion": [
                   {
                     "kind": "pop_in",
                     "start": 0.0,
-                    "duration": 0.38
+                    "duration": 0.25
                   }
                 ]
+              },
+              {
+                "id": "coral_underline",
+                "kind": "prop",
+                "asset": "none",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 590.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 540.0,
+                  "h": 16.0
+                },
+                "z": 10,
+                "colorRole": "accent",
+                "propShape": "rule"
               }
             ],
             "connections": [],
             "camera": {
-              "move": "hold_then_push",
+              "move": "push_in",
               "target": "center",
               "intensity": "small"
             },

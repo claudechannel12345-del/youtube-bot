@@ -278,12 +278,19 @@ const Gavel: RegistryRenderer = ({x, y, scale = 1}) => (
   </g>
 );
 
+// A plain neutral box (NO cartoon face). This is the fallback for unknown assets, so it must look
+// clean, not like a face peering out of the scene.
 const GenericObject: RegistryRenderer = ({x, y, scale = 1, color = PAPER_DEEP}) => (
   <g transform={`translate(${x} ${y}) scale(${scale})`}>
-    <rect x={-120} y={-90} width={240} height={180} rx={8} fill={color} {...sharp} />
-    <circle cx={-42} cy={-18} r={12} fill={INK} stroke="none" />
-    <circle cx={42} cy={-18} r={12} fill={INK} stroke="none" />
-    <path d="M -48 34 L 48 34" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
+    <rect x={-110} y={-80} width={220} height={160} rx={16} fill={color} {...round} strokeWidth={STROKE_BOLD} />
+  </g>
+);
+
+// A sheet of paper with text lines - for "from a test" / document / paperwork beats.
+const Document: RegistryRenderer = ({x, y, scale = 1}) => (
+  <g transform={`translate(${x} ${y}) scale(${scale})`}>
+    <rect x={-86} y={-118} width={172} height={236} rx={10} fill={PAPER} {...round} strokeWidth={STROKE_BOLD} />
+    <path d="M -56 -70 L 56 -70 M -56 -30 L 56 -30 M -56 10 L 56 10 M -56 50 L 18 50" stroke={INK} strokeWidth={STROKE_THIN} strokeLinecap="round" />
   </g>
 );
 
@@ -340,6 +347,7 @@ export const registry = {
   finch: Finch,
   heart: Heart,
   gavel: Gavel,
+  document: Document,
   map: MapProp,
   coffee: Coffee,
   counter: Counter,

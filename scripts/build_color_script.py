@@ -205,7 +205,7 @@ SECTIONS = [
             {"type": "emphasize", "s": [0, 2], "text": "STILL THERE?", "subjects": ["light"], "importance": "high"},
             {"type": "emphasize", "s": [3, 4], "text": "GONE", "subjects": ["light"], "importance": "high"},
             {"type": "stat_pop", "s": [5, 6], "text": "NOW:  50.5%", "subjects": [], "importance": "high"},
-            {"type": "establish", "s": [7, 10], "text": "THE MACHINE COUNTS", "subjects": ["counter"], "importance": "medium"},
+            {"type": "emphasize", "s": [7, 10], "text": "THE MACHINE COUNTS", "subjects": ["light"], "importance": "high"},
             {"type": "emphasize", "s": [11, 14], "text": "IT DIED WITH THE JUDGE", "subjects": ["light"], "importance": "high"},
             {"type": "emphasize", "s": [15, 16], "text": "IT WAS IN US", "subjects": ["light"], "importance": "high"},
         ],
