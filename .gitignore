@@ -19,3 +19,7 @@ remotion/.remotion/
 remotion/slice_stills/
 remotion/motion_check/
 codex_*_out.txt
+
+# Owner voice-clone corpus + brain-dump audio (large, kept local / out of git)
+data/persona/voice_corpus/
+data/persona/_braindump_*.txt
