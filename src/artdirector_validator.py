@@ -28,6 +28,7 @@ from cutaway_vocab import (
     TEXT_ROLE,
     BLUEPRINT_ELEMENT_KIND,
 )
+from environments import ENVIRONMENTS, get_environment, has_environment
 
 try:
     from director import _clean_meaningful_text
@@ -146,6 +147,12 @@ SCENE_CONTRACTS = {
         "required": {"text_roles": ["headline"]},
         "max_elements": 5,
     },
+    "scene_stage": {
+        "required": {},
+        "max_elements": 8,
+        "max_connections": 0,
+        "allowed_backgrounds": ["plain"],
+    },
 }
 
 ANCHORS = frozenset(
@@ -206,6 +213,15 @@ def validate_and_repair_section(section_plan, source):
     key_phrase = str(repaired.get("key_phrase", "") or "")
     all_repairs = []
 
+    def section_log(code, path, old, new):
+        all_repairs.append({"section": section_index, "beat": None, "code": code, "path": path, "from": old, "to": new})
+
+    section_environment = repaired.get("environment")
+    if section_environment is not None and not has_environment(str(section_environment).strip()):
+        old = section_environment
+        repaired["environment"] = sorted(ENVIRONMENTS)[0]
+        section_log("unknown_environment", "section.environment", old, repaired["environment"])
+
     for beat in repaired.get("beats", []) or []:
         scene_family = beat.get("scene_family", "object_stage")
         beat_id = beat.get("id")
@@ -215,6 +231,8 @@ def validate_and_repair_section(section_plan, source):
         if not isinstance(blueprint, dict):
             blueprint = _fallback_blueprint(beat_text, key_phrase, scene_family)
             beat["blueprint"] = blueprint
+        if scene_family == "scene_stage" and repaired.get("environment") and not blueprint.get("environment"):
+            blueprint["environment"] = repaired.get("environment")
 
         fixed, repairs = _validate_blueprint(
             blueprint,
@@ -225,6 +243,9 @@ def validate_and_repair_section(section_plan, source):
             key_phrase=key_phrase,
             beat_duration=duration,
         )
+        if scene_family == "scene_stage" and not _scene_beat_allows_text(beat):
+            fixed, demotion_repairs = _drop_scene_text(fixed, section_index, beat_id)
+            repairs.extend(demotion_repairs)
         beat["blueprint"] = fixed
         validation_source = "repaired_%s" % source if repairs and source == "llm" else source
         beat["validation"] = {
@@ -236,6 +257,25 @@ def validate_and_repair_section(section_plan, source):
 
     repaired["validation"] = {"source": source, "repairs": all_repairs}
     return repaired
+
+
+def _scene_beat_allows_text(beat):
+    return beat.get("type") in ("stat_pop", "quote", "emphasize") or bool(beat.get("emphasis"))
+
+
+def _drop_scene_text(bp, section, beat):
+    repairs = []
+    elements = bp.get("elements") or []
+    fixed = []
+    for index, element in enumerate(elements):
+        if isinstance(element, dict) and isinstance(element.get("text"), dict):
+            repairs.append({"section": section, "beat": beat, "code": "scene_text_demoted", "path": "blueprint.elements[%d]" % index, "from": element, "to": None})
+            continue
+        fixed.append(element)
+    if len(fixed) != len(elements):
+        bp = copy.deepcopy(bp)
+        bp["elements"] = fixed
+    return bp, repairs
 
 
 def _validate_blueprint(
@@ -285,6 +325,8 @@ def _validate_blueprint(
 
     _enforce_text_contract(bp, scene_family, log, beat_text, key_phrase)
     _enforce_scene_required(bp, scene_family, log, beat_text, key_phrase)
+    if scene_family == "scene_stage" or bp.get("preset") == "scene_stage" or bp.get("environment"):
+        _enforce_scene_stage_contract(bp, log)
     _enforce_element_limit(bp, scene_family, log)
     _repair_connections(bp, scene_family, log, beat_duration)
 
@@ -635,6 +677,80 @@ def _enforce_element_limit(bp, scene_family, log):
     log("too_many_elements", "blueprint.elements", old, bp["elements"])
 
 
+def _enforce_scene_stage_contract(bp, log):
+    env_id = str(bp.get("environment") or "").strip()
+    if not has_environment(env_id):
+        old = env_id
+        env_id = sorted(ENVIRONMENTS)[0]
+        bp["environment"] = env_id
+        log("unknown_environment", "blueprint.environment", old, env_id)
+    env = get_environment(env_id)
+    slots = env.get("slots") or {}
+
+    elements = bp.setdefault("elements", [])
+    actor_count = 0
+    text_seen = 0
+    fixed = []
+    for index, element in enumerate(elements):
+        if not isinstance(element, dict):
+            continue
+        path = "blueprint.elements[%d]" % index
+        has_shapes = isinstance(element.get("shapes"), list)
+        has_text = isinstance(element.get("text"), dict)
+        slot_name = element.get("slot")
+
+        if has_shapes:
+            z = _number(element.get("z"), 0)
+            layer = str(element.get("id") or "")
+            target_z = None
+            if "backdrop" in layer:
+                target_z = 5
+            elif "midground" in layer:
+                target_z = 100
+            elif "foreground" in layer:
+                target_z = 500
+            if target_z is not None and z != target_z:
+                old_z = element.get("z")
+                element["z"] = target_z
+                log("scene_layer_z_repaired", path + ".z", old_z, target_z)
+            fixed.append(element)
+            continue
+
+        if has_text:
+            text_seen += 1
+            if text_seen > 1:
+                log("scene_extra_text_dropped", path, element, None)
+                continue
+            old_z = element.get("z")
+            if _number(old_z, 900) < 900:
+                element["z"] = 900
+                log("scene_text_z_repaired", path + ".z", old_z, 900)
+            fixed.append(element)
+            continue
+
+        actor_count += 1
+        if actor_count > 4:
+            log("scene_extra_actor_dropped", path, element, None)
+            continue
+        if slot_name not in slots:
+            fallback_slot = list(slots.keys())[min(actor_count - 1, max(0, len(slots) - 1))] if slots else None
+            old_slot = slot_name
+            if fallback_slot:
+                element["slot"] = fallback_slot
+                slot = slots[fallback_slot]
+                element["position"] = {"mode": "point", "x": slot["x"], "y": slot["y"]}
+                element["size"] = {"mode": "scale", "scale": slot["scale"]}
+                log("scene_actor_slot_repaired", path + ".slot", old_slot, fallback_slot)
+        old_z = element.get("z")
+        z = _clamp_number(old_z, 200, 399)
+        element["z"] = z
+        if old_z != z:
+            log("scene_actor_z_repaired", path + ".z", old_z, z)
+        fixed.append(element)
+
+    bp["elements"] = fixed
+
+
 def _repair_connections(bp, scene_family, log, beat_duration):
     connections = bp.get("connections", [])
     if connections is None:
@@ -709,7 +825,7 @@ def _has_drawable_element(bp):
     for element in bp.get("elements", []):
         if not isinstance(element, dict):
             continue
-        if element.get("asset") in REGISTRY_ASSETS or isinstance(element.get("text"), dict) or element.get("propShape") in PROP_SHAPES:
+        if element.get("asset") in REGISTRY_ASSETS or isinstance(element.get("text"), dict) or element.get("propShape") in PROP_SHAPES or isinstance(element.get("shapes"), list):
             return True
     return False
 

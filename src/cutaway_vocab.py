@@ -175,6 +175,24 @@ BACKGROUND_TREATMENT = frozenset(
     ]
 )
 
+ENVIRONMENTS = frozenset(["arena", "courtroom", "newsroom"])
+
+ENVIRONMENT_SLOTS = frozenset(
+    [
+        "red_corner",
+        "blue_corner",
+        "referee_center",
+        "judge_bench",
+        "witness_stand",
+        "defendant_left",
+        "lawyer_right",
+        "gallery",
+        "anchor_center",
+        "screen",
+        "desk_props",
+    ]
+)
+
 EASING = frozenset(["linear", "spring", "ease_out", "ease_in_out"])
 
 COLOR_ROLE = frozenset(

@@ -12,6 +12,7 @@ import re
 from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 
 from cutaway_vocab import REGISTRY_ASSETS
+from environments import get_environment, has_environment
 
 TEXT_CAPS = {
     "headline": 34,
@@ -60,6 +61,11 @@ ASSET_ALIASES = {
 
 LOCATION_ASSETS = frozenset(["phone", "map_pin", "dot", "point"])
 SPACE_ASSETS = frozenset(["satellite", "earth", "signal", "signal_beam"])
+DEFAULT_ENVIRONMENT_SLOTS = {
+    "arena": ["red_corner", "blue_corner", "referee_center"],
+    "courtroom": ["defendant_left", "lawyer_right", "witness_stand", "judge_bench"],
+    "newsroom": ["anchor_center", "screen", "desk_props"],
+}
 
 
 def anchor_point(anchor: str, index: int = 0, total: int = 1) -> Dict[str, float]:
@@ -73,9 +79,39 @@ def anchor_point(anchor: str, index: int = 0, total: int = 1) -> Dict[str, float
 
 
 def build_blueprint(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
+    if section.get("environment") or beat.get("environment"):
+        return build_scene_stage(beat, sentences_timing, section)
     family = beat.get("scene_family") or "object_stage"
     builder = PRESET_BUILDERS.get(family, build_object_stage)
     return builder(beat, sentences_timing, section)
+
+
+def build_scene_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
+    env_id = str(beat.get("environment") or section.get("environment") or "").strip()
+    if not has_environment(env_id):
+        return build_object_stage(beat, sentences_timing, section)
+    env = get_environment(env_id)
+    elements = [
+        _shape_layer("%s_backdrop" % env_id, env["backdrop"], 5),
+        _shape_layer("%s_midground" % env_id, env["midground"], 100),
+    ]
+    elements.extend(_scene_actor_elements(beat, env))
+    elements.append(_shape_layer("%s_foreground" % env_id, env["foreground"], 500))
+
+    overlay = _scene_overlay(beat)
+    if overlay:
+        elements.append(_text_element(overlay, "scene_text", 960, 176, "label", 1.0, z=900, box=(1100, 96)))
+
+    return {
+        "version": 1,
+        "preset": "scene_stage",
+        "intent": str(beat.get("id") or beat.get("type") or env_id),
+        "environment": env_id,
+        "background": {"treatment": "plain"},
+        "camera": _camera_plan(beat),
+        "elements": elements,
+        "connections": [],
+    }
 
 
 def build_comparison_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
@@ -286,6 +322,90 @@ def _asset_entries(beat: Dict[str, Any], placer: Callable[[Dict[str, Any], int, 
 
 def _asset_elements(beat: Dict[str, Any], placer: Callable[[Dict[str, Any], int, int], Dict[str, float]], max_assets: int, start_z: int = 20) -> List[Dict[str, Any]]:
     return [entry["element"] for entry in _asset_entries(beat, placer, max_assets, start_z=start_z)]
+
+
+def _shape_layer(element_id: str, shapes: List[Dict[str, Any]], z: int) -> Dict[str, Any]:
+    return {
+        "id": _safe_id(element_id, "env_layer"),
+        "kind": "texture",
+        "asset": "none",
+        "position": {"mode": "point", "x": 960, "y": 540},
+        "size": {"mode": "scale", "scale": 1.0},
+        "z": z,
+        "shapes": shapes,
+    }
+
+
+def _scene_actor_elements(beat: Dict[str, Any], env: Dict[str, Any]) -> List[Dict[str, Any]]:
+    actors = beat.get("actors")
+    if not isinstance(actors, list) or not actors:
+        actors = _actors_from_assets(beat, env)
+    slots = env.get("slots") or {}
+    elements = []
+    used = set()
+    for index, actor in enumerate(actors[:4]):
+        if not isinstance(actor, dict):
+            continue
+        slot_name = str(actor.get("slot") or "").strip()
+        if slot_name not in slots:
+            slot_name = _fallback_slot(env, index)
+        slot = slots[slot_name]
+        asset_name = _registry_asset(str(actor.get("asset") or actor.get("name") or "person").strip().lower().replace(" ", "_"))
+        element = _element(
+            _unique_id(actor.get("id") or "%s_%d" % (asset_name, index + 1), "actor_%d" % (index + 1), used),
+            "prop",
+            asset_name,
+            slot["x"],
+            slot["y"],
+            actor.get("scale") if actor.get("scale") is not None else slot.get("scale", 1.0),
+            color_role=actor.get("colorRole"),
+            z=int(actor.get("z") if actor.get("z") is not None else slot.get("z", 250)),
+        )
+        element["slot"] = slot_name
+        motion = actor.get("motion")
+        if isinstance(motion, str) and motion != "none":
+            element["motion"] = [{"kind": motion, "start": 0.0, "duration": 6.0}]
+        elif isinstance(motion, list):
+            element["motion"] = motion
+        elements.append(element)
+    return elements
+
+
+def _actors_from_assets(beat: Dict[str, Any], env: Dict[str, Any]) -> List[Dict[str, Any]]:
+    env_id = env.get("id")
+    slots = DEFAULT_ENVIRONMENT_SLOTS.get(env_id, list((env.get("slots") or {}).keys()))
+    actors = []
+    for index, asset in enumerate((beat.get("assets") or [])[:4]):
+        actors.append(
+            {
+                "id": asset.get("id"),
+                "asset": asset.get("name") or "person",
+                "slot": slots[index % len(slots)] if slots else "",
+                "colorRole": asset.get("colorRole"),
+                "motion": "micro_bob" if asset.get("is_new") is not False else "none",
+            }
+        )
+    if actors:
+        return actors
+    return [{"asset": "person", "slot": slots[0] if slots else "", "colorRole": "accent", "motion": "micro_bob"}]
+
+
+def _fallback_slot(env: Dict[str, Any], index: int) -> str:
+    slots = DEFAULT_ENVIRONMENT_SLOTS.get(env.get("id"), list((env.get("slots") or {}).keys()))
+    if not slots:
+        return ""
+    return slots[index % len(slots)]
+
+
+def _scene_overlay(beat: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    overlays = [o for o in (beat.get("text_overlays") or []) if isinstance(o, dict) and str(o.get("text") or "").strip()]
+    if not overlays:
+        return None
+    for role in ("stat", "caption", "stamp", "headline", "label"):
+        for overlay in overlays:
+            if overlay.get("role") == role:
+                return overlay
+    return overlays[0]
 
 
 def _asset_element(asset: Dict[str, Any], index: int, total: int, placer: Callable[[Dict[str, Any], int, int], Dict[str, float]], z: int, used: set, motions: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:

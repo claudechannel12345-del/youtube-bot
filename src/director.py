@@ -28,6 +28,7 @@ from cutaway_vocab import (
     coerce_beat_type,
 )
 from blueprint_presets import build_blueprint
+from environments import has_environment
 
 STYLE_VERSION = "clean_flat_light_v1"
 DIRECTOR_MODE = os.environ.get("DIRECTOR_MODE", "rules").strip().lower()
@@ -465,7 +466,7 @@ def _clean_meaningful_text(text, subjects=None):
     return cleaned
 
 
-def _direct_beat(beat, sentences_timing, fps, is_first, beat_index):
+def _direct_beat(beat, sentences_timing, fps, is_first, beat_index, environment_id=None):
     btype = coerce_beat_type(beat.get("type", "illustrate"))
     n = len(sentences_timing)
     s_start = _clampi(int(beat.get("sentence_start", 0)), 0, max(0, n - 1))
@@ -523,6 +524,13 @@ def _direct_beat(beat, sentences_timing, fps, is_first, beat_index):
         if btype != "quote":
             overlays.append({"role": role, "text": text, "anchor": anchor, "tone": tone})
 
+    if environment_id:
+        keep_text = btype in ("stat_pop", "quote") or btype == "emphasize" or bool(beat.get("emphasis"))
+        if keep_text:
+            overlays = overlays[:1]
+        else:
+            overlays = []
+
     motions = []
     motion_kinds = DEFAULT_MOTION.get(btype, ["pop_in"])
     for asset_index, asset in enumerate(assets):
@@ -531,7 +539,7 @@ def _direct_beat(beat, sentences_timing, fps, is_first, beat_index):
     if not assets:
         motions.append({"target": "overlay", "kind": "pop_in", "delay": 0.0, "duration": 0.3})
 
-    return {
+    directed = {
         "id": str(beat.get("id", "beat")),
         "type": btype,
         "start": round(start, 3),
@@ -549,6 +557,14 @@ def _direct_beat(beat, sentences_timing, fps, is_first, beat_index):
         "motion": motions,
         "compare_colors": beat.get("colors"),
     }
+    if environment_id:
+        directed["environment"] = environment_id
+        directed["scene_family"] = "scene_stage"
+        directed["layout"] = "wide_scene"
+        directed["background"] = "plain"
+        if isinstance(beat.get("actors"), list):
+            directed["actors"] = copy.deepcopy(beat.get("actors"))
+    return directed
 
 
 def _fallback_beat(section, sentences_timing, fps):
@@ -815,11 +831,14 @@ def direct_section_rules(section, sentences_timing, fps, index):
     """sentences_timing: list of {text,start,end,delivery} relative to the section start."""
     duration = float(sentences_timing[-1]["end"]) if sentences_timing else 2.0
     section_frames = int(round(duration * fps))
+    environment_id = str(section.get("environment") or "").strip()
+    if environment_id and not has_environment(environment_id):
+        environment_id = None
     directed = []
     beats = section.get("beats") or []
     for i, beat in enumerate(beats):
         try:
-            directed.append(_direct_beat(beat, sentences_timing, fps, is_first=(i == 0), beat_index=i))
+            directed.append(_direct_beat(beat, sentences_timing, fps, is_first=(i == 0), beat_index=i, environment_id=environment_id))
         except Exception:
             continue
     if not directed:
@@ -829,7 +848,8 @@ def direct_section_rules(section, sentences_timing, fps, index):
     # beats' frame windows renders as a blank frame, so each beat is stretched to
     # hold until the next one starts; the last beat holds to the section end.
     directed.sort(key=lambda b: b["startFrame"])
-    _apply_progressive_builds(directed)
+    if not environment_id:
+        _apply_progressive_builds(directed)
     directed[0]["startFrame"] = 0
     for i in range(len(directed) - 1):
         directed[i]["endFrame"] = max(directed[i]["startFrame"] + 1, directed[i + 1]["startFrame"])
@@ -839,7 +859,7 @@ def direct_section_rules(section, sentences_timing, fps, index):
         b["end"] = round(b["endFrame"] / fps, 3)
     _attach_validated_blueprints(directed, sentences_timing, section)
 
-    return {
+    section_plan = {
         "section_index": index,
         "durationInFrames": section_frames,
         "audioSrc": section.get("audioSrc", "") or "",
@@ -848,6 +868,9 @@ def direct_section_rules(section, sentences_timing, fps, index):
         "captions": sentences_timing,
         "beats": directed,
     }
+    if environment_id:
+        section_plan["environment"] = environment_id
+    return section_plan
 
 
 def direct_section(section, sentences_timing, fps, index, client=None):
