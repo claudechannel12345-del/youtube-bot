@@ -42,7 +42,8 @@ SECTIONS = [
         "key_phrase": "WIRED IN",
         "sent": [
             ("So why would a color do anything at all?", "question"),
-            ("Because in nature, red is rarely a decoration - it's a status report.", "neutral"),
+            ("Because in nature, red is rarely a decoration.", "neutral"),
+            ("It's a status report.", "weighty"),
             ("A male mandrill's face turns a brighter red as he climbs the ranks, and fades when he falls.", "neutral"),
             ("That color is wired straight to his testosterone, and he can't fake it.", "weighty"),
             ("Small songbirds size each other up by the red of their beaks, and the redder bird usually wins.", "neutral"),
@@ -52,11 +53,11 @@ SECTIONS = [
             ("It's whether we ever stopped.", "transition"),
         ],
         "beats": [
-            {"type": "establish", "s": [0, 1], "text": "A STATUS REPORT", "subjects": ["mandrill"], "importance": "high"},
-            {"type": "establish", "s": [2, 3], "text": "WIRED IN, NOT CHOSEN", "subjects": ["mandrill"], "importance": "high"},
-            {"type": "establish", "s": [4, 4], "text": "THE REDDER BIRD WINS", "subjects": ["finch"], "importance": "medium"},
-            {"type": "emphasize", "s": [5, 6], "text": "BACK OFF", "subjects": ["mandrill"], "importance": "high"},
-            {"type": "emphasize", "s": [7, 8], "text": "DID WE EVER STOP?", "subjects": ["light"], "importance": "high"},
+            {"type": "establish", "s": [0, 2], "text": "A STATUS REPORT", "subjects": ["mandrill"], "importance": "high"},
+            {"type": "establish", "s": [3, 4], "text": "WIRED IN, NOT CHOSEN", "subjects": ["mandrill"], "importance": "high"},
+            {"type": "establish", "s": [5, 5], "text": "THE REDDER BIRD WINS", "subjects": ["finch"], "importance": "medium"},
+            {"type": "emphasize", "s": [6, 7], "text": "BACK OFF", "subjects": ["mandrill"], "importance": "high"},
+            {"type": "emphasize", "s": [8, 9], "text": "DID WE EVER STOP?", "subjects": ["light"], "importance": "high"},
         ],
     },
     {  # 3 - Olympic pattern (stats)

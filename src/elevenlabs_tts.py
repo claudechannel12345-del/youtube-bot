@@ -167,6 +167,11 @@ def synthesize_section(text, output_path, temp_dir, sentences=None, voice=None, 
             settings["speed"] = DELIVERY_SPEED.get(delivery, 1.0)
             settings["style"] = DELIVERY_STYLE.get(delivery, settings["style"])
             settings["stability"] = DELIVERY_STABILITY.get(delivery, settings["stability"])
+            # Very short clips (e.g. "Back off.") garble at high style even with context. Cap style and
+            # firm up stability for them - this is what jibbered in the primate section.
+            if len(item["text"].split()) <= 3:
+                settings["style"] = min(settings["style"], 0.12)
+                settings["stability"] = max(settings["stability"], 0.5)
             prev_text = items[i - 1]["text"] if i > 0 else None
             next_text = items[i + 1]["text"] if i < len(items) - 1 else None
             synthesize(item["text"], sent_path, voice_id, model_id=model_id, voice_settings=settings,

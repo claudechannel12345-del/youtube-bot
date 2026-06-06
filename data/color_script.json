@@ -138,15 +138,19 @@
       ]
     },
     {
-      "narration": "So why would a color do anything at all? Because in nature, red is rarely a decoration - it's a status report. A male mandrill's face turns a brighter red as he climbs the ranks, and fades when he falls. That color is wired straight to his testosterone, and he can't fake it. Small songbirds size each other up by the red of their beaks, and the redder bird usually wins. Across primates, birds, and fish, red keeps meaning the same thing. Back off. So the real question isn't why animals react to red. It's whether we ever stopped.",
+      "narration": "So why would a color do anything at all? Because in nature, red is rarely a decoration. It's a status report. A male mandrill's face turns a brighter red as he climbs the ranks, and fades when he falls. That color is wired straight to his testosterone, and he can't fake it. Small songbirds size each other up by the red of their beaks, and the redder bird usually wins. Across primates, birds, and fish, red keeps meaning the same thing. Back off. So the real question isn't why animals react to red. It's whether we ever stopped.",
       "sentences": [
         {
           "text": "So why would a color do anything at all?",
           "delivery": "question"
         },
         {
-          "text": "Because in nature, red is rarely a decoration - it's a status report.",
+          "text": "Because in nature, red is rarely a decoration.",
           "delivery": "neutral"
+        },
+        {
+          "text": "It's a status report.",
+          "delivery": "weighty"
         },
         {
           "text": "A male mandrill's face turns a brighter red as he climbs the ranks, and fades when he falls.",
@@ -183,7 +187,7 @@
           "id": "s2_1",
           "type": "establish",
           "sentence_start": 0,
-          "sentence_end": 1,
+          "sentence_end": 2,
           "visual_intent": "A STATUS REPORT",
           "text": "A STATUS REPORT",
           "subjects": [
@@ -194,8 +198,8 @@
         {
           "id": "s2_2",
           "type": "establish",
-          "sentence_start": 2,
-          "sentence_end": 3,
+          "sentence_start": 3,
+          "sentence_end": 4,
           "visual_intent": "WIRED IN, NOT CHOSEN",
           "text": "WIRED IN, NOT CHOSEN",
           "subjects": [
@@ -206,8 +210,8 @@
         {
           "id": "s2_3",
           "type": "establish",
-          "sentence_start": 4,
-          "sentence_end": 4,
+          "sentence_start": 5,
+          "sentence_end": 5,
           "visual_intent": "THE REDDER BIRD WINS",
           "text": "THE REDDER BIRD WINS",
           "subjects": [
@@ -218,8 +222,8 @@
         {
           "id": "s2_4",
           "type": "emphasize",
-          "sentence_start": 5,
-          "sentence_end": 6,
+          "sentence_start": 6,
+          "sentence_end": 7,
           "visual_intent": "BACK OFF",
           "text": "BACK OFF",
           "subjects": [
@@ -230,8 +234,8 @@
         {
           "id": "s2_5",
           "type": "emphasize",
-          "sentence_start": 7,
-          "sentence_end": 8,
+          "sentence_start": 8,
+          "sentence_end": 9,
           "visual_intent": "DID WE EVER STOP?",
           "text": "DID WE EVER STOP?",
           "subjects": [
