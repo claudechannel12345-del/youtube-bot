@@ -1029,6 +1029,58 @@
           "importance": "high"
         }
       ]
+    },
+    {
+      "narration": "If you had fun chasing that one down, good news. That's pretty much the whole channel - one strange, true thing at a time. So stick around, and come back for the next one. And if this made you look twice at something in your own life, do me a favor and hit subscribe. It genuinely helps a channel like this one more than you'd think.",
+      "sentences": [
+        {
+          "text": "If you had fun chasing that one down, good news.",
+          "delivery": "curious"
+        },
+        {
+          "text": "That's pretty much the whole channel - one strange, true thing at a time.",
+          "delivery": "warm_cta"
+        },
+        {
+          "text": "So stick around, and come back for the next one.",
+          "delivery": "warm_cta"
+        },
+        {
+          "text": "And if this made you look twice at something in your own life, do me a favor and hit subscribe.",
+          "delivery": "warm_cta"
+        },
+        {
+          "text": "It genuinely helps a channel like this one more than you'd think.",
+          "delivery": "warm_cta"
+        }
+      ],
+      "key_phrase": "STICK AROUND",
+      "beats": [
+        {
+          "id": "s11_1",
+          "type": "emphasize",
+          "sentence_start": 0,
+          "sentence_end": 2,
+          "visual_intent": "ONE TRUE THING AT A TIME",
+          "text": "ONE TRUE THING AT A TIME",
+          "subjects": [
+            "light"
+          ],
+          "importance": "high"
+        },
+        {
+          "id": "s11_2",
+          "type": "establish",
+          "sentence_start": 3,
+          "sentence_end": 4,
+          "visual_intent": "",
+          "text": "",
+          "subjects": [
+            "subscribe"
+          ],
+          "importance": "high"
+        }
+      ]
     }
   ]
 }

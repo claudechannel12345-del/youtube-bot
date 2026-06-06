@@ -19,10 +19,11 @@ DEFAULT_MODEL = "eleven_multilingual_v2"
 # ELEVENLABS_VOICE_ID env var (CI sets it as a secret); premade "Chris" iP95p4xoKVk53GoZ742B is a last resort.
 CHRIS_VOICE_ID = "OOLdd0jihd5eCDYx6lL9"
 DEFAULT_SETTINGS = {
-    "stability": 0.5,        # a touch higher = fewer hallucinated breaths/garble (owner: "no grunts")
+    "stability": 0.45,       # lower = more expressive/dynamic. Safe now that context-passing is in.
     "similarity_boost": 0.8,
-    "style": 0.0,            # style>0 on this instant clone caused GIBBERISH; keep 0. Emotion comes
-                             # from the script-read clone itself + the pauses, not from style.
+    "style": 0.22,           # owner wanted MORE ENERGY (dry deadpan didn't land). Earlier style 0.30
+                             # garbled, but that was WITHOUT the previous/next_text context; with it +
+                             # complete sentences, a moderate style is safe (verified by re-transcribing).
     "use_speaker_boost": True,
     "speed": 0.95,           # natural-but-deliberate; drama comes from the inter-sentence PAUSES below
 }
@@ -122,6 +123,19 @@ PAUSE_AFTER = {
     "weighty": 0.5, "surprised": 0.45, "skeptical": 0.4, "ominous": 0.62, "warm_cta": 0.42,
     "transition": 0.8, "punch": 0.4,
 }
+# Per-delivery TONE: style = inflection/energy (higher = livelier), stability = consistency (lower =
+# more dynamic). Enthusiastic/curious/punch lines swing UP; weighty/ominous stay grounded. This is
+# what gives the "shifts in tone" so it doesn't read flat. Kept moderate to avoid re-introducing garble.
+DELIVERY_STYLE = {
+    "neutral": 0.22, "curious": 0.42, "question": 0.34, "brisk": 0.34,
+    "weighty": 0.12, "surprised": 0.5, "skeptical": 0.28, "ominous": 0.1, "warm_cta": 0.46,
+    "transition": 0.26, "punch": 0.4,
+}
+DELIVERY_STABILITY = {
+    "neutral": 0.45, "curious": 0.4, "question": 0.42, "brisk": 0.42,
+    "weighty": 0.55, "surprised": 0.36, "skeptical": 0.44, "ominous": 0.58, "warm_cta": 0.38,
+    "transition": 0.45, "punch": 0.4,
+}
 
 
 def _silence(path, seconds):
@@ -151,6 +165,8 @@ def synthesize_section(text, output_path, temp_dir, sentences=None, voice=None, 
             sent_path = os.path.join(temp_dir, f"_el_sent_{i:03d}.mp3")
             settings = dict(DEFAULT_SETTINGS)
             settings["speed"] = DELIVERY_SPEED.get(delivery, 1.0)
+            settings["style"] = DELIVERY_STYLE.get(delivery, settings["style"])
+            settings["stability"] = DELIVERY_STABILITY.get(delivery, settings["stability"])
             prev_text = items[i - 1]["text"] if i > 0 else None
             next_text = items[i + 1]["text"] if i < len(items) - 1 else None
             synthesize(item["text"], sent_path, voice_id, model_id=model_id, voice_settings=settings,

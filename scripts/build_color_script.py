@@ -230,6 +230,20 @@ SECTIONS = [
             {"type": "emphasize", "s": [7, 8], "text": "WHAT ELSE AREN'T YOU SEEING?", "subjects": ["light"], "importance": "high"},
         ],
     },
+    {  # 11 - closing CTA (warm + subscribe)
+        "key_phrase": "STICK AROUND",
+        "sent": [
+            ("If you had fun chasing that one down, good news.", "curious"),
+            ("That's pretty much the whole channel - one strange, true thing at a time.", "warm_cta"),
+            ("So stick around, and come back for the next one.", "warm_cta"),
+            ("And if this made you look twice at something in your own life, do me a favor and hit subscribe.", "warm_cta"),
+            ("It genuinely helps a channel like this one more than you'd think.", "warm_cta"),
+        ],
+        "beats": [
+            {"type": "emphasize", "s": [0, 2], "text": "ONE TRUE THING AT A TIME", "subjects": ["light"], "importance": "high"},
+            {"type": "establish", "s": [3, 4], "text": "", "subjects": ["subscribe"], "importance": "high"},
+        ],
+    },
 ]
 
 

@@ -5421,6 +5421,240 @@
           }
         }
       ]
+    },
+    {
+      "section_index": 10,
+      "durationInFrames": 859,
+      "audioSrc": "",
+      "key_phrase": "STICK AROUND",
+      "narration": "If you had fun chasing that one down, good news. That's pretty much the whole channel - one strange, true thing at a time. So stick around, and come back for the next one. And if this made you look twice at something in your own life, do me a favor and hit subscribe. It genuinely helps a channel like this one more than you'd think.",
+      "captions": [
+        {
+          "text": "If you had fun chasing that one down, good news.",
+          "start": 0.35,
+          "end": 4.35,
+          "delivery": "curious"
+        },
+        {
+          "text": "That's pretty much the whole channel - one strange, true thing at a time.",
+          "start": 4.67,
+          "end": 10.27,
+          "delivery": "warm_cta"
+        },
+        {
+          "text": "So stick around, and come back for the next one.",
+          "start": 10.79,
+          "end": 14.79,
+          "delivery": "warm_cta"
+        },
+        {
+          "text": "And if this made you look twice at something in your own life, do me a favor and hit subscribe.",
+          "start": 15.31,
+          "end": 23.31,
+          "delivery": "warm_cta"
+        },
+        {
+          "text": "It genuinely helps a channel like this one more than you'd think.",
+          "start": 23.83,
+          "end": 28.63,
+          "delivery": "warm_cta"
+        }
+      ],
+      "beats": [
+        {
+          "id": "s11_1",
+          "type": "emphasize",
+          "start": 0.0,
+          "end": 15.3,
+          "startFrame": 0,
+          "endFrame": 459,
+          "scene_family": "caption_punch",
+          "layout": "caption_only",
+          "camera": {
+            "move": "push_in",
+            "target": "center",
+            "intensity": "small"
+          },
+          "transition_in": "dip_to_bg",
+          "transition_out": "hard_cut",
+          "background": "plain",
+          "assets": [
+            {
+              "id": "s11_1_a0",
+              "kind": "prop",
+              "name": "light",
+              "anchor": "center",
+              "is_new": true
+            }
+          ],
+          "text_overlays": [
+            {
+              "role": "headline",
+              "text": "ONE TRUE THING AT A TIME",
+              "anchor": "headline",
+              "tone": "coral_stamp"
+            }
+          ],
+          "motion": [
+            {
+              "target": "s11_1_a0",
+              "kind": "pop_in",
+              "delay": 0.0,
+              "duration": 0.38
+            }
+          ],
+          "compare_colors": null,
+          "blueprint": {
+            "version": 1,
+            "preset": "caption_punch",
+            "intent": "s11_1",
+            "elements": [
+              {
+                "id": "headline",
+                "kind": "headline",
+                "asset": "none",
+                "position": {
+                  "mode": "point",
+                  "x": 980.0,
+                  "y": 455.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 1080.0,
+                  "h": 210.0
+                },
+                "z": 20,
+                "text": {
+                  "role": "headline",
+                  "text": "ONE TRUE THING AT A TIME",
+                  "tone": "ink",
+                  "maxChars": 34,
+                  "fit": "auto"
+                },
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.25
+                  }
+                ]
+              },
+              {
+                "id": "coral_underline",
+                "kind": "prop",
+                "asset": "none",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 590.0
+                },
+                "size": {
+                  "mode": "box",
+                  "w": 540.0,
+                  "h": 16.0
+                },
+                "z": 10,
+                "colorRole": "accent",
+                "propShape": "rule"
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "push_in",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "rules",
+            "warnings": [],
+            "repairs": []
+          }
+        },
+        {
+          "id": "s11_2",
+          "type": "establish",
+          "start": 15.3,
+          "end": 28.633,
+          "startFrame": 459,
+          "endFrame": 859,
+          "scene_family": "object_stage",
+          "layout": "center_subject",
+          "camera": {
+            "move": "hold_then_push",
+            "target": "center",
+            "intensity": "small"
+          },
+          "transition_in": "hard_cut",
+          "transition_out": "hard_cut",
+          "background": "plain",
+          "assets": [
+            {
+              "id": "s11_2_a0",
+              "kind": "prop",
+              "name": "subscribe",
+              "anchor": "center",
+              "is_new": true
+            }
+          ],
+          "text_overlays": [],
+          "motion": [
+            {
+              "target": "s11_2_a0",
+              "kind": "pop_in",
+              "delay": 0.0,
+              "duration": 0.38
+            }
+          ],
+          "compare_colors": null,
+          "blueprint": {
+            "version": 1,
+            "preset": "object_stage",
+            "intent": "s11_2",
+            "elements": [
+              {
+                "id": "s11_2_a0",
+                "kind": "prop",
+                "asset": "subscribe",
+                "position": {
+                  "mode": "point",
+                  "x": 960.0,
+                  "y": 540.0
+                },
+                "size": {
+                  "mode": "scale",
+                  "scale": 1.55
+                },
+                "z": 20,
+                "motion": [
+                  {
+                    "kind": "pop_in",
+                    "start": 0.0,
+                    "duration": 0.38
+                  }
+                ]
+              }
+            ],
+            "connections": [],
+            "camera": {
+              "move": "hold_then_push",
+              "target": "center",
+              "intensity": "small"
+            },
+            "background": {
+              "treatment": "plain"
+            }
+          },
+          "validation": {
+            "source": "rules",
+            "warnings": [],
+            "repairs": []
+          }
+        }
+      ]
     }
   ]
 }
