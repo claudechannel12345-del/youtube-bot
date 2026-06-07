@@ -77,6 +77,14 @@ If `out\test.png` looks like a library scene, you're fully set up.
 ## Daily sync workflow (both machines)
 - BEFORE working:  `git pull`
 - AFTER working:   `git add -A && git commit -m "..." && git push`
+- AUTH NOTE: a plain `git push` may fail with "invalid credentials" on a fresh machine. The PAT in
+  `.youtube_bot_gh_token.txt` (a classic `ghp_` token) authenticates via basic-auth in the URL:
+  ```
+  set /p TOK=<%USERPROFILE%\.youtube_bot_gh_token.txt
+  git push https://x-access-token:%TOK%@github.com/claudechannel12345-del/youtube-bot.git cutaway-engine
+  ```
+  Or once, cache it: `git config --global credential.helper manager` then push and paste the PAT as the
+  password (username can be anything). After that, plain `git pull` / `git push` just work.
 - Only ONE machine should be the "active" one at a time to avoid merge conflicts. Pull first, always.
 - Renders in `out\` and audio `.mp3`/`.mp4` are gitignored (they regenerate) - they do NOT sync. If you
   want to review a specific render on the other machine, copy the file by hand or have Claude re-render.
