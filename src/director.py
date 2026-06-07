@@ -18,6 +18,7 @@ from cutaway_vocab import (
     BACKGROUND_TREATMENT,
     CAMERA_INTENSITY,
     CAMERA_MOVE,
+    COLOR_ROLE,
     CONNECTION_KIND,
     LAYOUT,
     MOTION_KIND,
@@ -28,7 +29,8 @@ from cutaway_vocab import (
     coerce_beat_type,
 )
 from blueprint_presets import build_blueprint
-from environments import has_environment
+from environments import ENVIRONMENT_VARIANTS, ENVIRONMENTS, get_environment, has_environment
+from env_resolver import resolve_environment
 
 STYLE_VERSION = "clean_flat_light_v1"
 DIRECTOR_MODE = os.environ.get("DIRECTOR_MODE", "rules").strip().lower()
@@ -164,6 +166,8 @@ CAMERA_VARIANTS = [
 _CATALOG_ASSET_ORDER = [
     "person",
     "phone",
+    "city",
+    "building",
     "satellite",
     "signal",
     "signal_beam",
@@ -184,10 +188,69 @@ _CATALOG_ASSET_ORDER = [
     "mandrill",
     "finch",
     "person_female",
+    "person_arms_up",
+    "person_pointing",
+    "person_sitting",
+    "person_walking",
+    "person_left",
+    "person_right",
+    "doctor",
+    "scientist",
+    "judge",
+    "athlete",
+    "suit",
     "heart",
     "gavel",
     "document",
     "eye",
+    "car",
+    "tree",
+    "house",
+    "coin",
+    "money",
+    "trophy",
+    "book",
+    "bag",
+    "bottle",
+    "cup",
+    "box",
+    "key",
+    "lightbulb",
+    "lock",
+    "shield",
+    "flag",
+    "ball",
+    "camera",
+    "microphone",
+    "laptop",
+    "chart_bar",
+    "chart_line",
+    "pie_chart",
+    "arrow_up",
+    "arrow_down",
+    "checkmark",
+    "cross",
+    "question_mark",
+    "warning",
+    "gear",
+    "magnet",
+    "brain",
+    "dna",
+    "pill",
+    "syringe",
+    "scale_justice",
+    "ballot",
+    "crown",
+    "target",
+    "sun",
+    "cloud",
+    "rain",
+    "star",
+    "moon",
+    "mountain_shape",
+    "wave",
+    "fire",
+    "plant",
     "map",
     "coffee",
     "counter",
@@ -201,6 +264,8 @@ _CATALOG_ASSET_ORDER = [
 _CATALOG_ASSET_META = {
     "person": {"typical_scale": 0.8, "notes": "human figure"},
     "phone": {"typical_scale": 0.55},
+    "city": {"typical_scale": 0.82, "notes": "small skyline cluster"},
+    "building": {"typical_scale": 0.78, "notes": "single flat building"},
     "satellite": {"typical_scale": 0.55},
     "signal": {"typical_scale": 1.0},
     "signal_beam": {"typical_scale": 1.0},
@@ -221,10 +286,69 @@ _CATALOG_ASSET_META = {
     "mandrill": {"typical_scale": 0.9, "notes": "colorful mandrill face"},
     "finch": {"typical_scale": 0.5, "notes": "small profile bird"},
     "person_female": {"typical_scale": 0.8, "notes": "female human figure"},
+    "person_arms_up": {"typical_scale": 0.78, "notes": "human figure with raised arms"},
+    "person_pointing": {"typical_scale": 0.78, "notes": "human figure pointing right"},
+    "person_sitting": {"typical_scale": 0.78, "notes": "seated human figure"},
+    "person_walking": {"typical_scale": 0.78, "notes": "walking human figure"},
+    "person_left": {"typical_scale": 0.8, "notes": "human figure facing left"},
+    "person_right": {"typical_scale": 0.8, "notes": "human figure facing right"},
+    "doctor": {"typical_scale": 0.8, "notes": "doctor role figure"},
+    "scientist": {"typical_scale": 0.8, "notes": "scientist role figure"},
+    "judge": {"typical_scale": 0.8, "notes": "judge role figure"},
+    "athlete": {"typical_scale": 0.8, "notes": "athlete role figure"},
+    "suit": {"typical_scale": 0.8, "notes": "business suit role figure"},
     "heart": {"typical_scale": 0.5, "notes": "coral attraction heart"},
     "gavel": {"typical_scale": 0.7, "notes": "judge gavel and sound block"},
     "document": {"typical_scale": 0.8, "notes": "sheet of paper with text lines"},
     "eye": {"typical_scale": 0.8, "notes": "flat eye brand mark"},
+    "car": {"typical_scale": 0.75, "notes": "side-view car"},
+    "tree": {"typical_scale": 0.75, "notes": "simple leafy tree"},
+    "house": {"typical_scale": 0.8, "notes": "small house"},
+    "coin": {"typical_scale": 0.62, "notes": "single gold coin"},
+    "money": {"typical_scale": 0.75, "notes": "paper money bill"},
+    "trophy": {"typical_scale": 0.7, "notes": "award trophy"},
+    "book": {"typical_scale": 0.72, "notes": "open book"},
+    "bag": {"typical_scale": 0.7, "notes": "handled bag"},
+    "bottle": {"typical_scale": 0.65, "notes": "bottle with label"},
+    "cup": {"typical_scale": 0.65, "notes": "handled cup"},
+    "box": {"typical_scale": 0.7, "notes": "open-top shipping box"},
+    "key": {"typical_scale": 0.68, "notes": "large key"},
+    "lightbulb": {"typical_scale": 0.68, "notes": "idea lightbulb"},
+    "lock": {"typical_scale": 0.68, "notes": "padlock"},
+    "shield": {"typical_scale": 0.7, "notes": "protection shield"},
+    "flag": {"typical_scale": 0.7, "notes": "pole flag"},
+    "ball": {"typical_scale": 0.65, "notes": "generic sports ball"},
+    "camera": {"typical_scale": 0.72, "notes": "photo camera"},
+    "microphone": {"typical_scale": 0.68, "notes": "podcast microphone"},
+    "laptop": {"typical_scale": 0.78, "notes": "open laptop"},
+    "chart_bar": {"typical_scale": 0.72, "notes": "bar chart"},
+    "chart_line": {"typical_scale": 0.72, "notes": "line chart"},
+    "pie_chart": {"typical_scale": 0.7, "notes": "pie chart"},
+    "arrow_up": {"typical_scale": 0.72, "notes": "upward arrow"},
+    "arrow_down": {"typical_scale": 0.72, "notes": "downward arrow"},
+    "checkmark": {"typical_scale": 0.72, "notes": "approval check mark"},
+    "cross": {"typical_scale": 0.72, "notes": "rejection cross mark"},
+    "question_mark": {"typical_scale": 0.75, "notes": "question mark"},
+    "warning": {"typical_scale": 0.7, "notes": "warning triangle"},
+    "gear": {"typical_scale": 0.68, "notes": "settings gear"},
+    "magnet": {"typical_scale": 0.72, "notes": "horseshoe magnet"},
+    "brain": {"typical_scale": 0.72, "notes": "brain icon"},
+    "dna": {"typical_scale": 0.72, "notes": "DNA helix"},
+    "pill": {"typical_scale": 0.68, "notes": "capsule pill"},
+    "syringe": {"typical_scale": 0.68, "notes": "medical syringe"},
+    "scale_justice": {"typical_scale": 0.72, "notes": "justice scales"},
+    "ballot": {"typical_scale": 0.72, "notes": "checked ballot"},
+    "crown": {"typical_scale": 0.68, "notes": "gold crown"},
+    "target": {"typical_scale": 0.7, "notes": "bullseye target"},
+    "sun": {"typical_scale": 0.62, "notes": "weather sun"},
+    "cloud": {"typical_scale": 0.68, "notes": "weather cloud"},
+    "rain": {"typical_scale": 0.68, "notes": "rain cloud"},
+    "star": {"typical_scale": 0.62, "notes": "five-point star"},
+    "moon": {"typical_scale": 0.62, "notes": "crescent moon"},
+    "mountain_shape": {"typical_scale": 0.78, "notes": "mountain silhouette"},
+    "wave": {"typical_scale": 0.72, "notes": "ocean wave"},
+    "fire": {"typical_scale": 0.68, "notes": "flame"},
+    "plant": {"typical_scale": 0.68, "notes": "potted plant"},
     "map": {"typical_scale": 1.1},
     "coffee": {"typical_scale": 0.75},
     "counter": {"typical_scale": 1.0},
@@ -295,6 +419,9 @@ Return ONLY valid JSON. No markdown. No comments.
 
 You must produce one storyboard blueprint per beat. You may only use the supplied closed vocabulary:
 - registry_assets exactly as named
+- environments exactly as named, or null when no staged place helps
+- environment_variants exactly as named
+- slots only from the chosen environment
 - anchors exactly as named, or explicit x/y coordinates inside 1920x1080
 - motion_kinds exactly as named
 - camera_moves exactly as named
@@ -317,9 +444,14 @@ Input:
 Output schema:
 {
   "section_index": number,
+  "environment": EnvironmentId or null,
+  "environment_variant": "day" | "night" | "crowded" | "empty" | null,
   "beats": [
     {
       "id": string,
+      "actors": [
+        {"id": string, "asset": RegistryAsset, "pose": "idle" | "arms_up" | "pointing" | "sitting" | "walking" | "left" | "right" | "lean", "slot": SlotId, "colorRole": ColorRole, "motion": "idle" | "point" | "lean" | MotionKind}
+      ],
       "blueprint": {
         "version": 1,
         "preset": SceneFamily,
@@ -336,6 +468,10 @@ Output schema:
 Rules:
 - Preserve every input beat id exactly.
 - Do not change timing fields; timing is owned by the rules director.
+- If you choose an environment, stage 1 to 4 actors per beat into valid slots for that environment.
+- Use actor pose/motion only when it clarifies the action; prefer idle, pointing, sitting, walking, arms_up, or lean.
+- Use environment staging for concrete places, people, institutions, competitions, labs, studios, travel, weather, and public scenes.
+- Leave environment null for abstract diagrams, pure stats, maps, lists, timelines, and text-only beats.
 - Use 1 to 7 elements per beat, excluding connections.
 - Use at most 2 text elements per beat.
 - Text caps: label 28 chars, headline 34, stamp 30, stat 22, caption 160, tiny_note 42.
@@ -358,6 +494,27 @@ def build_capabilities_catalog():
         item = {"name": name}
         item.update(_CATALOG_ASSET_META[name])
         registry_assets.append(item)
+    environments = []
+    for env_id in sorted(ENVIRONMENTS):
+        try:
+            env = get_environment(env_id)
+        except Exception:
+            continue
+        environments.append(
+            {
+                "id": env_id,
+                "slots": [
+                    {
+                        "name": name,
+                        "role": doc.get("role"),
+                        "depth": doc.get("depth"),
+                        "scale": doc.get("scale"),
+                    }
+                    for name, doc in sorted((env.get("slot_docs") or {}).items())
+                ],
+                "text_zone": env.get("text_zone"),
+            }
+        )
     return {
         "world": {"width": 1920, "height": 1080, "safe_margin": 96},
         "style": {
@@ -371,6 +528,8 @@ def build_capabilities_catalog():
             ],
         },
         "registry_assets": registry_assets,
+        "environments": environments,
+        "environment_variants": sorted(ENVIRONMENT_VARIANTS),
         "anchors": dict(_CATALOG_ANCHORS),
         "motion_kinds": _ordered_from_vocab(_MOTION_KIND_ORDER, MOTION_KIND_V2),
         "camera_moves": _ordered_from_vocab(_CAMERA_MOVE_ORDER, CAMERA_MOVE),
@@ -731,21 +890,140 @@ def _input_beat_payload(beat, source_beat=None):
     }
 
 
-def _copy_rules_with_llm_blueprints(rules_section, llm_plan):
+def _valid_environment_id(value):
+    env_id = str(value or "").strip()
+    return env_id if env_id and has_environment(env_id) else None
+
+
+def _llm_environment_description(section, beat=None):
+    parts = []
+    if isinstance(beat, dict):
+        for overlay in beat.get("text_overlays") or []:
+            if isinstance(overlay, dict) and str(overlay.get("text") or "").strip():
+                parts.append(str(overlay.get("text")).strip())
+        if str(beat.get("id") or "").strip():
+            parts.append(str(beat.get("id")).strip())
+    if isinstance(section, dict):
+        parts.append(str(section.get("key_phrase") or "").strip())
+        parts.append(str(section.get("narration") or "").strip()[:240])
+    text = " ".join(part for part in parts if part)
+    return text or None
+
+
+def _resolve_llm_environment_id(value, description=None):
+    env_id = str(value or "").strip()
+    if not env_id:
+        return None
+    allow_create = os.environ.get("ENV_AUTOCREATE", "1").strip() != "0"
+    return resolve_environment(env_id, description=description, allow_create=allow_create)
+
+
+def _valid_environment_variant(value):
+    variant = str(value or "").strip().lower()
+    return variant if variant in ENVIRONMENT_VARIANTS else None
+
+
+def _sanitize_actor_suggestions(actors, env_id, env_variant=""):
+    if not isinstance(actors, list) or not env_id:
+        return []
+    try:
+        slots = get_environment(env_id, variant=env_variant).get("slots") or {}
+    except Exception:
+        return []
+    clean = []
+    used_ids = set()
+    for index, actor in enumerate(actors[:4]):
+        if not isinstance(actor, dict):
+            continue
+        slot = str(actor.get("slot") or "").strip()
+        if slot not in slots:
+            continue
+        asset = _norm_subject(actor.get("asset") or actor.get("name") or "person")
+        if asset not in REGISTRY_ASSETS:
+            asset = "person"
+        item = {
+            "id": _unique_actor_id(actor.get("id") or "%s_%d" % (asset, index + 1), used_ids),
+            "asset": asset,
+            "slot": slot,
+        }
+        pose = str(actor.get("pose") or "").strip().lower().replace(" ", "_")
+        if pose:
+            item["pose"] = pose
+        color = actor.get("colorRole")
+        if color in COLOR_ROLE:
+            item["colorRole"] = color
+        motion = actor.get("motion")
+        if motion in MOTION_KIND_V2:
+            item["motion"] = motion
+        clean.append(item)
+    return clean
+
+
+def _unique_actor_id(raw, used_ids):
+    base = "".join(ch if ch.isalnum() or ch == "_" else "_" for ch in str(raw or "actor"))
+    while base and not base[0].isalpha():
+        base = base[1:]
+    base = (base or "actor")[:36]
+    candidate = base
+    suffix = 2
+    while candidate in used_ids:
+        candidate = ("%s_%d" % (base[:34], suffix))[:40]
+        suffix += 1
+    used_ids.add(candidate)
+    return candidate
+
+
+def _copy_rules_with_llm_blueprints(rules_section, llm_plan, sentences_timing):
     if not isinstance(llm_plan.get("beats"), list):
         raise ValueError("LLM response missing beats list")
     llm_by_id = {}
     for item in llm_plan.get("beats", []):
-        if isinstance(item, dict) and isinstance(item.get("blueprint"), dict):
-            llm_by_id[str(item.get("id"))] = item["blueprint"]
+        if isinstance(item, dict):
+            llm_by_id[str(item.get("id"))] = item
     rules_beats = rules_section.get("beats", []) or []
-    if rules_beats and len(llm_by_id) < max(1, (len(rules_beats) + 1) // 2):
+    actionable = [
+        item
+        for item in llm_by_id.values()
+        if isinstance(item.get("blueprint"), dict)
+        or isinstance(item.get("actors"), list)
+        or bool(str(item.get("environment") or "").strip())
+    ]
+    if rules_beats and len(actionable) < max(1, (len(rules_beats) + 1) // 2):
         raise ValueError("LLM response missing most beats")
     merged = copy.deepcopy(rules_section)
+
+    section_env = _resolve_llm_environment_id(llm_plan.get("environment"), _llm_environment_description(merged)) or _valid_environment_id(merged.get("environment"))
+    section_variant = _valid_environment_variant(llm_plan.get("environment_variant")) or _valid_environment_variant(merged.get("environment_variant"))
+    if section_env:
+        merged["environment"] = section_env
+        if section_variant:
+            merged["environment_variant"] = section_variant
+        else:
+            merged.pop("environment_variant", None)
+
     for beat in merged.get("beats", []) or []:
         beat_id = str(beat.get("id"))
-        if beat_id in llm_by_id:
-            beat["blueprint"] = llm_by_id[beat_id]
+        suggestion = llm_by_id.get(beat_id)
+        if suggestion:
+            beat_env = _resolve_llm_environment_id(suggestion.get("environment"), _llm_environment_description(merged, beat)) or section_env
+            beat_variant = _valid_environment_variant(suggestion.get("environment_variant")) or section_variant
+            actors = _sanitize_actor_suggestions(suggestion.get("actors"), beat_env, beat_variant or "")
+            if beat_env:
+                beat["environment"] = beat_env
+                beat["scene_family"] = "scene_stage"
+                beat["layout"] = "wide_scene"
+                beat["background"] = "plain"
+                if beat_variant:
+                    beat["environment_variant"] = beat_variant
+                else:
+                    beat.pop("environment_variant", None)
+                if actors:
+                    beat["actors"] = actors
+                elif isinstance(beat.get("actors"), list):
+                    beat.pop("actors", None)
+                beat["blueprint"] = build_blueprint(beat, sentences_timing, merged)
+            elif isinstance(suggestion.get("blueprint"), dict):
+                beat["blueprint"] = suggestion["blueprint"]
             beat["validation"] = {"source": "llm", "warnings": [], "repairs": []}
             beat["_llm_blueprint_present"] = True
         else:
@@ -755,9 +1033,7 @@ def _copy_rules_with_llm_blueprints(rules_section, llm_plan):
 
 
 def direct_section_llm(section, sentences_timing, fps, index, catalog, client):
-    if client is None:
-        raise ValueError("DIRECTOR_MODE=llm requires a Gemini client")
-    from gemini_utils import PRO_MODELS, generate
+    from llm import llm_generate
 
     rules_section = direct_section_rules(section, sentences_timing, fps, index)
     source_by_id = {str(beat.get("id", "beat%d" % i)): beat for i, beat in enumerate(section.get("beats") or [])}
@@ -771,9 +1047,8 @@ def direct_section_llm(section, sentences_timing, fps, index, catalog, client):
         "capabilities": catalog,
     }
     prompt = _ART_DIRECTOR_PROMPT % json.dumps(payload, sort_keys=True, separators=(",", ":"))
-    response = generate(client, prompt, models=PRO_MODELS)
-    llm_plan = _parse_llm_json(_response_text(response))
-    return _copy_rules_with_llm_blueprints(rules_section, llm_plan)
+    llm_plan = _parse_llm_json(llm_generate(prompt, tier="cheap", json_mode=True))
+    return _copy_rules_with_llm_blueprints(rules_section, llm_plan, sentences_timing)
 
 
 def log_artdirector_fallback(index, reason):

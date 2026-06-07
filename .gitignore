@@ -12,8 +12,12 @@ remotion/props.json
 remotion/out*.mp4
 remotion/.remotion/
 
-# Codex capture logs
+# Codex capture logs + loop artifacts (local orchestration only)
 .codex_*.txt
+.codex_*.sh
+.codex_*.log
+.gen_*.txt
+*_loop_progress.txt
 
 # Octopus render artifacts (Claude)
 remotion/slice_stills/

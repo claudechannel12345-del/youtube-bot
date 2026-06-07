@@ -1,0 +1,84 @@
+{
+  "title": "RED WON 55%",
+  "description": "Short cut from the main video. Full story: MAIN_VIDEO_URL",
+  "main_video_url": "MAIN_VIDEO_URL",
+  "source_title": "Wearing Red Is Basically Cheating",
+  "source_section_index": 2,
+  "source_beat_id": "s3_2",
+  "hook_score": 13,
+  "sections": [
+    {
+      "section_index": 0,
+      "key_phrase": "NOT A FAIR COIN",
+      "narration": "It's a coin flip. So if color did nothing, red should win half the time. It didn't. Red won fifty-five percent of bouts.",
+      "sentences": [
+        {
+          "text": "It's a coin flip.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "So if color did nothing, red should win half the time.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "It didn't.",
+          "delivery": "punch"
+        },
+        {
+          "text": "Red won fifty-five percent of bouts.",
+          "delivery": "weighty"
+        }
+      ],
+      "beats": [
+        {
+          "id": "short_02",
+          "type": "stat_pop",
+          "sentence_start": 0,
+          "sentence_end": 3,
+          "visual_intent": "RED WON 55%",
+          "text": "RED WON 55%",
+          "subjects": [],
+          "importance": "high",
+          "environment": "arena",
+          "vertical": true,
+          "actors": [
+            {
+              "id": "red_fighter",
+              "asset": "person",
+              "slot": "red_corner",
+              "colorRole": "accent",
+              "motion": "micro_bob"
+            },
+            {
+              "id": "blue_fighter",
+              "asset": "person",
+              "slot": "blue_corner",
+              "colorRole": "blue",
+              "motion": "micro_bob"
+            },
+            {
+              "id": "referee",
+              "asset": "person",
+              "slot": "referee_center",
+              "colorRole": "ink",
+              "motion": "micro_bob"
+            }
+          ],
+          "text_overlays": [
+            {
+              "role": "stat",
+              "text": "RED WON 55%",
+              "tone": "coral_stamp"
+            }
+          ]
+        }
+      ],
+      "environment": "arena",
+      "orientation": "vertical",
+      "vertical": true,
+      "source_section_index": 2,
+      "source_sentence_start": 5,
+      "source_sentence_end": 8
+    }
+  ]
+}

@@ -10,6 +10,7 @@ import type {
   ColorRole,
   ElementRef,
   MotionStep,
+  PrimitiveShape,
   SceneBlueprint,
 } from "./types";
 import {CORAL, INK, INK_SOFT, PAPER, PAPER_DEEP, STROKE, STROKE_BOLD, STROKE_THIN} from "../flat/theme";
@@ -28,18 +29,95 @@ const assetBaseSize: Record<string, {w: number; h: number}> = {
   counter: {w: 356, h: 224},
   number: {w: 356, h: 224},
   subscribe: {w: 500, h: 160},
+  person: {w: 172, h: 278},
   phone: {w: 260, h: 360},
+  city: {w: 650, h: 380},
+  building: {w: 200, h: 320},
+  clock: {w: 240, h: 240},
+  atomic_clock: {w: 300, h: 300},
   satellite: {w: 420, h: 260},
+  signal: {w: 440, h: 440},
+  signal_beam: {w: 282, h: 300},
   earth: {w: 340, h: 340},
+  map_pin: {w: 160, h: 220},
+  dot: {w: 160, h: 220},
   map: {w: 440, h: 308},
   grid: {w: 560, h: 300},
+  watch: {w: 240, h: 404},
+  sphere: {w: 304, h: 304},
+  ring: {w: 304, h: 304},
+  point: {w: 160, h: 220},
+  ruler: {w: 440, h: 68},
+  arrow: {w: 420, h: 116},
+  light: {w: 282, h: 300},
+  einstein: {w: 272, h: 342},
   mandrill: {w: 356, h: 388},
-  finch: {w: 328, h: 178},
+  finch: {w: 408, h: 208},
   person_female: {w: 172, h: 278},
+  person_arms_up: {w: 224, h: 310},
+  person_pointing: {w: 254, h: 278},
+  person_sitting: {w: 220, h: 278},
+  person_walking: {w: 184, h: 290},
+  person_left: {w: 172, h: 278},
+  person_right: {w: 172, h: 278},
+  doctor: {w: 172, h: 278},
+  scientist: {w: 172, h: 316},
+  judge: {w: 172, h: 278},
+  athlete: {w: 172, h: 278},
+  suit: {w: 172, h: 278},
   heart: {w: 332, h: 282},
-  gavel: {w: 412, h: 276},
+  gavel: {w: 420, h: 340},
   document: {w: 172, h: 236},
   eye: {w: 352, h: 264},
+  car: {w: 460, h: 298},
+  tree: {w: 276, h: 332},
+  house: {w: 352, h: 338},
+  coin: {w: 240, h: 240},
+  money: {w: 352, h: 184},
+  trophy: {w: 308, h: 344},
+  book: {w: 276, h: 284},
+  bag: {w: 308, h: 326},
+  bottle: {w: 184, h: 328},
+  cup: {w: 280, h: 230},
+  box: {w: 292, h: 304},
+  key: {w: 352, h: 116},
+  lightbulb: {w: 272, h: 378},
+  lock: {w: 252, h: 318},
+  shield: {w: 264, h: 332},
+  flag: {w: 232, h: 322},
+  ball: {w: 264, h: 264},
+  camera: {w: 348, h: 250},
+  microphone: {w: 192, h: 328},
+  laptop: {w: 432, h: 282},
+  chart_bar: {w: 322, h: 264},
+  chart_line: {w: 322, h: 264},
+  pie_chart: {w: 264, h: 264},
+  arrow_up: {w: 144, h: 324},
+  arrow_down: {w: 144, h: 324},
+  checkmark: {w: 304, h: 228},
+  cross: {w: 232, h: 232},
+  question_mark: {w: 184, h: 304},
+  warning: {w: 328, h: 302},
+  gear: {w: 336, h: 336},
+  magnet: {w: 304, h: 260},
+  brain: {w: 324, h: 316},
+  dna: {w: 216, h: 288},
+  pill: {w: 296, h: 116},
+  syringe: {w: 394, h: 212},
+  scale_justice: {w: 408, h: 286},
+  ballot: {w: 276, h: 248},
+  crown: {w: 352, h: 254},
+  target: {w: 352, h: 352},
+  sun: {w: 356, h: 356},
+  cloud: {w: 374, h: 190},
+  rain: {w: 270, h: 320},
+  star: {w: 296, h: 278},
+  moon: {w: 242, h: 256},
+  mountain_shape: {w: 400, h: 290},
+  wave: {w: 380, h: 212},
+  fire: {w: 308, h: 280},
+  plant: {w: 240, h: 346},
+  coffee: {w: 304, h: 302},
   generic_object: {w: 240, h: 180},
 };
 
@@ -345,18 +423,117 @@ const renderPropShape = (element: ResolvedElement): React.ReactNode => {
   return null;
 };
 
-// Draw a list of primitive shapes (ABSOLUTE frame coords) with palette-role fills + the brand ink
-// stroke. This is how environments/backdrops (and later generated assets) are composed on-style.
+type ShapeBounds = {minX: number; minY: number; maxX: number; maxY: number};
+
+const expandBounds = (bounds: ShapeBounds | null, x: number | undefined, y: number | undefined): ShapeBounds | null => {
+  if (typeof x !== "number" || typeof y !== "number" || Number.isNaN(x) || Number.isNaN(y)) {
+    return bounds;
+  }
+  if (!bounds) {
+    return {minX: x, minY: y, maxX: x, maxY: y};
+  }
+  return {
+    minX: Math.min(bounds.minX, x),
+    minY: Math.min(bounds.minY, y),
+    maxX: Math.max(bounds.maxX, x),
+    maxY: Math.max(bounds.maxY, y),
+  };
+};
+
+const mergeBounds = (bounds: ShapeBounds | null, next: ShapeBounds | null): ShapeBounds | null => {
+  if (!next) {
+    return bounds;
+  }
+  if (!bounds) {
+    return next;
+  }
+  return {
+    minX: Math.min(bounds.minX, next.minX),
+    minY: Math.min(bounds.minY, next.minY),
+    maxX: Math.max(bounds.maxX, next.maxX),
+    maxY: Math.max(bounds.maxY, next.maxY),
+  };
+};
+
+const boundsForShape = (shape: PrimitiveShape): ShapeBounds | null => {
+  if (shape.type === "rect") {
+    const x = shape.x ?? 0;
+    const y = shape.y ?? 0;
+    const w = shape.w ?? 0;
+    const h = shape.h ?? 0;
+    return {minX: x, minY: y, maxX: x + w, maxY: y + h};
+  }
+  if (shape.type === "circle") {
+    const cx = shape.cx ?? 0;
+    const cy = shape.cy ?? 0;
+    const r = shape.r ?? 0;
+    return {minX: cx - r, minY: cy - r, maxX: cx + r, maxY: cy + r};
+  }
+  if (shape.type === "ellipse") {
+    const cx = shape.cx ?? 0;
+    const cy = shape.cy ?? 0;
+    const rx = shape.r ?? 0;
+    const ry = shape.ry ?? rx;
+    return {minX: cx - rx, minY: cy - ry, maxX: cx + rx, maxY: cy + ry};
+  }
+  if (shape.type === "line") {
+    return mergeBounds(expandBounds(null, shape.x1, shape.y1), expandBounds(null, shape.x2, shape.y2));
+  }
+  if (shape.type === "polygon") {
+    let bounds: ShapeBounds | null = null;
+    for (let i = 0; i < (shape.points ?? []).length - 1; i += 2) {
+      bounds = expandBounds(bounds, shape.points?.[i], shape.points?.[i + 1]);
+    }
+    return bounds;
+  }
+  if (shape.type === "path") {
+    const values = (shape.d ?? "").match(/-?\d*\.?\d+(?:e[-+]?\d+)?/gi)?.map(Number) ?? [];
+    let bounds: ShapeBounds | null = null;
+    for (let i = 0; i < values.length - 1; i += 2) {
+      bounds = expandBounds(bounds, values[i], values[i + 1]);
+    }
+    return bounds;
+  }
+  return null;
+};
+
+const boundsForShapes = (shapes: PrimitiveShape[]): ShapeBounds | null =>
+  shapes.reduce<ShapeBounds | null>((bounds, shape) => mergeBounds(bounds, boundsForShape(shape)), null);
+
+const localShapeTransform = (element: ResolvedElement): string => {
+  const bounds = boundsForShapes(element.shapes ?? []);
+  if (!bounds) {
+    return `translate(${element.point.x} ${element.point.y}) scale(${element.scale})`;
+  }
+  const shapeW = Math.max(1, bounds.maxX - bounds.minX);
+  const shapeH = Math.max(1, bounds.maxY - bounds.minY);
+  const targetW = element.size.mode === "box" ? element.size.w : 320 * element.size.scale;
+  const targetH = element.size.mode === "box" ? element.size.h : 320 * element.size.scale;
+  const fitScale = Math.min(targetW / shapeW, targetH / shapeH);
+  const centerX = bounds.minX + shapeW / 2;
+  const centerY = bounds.minY + shapeH / 2;
+  return `translate(${element.point.x} ${element.point.y}) scale(${fitScale}) translate(${-centerX} ${-centerY})`;
+};
+
+// Draw primitive shape lists. Environment layers use absolute frame coords; generated assets set
+// shapeSpace="local" and are fitted into the element's resolved box.
 const renderShapes = (element: ResolvedElement): React.ReactNode => {
   if (!element.shapes || element.shapes.length === 0) {
     return null;
   }
-  return (
+  const localSpace = element.shapeSpace === "local";
+  const nodes = (
     <>
       {element.shapes.map((s, i) => {
         const fill = !s.fill || s.fill === "none" ? "none" : palette[s.fill] ?? CORAL;
         const strokeProps = s.stroke
-          ? {stroke: INK, strokeWidth: s.strokeW ?? STROKE, strokeLinejoin: "round" as const, strokeLinecap: "round" as const}
+          ? {
+              stroke: INK,
+              strokeWidth: s.strokeW ?? STROKE,
+              strokeLinejoin: "round" as const,
+              strokeLinecap: "round" as const,
+              vectorEffect: localSpace ? ("non-scaling-stroke" as const) : undefined,
+            }
           : {stroke: "none" as const};
         const common = {key: i, fill, opacity: s.opacity ?? 1, ...strokeProps};
         if (s.type === "rect") return <rect x={s.x} y={s.y} width={s.w} height={s.h} rx={s.rx ?? 0} {...common} />;
@@ -369,6 +546,10 @@ const renderShapes = (element: ResolvedElement): React.ReactNode => {
       })}
     </>
   );
+  if (localSpace) {
+    return <g transform={localShapeTransform(element)}>{nodes}</g>;
+  }
+  return nodes;
 };
 
 const ElementNode: React.FC<{element: ResolvedElement; localFrame: number}> = ({element, localFrame}) => {

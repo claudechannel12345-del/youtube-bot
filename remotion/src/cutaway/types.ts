@@ -152,6 +152,7 @@ export type BlueprintElement = {
   id: string;
   kind: BlueprintElementKind;
   asset: RegistryAssetName | "generated_image" | "none" | "text";
+  generatedAssetName?: string;
   generated_image?: {
     asset_id: string;
     prompt?: string;
@@ -165,6 +166,7 @@ export type BlueprintElement = {
   // A list of primitive shapes drawn in ABSOLUTE frame coords with palette-role fills + the brand
   // ink stroke. This is how ENVIRONMENTS/backdrops are composed (and, later, generated assets).
   shapes?: PrimitiveShape[];
+  shapeSpace?: "frame" | "local";
   z?: number;
   opacity?: number;
   rotation?: number;

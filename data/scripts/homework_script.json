@@ -1,0 +1,593 @@
+{
+  "title": "Homework Was Invented as a Punishment",
+  "sections": [
+    {
+      "scene_label": "COLD OPEN",
+      "environment": "classroom",
+      "on_screen_text": [
+        "TRUE STORY",
+        "1905",
+        "PUNISHMENT"
+      ],
+      "narration": [
+        {
+          "text": "Okay, you are going to love this one.",
+          "delivery": "brisk"
+        },
+        {
+          "text": "Homework was invented as a punishment.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "Not education. Not practice. Not a noble little bridge between school and home.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "A punishment.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "The story goes that in 1905, in Venice, Italy, a teacher named Roberto Nevilis had a problem.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "His students were lazy, would not study, would not behave, and would not take his class seriously.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "So Roberto invented a punishment so elegant, so cruel, and so annoyingly scalable, that it escaped his classroom.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "He made students keep working after school was over. At home. The one place school was not supposed to follow you.",
+          "delivery": "ominous"
+        },
+        {
+          "text": "Apparently, it worked. Students learned discipline, other teachers copied him, schools copied them, and eventually the whole planet inherited Roberto Nevilis's terrible little idea.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "Every worksheet. Every book report. Every Sunday night staring at a math packet like it personally betrayed you.",
+          "delivery": "brisk"
+        },
+        {
+          "text": "All of it traces back to one annoyed Italian man in 1905.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "Isn't that incredible. It is the perfect story.",
+          "delivery": "curious"
+        }
+      ],
+      "visual": "A flat illustrated teacher stamps punishment on papers while homework packets spread across a world map like a virus."
+    },
+    {
+      "scene_label": "THE TURN",
+      "environment": "courtroom",
+      "on_screen_text": [
+        "NOPE",
+        "FAKE",
+        "NOT REAL"
+      ],
+      "narration": [
+        {
+          "text": "It is the perfect story.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "Which is exactly how you know it is nonsense.",
+          "delivery": "neutral"
+        }
+      ],
+      "visual": "The classroom freezes, the lights snap to a courtroom, and Roberto Nevilis is revealed as an empty chair with a fake mustache."
+    },
+    {
+      "scene_label": "THE TURN CONTINUES",
+      "environment": "courtroom",
+      "on_screen_text": [
+        "CASE DISMISSED",
+        "NO RECORDS"
+      ],
+      "narration": [
+        {
+          "text": "Roberto Nevilis did not invent homework. He was not a famous teacher. He does not seem to have existed at all.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "There are no good records, no famous school, no original source, no dusty Italian archive where a librarian whispers, yes, the homework man.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "He shows up where suspiciously tidy answers multiply: clickbait blogs, essay help websites, and search engine slop that needed a clean answer to who invented homework.",
+          "delivery": "ominous"
+        },
+        {
+          "text": "And once a fake answer is short enough for a school essay, it becomes very hard to kill.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "Some versions say 1905. Some say 1095, which is a bold year to pick, because that is before the First Crusade.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "If your homework origin story accidentally involves medieval Europe, maybe check another tab.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "So no, there was no single villain with a quill pen and a grudge. But that does not make the real story nicer. It makes it bigger.",
+          "delivery": "weighty"
+        }
+      ],
+      "visual": "A judge bangs a gavel, search results crumble, and the fake Roberto file is stamped fabricated."
+    },
+    {
+      "scene_label": "WHY THE MYTH WORKS",
+      "environment": "newsroom",
+      "on_screen_text": [
+        "WHY IT STUCK",
+        "TIDY ANSWER"
+      ],
+      "narration": [
+        {
+          "text": "The Roberto story survived because it feels emotionally correct.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "Homework feels like something a person invented while angry.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "You want a name on the complaint form: one teacher, one bad day, one terrible brainstorm.",
+          "delivery": "curious"
+        },
+        {
+          "text": "The internet was happy to provide that.",
+          "delivery": "brisk"
+        },
+        {
+          "text": "A fake inventor gives you a clean beginning, an essay's first paragraph, a headline's answer, and a tiny cardboard villain to throw tomatoes at.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "But the real origin of homework is not one cranky teacher. It is an education system built to shape obedient citizens.",
+          "delivery": "ominous"
+        },
+        {
+          "text": "So if you are looking for the real villain, do not picture Venice. Picture Prussia.",
+          "delivery": "weighty"
+        }
+      ],
+      "visual": "A newsroom wall connects fake blog headlines to a red string map that suddenly zooms toward Prussia."
+    },
+    {
+      "scene_label": "PRUSSIA",
+      "environment": "classroom",
+      "on_screen_text": [
+        "PRUSSIA",
+        "VOLKSSCHULE",
+        "OBEDIENCE"
+      ],
+      "narration": [
+        {
+          "text": "Rewind to the early 1800s. Prussia is building one of the first major systems of compulsory schooling.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "One important part was the Volksschule, the people's school.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "Yes, it taught reading, writing, arithmetic, and religion. But the deeper goal was not just making tiny people better at fractions.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "It was making disciplined subjects. Punctual subjects. Orderly subjects.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "People who could follow instructions, respect authority, and fit neatly into a state that liked neatness very much.",
+          "delivery": "ominous"
+        },
+        {
+          "text": "School was where children learned facts, but also the rhythm of obedience: sit here, stand now, copy this, memorize that.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "Homework fit perfectly into that machine. It extended school beyond the schoolhouse and made habits of discipline follow you home.",
+          "delivery": "ominous"
+        },
+        {
+          "text": "It turned your kitchen table into a very small government office.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "That is the key difference. Homework was not born as one teacher's punishment. It grew inside a system that wanted children to practice compliance, every day.",
+          "delivery": "weighty"
+        }
+      ],
+      "visual": "A rigid Prussian classroom shifts into a home table, with identical posture lines and a tiny state seal on the homework."
+    },
+    {
+      "scene_label": "AMERICA IMPORTS THE MODEL",
+      "environment": "library",
+      "on_screen_text": [
+        "HORACE MANN",
+        "1840s",
+        "IMPORT"
+      ],
+      "narration": [
+        {
+          "text": "Then the idea crosses the Atlantic.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "In the 1840s, American education reformer Horace Mann visits Prussia and is impressed.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "He sees a public school system that is organized, disciplined, and far more centralized than what many Americans had.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "So he brings the model home. Not as a perfect copy, because ideas never cross oceans without changing clothes.",
+          "delivery": "curious"
+        },
+        {
+          "text": "But Prussian influence becomes part of the American common school movement, and homework comes along for the ride.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "In America, it starts to look less like state discipline and more like academic seriousness.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "A good school is demanding. A serious teacher assigns work. A responsible child keeps studying after the bell.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "That sounds normal now, but for many American families, home was not supposed to be an annex of school.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "Kids worked on farms. Kids helped around the house. Kids were also, and this is easy to forget, kids.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "So as homework spread, the backlash started building.",
+          "delivery": "ominous"
+        }
+      ],
+      "visual": "Horace Mann studies a Prussian school blueprint, then carries it across the ocean while homework pages flutter behind him."
+    },
+    {
+      "scene_label": "THE BACKLASH",
+      "environment": "newsroom",
+      "on_screen_text": [
+        "BACKLASH",
+        "1900",
+        "NATIONAL CRIME"
+      ],
+      "narration": [
+        {
+          "text": "By the late 1800s and early 1900s, homework had powerful enemies, and not just children groaning into desks.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "Adults were angry too. Parents worried school was swallowing family life.",
+          "delivery": "surprised"
+        },
+        {
+          "text": "Doctors and reformers worried too much studying harmed children's health.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "This was an era very concerned about nerves, fresh air, and whether modern life was crushing the young.",
+          "delivery": "curious"
+        },
+        {
+          "text": "Homework became a symbol of school overreach.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "In 1900, Ladies' Home Journal published an attack with an incredible title: A National Crime at the Feet of Parents.",
+          "delivery": "brisk"
+        },
+        {
+          "text": "That is not a mild complaint. That is the magazine equivalent of flipping a table.",
+          "delivery": "surprised"
+        },
+        {
+          "text": "The argument was simple: children already spent hours in school. Dragging schoolwork into the evening was unfair, unhealthy, and unnecessary.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "And then the backlash did something that sounds impossible from here. It won.",
+          "delivery": "surprised"
+        }
+      ],
+      "visual": "Newspaper presses spit out anti homework headlines while parents, doctors, and children point at an overloaded schoolbag."
+    },
+    {
+      "scene_label": "HOMEWORK GETS BANNED",
+      "environment": "courtroom",
+      "on_screen_text": [
+        "CALIFORNIA",
+        "1901",
+        "BANNED"
+      ],
+      "narration": [
+        {
+          "text": "In 1901, California banned homework for students under fifteen.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "Yes. For a while, homework for younger students was not just unpopular. It was literally against the rules in California.",
+          "delivery": "surprised"
+        },
+        {
+          "text": "Imagine being a child in 1901 and hearing the state say, absolutely not, go outside. Civilization had peaked.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "And California was not alone in the mood, even if its ban is the headline moment.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "Across the country, many schools and communities softened homework or questioned whether it belonged in childhood at all.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "For decades, homework was not the unquestioned fact of life it often feels like today.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "The pendulum had swung hard the other way. The kids, briefly, had a pretty good case.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "But pendulums do not retire on your preferred side. They swing back.",
+          "delivery": "ominous"
+        },
+        {
+          "text": "And the thing that swung homework back was not a teacher. It was a beeping metal ball in space.",
+          "delivery": "weighty"
+        }
+      ],
+      "visual": "A courtroom gavel smashes a homework packet, then the packet pieces drift upward into a darkening sky."
+    },
+    {
+      "scene_label": "SPUTNIK",
+      "environment": "space",
+      "on_screen_text": [
+        "1957",
+        "SPUTNIK",
+        "PANIC"
+      ],
+      "narration": [
+        {
+          "text": "On October 4, 1957, the Soviet Union launched Sputnik, the first artificial satellite to orbit Earth.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "It was small. It was shiny. It beeped. And it scared the United States out of its chair.",
+          "delivery": "surprised"
+        },
+        {
+          "text": "Because Sputnik was not just a science achievement. It was a political message with antennas.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "If the Soviets could put a satellite in orbit, what else could they do?",
+          "delivery": "question"
+        },
+        {
+          "text": "Were American schools falling behind? Were students too soft? Were we losing the future in math and science?",
+          "delivery": "question"
+        },
+        {
+          "text": "And in a national panic, there is one educational lever adults love to pull: more work.",
+          "delivery": "ominous"
+        },
+        {
+          "text": "Homework came roaring back as part of a broader push for tougher academic standards, especially in science and math.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "The logic was blunt. If the rival superpower is winning in space, your child should probably do more algebra.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "So you cannot blame Roberto Nevilis for that math packet due Monday. But emotionally, you can blame a beach ball sized Soviet satellite going beep beep over Kansas.",
+          "delivery": "surprised"
+        }
+      ],
+      "visual": "Sputnik orbits Earth, its beeps transform into math worksheets that rain down onto American desks."
+    },
+    {
+      "scene_label": "THE PATTERN REPEATS",
+      "environment": "news_studio",
+      "on_screen_text": [
+        "PANIC",
+        "SURGE",
+        "BACKLASH"
+      ],
+      "narration": [
+        {
+          "text": "But Sputnik was not the last swing of the pendulum, and that is what makes the history useful.",
+          "delivery": "curious"
+        },
+        {
+          "text": "Homework does not just rise because educators calmly agree on the evidence. It rises when the country gets scared.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "National panic, homework spike. The pattern is almost too clean.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "After the Sputnik surge, the 1960s and 1970s brought another backlash.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "The culture shifted. Education got more interested in creativity, student well being, and less rigid schooling.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "Homework softened again in many places.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "Then, in 1983, the panic siren turned back on with A Nation at Risk.",
+          "delivery": "ominous"
+        },
+        {
+          "text": "The report warned American education was in serious trouble.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "This fear was not just military. It was economic. The United States worried it was losing ground, especially to Japan.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "And once again, one answer appeared: more rigor, more standards, more homework.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "So the story is not homework was banned, Sputnik brought it back, and everyone shrugged forever.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "The story is a repeating reflex: when adults fear the nation is falling behind, children get extra worksheets.",
+          "delivery": "weighty"
+        }
+      ],
+      "visual": "A news studio timeline swings like a pendulum from Sputnik to the 1970s backlash to A Nation at Risk."
+    },
+    {
+      "scene_label": "TODAY",
+      "environment": "classroom",
+      "on_screen_text": [
+        "TODAY",
+        "HABIT",
+        "TEN MINUTES"
+      ],
+      "narration": [
+        {
+          "text": "Which brings us to now.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "Homework feels permanent because most of us grew up inside the rhythm: school assigns, home completes, tomorrow collects.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "Repeat until backpack becomes sedimentary rock.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "But modern research on homework is more lukewarm than the cultural confidence around it.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "It can be useful for older students, especially when purposeful and not endless. For young kids, the benefits are much less convincing.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "That is why you sometimes hear the ten minute rule: roughly ten minutes per grade level per night.",
+          "delivery": "curious"
+        },
+        {
+          "text": "Not because the universe carved it into stone, but because at some point more homework becomes less like learning and more like paperwork with smaller shoes.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "The weird thing is that homework keeps a moral glow.",
+          "delivery": "curious"
+        },
+        {
+          "text": "If a student works late, that looks serious. If a school assigns more, that looks rigorous. If a parent complains, it can sound anti-education.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "But a lot of what we call rigor is inherited anxiety: a little Prussian discipline, a little American ambition, a little Cold War reflex, and a lot of habit.",
+          "delivery": "weighty"
+        }
+      ],
+      "visual": "A modern student opens a backpack and finds layers labeled Prussia, Horace Mann, Sputnik, A Nation at Risk, and habit."
+    },
+    {
+      "scene_label": "CLOSER",
+      "environment": "classroom",
+      "on_screen_text": [
+        "NO ROBERTO",
+        "BLAME HISTORY"
+      ],
+      "narration": [
+        {
+          "text": "So the next time you are up late finishing an assignment, I have bad news.",
+          "delivery": "curious"
+        },
+        {
+          "text": "You cannot even blame Roberto Nevilis. He is not real.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "You have to blame a much less convenient pile of historical forces.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "Blame Prussia for turning school into a discipline machine.",
+          "delivery": "brisk"
+        },
+        {
+          "text": "Blame Horace Mann for admiring the machine and helping bring its ideas to America.",
+          "delivery": "brisk"
+        },
+        {
+          "text": "Blame early twentieth century reformers for almost defeating homework, then leaving behind the funniest phrase in the whole story: A National Crime at the Feet of Parents.",
+          "delivery": "brisk"
+        },
+        {
+          "text": "Blame Sputnik for beeping everyone into a panic.",
+          "delivery": "brisk"
+        },
+        {
+          "text": "Blame A Nation at Risk for reminding America that fear is a fantastic worksheet generator.",
+          "delivery": "skeptical"
+        },
+        {
+          "text": "And blame us, a little, for keeping old reflexes around after we forget where they came from.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "Honestly, blaming one fake Italian man was easier. At least Roberto Nevilis fit on a flashcard.",
+          "delivery": "skeptical"
+        }
+      ],
+      "visual": "The fake Roberto portrait falls off the wall, revealing a crowded bulletin board of real historical causes behind it."
+    },
+    {
+      "scene_label": "CTA",
+      "environment": "classroom",
+      "on_screen_text": [
+        "SECOND GLANCE",
+        "SUBSCRIBE"
+      ],
+      "narration": [
+        {
+          "text": "If you had no idea homework was once treated like an actual national crime, there is a lot more hiding inside the boring stuff around you.",
+          "delivery": "warm_cta"
+        },
+        {
+          "text": "So take a Second Glance.",
+          "delivery": "warm_cta"
+        },
+        {
+          "text": "Subscribe, and I will see you in the next one.",
+          "delivery": "warm_cta"
+        }
+      ],
+      "visual": "A clean flat logo appears as the student closes the homework folder and the classroom turns into a map of future topics."
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "title": "SAME CLIP, SWAPPED",
+  "description": "Short cut from the main video. Full story: MAIN_VIDEO_URL",
+  "main_video_url": "MAIN_VIDEO_URL",
+  "source_title": "Wearing Red Is Basically Cheating",
+  "source_section_index": 4,
+  "source_beat_id": "s5_2",
+  "hook_score": 12,
+  "sections": [
+    {
+      "section_index": 0,
+      "key_phrase": "IT WAS THE JUDGE",
+      "narration": "Then they took the same clips and digitally swapped the colors. The fighter who was in red was now in blue. Same kick, same human, same exact moment. The only thing that changed was a color filter.",
+      "sentences": [
+        {
+          "text": "Then they took the same clips and digitally swapped the colors.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "The fighter who was in red was now in blue.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "Same kick, same human, same exact moment.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "The only thing that changed was a color filter.",
+          "delivery": "neutral"
+        }
+      ],
+      "beats": [
+        {
+          "id": "short_02",
+          "type": "compare",
+          "sentence_start": 0,
+          "sentence_end": 3,
+          "visual_intent": "SAME CLIP, SWAPPED",
+          "text": "SAME CLIP, SWAPPED",
+          "subjects": [],
+          "importance": "high",
+          "environment": "arena",
+          "vertical": true,
+          "actors": [
+            {
+              "id": "red_fighter",
+              "asset": "person",
+              "slot": "blue_corner",
+              "colorRole": "blue",
+              "motion": "micro_bob"
+            },
+            {
+              "id": "blue_fighter",
+              "asset": "person",
+              "slot": "red_corner",
+              "colorRole": "accent",
+              "motion": "micro_bob"
+            },
+            {
+              "id": "referee",
+              "asset": "person",
+              "slot": "referee_center",
+              "colorRole": "ink",
+              "motion": "micro_bob"
+            }
+          ],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "SAME CLIP, SWAPPED",
+              "tone": "ink"
+            }
+          ],
+          "colors": [
+            "accent",
+            "blue"
+          ]
+        }
+      ],
+      "environment": "arena",
+      "orientation": "vertical",
+      "vertical": true,
+      "source_section_index": 4,
+      "source_sentence_start": 2,
+      "source_sentence_end": 5
+    }
+  ]
+}

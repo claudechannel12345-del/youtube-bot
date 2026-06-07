@@ -1,0 +1,92 @@
+{
+  "title": "RED vs BLUE",
+  "description": "Short cut from the main video. Full story: MAIN_VIDEO_URL",
+  "main_video_url": "MAIN_VIDEO_URL",
+  "source_title": "Wearing Red Is Basically Cheating",
+  "source_section_index": 0,
+  "source_beat_id": "s1_1",
+  "hook_score": 11,
+  "sections": [
+    {
+      "section_index": 0,
+      "key_phrase": "JUST THE COLOR",
+      "narration": "Same height, same weight, same training. They fight, and it's close, the kind that could go either way. And then one of them wins. Now watch what happens if we rewind, swap the color of their gear, and run it back. The winner might change.",
+      "sentences": [
+        {
+          "text": "Same height, same weight, same training.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "They fight, and it's close, the kind that could go either way.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "And then one of them wins.",
+          "delivery": "weighty"
+        },
+        {
+          "text": "Now watch what happens if we rewind, swap the color of their gear, and run it back.",
+          "delivery": "neutral"
+        },
+        {
+          "text": "The winner might change.",
+          "delivery": "weighty"
+        }
+      ],
+      "beats": [
+        {
+          "id": "short_01",
+          "type": "compare",
+          "sentence_start": 0,
+          "sentence_end": 4,
+          "visual_intent": "RED  vs  BLUE",
+          "text": "RED  vs  BLUE",
+          "subjects": [],
+          "importance": "high",
+          "environment": "arena",
+          "vertical": true,
+          "actors": [
+            {
+              "id": "red_fighter",
+              "asset": "person",
+              "slot": "red_corner",
+              "colorRole": "accent",
+              "motion": "micro_bob"
+            },
+            {
+              "id": "blue_fighter",
+              "asset": "person",
+              "slot": "blue_corner",
+              "colorRole": "blue",
+              "motion": "micro_bob"
+            },
+            {
+              "id": "referee",
+              "asset": "person",
+              "slot": "referee_center",
+              "colorRole": "ink",
+              "motion": "micro_bob"
+            }
+          ],
+          "text_overlays": [
+            {
+              "role": "label",
+              "text": "RED  vs  BLUE",
+              "tone": "ink"
+            }
+          ],
+          "colors": [
+            "accent",
+            "blue"
+          ]
+        }
+      ],
+      "environment": "arena",
+      "orientation": "vertical",
+      "vertical": true,
+      "source_section_index": 0,
+      "source_sentence_start": 1,
+      "source_sentence_end": 5
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+from environments import ENVIRONMENTS, ENVIRONMENT_VARIANTS, all_environment_slot_ids
+
 BEAT_TYPES = frozenset(
     [
         "establish",
@@ -175,23 +177,7 @@ BACKGROUND_TREATMENT = frozenset(
     ]
 )
 
-ENVIRONMENTS = frozenset(["arena", "courtroom", "newsroom"])
-
-ENVIRONMENT_SLOTS = frozenset(
-    [
-        "red_corner",
-        "blue_corner",
-        "referee_center",
-        "judge_bench",
-        "witness_stand",
-        "defendant_left",
-        "lawyer_right",
-        "gallery",
-        "anchor_center",
-        "screen",
-        "desk_props",
-    ]
-)
+ENVIRONMENT_SLOTS = all_environment_slot_ids()
 
 EASING = frozenset(["linear", "spring", "ease_out", "ease_in_out"])
 
@@ -236,8 +222,67 @@ REGISTRY_ASSETS = frozenset(
         "mandrill",
         "finch",
         "person_female",
+        "person_arms_up",
+        "person_pointing",
+        "person_sitting",
+        "person_walking",
+        "person_left",
+        "person_right",
+        "doctor",
+        "scientist",
+        "judge",
+        "athlete",
+        "suit",
         "heart",
         "gavel", "document", "eye",
+        "car",
+        "tree",
+        "house",
+        "coin",
+        "money",
+        "trophy",
+        "book",
+        "bag",
+        "bottle",
+        "cup",
+        "box",
+        "key",
+        "lightbulb",
+        "lock",
+        "shield",
+        "flag",
+        "ball",
+        "camera",
+        "microphone",
+        "laptop",
+        "chart_bar",
+        "chart_line",
+        "pie_chart",
+        "arrow_up",
+        "arrow_down",
+        "checkmark",
+        "cross",
+        "question_mark",
+        "warning",
+        "gear",
+        "magnet",
+        "brain",
+        "dna",
+        "pill",
+        "syringe",
+        "scale_justice",
+        "ballot",
+        "crown",
+        "target",
+        "sun",
+        "cloud",
+        "rain",
+        "star",
+        "moon",
+        "mountain_shape",
+        "wave",
+        "fire",
+        "plant",
         "map",
         "coffee",
         "counter",

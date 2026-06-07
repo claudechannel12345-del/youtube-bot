@@ -10,6 +10,7 @@ from __future__ import annotations
 import copy
 import json
 import math
+import os
 import re
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
@@ -28,7 +29,7 @@ from cutaway_vocab import (
     TEXT_ROLE,
     BLUEPRINT_ELEMENT_KIND,
 )
-from environments import ENVIRONMENTS, get_environment, has_environment
+from environments import ENVIRONMENTS, ENVIRONMENT_VARIANTS, get_environment, has_environment
 
 try:
     from director import _clean_meaningful_text
@@ -65,6 +66,9 @@ except Exception:  # pragma: no cover - defensive import fallback for isolated u
 
 MAX_ELEMENTS = 7
 MAX_CONNECTIONS = 8
+SAFE_FALLBACK_ENVIRONMENT = "office"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+GENERATED_ASSETS_PATH = os.path.join(ROOT, "data", "generated_assets.json")
 SAFE_X = (96, 1824)
 SAFE_Y = (72, 1008)
 SCALE_RANGE = (0.15, 2.0)
@@ -219,8 +223,13 @@ def validate_and_repair_section(section_plan, source):
     section_environment = repaired.get("environment")
     if section_environment is not None and not has_environment(str(section_environment).strip()):
         old = section_environment
-        repaired["environment"] = sorted(ENVIRONMENTS)[0]
+        repaired["environment"] = _safe_environment()
         section_log("unknown_environment", "section.environment", old, repaired["environment"])
+    section_variant = repaired.get("environment_variant")
+    if section_variant is not None and str(section_variant).strip().lower() not in ENVIRONMENT_VARIANTS:
+        old = section_variant
+        repaired.pop("environment_variant", None)
+        section_log("unknown_environment_variant", "section.environment_variant", old, None)
 
     for beat in repaired.get("beats", []) or []:
         scene_family = beat.get("scene_family", "object_stage")
@@ -233,6 +242,8 @@ def validate_and_repair_section(section_plan, source):
             beat["blueprint"] = blueprint
         if scene_family == "scene_stage" and repaired.get("environment") and not blueprint.get("environment"):
             blueprint["environment"] = repaired.get("environment")
+        if scene_family == "scene_stage" and repaired.get("environment_variant") and not blueprint.get("environment_variant"):
+            blueprint["environment_variant"] = repaired.get("environment_variant")
 
         fixed, repairs = _validate_blueprint(
             blueprint,
@@ -422,6 +433,8 @@ def _repair_element(element, index, seen_ids, log, beat_duration):
         item["kind"] = "prop"
         item.pop("generated_image", None)
         log("generated_image_disabled", path + ".asset", asset, "generic_object")
+    elif _apply_generated_asset(item, asset):
+        log("generated_asset_applied", path + ".asset", asset, "none")
     elif asset not in REGISTRY_ASSETS and asset not in PLACEHOLDER_ASSETS:
         replacement = ASSET_ALIASES.get(str(asset).strip().lower(), "generic_object")
         item["asset"] = replacement
@@ -454,6 +467,34 @@ def _repair_element(element, index, seen_ids, log, beat_duration):
     _repair_text(item, path, log)
     _repair_motion_list(item, path + ".motion", log, beat_duration)
     return item
+
+
+def _load_generated_assets():
+    try:
+        with open(GENERATED_ASSETS_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def _generated_asset(name):
+    item = _load_generated_assets().get(str(name or "").strip())
+    if isinstance(item, dict) and isinstance(item.get("shapes"), list):
+        return item
+    return None
+
+
+def _apply_generated_asset(item, asset):
+    generated = _generated_asset(asset)
+    if not generated:
+        return False
+    item["asset"] = "none"
+    item["kind"] = "texture"
+    item["generatedAssetName"] = str(asset or "").strip()
+    item["shapeSpace"] = "local"
+    item["shapes"] = copy.deepcopy(generated.get("shapes") or [])
+    return True
 
 
 def _repair_position(item, path, log):
@@ -681,10 +722,16 @@ def _enforce_scene_stage_contract(bp, log):
     env_id = str(bp.get("environment") or "").strip()
     if not has_environment(env_id):
         old = env_id
-        env_id = sorted(ENVIRONMENTS)[0]
+        env_id = _safe_environment()
         bp["environment"] = env_id
         log("unknown_environment", "blueprint.environment", old, env_id)
-    env = get_environment(env_id)
+    env_variant = str(bp.get("environment_variant") or "").strip().lower()
+    if env_variant and env_variant not in ENVIRONMENT_VARIANTS:
+        old = bp.get("environment_variant")
+        bp.pop("environment_variant", None)
+        env_variant = ""
+        log("unknown_environment_variant", "blueprint.environment_variant", old, None)
+    env = get_environment(env_id, variant=env_variant)
     slots = env.get("slots") or {}
 
     elements = bp.setdefault("elements", [])
@@ -698,6 +745,15 @@ def _enforce_scene_stage_contract(bp, log):
         has_shapes = isinstance(element.get("shapes"), list)
         has_text = isinstance(element.get("text"), dict)
         slot_name = element.get("slot")
+
+        if element.get("setProp"):
+            old_z = element.get("z")
+            z = _clamp_number(old_z, 80, 160)
+            element["z"] = z
+            if old_z != z:
+                log("scene_set_prop_z_repaired", path + ".z", old_z, z)
+            fixed.append(element)
+            continue
 
         if has_shapes:
             z = _number(element.get("z"), 0)
@@ -841,6 +897,12 @@ def _fallback_blueprint(beat_text, key_phrase, scene_family):
         "elements": [_caption_element(beat_text, key_phrase, "fallback_caption")],
         "connections": [],
     }
+
+
+def _safe_environment():
+    if has_environment(SAFE_FALLBACK_ENVIRONMENT):
+        return SAFE_FALLBACK_ENVIRONMENT
+    return sorted(ENVIRONMENTS)[0]
 
 
 def _caption_element(beat_text, key_phrase, element_id):

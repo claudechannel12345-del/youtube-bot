@@ -8,11 +8,14 @@ only make the layout concrete for the blueprint renderer.
 
 from __future__ import annotations
 
+import copy
 import re
+import json
+import os
 from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 
-from cutaway_vocab import REGISTRY_ASSETS
-from environments import get_environment, has_environment
+from cutaway_vocab import MOTION_KIND_V2, REGISTRY_ASSETS
+from environments import default_environment_slots, get_environment, get_vertical_environment, has_environment
 
 TEXT_CAPS = {
     "headline": 34,
@@ -22,6 +25,43 @@ TEXT_CAPS = {
     "stamp": 30,
     "callout": 42,
     "tiny_note": 42,
+}
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+GENERATED_ASSETS_PATH = os.path.join(ROOT, "data", "generated_assets.json")
+_GENERATED_ASSETS_CACHE: Optional[Dict[str, Any]] = None
+
+FRAME_W = 1920.0
+FRAME_H = 1080.0
+SAFE_TOP = 64.0
+SAFE_BOTTOM = 48.0
+SAFE_SIDE = 24.0
+
+ASSET_BASE_SIZE = {
+    "generic_object": (240.0, 180.0),
+    "person": (172.0, 278.0),
+    "person_female": (172.0, 278.0),
+    "person_arms_up": (224.0, 310.0),
+    "person_pointing": (254.0, 278.0),
+    "person_sitting": (220.0, 278.0),
+    "person_walking": (184.0, 290.0),
+    "person_left": (172.0, 278.0),
+    "person_right": (172.0, 278.0),
+    "doctor": (172.0, 278.0),
+    "scientist": (172.0, 316.0),
+    "judge": (172.0, 278.0),
+    "athlete": (172.0, 278.0),
+    "suit": (172.0, 278.0),
+    "plant": (240.0, 346.0),
+    "tree": (276.0, 332.0),
+    "house": (352.0, 338.0),
+    "book": (276.0, 284.0),
+    "box": (292.0, 304.0),
+    "ball": (264.0, 264.0),
+    "microphone": (192.0, 328.0),
+    "laptop": (432.0, 282.0),
+    "flag": (232.0, 322.0),
+    "mountain_shape": (400.0, 290.0),
 }
 
 ANCHOR_POINTS = {
@@ -61,10 +101,30 @@ ASSET_ALIASES = {
 
 LOCATION_ASSETS = frozenset(["phone", "map_pin", "dot", "point"])
 SPACE_ASSETS = frozenset(["satellite", "earth", "signal", "signal_beam"])
-DEFAULT_ENVIRONMENT_SLOTS = {
-    "arena": ["red_corner", "blue_corner", "referee_center"],
-    "courtroom": ["defendant_left", "lawyer_right", "witness_stand", "judge_bench"],
-    "newsroom": ["anchor_center", "screen", "desk_props"],
+ACTOR_POSE_ASSETS = {
+    "arms_up": "person_arms_up",
+    "celebrate": "person_arms_up",
+    "point": "person_pointing",
+    "pointing": "person_pointing",
+    "sitting": "person_sitting",
+    "seated": "person_sitting",
+    "walking": "person_walking",
+    "walk": "person_walking",
+    "left": "person_left",
+    "facing_left": "person_left",
+    "right": "person_right",
+    "facing_right": "person_right",
+}
+
+ACTOR_MOTION_ALIASES = {
+    "idle": "micro_bob",
+    "idle_bob": "micro_bob",
+    "bob": "micro_bob",
+    "point": "pulse",
+    "pointing": "pulse",
+    "emphasize": "pulse",
+    "walk": "micro_bob",
+    "walking": "micro_bob",
 }
 
 
@@ -90,28 +150,95 @@ def build_scene_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any
     env_id = str(beat.get("environment") or section.get("environment") or "").strip()
     if not has_environment(env_id):
         return build_object_stage(beat, sentences_timing, section)
-    env = get_environment(env_id)
+    env_variant = str(beat.get("environment_variant") or section.get("environment_variant") or "").strip()
+    vertical = bool(beat.get("vertical") or section.get("vertical") or section.get("orientation") == "vertical")
+    env = get_vertical_environment(env_id, variant=env_variant) if vertical else get_environment(env_id, variant=env_variant)
+    env = _safe_scene_environment(env, vertical=vertical)
     elements = [
         _shape_layer("%s_backdrop" % env_id, env["backdrop"], 5),
         _shape_layer("%s_midground" % env_id, env["midground"], 100),
     ]
+    elements.extend(_environment_set_prop_elements(env))
     elements.extend(_scene_actor_elements(beat, env))
     elements.append(_shape_layer("%s_foreground" % env_id, env["foreground"], 500))
 
     overlay = _scene_overlay(beat)
     if overlay:
-        elements.append(_text_element(overlay, "scene_text", 960, 176, "label", 1.0, z=900, box=(1100, 96)))
+        zone = _safe_text_zone(env.get("text_zone") or {"x": 410, "y": 116, "w": 1100, "h": 120}, vertical=vertical)
+        text_x = float(zone.get("x", 410)) + float(zone.get("w", 1100)) / 2
+        text_y = float(zone.get("y", 116)) + float(zone.get("h", 120)) / 2
+        box = (int(zone.get("w", 1100)), int(zone.get("h", 120)))
+        elements.append(_text_element(overlay, "scene_text", text_x, text_y, "none", 1.0, z=900, box=box))
 
     return {
         "version": 1,
         "preset": "scene_stage",
         "intent": str(beat.get("id") or beat.get("type") or env_id),
         "environment": env_id,
+        "environment_variant": env.get("variant", env_variant) if env_variant else env.get("variant"),
         "background": {"treatment": "plain"},
         "camera": _camera_plan(beat),
         "elements": elements,
         "connections": [],
     }
+
+
+def _safe_scene_environment(env: Dict[str, Any], vertical: bool = False) -> Dict[str, Any]:
+    fixed = copy.deepcopy(env)
+    fixed["text_zone"] = _safe_text_zone(fixed.get("text_zone") or {}, vertical=vertical)
+    frame_w, frame_h = _scene_frame(vertical)
+    for slot in (fixed.get("slots") or {}).values():
+        if not isinstance(slot, dict):
+            continue
+        slot["x"] = _clamp(float(slot.get("x", frame_w / 2)), SAFE_SIDE, frame_w - SAFE_SIDE)
+        slot["y"] = _clamp(float(slot.get("y", frame_h / 2)), SAFE_TOP, frame_h - SAFE_BOTTOM)
+    for prop in fixed.get("set_props") or []:
+        if not isinstance(prop, dict):
+            continue
+        prop["x"] = _clamp(float(prop.get("x", frame_w / 2)), SAFE_SIDE, frame_w - SAFE_SIDE)
+        prop["y"] = _clamp(float(prop.get("y", frame_h / 2)), SAFE_TOP, frame_h - SAFE_BOTTOM)
+    return fixed
+
+
+def _safe_text_zone(zone: Dict[str, Any], vertical: bool = False) -> Dict[str, float]:
+    frame_w, frame_h = _scene_frame(vertical)
+    w = float(zone.get("w", 1100))
+    h = float(zone.get("h", 120))
+    w = _clamp(w, 120.0, max(120.0, frame_w - SAFE_SIDE * 2))
+    h = _clamp(h, 64.0, max(64.0, frame_h - SAFE_TOP - SAFE_BOTTOM))
+    x = _clamp(float(zone.get("x", (frame_w - w) / 2)), SAFE_SIDE, max(SAFE_SIDE, frame_w - SAFE_SIDE - w))
+    y = _clamp(float(zone.get("y", SAFE_TOP)), SAFE_TOP, max(SAFE_TOP, frame_h - SAFE_BOTTOM - h))
+    return {"x": x, "y": y, "w": w, "h": h}
+
+
+def _scene_frame(vertical: bool = False) -> Tuple[float, float]:
+    return (1080.0, 1920.0) if vertical else (FRAME_W, FRAME_H)
+
+
+def _clamp(value: float, low: float, high: float) -> float:
+    return max(low, min(high, float(value)))
+
+
+def _fit_point_in_scene(x: float, y: float, scale: float, asset: str, vertical: bool = False) -> Tuple[float, float, float]:
+    frame_w, frame_h = _scene_frame(vertical)
+    base_w, base_h = _scene_asset_base_size(asset)
+    safe_w = max(1.0, frame_w - SAFE_SIDE * 2)
+    safe_h = max(1.0, frame_h - SAFE_TOP - SAFE_BOTTOM)
+    scale = max(0.05, float(scale))
+    scale = min(scale, safe_w / max(1.0, base_w), safe_h / max(1.0, base_h))
+    half_w = base_w * scale / 2
+    half_h = base_h * scale / 2
+    return (
+        _clamp(float(x), SAFE_SIDE + half_w, frame_w - SAFE_SIDE - half_w),
+        _clamp(float(y), SAFE_TOP + half_h, frame_h - SAFE_BOTTOM - half_h),
+        scale,
+    )
+
+
+def _scene_asset_base_size(asset: str) -> Tuple[float, float]:
+    if _generated_asset(asset):
+        return (320.0, 320.0)
+    return ASSET_BASE_SIZE.get(_registry_asset(asset), (320.0, 260.0))
 
 
 def build_comparison_stage(beat: Dict[str, Any], sentences_timing: List[Dict[str, Any]], section: Dict[str, Any]) -> Dict[str, Any]:
@@ -350,30 +477,68 @@ def _scene_actor_elements(beat: Dict[str, Any], env: Dict[str, Any]) -> List[Dic
         if slot_name not in slots:
             slot_name = _fallback_slot(env, index)
         slot = slots[slot_name]
-        asset_name = _registry_asset(str(actor.get("asset") or actor.get("name") or "person").strip().lower().replace(" ", "_"))
+        pose = str(actor.get("pose") or "").strip().lower().replace(" ", "_")
+        asset_name = _actor_asset_name(actor, pose)
+        scale = float(actor.get("scale") if actor.get("scale") is not None else slot.get("scale", 1.0))
+        x, y, scale = _fit_point_in_scene(slot["x"], slot["y"], scale, asset_name, vertical=env.get("orientation") == "vertical")
         element = _element(
             _unique_id(actor.get("id") or "%s_%d" % (asset_name, index + 1), "actor_%d" % (index + 1), used),
             "prop",
             asset_name,
-            slot["x"],
-            slot["y"],
-            actor.get("scale") if actor.get("scale") is not None else slot.get("scale", 1.0),
+            x,
+            y,
+            scale,
             color_role=actor.get("colorRole"),
             z=int(actor.get("z") if actor.get("z") is not None else slot.get("z", 250)),
         )
         element["slot"] = slot_name
-        motion = actor.get("motion")
-        if isinstance(motion, str) and motion != "none":
-            element["motion"] = [{"kind": motion, "start": 0.0, "duration": 6.0}]
-        elif isinstance(motion, list):
-            element["motion"] = motion
+        if pose:
+            element["pose"] = pose
+        motion_steps = _actor_motion_steps(actor, pose)
+        if motion_steps:
+            element["motion"] = motion_steps
+        _apply_generated(element, asset_name)
+        elements.append(element)
+    return elements
+
+
+def _environment_set_prop_elements(env: Dict[str, Any]) -> List[Dict[str, Any]]:
+    props = env.get("set_props")
+    if not isinstance(props, list):
+        return []
+    elements = []
+    used = set()
+    for index, prop in enumerate(props):
+        if not isinstance(prop, dict):
+            continue
+        requested_name = _prop_asset_name(prop)
+        if not requested_name:
+            continue
+        x = float(prop.get("x", 960))
+        y = float(prop.get("y", 720))
+        scale = float(prop.get("scale", 1.0))
+        x, y, scale = _fit_point_in_scene(x, y, scale, requested_name, vertical=env.get("orientation") == "vertical")
+        z = int(prop.get("z", 120))
+        element = _element(
+            _unique_id(prop.get("id") or "set_%s" % requested_name, "set_prop_%d" % (index + 1), used),
+            "prop",
+            _registry_asset(requested_name),
+            x,
+            y,
+            scale,
+            color_role=prop.get("colorRole"),
+            z=z,
+        )
+        element["setProp"] = True
+        if _apply_generated(element, requested_name):
+            element["setProp"] = True
         elements.append(element)
     return elements
 
 
 def _actors_from_assets(beat: Dict[str, Any], env: Dict[str, Any]) -> List[Dict[str, Any]]:
     env_id = env.get("id")
-    slots = DEFAULT_ENVIRONMENT_SLOTS.get(env_id, list((env.get("slots") or {}).keys()))
+    slots = default_environment_slots(env_id) or list((env.get("slots") or {}).keys())
     actors = []
     for index, asset in enumerate((beat.get("assets") or [])[:4]):
         actors.append(
@@ -382,16 +547,50 @@ def _actors_from_assets(beat: Dict[str, Any], env: Dict[str, Any]) -> List[Dict[
                 "asset": asset.get("name") or "person",
                 "slot": slots[index % len(slots)] if slots else "",
                 "colorRole": asset.get("colorRole"),
+                "pose": asset.get("pose"),
                 "motion": "micro_bob" if asset.get("is_new") is not False else "none",
             }
         )
     if actors:
         return actors
-    return [{"asset": "person", "slot": slots[0] if slots else "", "colorRole": "accent", "motion": "micro_bob"}]
+    return [{"asset": "person", "slot": slots[0] if slots else "", "colorRole": "accent", "pose": "idle", "motion": "micro_bob"}]
+
+
+def _actor_asset_name(actor: Dict[str, Any], pose: str) -> str:
+    requested = str(actor.get("asset") or actor.get("name") or "person").strip().lower().replace(" ", "_")
+    if requested in ("", "person", "person_female", "generic_object"):
+        posed = ACTOR_POSE_ASSETS.get(pose)
+        if posed:
+            return posed
+    if _generated_asset(requested):
+        return requested
+    return _registry_asset(requested)
+
+
+def _actor_motion_steps(actor: Dict[str, Any], pose: str) -> Optional[List[Dict[str, Any]]]:
+    motion = actor.get("motion")
+    if isinstance(motion, list):
+        return motion
+    motion_name = str(motion or "").strip().lower().replace(" ", "_")
+    if motion_name in ("", "none"):
+        if pose in ("point", "pointing"):
+            motion_name = "point"
+        elif pose in ("walking", "walk"):
+            motion_name = "walk"
+        elif pose in ("lean", "leaning"):
+            motion_name = "lean"
+        else:
+            return None
+    if motion_name in ("lean", "leaning"):
+        return [{"kind": "hold", "start": 0.0, "duration": 0.45, "from": {"rotation": -2.5}, "to": {"rotation": 0}}]
+    kind = ACTOR_MOTION_ALIASES.get(motion_name, motion_name)
+    if kind not in MOTION_KIND_V2:
+        kind = "micro_bob"
+    return [{"kind": kind, "start": 0.0, "duration": 6.0}]
 
 
 def _fallback_slot(env: Dict[str, Any], index: int) -> str:
-    slots = DEFAULT_ENVIRONMENT_SLOTS.get(env.get("id"), list((env.get("slots") or {}).keys()))
+    slots = default_environment_slots(env.get("id")) or list((env.get("slots") or {}).keys())
     if not slots:
         return ""
     return slots[index % len(slots)]
@@ -410,7 +609,24 @@ def _scene_overlay(beat: Dict[str, Any]) -> Optional[Dict[str, Any]]:
 
 def _asset_element(asset: Dict[str, Any], index: int, total: int, placer: Callable[[Dict[str, Any], int, int], Dict[str, float]], z: int, used: set, motions: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
     place = placer(asset, index, total)
-    name = _asset_name(asset)
+    requested_name = _canonical_asset_name(asset)
+    if _generated_asset(requested_name):
+        element = _element(
+            _unique_id(asset.get("id") or requested_name or "asset", "asset_%d" % (index + 1), used),
+            "texture",
+            "none",
+            place["x"],
+            place["y"],
+            place.get("scale", 1.0),
+            color_role=asset.get("colorRole"),
+            z=z,
+        )
+        _apply_generated(element, requested_name)
+        motion = _motion_for_asset(asset, motions or [])
+        if motion:
+            element["motion"] = motion
+        return element
+    name = _registry_asset(requested_name)
     element = _element(
         _unique_id(asset.get("id") or name or "asset", "asset_%d" % (index + 1), used),
         _kind_for_asset(asset.get("kind"), name),
@@ -428,6 +644,18 @@ def _asset_element(asset: Dict[str, Any], index: int, total: int, placer: Callab
     if motion:
         element["motion"] = motion
     return element
+
+
+def _apply_generated(element: Dict[str, Any], requested_name: str) -> bool:
+    generated = _generated_asset(requested_name)
+    if not generated:
+        return False
+    element["asset"] = "none"
+    element["kind"] = "texture"
+    element["generatedAssetName"] = requested_name
+    element["shapeSpace"] = "local"
+    element["shapes"] = copy.deepcopy(generated.get("shapes") or [])
+    return True
 
 
 def _element(element_id: str, kind: str, asset: str, x: float, y: float, scale: float, color_role: Optional[str] = None, z: int = 10, opacity: Optional[float] = None, rotation: Optional[float] = None, box: Optional[Tuple[int, int]] = None, prop_shape: Optional[str] = None) -> Dict[str, Any]:
@@ -580,9 +808,37 @@ def _list_row_text(asset: Dict[str, Any]) -> str:
 
 
 def _asset_name(asset: Dict[str, Any]) -> str:
+    return _registry_asset(_canonical_asset_name(asset))
+
+
+def _canonical_asset_name(asset: Dict[str, Any]) -> str:
     raw = str(asset.get("name") or "generic_object").strip().lower().replace("_", " ")
-    name = ASSET_ALIASES.get(raw, raw.replace(" ", "_"))
-    return _registry_asset(name)
+    return ASSET_ALIASES.get(raw, raw.replace(" ", "_"))
+
+
+def _prop_asset_name(prop: Dict[str, Any]) -> str:
+    raw = str(prop.get("asset") or prop.get("name") or "").strip().lower().replace("_", " ")
+    return ASSET_ALIASES.get(raw, raw.replace(" ", "_"))
+
+
+def _load_generated_assets() -> Dict[str, Any]:
+    global _GENERATED_ASSETS_CACHE
+    if _GENERATED_ASSETS_CACHE is not None:
+        return _GENERATED_ASSETS_CACHE
+    try:
+        with open(GENERATED_ASSETS_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        data = {}
+    _GENERATED_ASSETS_CACHE = data if isinstance(data, dict) else {}
+    return _GENERATED_ASSETS_CACHE
+
+
+def _generated_asset(name: str) -> Optional[Dict[str, Any]]:
+    item = _load_generated_assets().get(str(name or "").strip())
+    if isinstance(item, dict) and isinstance(item.get("shapes"), list):
+        return item
+    return None
 
 
 def _registry_asset(name: str) -> str:

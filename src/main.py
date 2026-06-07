@@ -4,10 +4,9 @@ import shutil
 import sys
 import datetime
 
-from google import genai
-
 from research import pick_topic
 from script_generator import generate_script
+from llm import load_project_keys
 from tts_generator import synthesize_section, get_audio_duration
 from caption_generator import build_srt
 from remotion_renderer import render_video
@@ -22,7 +21,6 @@ CUES = []
 TOPIC_HISTORY_PATH = os.path.join("data", "topic_history.json")
 
 REQUIRED_ENV = [
-    "GEMINI_API_KEY",
     "OPENAI_API_KEY",
     "YOUTUBE_CLIENT_ID",
     "YOUTUBE_CLIENT_SECRET",
@@ -48,6 +46,7 @@ def _append_topic_history(title):
 
 
 def main():
+    load_project_keys()
     missing = [k for k in REQUIRED_ENV if not os.environ.get(k)]
     if missing:
         print(f"ERROR: Missing environment variables: {', '.join(missing)}")
@@ -57,17 +56,15 @@ def main():
     CUES.clear()
 
     try:
-        client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-
         # 1 - Research
         print("[1/6] Picking today's topic...")
-        topic_data = pick_topic(client)
+        topic_data = pick_topic(None)
         print(f"  Topic : {topic_data['topic']}")
         print(f"  Angle : {topic_data['angle']}")
 
         # 2 - Script
         print("\n[2/6] Generating script...")
-        script = generate_script(topic_data, client)
+        script = generate_script(topic_data, None)
         print(f"  Title    : {script['title']}")
         print(f"  Sections : {len(script['sections'])}")
 

@@ -2,7 +2,7 @@ import json
 import os
 import re
 
-from gemini_utils import generate
+from llm import llm_generate
 
 CHANNEL_NICHE = (
     "fascinating science, psychology, history, and human behavior - "
@@ -71,8 +71,8 @@ Return ONLY valid JSON, no markdown fences:
     "key_facts": ["concrete checkable fact 1", "concrete checkable fact 2", "concrete checkable fact 3"]
 }}"""
 
-    response = generate(client, prompt)
-    match = re.search(r"\{.*\}", response.text, re.DOTALL)
+    text = llm_generate(prompt, tier="cheap", json_mode=True)
+    match = re.search(r"\{.*\}", text, re.DOTALL)
     if not match:
-        raise ValueError(f"No JSON in research response: {response.text[:300]}")
+        raise ValueError(f"No JSON in research response: {text[:300]}")
     return json.loads(match.group())
