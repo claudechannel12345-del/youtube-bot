@@ -127,8 +127,23 @@ def main():
     temp = tempfile.mkdtemp(prefix="vid_")
     audio = os.path.join(temp, "narration.mp3")
     print("TTS: %d lines..." % len(sentences), flush=True)
-    timings = synthesize_section(narration, audio, temp, sentences=sentences)
+    # section_starts = where each section begins (v3 chunks on these so seams land on topic boundaries).
+    # plain_until = end of section 0 so the cold-open intro reads fully plain (owner: less intro emotion).
+    section_starts = [r[0] for r in sec_ranges]
+    plain_until = sec_ranges[0][1] if sec_ranges else 0
+    timings = synthesize_section(narration, audio, temp, sentences=sentences,
+                                 section_starts=section_starts, plain_until=plain_until)
     total_end = timings[-1]["end"] + 0.4
+    # Persist the narration audio so it can be transcribe-verified (gibberish check) independent of the
+    # video render. Saved BEFORE render so a render failure still leaves the audio to inspect.
+    os.makedirs(os.path.join(ROOT, "out"), exist_ok=True)
+    saved_audio = os.path.join(ROOT, "out", name + "_audio.mp3")
+    import shutil as _shutil
+    _shutil.copyfile(audio, saved_audio)
+    print("AUDIO:", saved_audio, flush=True)
+    if os.environ.get("AUDIO_ONLY", "").strip() == "1":
+        print("AUDIO_ONLY=1 -> skipping video render", flush=True)
+        return
 
     beats = []
     for si, sec in enumerate(sections):
