@@ -9,6 +9,7 @@ is mixed under. Output: out/<name>.mp4 (+ captions).
 Run with ELEVENLABS_API_KEY set (loaded from the key file below if present).
 Usage: py scripts/make_video_from_script.py data/scripts/homework_script.json
 """
+import hashlib
 import json
 import os
 import sys
@@ -96,6 +97,20 @@ def _section_environment_description(sec):
     return text[:500]
 
 
+def _load_audio_cache(timings_path, audio_path, narration_hash):
+    """Return cached timings if a synth for this exact narration already exists, else None."""
+    if not (os.path.exists(timings_path) and os.path.exists(audio_path)):
+        return None
+    try:
+        with open(timings_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        return None
+    if data.get("hash") != narration_hash:
+        return None
+    return data.get("timings")
+
+
 def main():
     script_path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "data", "scripts", "homework_script.json")
     name = os.path.splitext(os.path.basename(script_path))[0].replace("_script", "")
@@ -124,23 +139,38 @@ def main():
         sec_ranges.append((start_idx, len(sentences)))  # [start, end) sentence indices
 
     narration = " ".join(s["text"] for s in sentences)
-    temp = tempfile.mkdtemp(prefix="vid_")
-    audio = os.path.join(temp, "narration.mp3")
-    print("TTS: %d lines..." % len(sentences), flush=True)
-    # section_starts = where each section begins (v3 chunks on these so seams land on topic boundaries).
-    # plain_until = end of section 0 so the cold-open intro reads fully plain (owner: less intro emotion).
-    section_starts = [r[0] for r in sec_ranges]
-    plain_until = sec_ranges[0][1] if sec_ranges else 0
-    timings = synthesize_section(narration, audio, temp, sentences=sentences,
-                                 section_starts=section_starts, plain_until=plain_until)
-    total_end = timings[-1]["end"] + 0.4
-    # Persist the narration audio so it can be transcribe-verified (gibberish check) independent of the
-    # video render. Saved BEFORE render so a render failure still leaves the audio to inspect.
     os.makedirs(os.path.join(ROOT, "out"), exist_ok=True)
     saved_audio = os.path.join(ROOT, "out", name + "_audio.mp3")
-    import shutil as _shutil
-    _shutil.copyfile(audio, saved_audio)
-    print("AUDIO:", saved_audio, flush=True)
+    timings_path = os.path.join(ROOT, "out", name + "_timings.json")
+
+    # CREDIT SAVER: synthesis (the only thing that spends ElevenLabs credits) is CACHED keyed to the
+    # narration text. We re-synth ONLY when the words change or FORCE_TTS=1; otherwise we reuse the saved
+    # audio + timings, so re-rendering for scene/visual tweaks costs 0 credits.
+    narration_hash = hashlib.sha1(narration.encode("utf-8")).hexdigest()
+    timings = _load_audio_cache(timings_path, saved_audio, narration_hash)
+    if timings is not None and os.environ.get("FORCE_TTS", "").strip() != "1":
+        print("REUSING cached audio (narration unchanged) -> 0 TTS credits:", saved_audio, flush=True)
+    else:
+        temp = tempfile.mkdtemp(prefix="vid_")
+        audio = os.path.join(temp, "narration.mp3")
+        print("TTS: %d lines..." % len(sentences), flush=True)
+        # section_starts = where each section begins (v3 chunks on these so seams land on topic
+        # boundaries). plain_until = end of section 0 so the cold-open reads fully plain.
+        section_starts = [r[0] for r in sec_ranges]
+        plain_until = sec_ranges[0][1] if sec_ranges else 0
+        # Cache the raw per-chunk mp3s so a future SEAM-pause tweak re-joins for 0 ElevenLabs credits
+        # (only re-synthesizes if the words actually change).
+        chunk_cache_dir = os.path.join(ROOT, "out", "_tts_chunks", name)
+        timings = synthesize_section(narration, audio, temp, sentences=sentences,
+                                     section_starts=section_starts, plain_until=plain_until,
+                                     chunk_cache_dir=chunk_cache_dir)
+        import shutil as _shutil
+        _shutil.copyfile(audio, saved_audio)
+        with open(timings_path, "w", encoding="utf-8") as f:
+            json.dump({"hash": narration_hash, "timings": timings}, f)
+        print("AUDIO:", saved_audio, "| cached timings ->", timings_path, flush=True)
+
+    total_end = timings[-1]["end"] + 0.4
     if os.environ.get("AUDIO_ONLY", "").strip() == "1":
         print("AUDIO_ONLY=1 -> skipping video render", flush=True)
         return
@@ -181,7 +211,7 @@ def main():
     raw = os.path.join(ROOT, "out", name + "_raw.mp4")
     os.makedirs(os.path.join(ROOT, "out"), exist_ok=True)
     print("rendering %d scenes, %.1fs..." % (len(beats), total_end), flush=True)
-    render_cutaway(episode, [audio], raw)
+    render_cutaway(episode, [saved_audio], raw)
 
     cues = [{"text": t["text"], "start": t["start"], "end": t["end"]} for t in timings]
     build_srt(cues, os.path.join(ROOT, "out", name + "_captions.srt"))

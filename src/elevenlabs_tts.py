@@ -5,8 +5,8 @@ ELEVENLABS_INSECURE_SSL=1 for local use behind a TLS-intercepting network (testi
 """
 
 import base64
+import hashlib
 import json
-import math
 import os
 import re
 import ssl
@@ -175,7 +175,9 @@ DELIVERY_TAG = {
 }
 V3_STABILITY = 0.5  # Natural - the A/B winner. Creative(0.0) hallucinates; Robust(1.0) flattens emotion.
 V3_MAX_CHARS = 4800   # v3 hard-caps a single request at 5000 chars; stay under it with room for tags.
-V3_SEAM_PAUSE = 0.35  # silence inserted at each chunk seam (seams fall on section/topic boundaries).
+V3_SEAM_PAUSE = 0.45  # silence (s) inserted at each chunk seam. Owner rejected crossfading the seams
+                      # ("much worse" - it bled the boundary words together). Back to a HARD join with a
+                      # short breath of silence to signal the topic transition instead of a hard snap.
 
 
 def _silence(path, seconds):
@@ -260,51 +262,117 @@ def _v3_build_chunk_text(chunk_items):
     return parts, offsets
 
 
-def _synthesize_v3_longform(items, output_path, temp_dir, voice_id, model_id, section_starts, plain_until):
+def _v3_join_chunks(chunk_paths, output_path, temp_dir, pause):
+    """HARD-join the chunks (concat demuxer, no crossfade) with a short silence between each so the
+    seam reads as a deliberate breath/topic-transition rather than a snap. Owner rejected crossfading
+    (it bled the boundary words). No loudnorm - just the raw chunks back-to-back with a gap."""
+    if len(chunk_paths) == 1:
+        subprocess.run(["ffmpeg", "-y", "-i", chunk_paths[0],
+                        "-c:a", "libmp3lame", "-b:a", "192k", output_path],
+                       check=True, capture_output=True, text=True)
+        return
+    gap = os.path.join(temp_dir, "_v3_seam_gap.mp3")
+    _silence(gap, pause)
+    concat_txt = os.path.join(temp_dir, "_v3_join.txt")
+    with open(concat_txt, "w", encoding="utf-8") as f:
+        for i, p in enumerate(chunk_paths):
+            if i > 0:
+                f.write("file '%s'\n" % os.path.abspath(gap).replace("\\", "/").replace("'", r"'\''"))
+            f.write("file '%s'\n" % os.path.abspath(p).replace("\\", "/").replace("'", r"'\''"))
+    subprocess.run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_txt,
+                    "-c:a", "libmp3lame", "-b:a", "192k", output_path],
+                   check=True, capture_output=True, text=True)
+
+
+def _chunk_cache_key(model_id, stability, text):
+    raw = "%s|%s|%s" % (model_id, stability, text)
+    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
+
+
+def _load_chunk_cache(cache_dir, key):
+    """Return (mp3_path, starts, ends) for a previously-synthesized chunk, or None on miss. Caching the
+    raw chunk audio + char alignment is what lets a seam-pause tweak re-join for 0 ElevenLabs credits."""
+    if not cache_dir:
+        return None
+    mp3 = os.path.join(cache_dir, key + ".mp3")
+    meta = os.path.join(cache_dir, key + ".json")
+    if not (os.path.exists(mp3) and os.path.exists(meta)):
+        return None
+    try:
+        with open(meta, "r", encoding="utf-8") as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return None
+    return mp3, d.get("starts", []), d.get("ends", [])
+
+
+def _save_chunk_cache(cache_dir, key, mp3_path, starts, ends):
+    if not cache_dir:
+        return
+    os.makedirs(cache_dir, exist_ok=True)
+    import shutil as _shutil
+    _shutil.copyfile(mp3_path, os.path.join(cache_dir, key + ".mp3"))
+    with open(os.path.join(cache_dir, key + ".json"), "w", encoding="utf-8") as f:
+        json.dump({"starts": starts, "ends": ends}, f)
+
+
+def _synthesize_v3_longform(items, output_path, temp_dir, voice_id, model_id, section_starts,
+                            plain_until, chunk_cache_dir=None):
     """v3 path: a few LONG continuous reads (one per section-grouped chunk) instead of 109 isolated
-    sentences. Kills the clip-to-clip voice/accent drift; seams fall only on topic boundaries."""
+    sentences. Kills the clip-to-clip voice/accent drift; seams fall only on topic boundaries and get a
+    short silence breath (V3_SEAM_PAUSE), not a crossfade. Raw chunk audio + alignment is CACHED, so a
+    later seam-pause tweak re-joins from cache for 0 ElevenLabs credits."""
     api_key = os.environ["ELEVENLABS_API_KEY"]
     sim = DEFAULT_SETTINGS["similarity_boost"]
     for k, it in enumerate(items):
         if k < plain_until:
             it["_plain"] = True  # intro reads fully plain (owner: pull the intro emotion back)
     ranges = _v3_chunk_ranges(items, section_starts or [0], V3_MAX_CHARS)
-    clip_paths, timings, offset = [], [], 0.0
+    chunk_paths, chunk_durs, chunk_lines = [], [], []
+    cached_paths = set()  # cache-backed mp3s live in chunk_cache_dir - don't delete them in finally
     try:
         for ci, (a, b) in enumerate(ranges):
             chunk_items = items[a:b]
             text, offs = _v3_build_chunk_text(chunk_items)
-            audio, starts, ends = _v3_with_timestamps(text, voice_id, model_id, api_key, V3_STABILITY, sim)
-            cpath = os.path.join(temp_dir, f"_v3_chunk_{ci:02d}.mp3")
-            with open(cpath, "wb") as f:
-                f.write(audio)
-            clip_paths.append(cpath)
+            key = _chunk_cache_key(model_id, V3_STABILITY, text)
+            hit = _load_chunk_cache(chunk_cache_dir, key)
+            if hit is not None:
+                cpath, starts, ends = hit
+                cached_paths.add(cpath)
+                print("V3 chunk %d/%d: cache HIT -> 0 credits" % (ci + 1, len(ranges)), flush=True)
+            else:
+                audio, starts, ends = _v3_with_timestamps(text, voice_id, model_id, api_key, V3_STABILITY, sim)
+                cpath = os.path.join(temp_dir, f"_v3_chunk_{ci:02d}.mp3")
+                with open(cpath, "wb") as f:
+                    f.write(audio)
+                _save_chunk_cache(chunk_cache_dir, key, cpath, starts, ends)
+            chunk_paths.append(cpath)
+            chunk_durs.append(_audio_duration(cpath))
+            lines = []
             for (lo, hi), it in zip(offs, chunk_items):
                 st = starts[lo] if lo < len(starts) else (ends[-1] if ends else 0.0)
                 en = ends[hi - 1] if 0 < hi <= len(ends) else st
-                timings.append({"text": it["text"], "start": offset + st,
-                                "end": offset + en, "delivery": it["delivery"]})
-            offset += _audio_duration(cpath)
-            if ci != len(ranges) - 1:
-                gap = os.path.join(temp_dir, f"_v3_seam_{ci:02d}.mp3")
-                _silence(gap, V3_SEAM_PAUSE)
-                clip_paths.append(gap)
-                offset += V3_SEAM_PAUSE
-        print("V3 longform: %d chars -> %d chunks (%d lines)"
-              % (sum(len(it["text"]) for it in items), len(ranges), len(items)), flush=True)
-        concat_txt = os.path.join(temp_dir, "_v3_concat.txt")
-        with open(concat_txt, "w", encoding="utf-8") as f:
-            for p in clip_paths:
-                safe = os.path.abspath(p).replace("\\", "/").replace("'", r"'\''")
-                f.write(f"file '{safe}'\n")
-        subprocess.run(
-            ["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_txt,
-             "-c:a", "libmp3lame", "-b:a", "192k", output_path],
-            check=True, capture_output=True, text=True,
-        )
+                lines.append((it, st, en))
+            chunk_lines.append(lines)
+        # Each seam inserts V3_SEAM_PAUSE of silence, so every later chunk starts (prior chunk duration
+        # + that pause) later on the final timeline - fold it into the per-line offsets so captions align.
+        pause = V3_SEAM_PAUSE if len(chunk_paths) > 1 else 0.0
+        offsets = [0.0]
+        for k in range(1, len(chunk_paths)):
+            offsets.append(offsets[-1] + chunk_durs[k - 1] + pause)
+        timings = []
+        for k, lines in enumerate(chunk_lines):
+            for (it, st, en) in lines:
+                timings.append({"text": it["text"], "start": offsets[k] + st,
+                                "end": offsets[k] + en, "delivery": it["delivery"]})
+        print("V3 longform: %d chars -> %d chunks (%d lines), %.2fs silence seams"
+              % (sum(len(it["text"]) for it in items), len(ranges), len(items), pause), flush=True)
+        _v3_join_chunks(chunk_paths, output_path, temp_dir, V3_SEAM_PAUSE)
         return timings
     finally:
-        for p in clip_paths:
+        for p in chunk_paths:
+            if p in cached_paths:
+                continue
             try:
                 os.remove(p)
             except OSError:
@@ -312,7 +380,7 @@ def _synthesize_v3_longform(items, output_path, temp_dir, voice_id, model_id, se
 
 
 def synthesize_section(text, output_path, temp_dir, sentences=None, voice=None, model_id=DEFAULT_MODEL,
-                       section_starts=None, plain_until=0):
+                       section_starts=None, plain_until=0, chunk_cache_dir=None):
     """Drop-in replacement for tts_generator.synthesize_section using ElevenLabs.
 
     v3 (default): synthesizes the whole script as a few LONG continuous reads (chunked on section
@@ -325,7 +393,7 @@ def synthesize_section(text, output_path, temp_dir, sentences=None, voice=None, 
     items = _sentence_items(text, sentences)
     if str(model_id).startswith("eleven_v3"):
         return _synthesize_v3_longform(items, output_path, temp_dir, voice_id, model_id,
-                                       section_starts, plain_until)
+                                       section_starts, plain_until, chunk_cache_dir=chunk_cache_dir)
     clip_paths = []
     timings = []
     current = 0.0

@@ -36,6 +36,10 @@ FRAME_H = 1080.0
 SAFE_TOP = 64.0
 SAFE_BOTTOM = 48.0
 SAFE_SIDE = 24.0
+# Landscape headline band: titles must sit fully within [HEADLINE_TOP, HEADLINE_BOTTOM] so they clear
+# the rooms' back-wall top edges (which start at y~110). See _safe_text_zone.
+HEADLINE_TOP = 26.0
+HEADLINE_BOTTOM = 106.0
 
 ASSET_BASE_SIZE = {
     "generic_object": (240.0, 180.0),
@@ -205,8 +209,16 @@ def _safe_text_zone(zone: Dict[str, Any], vertical: bool = False) -> Dict[str, f
     w = float(zone.get("w", 1100))
     h = float(zone.get("h", 120))
     w = _clamp(w, 120.0, max(120.0, frame_w - SAFE_SIDE * 2))
-    h = _clamp(h, 64.0, max(64.0, frame_h - SAFE_TOP - SAFE_BOTTOM))
     x = _clamp(float(zone.get("x", (frame_w - w) / 2)), SAFE_SIDE, max(SAFE_SIDE, frame_w - SAFE_SIDE - w))
+    if not vertical:
+        # Landscape headlines must live ENTIRELY in the cream band ABOVE the room (every room's back-wall
+        # top edge sits at y~110-130). The old clamp pushed authored y=18-20 down to SAFE_TOP=64 with a
+        # tall box, so the box bottom (152-189) collided with the wall and bisected the title. Pin the
+        # title to a tight top band (y in [HEADLINE_TOP, HEADLINE_BOTTOM]) so it always clears the walls.
+        h = _clamp(h, 56.0, HEADLINE_BOTTOM - HEADLINE_TOP)
+        y = _clamp(float(zone.get("y", HEADLINE_TOP)), HEADLINE_TOP, HEADLINE_BOTTOM - h)
+        return {"x": x, "y": y, "w": w, "h": h}
+    h = _clamp(h, 64.0, max(64.0, frame_h - SAFE_TOP - SAFE_BOTTOM))
     y = _clamp(float(zone.get("y", SAFE_TOP)), SAFE_TOP, max(SAFE_TOP, frame_h - SAFE_BOTTOM - h))
     return {"x": x, "y": y, "w": w, "h": h}
 

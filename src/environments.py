@@ -1116,7 +1116,9 @@ ENVIRONMENT_SET_PROPS = {
         {"asset": "library_ladder", "x": 1365, "y": 685, "scale": 0.62, "z": 130},
     ],
     "classroom": [
-        {"asset": "chalkboard", "x": 960, "y": 255, "scale": 0.82, "z": 88},
+        # chalkboard was at x=960 (dead center) = the teacher slot's x, so it stacked on the teacher's
+        # head. Shifted left of the centered teacher (who spans ~x744-1176) so it reads as a wall board.
+        {"asset": "chalkboard", "x": 600, "y": 300, "scale": 0.82, "z": 88},
         {"asset": "globe", "x": 450, "y": 690, "scale": 0.52, "z": 124},
         {"asset": "school_desk", "x": 1470, "y": 760, "scale": 0.68, "z": 136},
     ],
