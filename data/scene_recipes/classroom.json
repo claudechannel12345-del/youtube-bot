@@ -1,0 +1,18 @@
+{
+  "env": "classroom",
+  "shell": {"wall_band": [0, 58], "floor_band": [58, 100], "skirting": true},
+  "required": [
+    {"concept": "chalkboard", "zone": "wall_center", "scale": "xlarge"},
+    {"concept": "teacher_desk", "zone": "floor_center_back", "scale": "medium"},
+    {"concept": "student_desk", "zone": "floor_left_front", "scale": "medium", "counter_for": "student_left"},
+    {"concept": "student_desk", "zone": "floor_front", "repeat": [3], "arrangement": "row_facing_wall", "scale": "small", "dx": 250}
+  ],
+  "optional": [
+    {"concept": "poster", "zone": "wall_left", "scale": "small"},
+    {"concept": "wall_clock", "zone": "wall_right", "scale": "small"}
+  ],
+  "density_target": [7, 10],
+  "slots": {"teacher": "floor_center_back", "student_left": {"zone": "floor_left_front", "dx": 40, "dy": -95}, "student_right": "floor_right"},
+  "text_zone": "headline_band",
+  "vertical": {"keep": ["chalkboard", "teacher_desk", "student_desk"], "recenter": true}
+}

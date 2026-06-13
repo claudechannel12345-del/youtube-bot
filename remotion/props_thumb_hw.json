@@ -1,0 +1,17 @@
+{"schema_version": 2, "fps": 30, "width": 1920, "height": 1080, "style_version": "clean_flat_light_v1", "renderer": "blueprint", "sections": [{"section_index": 0, "durationInFrames": 60, "audioSrc": "", "key_phrase": "THUMB", "narration": "", "captions": [], "beats": [{"id": "thumb", "type": "compare", "start": 0.0, "end": 2.0, "startFrame": 0, "endFrame": 60, "scene_family": "comparison_stage", "layout": "left_right", "camera": {"move": "static", "target": "center", "intensity": "none"}, "transition_in": "hard_cut", "transition_out": "hard_cut", "background": "panel", "assets": [], "text_overlays": [], "motion": [], "blueprint": {"version": 1, "preset": "comparison_stage", "intent": "thumb", "background": {"treatment": "plain"}, "camera": {"move": "static", "target": "center", "intensity": "none"}, "elements": [
+{"id": "student", "kind": "prop", "asset": "person", "position": {"mode": "point", "x": 1440, "y": 470}, "size": {"mode": "scale", "scale": 2.05}, "z": 22, "colorRole": "accent"},
+{"id": "desk", "kind": "prop", "asset": "none", "shapeSpace": "local", "position": {"mode": "point", "x": 1450, "y": 740}, "size": {"mode": "box", "w": 660, "h": 380}, "z": 40, "shapes": [
+  {"type": "rect", "x": 40, "y": 96, "w": 22, "h": 122, "fill": "blue", "stroke": true, "strokeW": 6},
+  {"type": "rect", "x": 258, "y": 96, "w": 22, "h": 122, "fill": "blue", "stroke": true, "strokeW": 6},
+  {"type": "rect", "x": 8, "y": 70, "w": 304, "h": 28, "rx": 6, "fill": "blue", "stroke": true, "strokeW": 6},
+  {"type": "polygon", "points": ["112,40", "160,30", "160,68", "112,70"], "fill": "white", "stroke": true, "strokeW": 5},
+  {"type": "polygon", "points": ["208,40", "160,30", "160,68", "208,70"], "fill": "paper", "stroke": true, "strokeW": 5},
+  {"type": "line", "x1": 160, "y1": 30, "x2": 160, "y2": 68, "stroke": true, "strokeW": 5},
+  {"type": "line", "x1": 122, "y1": 50, "x2": 152, "y2": 46, "stroke": true, "strokeW": 3},
+  {"type": "line", "x1": 122, "y1": 59, "x2": 152, "y2": 55, "stroke": true, "strokeW": 3},
+  {"type": "line", "x1": 168, "y1": 46, "x2": 198, "y2": 50, "stroke": true, "strokeW": 3},
+  {"type": "line", "x1": 168, "y1": 55, "x2": 198, "y2": 59, "stroke": true, "strokeW": 3}
+]},
+{"id": "headline", "kind": "label", "asset": "none", "position": {"mode": "point", "x": 690, "y": 360}, "size": {"mode": "box", "w": 1240, "h": 470}, "z": 60, "text": {"role": "headline", "text": "HOMEWORK WAS A PUNISHMENT", "tone": "ink", "maxChars": 60, "fit": "auto"}},
+{"id": "sub", "kind": "label", "asset": "none", "position": {"mode": "point", "x": 690, "y": 790}, "size": {"mode": "box", "w": 1020, "h": 92}, "z": 60, "text": {"role": "label", "text": "THE REAL ORIGIN STORY", "tone": "coral_stamp", "maxChars": 60, "fit": "auto"}}
+], "connections": []}}]}]}

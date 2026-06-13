@@ -44,6 +44,7 @@ from environments import get_environment  # noqa: E402
 
 FPS = 30
 W, H = 1920, 1080
+ENDCARD_SECONDS = 3.5
 
 # 1-2 actors per environment, staged into valid slots (build_scene_stage falls back if a
 # slot name is off). The generated set_props carry the "where am I" recognizability.
@@ -79,6 +80,15 @@ def _actors_from_environment_slots(env):
     slots = list((environment.get("slots") or {}).keys())[:2]
     colors = ["accent", "blue"]
     return [("person", slot, colors[i % len(colors)]) for i, slot in enumerate(slots)]
+
+
+def _is_brand_close(sec):
+    """A closing brand sign-off (subscribe CTA) — rendered as the held logo card, not a scene."""
+    label = str(sec.get("scene_label") or "").strip().upper()
+    if label in ("CTA", "OUTRO", "CLOSE", "CLOSING", "SIGN_OFF", "SIGNOFF", "SUBSCRIBE"):
+        return True
+    ost = " ".join(str(t).upper() for t in (sec.get("on_screen_text") or []))
+    return "SUBSCRIBE" in ost or "SECOND GLANCE" in ost
 
 
 def _section_environment(sec):
@@ -176,12 +186,19 @@ def main():
         return
 
     beats = []
+    brand_close_start = None
     for si, sec in enumerate(sections):
         s_start, s_end = sec_ranges[si]
         if s_start >= len(timings):
             continue
         start_t = timings[s_start]["start"]
         end_t = timings[min(s_end, len(timings)) - 1]["end"]
+        # The closing call-to-action ("take a Second Glance, subscribe...") is the brand sign-off.
+        # Don't cut back to a scene for it — show the logo end card UNDER the closing narration and
+        # hold it straight through the silent tail, so the logo just stays up (no scene "blip").
+        if si == len(sections) - 1 and _is_brand_close(sec):
+            brand_close_start = start_t
+            continue
         requested_env = _section_environment(sec)
         env = env_map.get(requested_env) or "classroom"
         ost = [t for t in (sec.get("on_screen_text") or []) if t]
@@ -197,6 +214,42 @@ def main():
         }
         beat["blueprint"] = build_scene_stage(beat, [], {"environment": env, "section_index": 0})
         beats.append(beat)
+
+    # Branded end card: channel eye logo + name + subscribe CTA. If the script ends on a brand
+    # sign-off, the card starts UNDER that closing narration and is held through the silent tail;
+    # otherwise it plays only in silence after the last scene.
+    endcard_start = brand_close_start if brand_close_start is not None else total_end
+    endcard_end = total_end + ENDCARD_SECONDS
+    endcard_blueprint = {
+        "version": 1, "preset": "comparison_stage", "intent": "brand",
+        "background": {"treatment": "plain"},
+        "camera": {"move": "static", "target": "center", "intensity": "none"},
+        "elements": [
+            {"id": "logo_eye", "kind": "prop", "asset": "eye",
+             "position": {"mode": "point", "x": 960, "y": 388},
+             "size": {"mode": "scale", "scale": 1.85}, "z": 30, "colorRole": "accent"},
+            {"id": "brand_name", "kind": "label", "asset": "none",
+             "position": {"mode": "point", "x": 960, "y": 628},
+             "size": {"mode": "box", "w": 1500, "h": 150}, "z": 60,
+             "text": {"role": "headline", "text": "SECOND GLANCE", "tone": "ink", "maxChars": 40, "fit": "auto"}},
+            {"id": "brand_cta", "kind": "label", "asset": "none",
+             "position": {"mode": "point", "x": 960, "y": 792},
+             "size": {"mode": "box", "w": 1300, "h": 96}, "z": 60,
+             "text": {"role": "label", "text": "SUBSCRIBE FOR MORE", "tone": "coral_stamp", "maxChars": 40, "fit": "auto"}},
+        ],
+        "connections": [],
+    }
+    endcard_beat = {
+        "id": "endcard", "type": "emphasize", "scene_family": "comparison_stage",
+        "layout": "wide_scene", "start": endcard_start, "end": endcard_end,
+        "startFrame": int(round(endcard_start * FPS)), "endFrame": int(round(endcard_end * FPS)),
+        "camera": {"move": "static", "target": "center", "intensity": "none"},
+        "transition_in": "hard_cut", "transition_out": "hard_cut", "background": "plain",
+        "environment": None, "actors": [], "assets": [],
+        "text_overlays": [], "motion": [], "blueprint": endcard_blueprint,
+    }
+    beats.append(endcard_beat)
+    total_end = endcard_end
 
     dur_frames = int(round(total_end * FPS))
     episode = {
